@@ -33,4 +33,22 @@ public class Product {
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * 
+	 * @param foto
+	 * @param naam
+	 * @param omschrijving
+	 * @param artikelnummer
+	 * @param prijs
+	 * @param aantal
+	 * @param plaats
+	 * @param firma
+	 * @param doelgroep
+	 * @param leergebied
+	 */
+	public Product(String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, string plaats, String firma, String doelgroep, String leergebied) {
+		// TODO - implement Product.Product
+		throw new UnsupportedOperationException();
+	}
+
 }

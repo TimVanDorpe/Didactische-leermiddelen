@@ -15,4 +15,18 @@ public class ProductRepository {
 		throw new UnsupportedOperationException();
 	}
 
+	public List<Product> getProducten() {
+		// TODO - implement ProductRepository.getProducten
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
+	 * @param product
+	 */
+	public void wijzigProduct(Product product) {
+		// TODO - implement ProductRepository.wijzigProduct
+		throw new UnsupportedOperationException();
+	}
+
 }
