@@ -2,10 +2,9 @@ package domein;
 
 import java.util.List;
 
-public class DomeinController {
+public class ProductController {
 
 	private Gebruiker aangemeldeGebruiker;
-	private ProductRepository productRepo;
 	private Product product;
 
 	/**
@@ -61,5 +60,7 @@ public class DomeinController {
 		// TODO - implement DomeinController.wijzigProduct
 		throw new UnsupportedOperationException();
 	}
+
+	
 
 }
