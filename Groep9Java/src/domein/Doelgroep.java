@@ -16,7 +16,8 @@ public class Doelgroep {
         this.naam = naam;
     }
         
-        
+        public Doelgroep()
+        {}
         
 
 }
