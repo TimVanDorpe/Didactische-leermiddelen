@@ -1,64 +1,25 @@
 package domein;
 
+import java.util.Collection;
 import java.util.List;
 
 public class ProductController {
 
 	private Gebruiker aangemeldeGebruiker;
 	private Product product;
-
-	/**
-	 * 
-	 * @param foto
-	 * @param naam
-	 * @param omschrijving
-	 * @param artikelnummer
-	 * @param prijs
-	 * @param aantal
-	 * @param plaats
-	 * @param firma
-	 * @param doelgroep
-	 * @param leergebied
-	 */
-	public void voegProductToe(String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, String firma, String doelgroep, String leergebied) {
-		// TODO - implement DomeinController.voegProductToe
-		throw new UnsupportedOperationException();
-	}
-
+        private ProductenBeheer pb;
 	
-
-	/**
-	 * 
-	 * @param naam
-	 * @param omschrijving
-	 * @param artikelnummer
-	 * @param prijs
-	 * @param aantal
-	 * @param plaats
-	 * @param firma
-	 * @param doelgroep
-	 * @param leergebied
-	 */
-	public List<Product> geefOverzichtProducten(String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, String firma, String doelgroep, String leergebied) {
-		// TODO - implement DomeinController.geefOverzichtProducten
-		throw new UnsupportedOperationException();
+	public void voegProductToe(String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, Collection<Leergebied> leergebied) {
+		pb.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal , plaats , firma, doelgroep, leergebied);
+	}	
+	public List<Product> geefOverzichtProducten() {
+		return pb.geefOverzichtProducten();
 	}
-
-	/**
-	 * 
-	 * @param artikelnummer
-	 */
-	public Product getProduct(int artikelnummer) {
-		return this.product;
-	}
-
-	/**
-	 * 
-	 * @param product
-	 */
+        public Product getProduct(int artikelnummer) {
+		return pb.getProduct(artikelnummer);
+	}	
 	public void wijzigProduct(Product product) {
-		// TODO - implement DomeinController.wijzigProduct
-		throw new UnsupportedOperationException();
+		pb.wijzigProduct(product);
 	}
 
 	
