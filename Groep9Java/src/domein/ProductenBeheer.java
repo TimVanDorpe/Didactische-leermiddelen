@@ -20,13 +20,13 @@ public class ProductenBeheer {
 
 	
 	public void voegProductToe(String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, Collection<Leergebied> leergebied) {
-		// TODO - implement DomeinController.voegProductToe
+		
 		producten.add(new Product(leergebied, doelgroep, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats));
 	}
 
 	
 	public List<Product> geefOverzichtProducten() {
-		// TODO - implement DomeinController.geefOverzichtProducten
+		
 		return producten;
 	}
 
@@ -36,7 +36,7 @@ public class ProductenBeheer {
 
 	
 	public void wijzigProduct(Product product) {
-		// TODO - implement DomeinController.wijzigProduct
+		
                  product.wijzig(product);      
        
             }

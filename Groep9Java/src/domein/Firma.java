@@ -26,6 +26,10 @@ public class Firma {
         this.emailContactPersoon = emailContactPersoon;
     }
 
+    public Firma(String naam) {
+        this.naam = naam;
+    }
+
         
         
         

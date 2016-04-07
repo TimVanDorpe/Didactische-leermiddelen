@@ -109,9 +109,9 @@ public class Product {
     }
         public void wijzig(Product product)
         {
-         setNaam(product.getNaam());
-         setAantal(product.getAantal());
-         setArtikelnummer(product.getArtikelnummer());
+            setNaam(product.getNaam());
+            setAantal(product.getAantal());
+            setArtikelnummer(product.getArtikelnummer());
             setDoelgroep(product.getDoelgroep());
             setFirma(product.getFirma());
             setFoto(product.getFoto());

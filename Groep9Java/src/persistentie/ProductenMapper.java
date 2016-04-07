@@ -5,8 +5,12 @@
  */
 package persistentie;
 
+import domein.Doelgroep;
+import domein.Firma;
+import domein.Leergebied;
 import domein.Product;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -15,10 +19,18 @@ import java.util.List;
  */
 public class ProductenMapper {
     
-      public List<Product> geefDieren() {
+      public List<Product> geefProducten() {
         //Simulatie databank
-        List<Product> product = new ArrayList<>();
+        Collection<Leergebied> leergebieden = null;
+        Leergebied tellen = new Leergebied("tellen");
+        leergebieden.add(tellen);
+        Doelgroep kleuters = new Doelgroep("Kleuters");
+        Firma Hogent = new Firma("Hogent");
         
+        List<Product> product = new ArrayList<>();
+       //Opvullen met producten
+       product.add(new Product(leergebieden, kleuters, Hogent, "a", "Klok", "Dit is een klok", 1 , 1.08, 18 , "Gent"));              
+       
         return product;
     }
     

@@ -5,10 +5,21 @@
  */
 package persistentie;
 
+import domein.Product;
+import java.util.List;
+
 /**
  *
  * @author Tim
  */
 public class PersistentieController {
     
+    private ProductenMapper productenMapper;
+    
+    public List<Product> geefProducten()
+    {
+        if (productenMapper == null)
+            productenMapper = new ProductenMapper();
+        return productenMapper.geefProducten();
+    }
 }
