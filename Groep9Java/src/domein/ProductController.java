@@ -1,64 +1,34 @@
 package domein;
 
+import java.util.Collection;
 import java.util.List;
 
 public class ProductController {
 
 	private Gebruiker aangemeldeGebruiker;
 	private Product product;
+        private ProductenBeheer pb;
 
-	/**
-	 * 
-	 * @param foto
-	 * @param naam
-	 * @param omschrijving
-	 * @param artikelnummer
-	 * @param prijs
-	 * @param aantal
-	 * @param plaats
-	 * @param firma
-	 * @param doelgroep
-	 * @param leergebied
-	 */
-	public void voegProductToe(String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, String firma, String doelgroep, String leergebied) {
+	
+	public void voegProductToe(String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, Collection<Leergebied> leergebied) {
 		// TODO - implement DomeinController.voegProductToe
-		throw new UnsupportedOperationException();
+		pb.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal , plaats , firma, doelgroep, leergebied);
 	}
 
 	
-
-	/**
-	 * 
-	 * @param naam
-	 * @param omschrijving
-	 * @param artikelnummer
-	 * @param prijs
-	 * @param aantal
-	 * @param plaats
-	 * @param firma
-	 * @param doelgroep
-	 * @param leergebied
-	 */
-	public List<Product> geefOverzichtProducten(String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, String firma, String doelgroep, String leergebied) {
+	public List<Product> geefOverzichtProducten() {
 		// TODO - implement DomeinController.geefOverzichtProducten
-		throw new UnsupportedOperationException();
+		return pb.geefOverzichtProducten();
 	}
 
-	/**
-	 * 
-	 * @param artikelnummer
-	 */
 	public Product getProduct(int artikelnummer) {
-		return this.product;
+		return pb.getProduct(artikelnummer);
 	}
 
-	/**
-	 * 
-	 * @param product
-	 */
+	
 	public void wijzigProduct(Product product) {
 		// TODO - implement DomeinController.wijzigProduct
-		throw new UnsupportedOperationException();
+		pb.wijzigProduct(product);
 	}
 
 	
