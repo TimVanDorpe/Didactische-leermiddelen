@@ -9,6 +9,7 @@ import domein.Doelgroep;
 import domein.Firma;
 import domein.Leergebied;
 import domein.Product;
+import domein.ProductenBeheer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.List;
  */
 public class ProductenMapper {
     
+        private ProductenBeheer pb;
       public List<Product> geefProducten() {
         //Simulatie databank
         Collection<Leergebied> leergebieden = null;
@@ -27,11 +29,11 @@ public class ProductenMapper {
         Doelgroep kleuters = new Doelgroep("Kleuters");
         Firma Hogent = new Firma("Hogent");
         
-        List<Product> product = new ArrayList<>();
-       //Opvullen met producten
-       product.add(new Product(leergebieden, kleuters, Hogent, "a", "Klok", "Dit is een klok", 1 , 1.08, 18 , "Gent"));              
        
-        return product;
+       //Opvullen met producten
+       pb.voegProductToe("a", "Klok", "Dit is een klok", 1 , 1.08, 18 , "Gent" ,Hogent , kleuters,leergebieden);              
+       
+        return pb.geefOverzichtProducten();
     }
     
 }
