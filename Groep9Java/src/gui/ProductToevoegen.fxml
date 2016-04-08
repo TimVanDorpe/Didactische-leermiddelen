@@ -26,6 +26,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Omschrijving" GridPane.rowIndex="1" />
@@ -34,24 +35,26 @@
             <Label text="Aantal" GridPane.rowIndex="4" />
             <Label GridPane.rowIndex="5" />
             <Label text="Firma" GridPane.rowIndex="6" />
-            <Label text="E-mailadres contactpersoon firma" GridPane.rowIndex="7" />
-            <Label text="Doelgroepen" GridPane.rowIndex="8" />
-            <Label text="Leergebieden" GridPane.rowIndex="9" />
-            <TextField fx:id="txfNaam" GridPane.columnIndex="1" />
-            <TextArea fx:id="txfOmschrijving" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="txfArtikelnummer" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="txfPrijs" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="txfAantal" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="txfFirma" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="txfEmailFirma" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="txfDoelgroepen" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <TextField fx:id="txfLeergebieden" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <Label text="E-mailadres contactpersoon firma" GridPane.rowIndex="8" />
+            <Label text="Doelgroepen" GridPane.rowIndex="9" />
+            <Label text="Leergebieden" GridPane.rowIndex="10" />
+            <TextField fx:id="txtNaam" GridPane.columnIndex="1" />
+            <TextArea fx:id="txtOmschrijving" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtArtikelnummer" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtPrijs" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="txtAantal" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="txtFirma" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="txtEmailFirma" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="txtDoelgroepen" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <TextField fx:id="txtLeergebieden" GridPane.columnIndex="1" GridPane.rowIndex="10" />
             <Label text="Naam" />
             <CheckBox fx:id="uitleenbaarheid" mnemonicParsing="false" text="Uitleenbaarheid" GridPane.rowIndex="5" />
+            <Label text="Plaats" GridPane.rowIndex="7" />
+            <TextField fx:id="txtPlaats" GridPane.columnIndex="1" GridPane.rowIndex="7" />
          </children>
       </GridPane>
       <ImageView fx:id="imgviewFoto" fitHeight="379.0" fitWidth="359.0" layoutX="612.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="btnToevoegen" layoutX="560.0" layoutY="635.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="396.0" text="Toevoegen" />
+      <Button fx:id="btnToevoegen" layoutX="560.0" layoutY="635.0" mnemonicParsing="false" onAction="#voegProductToe" prefHeight="31.0" prefWidth="396.0" text="Toevoegen" />
       <Button fx:id="btnFoto" layoutX="699.0" layoutY="479.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="185.0" text="Foto toevoegen" />
       <Button fx:id="btnAnnuleer" layoutX="120.0" layoutY="635.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="294.0" text="Annuleer" />
       <Label layoutX="54.0" layoutY="25.0" prefHeight="40.0" prefWidth="240.0" text="Product toevoegen">

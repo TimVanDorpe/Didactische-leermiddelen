@@ -3,7 +3,7 @@ package domein;
 import java.util.Collection;
 import java.util.List;
 
-public class ProductController {
+public class DomeinController {
 
 	private Gebruiker aangemeldeGebruiker;
 	private Product product;

@@ -1,5 +1,9 @@
 
+import domein.DomeinController;
+import gui.ProductToevoegenController;
+import gui.StartController;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /*
@@ -14,13 +18,20 @@ import javafx.stage.Stage;
  */
 public class StartUp extends Application{
     
-     public static void main(String... args) {
-        Application.launch(StartUp.class, args);
-    }
+    
+    private DomeinController dc = new DomeinController();
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); 
+    public void start(Stage stage) {
+
+        Scene scene = new Scene(new StartController(dc));
+        stage.setScene(scene);
+        stage.setTitle("Start");
+        stage.show();
+    }
+    
+    public static void main(String... args) {
+        Application.launch(StartUp.class, args);
     }
     
 }
