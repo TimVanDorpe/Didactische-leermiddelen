@@ -11,7 +11,6 @@ import domein.Leergebied;
 import domein.Product;
 import domein.ProductenBeheer;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -22,18 +21,22 @@ public class ProductenMapper {
     
         private ProductenBeheer pb;
       public List<Product> geefProducten() {
+          List<Product> producten = new ArrayList<>();
         //Simulatie databank
-        Collection<Leergebied> leergebieden = null;
+        List<Leergebied> leergebieden = new ArrayList();
         Leergebied tellen = new Leergebied("tellen");
         leergebieden.add(tellen);
         Doelgroep kleuters = new Doelgroep("Kleuters");
         Firma Hogent = new Firma("Hogent");
         
+      
        
        //Opvullen met producten
-       pb.voegProductToe("a", "Klok", "Dit is een klok", 1 , 1.08, 18 , "Gent" ,Hogent , kleuters,leergebieden);              
+      producten.add(new Product(leergebieden, kleuters, Hogent, "foto1", "klok", "Dit is een klok", 1, 1, 1, "B1002"));   
+     // producten.add(new Product(leergebieden, kleuters, Hogent, foto, naam, omschrijving, 0, 0, 0, plaats));   
+      
        
-        return pb.geefOverzichtProducten();
+        return producten;
     }
     
 }

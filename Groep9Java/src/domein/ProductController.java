@@ -9,8 +9,9 @@ public class ProductController {
 	private Product product;
         private ProductenBeheer pb;
 	
-	public void voegProductToe(String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, Collection<Leergebied> leergebied) {
-		pb.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal , plaats , firma, doelgroep, leergebied);
+	public void voegProductToe(String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, List<Leergebied> leergebied) {
+            
+		pb.voegProductToe(new Product(leergebied, doelgroep, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats));
 	}	
 	public List<Product> geefOverzichtProducten() {
 		return pb.geefOverzichtProducten();

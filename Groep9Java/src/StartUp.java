@@ -1,5 +1,8 @@
 
+import domein.ProductenBeheer;
+import gui.ProductenFrameController;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /*
@@ -19,8 +22,20 @@ public class StartUp extends Application{
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); 
+    public void start(Stage stage) throws Exception {
+        ProductenBeheer producten = new ProductenBeheer();
+        Scene scene = new Scene(new ProductenFrameController(producten));
+  
+        stage.setScene(scene);
+        stage.setTitle("Didactische leermiddelen");
+
+        // The stage will not get smaller than its preferred (initial) size.
+        stage.setOnShown(e -> {
+            stage.setMinWidth(stage.getWidth());
+            stage.setMinHeight(stage.getHeight());
+        });
+
+        stage.show();
     }
     
 }

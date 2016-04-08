@@ -1,41 +1,43 @@
 package domein;
 
 import java.util.*;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class Product {
 
-	private Collection<Leergebied> leergebied;
+	private List<Leergebied> leergebied;
 	private Doelgroep doelgroep;
 	private Firma firma;
 	private String foto;
-	private String naam;
-	private String omschrijving;
+	private SimpleStringProperty naam = new SimpleStringProperty();
+	private SimpleStringProperty omschrijving = new SimpleStringProperty();
 	private int artikelnummer;
 	private double prijs;
-	private int aantal;
-	private String plaats;
+	private SimpleStringProperty aantal = new SimpleStringProperty();
+	private SimpleStringProperty plaats = new SimpleStringProperty();
 
-    public Product(Collection<Leergebied> leergebied, Doelgroep doelgroep, Firma firma, String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
+    public Product(List<Leergebied> leergebied, Doelgroep doelgroep, Firma firma, String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
         this.leergebied = leergebied;
         this.doelgroep = doelgroep;
-        this.firma = firma;
+        setFirma(firma);
         this.foto = foto;
-        this.naam = naam;
-        this.omschrijving = omschrijving;
+        setNaam(naam);
+        setOmschrijving(omschrijving);
         this.artikelnummer = artikelnummer;
         this.prijs = prijs;
-        this.aantal = aantal;
-        this.plaats = plaats;
+        setAantal(aantal);
+        setPlaats(plaats);
     }
 
-    public Collection<Leergebied> getLeergebied() {
+    public List<Leergebied> getLeergebied() {
         return leergebied;
     }
 
-    public void setLeergebied(Collection<Leergebied> leergebied) {
+    public void setLeergebied(List<Leergebied> leergebied) {
         this.leergebied = leergebied;
     }
-
+   
     public Doelgroep getDoelgroep() {
         return doelgroep;
     }
@@ -61,19 +63,29 @@ public class Product {
     }
 
     public String getNaam() {
+        return naam.get();
+    }
+
+    /**
+     *
+     * @param naam
+     */
+    public void setNaam(String naam) {
+        this.naam.set(naam);
+    }
+    public SimpleStringProperty naamProperty() {
         return naam;
     }
 
-    public void setNaam(String naam) {
-        this.naam = naam;
-    }
-
     public String getOmschrijving() {
-        return omschrijving;
+        return omschrijving.get();
     }
 
     public void setOmschrijving(String omschrijving) {
-        this.omschrijving = omschrijving;
+        this.omschrijving.set(omschrijving);
+    }
+    public SimpleStringProperty omschrijvingProperty() {
+        return omschrijving;
     }
 
     public int getArtikelnummer() {
@@ -93,19 +105,25 @@ public class Product {
     }
 
     public int getAantal() {
-        return aantal;
+        return Integer.parseInt(aantal.get());
     }
 
     public void setAantal(int aantal) {
-        this.aantal = aantal;
+        this.aantal.set(Integer.toString(aantal));
+    }
+    public SimpleStringProperty aantalProperty() {
+        return aantal;
     }
 
     public String getPlaats() {
-        return plaats;
+        return plaats.get();
     }
 
     public void setPlaats(String plaats) {
-        this.plaats = plaats;
+        this.plaats.set(plaats);
+    }
+    public SimpleStringProperty plaatsProperty() {
+        return plaats;
     }
         public void wijzig(Product product)
         {

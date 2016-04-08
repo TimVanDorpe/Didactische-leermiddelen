@@ -5,42 +5,60 @@
  */
 package domein;
 
-import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
+import persistentie.PersistentieController;
 
 /**
  *
  * @author Tim
  */
 public class ProductenBeheer {
-       
-    
-	private Product product;
-        private List<Product> producten;
 
-	
-	public void voegProductToe(String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, Collection<Leergebied> leergebied) {
-		
-		producten.add(new Product(leergebied, doelgroep, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats));
-	}
+    private ObservableList<Product> productenLijst;
+    private Product product;
+    private List<Product> producten;
+    private PersistentieController persistentieController;
+    private SortedList<Product> sortedList;
 
-	
-	public List<Product> geefOverzichtProducten() {
-		
-		return producten;
-	}
+    //hier alle comparators
+    private final Comparator<Product> byNaam = (p1, p2) -> p1.getNaam().compareToIgnoreCase(p2.getNaam());
+    // alle comparators in de juiste volgorde, de volgorde waarop wordt gesorteerd.
+    private final Comparator<Product> sortOrder = byNaam;
 
-	public Product getProduct(int artikelnummer) {
-		return producten.get(artikelnummer);
-	}
+    public ProductenBeheer() {
+        persistentieController = new PersistentieController();
+        producten = persistentieController.geefProducten();
+        productenLijst = FXCollections.observableArrayList(producten);
+        sortedList = productenLijst.sorted(sortOrder);
+    }
 
-	
-	public void wijzigProduct(Product product) {
-		
-                 product.wijzig(product);      
-       
-            }
-		
-	}
-    
+    public SortedList<Product> getProductSortedList() {
+        //Wrap the FilteredList in a SortedList
+        return sortedList; //SortedList is unmodifiable
+    }
 
+    public void voegProductToe(Product product) {
+
+        productenLijst.add(product);
+    }
+
+    public List<Product> geefOverzichtProducten() {
+
+        return producten;
+    }
+
+    public Product getProduct(int artikelnummer) {
+        return producten.get(artikelnummer);
+    }
+
+    public void wijzigProduct(Product product) {
+
+        product.wijzig(product);
+
+    }
+
+}
