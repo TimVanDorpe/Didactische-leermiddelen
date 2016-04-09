@@ -8,13 +8,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="719.0" prefWidth="747.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.OverzichtProductenController">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="719.0" prefWidth="747.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <TableView fx:id="tblProducten" editable="true" prefHeight="629.0" prefWidth="726.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="clmNaam" prefWidth="204.0" text="Naam" />
-          <TableColumn fx:id="clmOmschrijving" prefWidth="306.0" text="Omschrijving" />
+          <TableColumn fx:id="clmNaam" prefWidth="200.0" text="Naam" />
+          <TableColumn fx:id="clmOmschrijving" prefWidth="310.0" text="Omschrijving" />
             <TableColumn fx:id="clmAantal" minWidth="0.0" prefWidth="110.0" text="Aantal" />
             <TableColumn fx:id="clmPlaats" minWidth="0.0" prefWidth="126.0" text="Plaats" />
         </columns>

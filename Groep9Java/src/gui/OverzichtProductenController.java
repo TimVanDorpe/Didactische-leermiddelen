@@ -8,20 +8,18 @@ package gui;
 import domein.Product;
 import domein.ProductenBeheer;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.BorderPane;
 
 /**
  * FXML Controller class
  *
  * @author Thomas
  */
-public class OverzichtProductenController  {
+public class OverzichtProductenController  extends BorderPane{
 
     @FXML
     private TableView<Product> tblProducten;
