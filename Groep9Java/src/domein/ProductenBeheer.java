@@ -10,6 +10,8 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import persistentie.PersistentieController;
 
 /**
@@ -28,6 +30,10 @@ public class ProductenBeheer {
     private final Comparator<Product> byNaam = (p1, p2) -> p1.getNaam().compareToIgnoreCase(p2.getNaam());
     // alle comparators in de juiste volgorde, de volgorde waarop wordt gesorteerd.
     private final Comparator<Product> sortOrder = byNaam;
+    
+    
+     private EntityManager em;
+    private EntityManagerFactory emf;
 
     public ProductenBeheer() {
         persistentieController = new PersistentieController();
@@ -42,8 +48,10 @@ public class ProductenBeheer {
     }
 
     public void voegProductToe(Product product) {
-
+        em.getTransaction().begin();
         productenLijst.add(product);
+        em.persist(product);
+        em.getTransaction().commit();
     }
 
     public List<Product> geefOverzichtProducten() {
@@ -57,8 +65,9 @@ public class ProductenBeheer {
 
     public void wijzigProduct(Product product) {
 
-        product.wijzig(product);
-
+        em.getTransaction().begin();
+        product.wijzig(product);        
+        em.getTransaction().commit();
     }
 
 }
