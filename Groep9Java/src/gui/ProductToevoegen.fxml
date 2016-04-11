@@ -8,26 +8,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root id="AnchorPane" prefHeight="687.0" prefWidth="999.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+
+<fx:root type="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane layoutX="54.0" layoutY="77.0" prefHeight="533.0" prefWidth="534.0" AnchorPane.bottomAnchor="77.0" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="411.0" AnchorPane.topAnchor="77.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="236.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="359.0" minWidth="10.0" prefWidth="272.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="89.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <Label layoutX="91.0" layoutY="35.0" prefHeight="40.0" prefWidth="240.0" text="Product toevoegen">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnAnnuleer" layoutX="130.0" layoutY="645.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="294.0" text="Annuleer" />
+      <Button fx:id="btnFoto" layoutX="709.0" layoutY="489.0" mnemonicParsing="false" onAction="#fotoToevoegen" prefHeight="31.0" prefWidth="185.0" text="Foto toevoegen" />
+      <Button fx:id="btnToevoegen" layoutX="570.0" layoutY="645.0" mnemonicParsing="false" onAction="#voegProductToe" prefHeight="31.0" prefWidth="396.0" text="Toevoegen" />
+      <ImageView fx:id="imgViewFoto" fitHeight="379.0" fitWidth="359.0" layoutX="622.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" />
+      <GridPane layoutX="64.0" layoutY="87.0" prefHeight="533.0" prefWidth="534.0">
          <children>
             <Label text="Omschrijving" GridPane.rowIndex="1" />
             <Label text="Artikelnummer van de firma" GridPane.rowIndex="2" />
@@ -52,15 +45,23 @@
             <Label text="Plaats" GridPane.rowIndex="7" />
             <TextField fx:id="txtPlaats" GridPane.columnIndex="1" GridPane.rowIndex="7" />
          </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="236.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="359.0" minWidth="10.0" prefWidth="272.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="89.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
       </GridPane>
-      <ImageView fx:id="imgViewFoto" fitHeight="379.0" fitWidth="359.0" layoutX="612.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="btnToevoegen" layoutX="560.0" layoutY="635.0" mnemonicParsing="false" onAction="#voegProductToe" prefHeight="31.0" prefWidth="396.0" text="Toevoegen" />
-      <Button fx:id="btnFoto" layoutX="699.0" layoutY="479.0" mnemonicParsing="false" onAction="#fotoToevoegen" prefHeight="31.0" prefWidth="185.0" text="Foto toevoegen" />
-      <Button fx:id="btnAnnuleer" layoutX="120.0" layoutY="635.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="294.0" text="Annuleer" />
-      <Label layoutX="81.0" layoutY="25.0" prefHeight="40.0" prefWidth="240.0" text="Product toevoegen">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Label>
    </children>
 </fx:root>

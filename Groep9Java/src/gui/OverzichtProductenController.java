@@ -84,48 +84,15 @@ public class OverzichtProductenController  extends BorderPane{
         Scene scene = new Scene(new ProductToevoegenController(domeinController));
         stage.setScene(scene);
 
-        this.setDisable(true);
-
+        
+        //this.setDisable(true);
         
         
-        //Het hoofdvenster mag niet afgesloten worden
-        /*
-         In that case we can use the consume() function of the WindowEvent. 
-         This will consume the event and prevent the window from closing.
-         ------------------------------------------------------------------ */
-        Stage stageProductScherm = (Stage) tblProducten.getScene().getWindow();
-        
-        
-        /*
-        
-        EventHandler handler = event -> event.consume();
-        stageProductScherm.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, handler);
-
-        //het subvenster mag niet gesloten  worden
-        //----------------------------------------        
-        stage.setOnCloseRequest(handler);
-
-        //luisteraar indien het subscherm gesloten wordt. 
-        //---------------------------------------------
-        stage.addEventHandler(WindowEvent.WINDOW_HIDING,
-                event -> {
-                    OverzichtProductenController.this.setDisable(false);
-                    tblProducten.setItems((ObservableList<Product>) domeinController.geefOverzichtProducten());
-                    stageProductScherm.removeEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, handler);
-                });
-
-        // Het subscherm wordt niet kleiner dan het minimum scherm.
-        //---------------------------------------------------------
-
-        */
-        
-        stage.setOnShown(e -> {
-            stage.setMinWidth(stage.getWidth());
-            stage.setMinHeight(stage.getHeight());
-        });
-
         stage.show();
-
+        
+        
+        
+        
         
     }
     
