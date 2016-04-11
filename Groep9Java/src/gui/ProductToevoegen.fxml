@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root id="AnchorPane" prefHeight="687.0" prefWidth="999.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProductToevoegenController">
+<fx:root id="AnchorPane" prefHeight="687.0" prefWidth="999.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane layoutX="54.0" layoutY="77.0" prefHeight="533.0" prefWidth="534.0" AnchorPane.bottomAnchor="77.0" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="411.0" AnchorPane.topAnchor="77.0">
         <columnConstraints>
@@ -57,7 +57,7 @@
       <Button fx:id="btnToevoegen" layoutX="560.0" layoutY="635.0" mnemonicParsing="false" onAction="#voegProductToe" prefHeight="31.0" prefWidth="396.0" text="Toevoegen" />
       <Button fx:id="btnFoto" layoutX="699.0" layoutY="479.0" mnemonicParsing="false" onAction="#fotoToevoegen" prefHeight="31.0" prefWidth="185.0" text="Foto toevoegen" />
       <Button fx:id="btnAnnuleer" layoutX="120.0" layoutY="635.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="294.0" text="Annuleer" />
-      <Label layoutX="54.0" layoutY="25.0" prefHeight="40.0" prefWidth="240.0" text="Product toevoegen">
+      <Label layoutX="81.0" layoutY="25.0" prefHeight="40.0" prefWidth="240.0" text="Product toevoegen">
          <font>
             <Font size="28.0" />
          </font>
