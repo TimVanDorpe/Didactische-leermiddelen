@@ -72,7 +72,7 @@ public class ProductToevoegenController extends Pane {
      * Initializes the controller class.
      */
     
-    public ProductToevoegenController(ProductController dc) {
+    public ProductToevoegenController(ProductController dc){
         // TODO
        
        
