@@ -5,7 +5,7 @@
  */
 package gui;
 
-import domein.DomeinController;
+import domein.ProductController;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,9 +17,9 @@ import javafx.scene.layout.BorderPane;
  * @author Tim
  */
 public class StartController extends BorderPane {
-  private DomeinController dc;
+  private ProductController dc;
 
-    public StartController(DomeinController dc) {
+    public StartController(ProductController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Start.fxml"));
         this.dc = dc;
         loader.setRoot(this);

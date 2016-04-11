@@ -37,6 +37,7 @@ public class OverzichtProductenController  extends BorderPane{
     public OverzichtProductenController(ProductenBeheer domeinController) {
         this.domeinController = domeinController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtProducten.fxml"));
+        
         loader.setRoot(this);
         loader.setController(this);
         try {
