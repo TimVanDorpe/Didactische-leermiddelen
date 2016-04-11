@@ -16,7 +16,7 @@
          </font>
       </Label>
       <Button fx:id="btnAnnuleer" layoutX="64.0" layoutY="573.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="190.0" text="Annuleer" />
-      <Button fx:id="btnFoto" layoutX="274.0" layoutY="606.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="190.0" text="Foto toevoegen" />
+      <Button fx:id="btnFoto" layoutX="274.0" layoutY="606.0" mnemonicParsing="false" onAction="#fotoToevoegen" prefHeight="30.0" prefWidth="190.0" text="Foto toevoegen" />
       <Button fx:id="btnToevoegen" layoutX="274.0" layoutY="573.0" mnemonicParsing="false" onAction="#wijzigProduct" prefHeight="30.0" prefWidth="190.0" text="Wijzig product" />
       <GridPane layoutX="64.0" layoutY="153.0" prefHeight="420.0" prefWidth="400.0">
          <children>
@@ -61,6 +61,6 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <ImageView fx:id="imgviewFoto" fitHeight="130.0" fitWidth="157.0" layoutX="307.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imgViewFoto" fitHeight="130.0" fitWidth="157.0" layoutX="307.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </fx:root>

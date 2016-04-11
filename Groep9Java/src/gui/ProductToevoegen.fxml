@@ -53,9 +53,9 @@
             <TextField fx:id="txtPlaats" GridPane.columnIndex="1" GridPane.rowIndex="7" />
          </children>
       </GridPane>
-      <ImageView fx:id="imgviewFoto" fitHeight="379.0" fitWidth="359.0" layoutX="612.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imgViewFoto" fitHeight="379.0" fitWidth="359.0" layoutX="612.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="btnToevoegen" layoutX="560.0" layoutY="635.0" mnemonicParsing="false" onAction="#voegProductToe" prefHeight="31.0" prefWidth="396.0" text="Toevoegen" />
-      <Button fx:id="btnFoto" layoutX="699.0" layoutY="479.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="185.0" text="Foto toevoegen" />
+      <Button fx:id="btnFoto" layoutX="699.0" layoutY="479.0" mnemonicParsing="false" onAction="#fotoToevoegen" prefHeight="31.0" prefWidth="185.0" text="Foto toevoegen" />
       <Button fx:id="btnAnnuleer" layoutX="120.0" layoutY="635.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="294.0" text="Annuleer" />
       <Label layoutX="54.0" layoutY="25.0" prefHeight="40.0" prefWidth="240.0" text="Product toevoegen">
          <font>
