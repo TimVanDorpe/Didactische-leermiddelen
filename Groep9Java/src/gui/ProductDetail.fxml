@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root prefHeight="727.0" prefWidth="1008.0" type="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="64.0" layoutY="35.0" prefHeight="40.0" prefWidth="240.0" text="Product toevoegen">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnAnnuleer" layoutX="139.0" layoutY="645.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="294.0" text="Annuleer" />
+      <Button fx:id="btnFoto" layoutX="709.0" layoutY="489.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="185.0" text="Foto toevoegen" />
+      <Button fx:id="btnToevoegen" layoutX="570.0" layoutY="645.0" mnemonicParsing="false" onAction="#wijzigProduct" prefHeight="31.0" prefWidth="396.0" text="Wijzig product" />
+      <ImageView fx:id="imgviewFoto" fitHeight="379.0" fitWidth="359.0" layoutX="622.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" />
+      <GridPane layoutX="64.0" layoutY="87.0" prefHeight="533.0" prefWidth="534.0">
+         <children>
+            <Label text="Omschrijving" GridPane.rowIndex="1" />
+            <Label text="Artikelnummer van de firma" GridPane.rowIndex="2" />
+            <Label text="Prijs" GridPane.rowIndex="3" />
+            <Label text="Aantal" GridPane.rowIndex="4" />
+            <Label GridPane.rowIndex="5" />
+            <Label text="Firma" GridPane.rowIndex="6" />
+            <Label text="E-mailadres contactpersoon firma" GridPane.rowIndex="8" />
+            <Label text="Doelgroepen" GridPane.rowIndex="9" />
+            <Label text="Leergebieden" GridPane.rowIndex="10" />
+            <TextField fx:id="txtNaam" GridPane.columnIndex="1" />
+            <TextArea fx:id="txtOmschrijving" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtArtikelnummer" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtPrijs" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="txtAantal" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="txtFirma" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="txtEmailFirma" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="txtDoelgroepen" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <TextField fx:id="txtLeergebieden" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <Label text="Naam" />
+            <CheckBox fx:id="uitleenbaarheid" mnemonicParsing="false" text="Uitleenbaarheid" GridPane.rowIndex="5" />
+            <Label text="Plaats" GridPane.rowIndex="7" />
+            <TextField fx:id="txtPlaats" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="236.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="359.0" minWidth="10.0" prefWidth="272.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="89.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+   </children>
+</fx:root>

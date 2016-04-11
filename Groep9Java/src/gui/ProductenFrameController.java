@@ -1,23 +1,23 @@
 package gui;
 
 
-import domein.ProductenBeheer;
+import domein.ProductController;
 import javafx.scene.layout.HBox;
 
 public class ProductenFrameController extends HBox {
     
     private OverzichtProductenController overzichtPanel;
-   // private DetailProductController detailPanelController;
+    private ProductDetailController detailPanelController;
 
-    private ProductenBeheer domeinController;
+    private ProductController domeinController;
     
-    public ProductenFrameController(ProductenBeheer domeinController) {
+    public ProductenFrameController(ProductController domeinController) {
         this.domeinController = domeinController;
         overzichtPanel = new OverzichtProductenController(domeinController);
         
-//        detailPanelController = new DetailPanelController();
-//        domeinController.addObserver(detailPanelController);
-        getChildren().add(overzichtPanel);
+       detailPanelController = new ProductDetailController();
+        domeinController.addObserver(detailPanelController);
+        getChildren().addAll(overzichtPanel,detailPanelController);
         
     }
 

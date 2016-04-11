@@ -29,7 +29,7 @@ public class Firma {
     public Firma(String naam) {
         this.naam = naam;
     }
-
+  
         
         
         

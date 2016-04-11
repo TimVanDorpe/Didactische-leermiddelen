@@ -6,7 +6,7 @@
 package gui;
 
 import domein.Product;
-import domein.ProductenBeheer;
+import domein.ProductController;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,9 +32,9 @@ public class OverzichtProductenController  extends BorderPane{
     @FXML
     private TableColumn<Product, String> clmPlaats;
     
-     private ProductenBeheer domeinController;
+     private ProductController domeinController;
 
-    public OverzichtProductenController(ProductenBeheer domeinController) {
+    public OverzichtProductenController(ProductController domeinController) {
         this.domeinController = domeinController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtProducten.fxml"));
         
@@ -56,12 +56,12 @@ public class OverzichtProductenController  extends BorderPane{
         clmPlaats.setCellValueFactory(
                 cellData -> cellData.getValue().plaatsProperty());
 
-        //zonder sorteren
-//        tblProducten.getSelectionModel().selectedItemProperty().addListener((ObservableValue,oldValue,newValue) -> {
-//            if(newValue!= null){
-//                domeinController.setCurrentAuto(newValue);
-//            }
-//        });
+       
+        tblProducten.getSelectionModel().selectedItemProperty().addListener((ObservableValue,oldValue,newValue) -> {
+            if(newValue!= null){
+                domeinController.setGeselecteerdProduct(newValue);
+            }
+        });
 
         tblProducten.setItems(domeinController.getProductSortedList());
     }

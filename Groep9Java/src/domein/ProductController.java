@@ -2,9 +2,10 @@ package domein;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Observable;
 import javafx.collections.transformation.SortedList;
 
-public class ProductController {
+public class ProductController extends Observable{
 
     private Gebruiker aangemeldeGebruiker;
     private Product product;
@@ -27,13 +28,18 @@ public class ProductController {
         return pb.getProduct(artikelnummer);
     }
 
-    public void wijzigProduct(Product product) {
-        pb.wijzigProduct(product);
+    public void wijzigProduct(String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, List<Leergebied> leergebied) {
+        pb.wijzigProduct(new Product(leergebied, doelgroep, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats));
     }
 
     public SortedList<Product> getProductSortedList() {
         //Wrap the FilteredList in a SortedList
         return pb.getProductSortedList(); //SortedList is unmodifiable
+    }
+    public void setGeselecteerdProduct(Product product) {
+        this.product = product;
+        setChanged();
+        notifyObservers(product);
     }
 
 }
