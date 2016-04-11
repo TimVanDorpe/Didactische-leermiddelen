@@ -15,7 +15,7 @@ public class ProductenFrameController extends HBox {
         this.domeinController = domeinController;
         overzichtPanel = new OverzichtProductenController(domeinController);
         
-       detailPanelController = new ProductDetailController();
+       detailPanelController = new ProductDetailController(domeinController);
         domeinController.addObserver(detailPanelController);
         getChildren().addAll(overzichtPanel,detailPanelController);
         

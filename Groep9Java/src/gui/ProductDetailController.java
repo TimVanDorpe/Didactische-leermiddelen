@@ -66,10 +66,11 @@ public class ProductDetailController extends Pane  implements Observer{
      * Initializes the controller class.
      */
     
-    public ProductDetailController(){
+    public ProductDetailController(ProductController dc){
         // TODO
        
      FXMLLoader loader = new FXMLLoader(getClass().getResource("ProductDetail.fxml"));
+        this.dc = dc;
         loader.setRoot(this);
         loader.setController(this);
         try {
@@ -93,26 +94,26 @@ public class ProductDetailController extends Pane  implements Observer{
         
         
         String firmaNaam = txtFirma.getText();
-        if(firmaNaam.isEmpty() ){
-            firmaNaam = "/";
+        if(firmaNaam == null  || firmaNaam == ""){
+            firmaNaam = "Empty";
         }
         String firmaEmail = txtEmailFirma.getText();
-        if(firmaEmail.isEmpty() ||  txtEmailFirma == null){
-            firmaEmail = "/";
+        if(firmaEmail == null || firmaEmail == ""){
+            firmaEmail = "Empty";
         }
         
         Firma firma = new Firma(firmaNaam , firmaEmail);
         
         String naamDoelgroep = txtDoelgroepen.getText();
-        if(naamDoelgroep.isEmpty()){
-            naamDoelgroep = "/";
+        if(naamDoelgroep == null ){
+            naamDoelgroep = "Empty";
         }
         Doelgroep doelgroep = new Doelgroep(naamDoelgroep);
         
         String namenLeergebieden = txtLeergebieden.getText();
         List<Leergebied> leergebieden = new ArrayList<>();
-        if(namenLeergebieden.isEmpty()){
-            Leergebied leergebied = new Leergebied("/");
+        if(namenLeergebieden == null){
+            Leergebied leergebied = new Leergebied("Empty");
             leergebieden.add(leergebied);
         }else{
             Leergebied leergebied = new Leergebied(txtLeergebieden.getText());  
@@ -121,7 +122,7 @@ public class ProductDetailController extends Pane  implements Observer{
         
         
         
-        dc.wijzigProduct(naam, naam, omschrijving, artikkelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
+        dc.wijzigProduct("url", naam, omschrijving, artikkelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
     }  
     
     

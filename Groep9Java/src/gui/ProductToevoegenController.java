@@ -79,7 +79,7 @@ public class ProductToevoegenController extends Pane {
     
     
      @FXML
-    private void voegLandToe(ActionEvent event) {
+    private void voegProductToe(ActionEvent event) {
         
         String naam = txtNaam.getText();
         String omschrijving = txtOmschrijving.getText();
