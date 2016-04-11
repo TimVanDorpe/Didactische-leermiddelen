@@ -3,9 +3,7 @@ package domein;
 import java.util.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-@Entity(name = "Product")
+
 public class Product {
 
 	private List<Leergebied> leergebied;
@@ -14,7 +12,6 @@ public class Product {
 	private String foto;
 	private SimpleStringProperty naam = new SimpleStringProperty();
 	private SimpleStringProperty omschrijving = new SimpleStringProperty();
-        @Id
 	private int artikelnummer;
 	private double prijs;
 	private SimpleStringProperty aantal = new SimpleStringProperty();

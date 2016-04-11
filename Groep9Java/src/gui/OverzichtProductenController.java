@@ -76,9 +76,8 @@ public class OverzichtProductenController  extends BorderPane{
     }
 
     @FXML
-    private void naarProductPagina() {
+    private void naarProductPagina(ActionEvent event) {
         
-        //this.setCenter(new ProductToevoegenController(domeinController));
         Stage stage = new Stage();
         stage.setTitle("Product toevoegen");
 
@@ -86,27 +85,15 @@ public class OverzichtProductenController  extends BorderPane{
         stage.setScene(scene);
 
         this.setDisable(true);
-        
-          
-        stage.setOnShown(e -> {
-            stage.setMinWidth(stage.getWidth());
-            stage.setMinHeight(stage.getHeight());
-        });
 
-        stage.show();
         
-        
-        
-        
-
-        // Stage stageProductScherm = (Stage) tblProducten.getScene().getWindow();
         
         //Het hoofdvenster mag niet afgesloten worden
         /*
          In that case we can use the consume() function of the WindowEvent. 
          This will consume the event and prevent the window from closing.
          ------------------------------------------------------------------ */
-       
+        Stage stageProductScherm = (Stage) tblProducten.getScene().getWindow();
         
         
         /*
@@ -131,7 +118,13 @@ public class OverzichtProductenController  extends BorderPane{
         //---------------------------------------------------------
 
         */
-      
+        
+        stage.setOnShown(e -> {
+            stage.setMinWidth(stage.getWidth());
+            stage.setMinHeight(stage.getHeight());
+        });
+
+        stage.show();
 
         
     }
