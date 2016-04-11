@@ -11,6 +11,7 @@ import domein.Leergebied;
 import domein.Product;
 import domein.ProductController;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -86,16 +87,40 @@ public class ProductDetailController extends Pane  implements Observer{
         String naam = txtNaam.getText();
         String omschrijving = txtOmschrijving.getText();
         int artikkelnummer = Integer.parseInt(txtArtikelnummer.getText());
-        double prijs = Integer.parseInt(txtPrijs.getText());
+        double prijs = Double.parseDouble(txtPrijs.getText());
         int aantal = Integer.parseInt(txtAantal.getText());
         String plaats = txtPlaats.getText();
-        Firma firma = new Firma(txtFirma.getText() , txtEmailFirma.getText());
-        Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
-        Leergebied leergebied = new Leergebied(txtLeergebieden.getText());
-        Leergebied leergebied2 = new Leergebied(txtLeergebieden.getText());
-        List<Leergebied> leergebieden = null;
-        leergebieden.add(leergebied);
-        leergebieden.add(leergebied2);
+        
+        
+        String firmaNaam = txtFirma.getText();
+        if(firmaNaam.isEmpty() ){
+            firmaNaam = "/";
+        }
+        String firmaEmail = txtEmailFirma.getText();
+        if(firmaEmail.isEmpty() ||  txtEmailFirma == null){
+            firmaEmail = "/";
+        }
+        
+        Firma firma = new Firma(firmaNaam , firmaEmail);
+        
+        String naamDoelgroep = txtDoelgroepen.getText();
+        if(naamDoelgroep.isEmpty()){
+            naamDoelgroep = "/";
+        }
+        Doelgroep doelgroep = new Doelgroep(naamDoelgroep);
+        
+        String namenLeergebieden = txtLeergebieden.getText();
+        List<Leergebied> leergebieden = new ArrayList<>();
+        if(namenLeergebieden.isEmpty()){
+            Leergebied leergebied = new Leergebied("/");
+            leergebieden.add(leergebied);
+        }else{
+            Leergebied leergebied = new Leergebied(txtLeergebieden.getText());  
+            leergebieden.add(leergebied);
+        }
+        
+        
+        
         dc.wijzigProduct(naam, naam, omschrijving, artikkelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
     }  
     

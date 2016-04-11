@@ -84,7 +84,7 @@ public class ProductToevoegenController extends Pane {
         String naam = txtNaam.getText();
         String omschrijving = txtOmschrijving.getText();
         int artikkelnummer = Integer.parseInt(txtArtikelnummer.getText());
-        double prijs = Integer.parseInt(txtPrijs.getText());
+        double prijs = Double.parseDouble(txtPrijs.getText());
         int aantal = Integer.parseInt(txtAantal.getText());
         String plaats = txtPlaats.getText();
         Firma firma = new Firma(txtFirma.getText() , txtEmailFirma.getText());
