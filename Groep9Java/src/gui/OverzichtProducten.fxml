@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
@@ -8,9 +9,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="719.0" prefWidth="747.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="754.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <TableView fx:id="tblProducten" editable="true" prefHeight="629.0" prefWidth="726.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tblProducten" editable="true" prefHeight="510.0" prefWidth="696.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="clmNaam" prefWidth="200.0" text="Naam" />
           <TableColumn fx:id="clmOmschrijving" prefWidth="310.0" text="Omschrijving" />
@@ -31,10 +32,13 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Overzicht producten">
+            <Label text="Overzicht producten" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
             </Label>
          </children>
       </GridPane>
