@@ -29,12 +29,12 @@ public class InitData {
         leergebieden.add(tellen);
         Doelgroep kleuters = new Doelgroep("Kleuters");
         Firma Hogent = new Firma("Hogent");
-       producten.add(new Product(leergebieden, kleuters, Hogent, "foto1", "klok", "Dit is een klok", 1, 1, 1, "B1002"));   
+        Product klok = new Product(leergebieden, kleuters, Hogent, "foto1", "klok", "Dit is een klok", 1, 1, 1, "B1002");
+        producten.add(klok);
     
     }
      public List<Product> geefProducten() {
       
-       
         return producten;
     }
     

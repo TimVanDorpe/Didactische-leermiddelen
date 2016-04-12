@@ -10,6 +10,9 @@ public class Doelgroep {
     @Id
     private Long id;
 
+    
+    
+    
     public String getNaam() {
         return naam;
     }

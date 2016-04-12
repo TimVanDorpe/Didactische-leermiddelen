@@ -10,8 +10,10 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
+import javax.persistence.CascadeType;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.OneToMany;
 import persistentie.PersistentieController;
 
 /**
@@ -19,9 +21,9 @@ import persistentie.PersistentieController;
  * @author Tim
  */
 public class ProductBeheer {
-
+    
     private ObservableList<Product> productenLijst;
-    private Product product;
+    private Product product;   
     private List<Product> producten;
     private PersistentieController persistentieController;
     private SortedList<Product> sortedList;
@@ -41,14 +43,15 @@ public class ProductBeheer {
     }
     
     public ProductBeheer(EntityManager em, EntityManagerFactory emf, PersistentieController pc){
+        this.em = em;
+        this.emf = emf;
         this.persistentieController = pc;
         InitData data = new InitData(this);
         data.maakProducten();
         producten = data.geefProducten();
         productenLijst = FXCollections.observableArrayList(producten);
         sortedList = productenLijst.sorted(sortOrder);
-        this.em = em;
-        this.emf = emf;
+       
     }
 
     public SortedList<Product> getProductSortedList() {
@@ -59,6 +62,7 @@ public class ProductBeheer {
     public void voegProductToe(Product product) {
         em.getTransaction().begin(); 
         productenLijst.add(product);
+        producten.add(product);
         em.persist(product);        
         em.getTransaction().commit();
        
