@@ -8,7 +8,7 @@ package gui;
 import domein.Doelgroep;
 import domein.Firma;
 import domein.Leergebied;
-import domein.ProductController;
+import domein.DomeinController;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -61,7 +61,7 @@ public class ProductToevoegenController extends Pane {
     @FXML
     private Button btnAnnuleer;
 
-    private ProductController dc;
+    private DomeinController dc;
     @FXML
     private CheckBox uitleenbaarheid;
     
@@ -75,7 +75,7 @@ public class ProductToevoegenController extends Pane {
      * Initializes the controller class.
      */
     
-    public ProductToevoegenController(ProductController dc){
+    public ProductToevoegenController(DomeinController dc){
         // TODO
        
        

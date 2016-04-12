@@ -16,16 +16,14 @@ public class PersistentieController {
     
     private ProductMapper productMapper;
     
-    public List<Product> geefProducten()
-    {
-        if (productMapper == null)
+    /*public List<Product> geefProducten() {
+        if (productMapper == null) {
             productMapper = new ProductMapper();
+        }
         return productMapper.geefProducten();
-    }
+    }*/
 
-    public void setProductMapper(ProductMapper productMapper) {
-        this.productMapper = productMapper;
-    }
+  
     
     
     
