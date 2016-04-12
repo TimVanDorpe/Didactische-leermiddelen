@@ -11,6 +11,11 @@ public class Firma {
     @Id
     private Long id;
 
+    public Firma() {
+    }
+
+    
+    
     public String getNaam() {
         return naam;
     }

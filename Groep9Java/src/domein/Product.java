@@ -15,13 +15,13 @@ public class Product {
     private Doelgroep doelgroep;
     private Firma firma;
     private String foto;
-    private SimpleStringProperty naam = new SimpleStringProperty();
-    private SimpleStringProperty omschrijving = new SimpleStringProperty();
+    private String naam ;
+    private String omschrijving;
     @Id
     private int artikelnummer;
     private double prijs;
-    private SimpleStringProperty aantal = new SimpleStringProperty();
-    private SimpleStringProperty plaats = new SimpleStringProperty();
+    private int aantal ;
+    private String plaats ;
 
     public Product(List<Leergebied> leergebied, Doelgroep doelgroep, Firma firma, String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
         this.leergebied = leergebied;
@@ -71,7 +71,7 @@ public class Product {
     }
 
     public String getNaam() {
-        return naam.get();
+        return naam;
     }
 
     /**
@@ -90,23 +90,30 @@ public class Product {
         if (b) {
             throw new IllegalArgumentException("Naam mag geen speciale tekens bevatten");
         }
-        this.naam.set(naam);
+        if (b) {
+            throw new IllegalArgumentException("Naam mag geen speciale tekens bevatten");
+        }
+        this.naam = naam;
     }
 
     public SimpleStringProperty naamProperty() {
-        return naam;
+         SimpleStringProperty naamSimple = new SimpleStringProperty();
+        naamSimple.set(naam);
+        return naamSimple;
     }
 
     public String getOmschrijving() {
-        return omschrijving.get();
+        return omschrijving;
     }
 
     public void setOmschrijving(String omschrijving) {
-        this.omschrijving.set(omschrijving);
+        this.omschrijving = omschrijving;
     }
 
     public SimpleStringProperty omschrijvingProperty() {
-        return omschrijving;
+     SimpleStringProperty omschrijvingSimple = new SimpleStringProperty();
+     omschrijvingSimple.set(omschrijving);
+        return omschrijvingSimple;
     }
 
     public int getArtikelnummer() {
@@ -128,30 +135,38 @@ public class Product {
     }
 
     public int getAantal() {
-        return Integer.parseInt(aantal.get());
+        return aantal;   
     }
 
     public void setAantal(int aantal) {
         if (aantal < 0) {
             throw new IllegalArgumentException("Aantal kan niet negatief zijn");
         }
-        this.aantal.set(Integer.toString(aantal));
+        this.aantal = aantal;
     }
 
     public SimpleStringProperty aantalProperty() {
-        return aantal;
+        SimpleStringProperty aantalSimple = new SimpleStringProperty();
+        StringBuilder sb = new StringBuilder();
+        sb.append("");
+        sb.append(aantal);
+        String aantalBuild = sb.toString();
+        aantalSimple.set(aantalBuild);
+        return aantalSimple;
     }
 
     public String getPlaats() {
-        return plaats.get();
+        return plaats;
     }
 
     public void setPlaats(String plaats) {
-        this.plaats.set(plaats);
+        this.plaats = plaats;
     }
 
     public SimpleStringProperty plaatsProperty() {
-        return plaats;
+       SimpleStringProperty plaatsSimple = new SimpleStringProperty();
+     plaatsSimple.set(plaats);
+        return plaatsSimple;
     }
 
     public void wijzig(Product product) {

@@ -11,6 +11,11 @@ public class Leergebied {
         @Id
     private Long id;
 
+    public Leergebied() {
+    }
+
+        
+        
     public String getNaam() {
         return naam;
     }
