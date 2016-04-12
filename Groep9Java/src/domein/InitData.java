@@ -16,27 +16,26 @@ public class InitData {
     
     
     private ProductBeheer pb;
-    private List<Product> producten = new ArrayList<>();
+   
 
     public InitData(ProductBeheer pb) {
         this.pb = pb;
     }
     
-    void maakProducten()
+    public void maakProducten()
     {
+        //leergebieden, kleuters, Hogent, "foto1", "klok", "Dit is een klok", 1, 1, 1, "B1002"
         List<Leergebied> leergebieden = new ArrayList();
         Leergebied tellen = new Leergebied("tellen");
         leergebieden.add(tellen);
         Doelgroep kleuters = new Doelgroep("Kleuters");
-        Firma Hogent = new Firma("Hogent");
-        Product klok = new Product(leergebieden, kleuters, Hogent, "foto1", "klok", "Dit is een klok", 1, 1, 1, "B1002");
-        producten.add(klok);
+       Firma Hogent = new Firma("Hogent");
+       Hogent.setId(1);
+       
+        pb.voegProductToe(new Product(leergebieden, kleuters, Hogent, "foto1", "klok", "Dit is een klok", 1, 1, 1, "B1002"));
     
     }
-     public List<Product> geefProducten() {
-      
-        return producten;
-    }
+     
     
     
 }

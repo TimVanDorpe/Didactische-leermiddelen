@@ -1,15 +1,16 @@
 package domein;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity(name = "Leergebied")
-public class Leergebied {
+public class Leergebied implements Serializable {
 
 	private String naam;
     
         @Id
-    private Long id;
+    private int id;
 
     public Leergebied() {
     }
@@ -28,11 +29,11 @@ public class Leergebied {
         this.naam = naam;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

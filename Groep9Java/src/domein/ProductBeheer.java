@@ -5,6 +5,7 @@
  */
 package domein;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -22,9 +23,9 @@ import persistentie.PersistentieController;
  */
 public class ProductBeheer {
     
-    private ObservableList<Product> productenLijst;
+    private ObservableList<Product> productenLijst = FXCollections.observableArrayList();;
     private Product product;   
-    private List<Product> producten;
+    private List<Product> producten = new ArrayList<>();
     private PersistentieController persistentieController;
     private SortedList<Product> sortedList;
 
@@ -39,7 +40,8 @@ public class ProductBeheer {
 
     public ProductBeheer(EntityManager em , EntityManagerFactory emf) {
         this(em,emf,new PersistentieController());
-        
+        productenLijst = FXCollections.observableArrayList(producten);
+        sortedList = productenLijst.sorted(sortOrder);
     }
     
     public ProductBeheer(EntityManager em, EntityManagerFactory emf, PersistentieController pc){
@@ -47,10 +49,8 @@ public class ProductBeheer {
         this.emf = emf;
         this.persistentieController = pc;
         InitData data = new InitData(this);
-        data.maakProducten();
-        producten = data.geefProducten();
-        productenLijst = FXCollections.observableArrayList(producten);
-        sortedList = productenLijst.sorted(sortOrder);
+        data.maakProducten();        
+        
        
     }
 
@@ -60,12 +60,12 @@ public class ProductBeheer {
     }
 
     public void voegProductToe(Product product) {
-        em.getTransaction().begin(); 
-        productenLijst.add(product);
+        em.getTransaction().begin();        
+        productenLijst.add(product);  
         producten.add(product);
         em.persist(product);        
         em.getTransaction().commit();
-       
+        
     }
 
     public List<Product> geefOverzichtProducten() {

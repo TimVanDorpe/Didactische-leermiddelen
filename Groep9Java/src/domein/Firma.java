@@ -1,15 +1,16 @@
 package domein;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity(name = "Firma")
-public class Firma {
+public class Firma implements Serializable {
 
-	private String naam;
-	private String emailContactPersoon;
+    private String naam;
+    private String emailContactPersoon;
     @Id
-    private Long id;
+    private int id;
 
     public Firma() {
     }
@@ -41,11 +42,11 @@ public class Firma {
         this.naam = naam;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
   
