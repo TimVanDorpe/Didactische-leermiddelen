@@ -74,6 +74,9 @@ public class Product {
      * @param naam
      */
     public void setNaam(String naam) {
+        if(naam.isEmpty()){
+            throw new IllegalArgumentException("Naam mag niet leeg zijn");
+        }
         this.naam.set(naam);
     }
     public SimpleStringProperty naamProperty() {
@@ -112,6 +115,9 @@ public class Product {
     }
 
     public void setAantal(int aantal) {
+        if(aantal < 0){
+            throw new IllegalArgumentException("Aantal kan niet negatief zijn");
+        }
         this.aantal.set(Integer.toString(aantal));
     }
     public SimpleStringProperty aantalProperty() {

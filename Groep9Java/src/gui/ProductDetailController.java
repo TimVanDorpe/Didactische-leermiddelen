@@ -111,26 +111,26 @@ public class ProductDetailController extends Pane implements Observer {
         String plaats = txtPlaats.getText();
 
         String firmaNaam = txtFirma.getText();
-        if(firmaNaam == null  || firmaNaam == ""){
-            firmaNaam = "Empty";
+        if(firmaNaam == null){
+            firmaNaam = "";
         }
         String firmaEmail = txtEmailFirma.getText();
-        if(firmaEmail == null || firmaEmail == ""){
-            firmaEmail = "Empty";
+        if(firmaEmail == null){
+            firmaEmail = "";
         }
 
         Firma firma = new Firma(firmaNaam, firmaEmail);
 
         String naamDoelgroep = txtDoelgroepen.getText();
         if(naamDoelgroep == null ){
-            naamDoelgroep = "Empty";
+            naamDoelgroep = "";
         }
         Doelgroep doelgroep = new Doelgroep(naamDoelgroep);
 
         String namenLeergebieden = txtLeergebieden.getText();
         List<Leergebied> leergebieden = new ArrayList<>();
         if(namenLeergebieden == null){
-            Leergebied leergebied = new Leergebied("Empty");
+            Leergebied leergebied = new Leergebied("");
             leergebieden.add(leergebied);
         } else {
             Leergebied leergebied = new Leergebied(txtLeergebieden.getText());
