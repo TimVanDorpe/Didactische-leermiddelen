@@ -1,5 +1,5 @@
 
-import persistentie.ProductController;
+import domein.ProductController;
 import domein.ProductBeheer;
 import gui.ProductenFrameController;
 import javafx.application.Application;

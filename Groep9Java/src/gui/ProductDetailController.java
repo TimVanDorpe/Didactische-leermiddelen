@@ -9,7 +9,7 @@ import domein.Doelgroep;
 import domein.Firma;
 import domein.Leergebied;
 import domein.Product;
-import persistentie.ProductController;
+import domein.ProductController;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
