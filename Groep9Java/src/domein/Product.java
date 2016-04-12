@@ -8,13 +8,16 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity(name = "Product")
 public class Product implements Serializable {
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Leergebied> leergebied;
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Doelgroep doelgroep;
@@ -24,6 +27,7 @@ public class Product implements Serializable {
     private String naam ;
     private String omschrijving;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int artikelnummer;
     private double prijs;
     private int aantal ;

@@ -124,10 +124,11 @@ public class ProductToevoegenController extends Pane {
        
         String plaats = txtPlaats.getText();
         Firma firma = new Firma(txtFirma.getText() , txtEmailFirma.getText());
-        //DIT MOET ZEKER WEG !!
+        
         Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
+        //DIT MOET ZEKER WEG !!
         Leergebied leergebied = new Leergebied(txtLeergebieden.getText());
-        Leergebied leergebied2 = new Leergebied(txtLeergebieden.getText());
+        Leergebied leergebied2 = new Leergebied("leergebiedje");
         List<Leergebied> leergebieden = new ArrayList<>();
         leergebieden.add(leergebied);
         leergebieden.add(leergebied2);
