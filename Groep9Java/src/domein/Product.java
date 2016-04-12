@@ -1,6 +1,8 @@
 package domein;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javax.persistence.Entity;
@@ -21,9 +23,7 @@ public class Product {
     private int aantal ;
     private String plaats ;
 
-    public Product(List<Leergebied> leergebied, Doelgroep doelgroep, Firma firma
-            , String foto, String naam, String omschrijving, int artikelnummer
-            , double prijs, int aantal, String plaats) {
+    public Product(List<Leergebied> leergebied, Doelgroep doelgroep, Firma firma, String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
         this.leergebied = leergebied;
         this.doelgroep = doelgroep;
         setFirma(firma);
@@ -35,11 +35,9 @@ public class Product {
         setAantal(aantal);
         setPlaats(plaats);
     }
-
-    public Product() {
-    }   
-    
-
+    public Product(){
+        
+    }
     public List<Leergebied> getLeergebied() {
         return leergebied;
     }
@@ -81,8 +79,16 @@ public class Product {
      * @param naam
      */
     public void setNaam(String naam) {
-        if(naam.isEmpty()){
+
+        Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(naam);
+        boolean b = m.find();
+
+        if (naam.isEmpty()) {
             throw new IllegalArgumentException("Naam mag niet leeg zijn");
+        }
+        if (b) {
+            throw new IllegalArgumentException("Naam mag geen speciale tekens bevatten");
         }
         this.naam = naam;
     }
@@ -120,6 +126,8 @@ public class Product {
     }
 
     public void setPrijs(double prijs) {
+        if(prijs<0.0)
+            throw new IllegalArgumentException("prijs kan niet negatief zijn");
         this.prijs = prijs;
     }
 
@@ -128,7 +136,7 @@ public class Product {
     }
 
     public void setAantal(int aantal) {
-        if(aantal < 0){
+        if (aantal < 0) {
             throw new IllegalArgumentException("Aantal kan niet negatief zijn");
         }
         this.aantal = aantal;
