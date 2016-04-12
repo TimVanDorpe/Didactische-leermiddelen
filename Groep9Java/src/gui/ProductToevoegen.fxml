@@ -8,9 +8,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root prefHeight="763.0" prefWidth="981.0" type="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProductToevoegenController">
+<fx:root prefHeight="763.0" prefWidth="981.0" type="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="91.0" layoutY="35.0" prefHeight="40.0" prefWidth="240.0" text="Product toevoegen">
+      <Label layoutX="64.0" layoutY="35.0" prefHeight="40.0" prefWidth="240.0" text="Product toevoegen">
          <font>
             <Font size="28.0" />
          </font>

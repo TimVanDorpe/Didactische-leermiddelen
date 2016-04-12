@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root prefHeight="763.0" prefWidth="657.0" type="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProductZoekFilterController">
+   <children>
+      <Label layoutX="91.0" layoutY="35.0" prefHeight="40.0" prefWidth="357.0" text="Geavanceerd zoeken">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnAnnuleer" layoutX="37.0" layoutY="683.0" mnemonicParsing="false" onAction="#annuleer" prefHeight="31.0" prefWidth="193.0" text="Annuleer" />
+      <Button fx:id="btnToevoegen" layoutX="313.0" layoutY="683.0" mnemonicParsing="false" onAction="#filterProducten" prefHeight="31.0" prefWidth="285.0" text="Zoeken" />
+      <GridPane layoutX="64.0" layoutY="87.0" prefHeight="533.0" prefWidth="534.0">
+         <children>
+            <Label text="Artikelnummer van de firma" GridPane.rowIndex="1" />
+            <Label text="Prijs" GridPane.rowIndex="2" />
+            <Label text="Aantal" GridPane.rowIndex="3" />
+            <Label GridPane.rowIndex="4" />
+            <Label text="Firma" GridPane.rowIndex="5" />
+            <Label text="E-mailadres contactpersoon firma" GridPane.rowIndex="7" />
+            <Label text="Doelgroepen" GridPane.rowIndex="8" />
+            <Label text="Leergebieden" GridPane.rowIndex="9" />
+            <TextField fx:id="txtNaam" GridPane.columnIndex="1" />
+            <TextField fx:id="txtArtikelnummer" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtAantal" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="txtFirma" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="txtEmailFirma" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="txtDoelgroepen" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="txtLeergebieden" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <Label text="Trefwoord op naam en omschrijving" />
+            <CheckBox fx:id="uitleenbaarheid" mnemonicParsing="false" text="Uitleenbaarheid" GridPane.rowIndex="4" />
+            <Label text="Plaats" GridPane.rowIndex="6" />
+            <TextField fx:id="txtPlaats" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Van" />
+                  <Label text="Tot" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets left="5.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <TextField fx:id="txfVanPrijs" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets right="5.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <TextField fx:id="txfTotPrijs" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="5.0" />
+                     </GridPane.margin>
+                  </TextField>
+               </children>
+            </GridPane>
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="236.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="359.0" minWidth="10.0" prefWidth="272.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <Label fx:id="lblError" layoutX="64.0" layoutY="645.0" />
+   </children>
+</fx:root>

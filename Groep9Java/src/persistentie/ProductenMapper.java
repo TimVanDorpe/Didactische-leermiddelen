@@ -47,6 +47,7 @@ public class ProductenMapper {
       
       public void wijzigProduct(Product product){
           //to do 
+          
       }
     
 }
