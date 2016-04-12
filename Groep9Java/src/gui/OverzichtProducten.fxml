@@ -40,6 +40,7 @@
                   <Insets left="50.0" />
                </GridPane.margin>
             </Label>
+            <Button fx:id="btnToevoegen" mnemonicParsing="false" onAction="#naarProductPagina" prefHeight="30.0" prefWidth="190.0" text="Product toevoegen" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </top>

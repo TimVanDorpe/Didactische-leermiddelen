@@ -1,9 +1,15 @@
 package domein;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity(name = "Firma")
 public class Firma {
 
 	private String naam;
 	private String emailContactPersoon;
+    @Id
+    private Long id;
 
     public String getNaam() {
         return naam;
@@ -28,6 +34,14 @@ public class Firma {
 
     public Firma(String naam) {
         this.naam = naam;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
   
         

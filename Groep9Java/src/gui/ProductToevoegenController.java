@@ -12,6 +12,7 @@ import domein.ProductController;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -72,7 +73,7 @@ public class ProductToevoegenController extends Pane {
      * Initializes the controller class.
      */
     
-    public ProductToevoegenController(ProductController dc) {
+    public ProductToevoegenController(ProductController dc){
         // TODO
        
        
@@ -99,7 +100,7 @@ public class ProductToevoegenController extends Pane {
         Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
         Leergebied leergebied = new Leergebied(txtLeergebieden.getText());
         Leergebied leergebied2 = new Leergebied(txtLeergebieden.getText());
-        List<Leergebied> leergebieden = null;
+        List<Leergebied> leergebieden = new ArrayList<>();
         leergebieden.add(leergebied);
         leergebieden.add(leergebied2);
         dc.voegProductToe(naam, naam, omschrijving, artikkelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
