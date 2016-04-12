@@ -108,6 +108,8 @@ public class ProductToevoegenController extends Pane {
         int aantal = 0;
         if(txtAantal.getText() != null || !txtAantal.getText().equals("")){
            aantal = Integer.parseInt(txtAantal.getText());
+        }else{
+            throw new IllegalArgumentException("Aantal mag niet leeg zijn.");
         }
        
         String plaats = txtPlaats.getText();
