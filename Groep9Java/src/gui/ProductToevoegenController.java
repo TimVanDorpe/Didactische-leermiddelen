@@ -96,16 +96,24 @@ public class ProductToevoegenController extends Pane {
          try{
              
         
-        String naam = txtNaam.getText();
+        //if(txtNaam.getText()!=null || !txtNaam.getText().equals("")){
+                    String naam = txtNaam.getText();
+        //}
+        
+        
         String omschrijving = txtOmschrijving.getText();
         
         int artikkelnummer = 0;
         if(txtArtikelnummer.getText() != null || !txtArtikelnummer.getText().equals("")){
            artikkelnummer = Integer.parseInt(txtArtikelnummer.getText());
+        }else{
+            throw new NumberFormatException("artikelnummer mag niet leeg zijn");
         }
         double prijs = 0.0;
         if(txtPrijs.getText() != null || !txtPrijs.getText().equals("")){
             prijs = Double.parseDouble(txtPrijs.getText());
+        }else{
+            throw new NumberFormatException("prijs moet een double zijn");
         }
         int aantal = 0;
         if(txtAantal.getText() != null || !txtAantal.getText().equals("")){
@@ -124,21 +132,20 @@ public class ProductToevoegenController extends Pane {
         leergebieden.add(leergebied2);
         
         
-        
         dc.voegProductToe(naam, naam, omschrijving, artikkelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
          } catch (NullPointerException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
+            alert.setTitle("Fout");
             alert.setContentText("Er deden zich fouten voor, probeer opnieuw (nullpointer)");
             alert.showAndWait();
         } catch (NumberFormatException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setContentText("U vulde een verkeerde waarde in");
+            alert.setTitle("Fout");
+            alert.setContentText(ex.getMessage());
             alert.showAndWait();
         } catch (IllegalArgumentException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
+            alert.setTitle("Fout");
             alert.setContentText(ex.getMessage());
             alert.showAndWait();
         } catch(Exception e){
