@@ -29,6 +29,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 
 
@@ -123,6 +124,14 @@ public class ProductToevoegenController extends Pane {
             Logger.getLogger(ProductDetailController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+    
+    
+    @FXML
+    private void annuleerToevoegen(){
+        Stage stage = (Stage) btnAnnuleer.getScene().getWindow();
+    // do what you have to do
+    stage.close();
     }
     
     
