@@ -90,6 +90,9 @@ public class Product {
         if (b) {
             throw new IllegalArgumentException("Naam mag geen speciale tekens bevatten");
         }
+        if (b) {
+            throw new IllegalArgumentException("Naam mag geen speciale tekens bevatten");
+        }
         this.naam = naam;
     }
 
