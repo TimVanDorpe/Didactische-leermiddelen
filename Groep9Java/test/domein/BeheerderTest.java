@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
  *
  * @author Jens
  */
-public class BeheerderTest {
+public class BeheerderTest { 
     
     public BeheerderTest() {
     }
