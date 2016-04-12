@@ -6,7 +6,7 @@
 package gui;
 
 import domein.Product;
-import domein.ProductController;
+import domein.DomeinController;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
@@ -39,7 +39,7 @@ public class OverzichtProductenController  extends BorderPane implements Observe
     @FXML
     private TableColumn<Product, String> clmPlaats;
     
-     private ProductController domeinController;
+     private DomeinController domeinController;
     @FXML
     private Button btnToevoegen;
     @FXML
@@ -49,7 +49,7 @@ public class OverzichtProductenController  extends BorderPane implements Observe
     @FXML
     private TextField txfTrefwoord;
 
-    public OverzichtProductenController(ProductController domeinController) {
+    public OverzichtProductenController(DomeinController domeinController) {
         this.domeinController = domeinController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtProducten.fxml"));
         

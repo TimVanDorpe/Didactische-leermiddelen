@@ -8,7 +8,7 @@ package gui;
 import domein.Doelgroep;
 import domein.Firma;
 import domein.Leergebied;
-import domein.ProductController;
+import domein.DomeinController;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ import javafx.scene.paint.Color;
 
  
 public class ProductZoekFilterController extends Pane{
-private ProductController domeinController;
+private DomeinController domeinController;
     @FXML
     private Button btnAnnuleer;
     @FXML
@@ -63,7 +63,7 @@ private ProductController domeinController;
 
   
 
-    ProductZoekFilterController(ProductController domeinController) {
+    ProductZoekFilterController(DomeinController domeinController) {
         this.domeinController = domeinController;
     }
 

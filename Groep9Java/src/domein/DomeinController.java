@@ -8,9 +8,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class ProductController extends Observable{
+public class DomeinController extends Observable{
 
-       public final String PERSISTENCE_UNIT_NAME = "Groep09";
+    public final String PERSISTENCE_UNIT_NAME = "Groep09";
     private EntityManager em;
     private EntityManagerFactory emf;
     
@@ -19,7 +19,7 @@ public class ProductController extends Observable{
     private Product product;
     private ProductBeheer pb;
 
-    public ProductController() {
+    public DomeinController() {
         openPersistentie();
         pb = new ProductBeheer(em , emf);
         
