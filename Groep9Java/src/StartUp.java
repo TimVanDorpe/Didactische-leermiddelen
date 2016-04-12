@@ -1,5 +1,5 @@
 
-import domein.ProductController;
+import domein.DomeinController;
 import domein.ProductBeheer;
 import gui.ProductenFrameController;
 import javafx.application.Application;
@@ -16,7 +16,7 @@ public class StartUp extends Application {
 
     @Override
     public void start(Stage stage) {
-        Scene scene = new Scene(new ProductenFrameController(new ProductController()));
+        Scene scene = new Scene(new ProductenFrameController(new DomeinController()));
         stage.setScene(scene);
         stage.setTitle("Didactische leermiddelen");
         // The stage will not get smaller than its preferred (initial) size.

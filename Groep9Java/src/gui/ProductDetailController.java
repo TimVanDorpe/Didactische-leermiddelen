@@ -9,7 +9,7 @@ import domein.Doelgroep;
 import domein.Firma;
 import domein.Leergebied;
 import domein.Product;
-import domein.ProductController;
+import domein.DomeinController;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -63,7 +63,7 @@ public class ProductDetailController extends Pane implements Observer {
     @FXML
     private Button btnAnnuleer;
 
-    private ProductController dc;
+    private DomeinController dc;
     String url = "";
     /**
      * Initializes the controller class.
@@ -74,7 +74,7 @@ public class ProductDetailController extends Pane implements Observer {
 
    
     
-    public ProductDetailController(ProductController dc){
+    public ProductDetailController(DomeinController dc){
         // TODO
        
      FXMLLoader loader = new FXMLLoader(getClass().getResource("ProductDetail.fxml"));

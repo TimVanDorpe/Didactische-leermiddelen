@@ -42,7 +42,9 @@ public class ProductBeheer {
     
     public ProductBeheer(EntityManager em, EntityManagerFactory emf, PersistentieController pc){
         this.persistentieController = pc;
-        producten = persistentieController.geefProducten();
+        InitData data = new InitData(this);
+        data.maakProducten();
+        producten = data.geefProducten();
         productenLijst = FXCollections.observableArrayList(producten);
         sortedList = productenLijst.sorted(sortOrder);
         this.em = em;
@@ -73,7 +75,13 @@ public class ProductBeheer {
 
     public void wijzigProduct(Product product) {
 
-        product.wijzig(product);
+      for(Product p : productenLijst){
+            if(p.getArtikelnummer() == product.getArtikelnummer()){
+                productenLijst.remove(p);
+                productenLijst.add(product);
+            }
+        }
+        
 
     }
 

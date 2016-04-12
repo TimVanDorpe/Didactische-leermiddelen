@@ -8,7 +8,7 @@ package gui;
 import domein.Doelgroep;
 import domein.Firma;
 import domein.Leergebied;
-import domein.ProductController;
+import domein.DomeinController;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +20,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -61,7 +62,7 @@ public class ProductToevoegenController extends Pane {
     @FXML
     private Button btnAnnuleer;
 
-    private ProductController dc;
+    private DomeinController dc;
     @FXML
     private CheckBox uitleenbaarheid;
     
@@ -75,7 +76,7 @@ public class ProductToevoegenController extends Pane {
      * Initializes the controller class.
      */
     
-    public ProductToevoegenController(ProductController dc){
+    public ProductToevoegenController(DomeinController dc){
         // TODO
        
        
@@ -121,8 +122,26 @@ public class ProductToevoegenController extends Pane {
         List<Leergebied> leergebieden = new ArrayList<>();
         leergebieden.add(leergebied);
         leergebieden.add(leergebied2);
+        
+        
+        
         dc.voegProductToe(naam, naam, omschrijving, artikkelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
-         }catch(Exception e){
+         } catch (NullPointerException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Er deden zich fouten voor, probeer opnieuw (nullpointer)");
+            alert.showAndWait();
+        } catch (NumberFormatException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("U vulde een verkeerde waarde in");
+            alert.showAndWait();
+        } catch (IllegalArgumentException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText(ex.getMessage());
+            alert.showAndWait();
+        } catch(Exception e){
              lblError.setText(e.toString());
              lblError.setTextFill(Color.web("#F20000"));
          }
@@ -136,15 +155,17 @@ public class ProductToevoegenController extends Pane {
         FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
         FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
         fileChooser.getExtensionFilters().addAll(extFilterJPG,extFilterPNG);
-
+        
         try {
             BufferedImage bufferedImage = ImageIO.read(file);
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);
             imgViewFoto.setImage(image);
+            
         } catch (IOException ex) {
             Logger.getLogger(ProductDetailController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
+        
     }
     
     
