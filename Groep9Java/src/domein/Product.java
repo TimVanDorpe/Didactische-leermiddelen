@@ -1,5 +1,6 @@
 package domein;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity(name = "Product")
-public class Product {
+public class Product implements Serializable {
     @OneToMany(cascade = CascadeType.PERSIST)
     private List<Leergebied> leergebied;
     @ManyToOne(cascade = CascadeType.PERSIST)

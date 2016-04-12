@@ -124,7 +124,6 @@ public class ProductDetailController extends Pane implements Observer {
             naamDoelgroep = "";
         }
         Doelgroep doelgroep = new Doelgroep(naamDoelgroep);
-
         String namenLeergebieden = txtLeergebieden.getText();
         List<Leergebied> leergebieden = new ArrayList<>();
         if(namenLeergebieden == null){
@@ -174,6 +173,16 @@ public class ProductDetailController extends Pane implements Observer {
     @FXML
     private void resetWaarden(ActionEvent event) {
       //nog implementen
+      txtAantal.setText("");
+       txtArtikelnummer.setText("");
+        txtDoelgroepen.setText("");
+         txtEmailFirma.setText("");
+          txtFirma.setText("");
+           txtLeergebieden.setText("");
+            txtNaam.setText("");
+             txtOmschrijving.setText("");
+              txtPlaats.setText("");
+               txtPrijs.setText("");
     }
     
     

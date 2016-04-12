@@ -23,7 +23,7 @@ import persistentie.PersistentieController;
  */
 public class ProductBeheer {
     
-    private ObservableList<Product> productenLijst = FXCollections.observableArrayList();;
+    private ObservableList<Product> productenLijst = FXCollections.observableArrayList();
     private Product product;   
     private List<Product> producten = new ArrayList<>();
     private PersistentieController persistentieController;
@@ -87,6 +87,21 @@ public class ProductBeheer {
         }
         
 
+    }
+
+    public ObservableList<Product> zoekOpTrefwoord(String trefwoord) {
+        ObservableList<Product> productenLijstMetTrefwoord = FXCollections.observableArrayList();  
+        List<Product> pp = new ArrayList<>();
+        
+       for (Product p : producten)
+       {
+       if(p.getNaam().contains(trefwoord) || p.getOmschrijving().contains(trefwoord))
+       {
+       pp.add(p);
+       }
+       }
+       productenLijstMetTrefwoord= FXCollections.observableArrayList(pp);
+       return productenLijstMetTrefwoord;
     }
 
 }

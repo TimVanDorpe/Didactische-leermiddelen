@@ -49,7 +49,7 @@
             </Label>
             <Button fx:id="btnTrefwoordZoeken" mnemonicParsing="false" onAction="#zoekOpTrefwoord" text="Zoeken" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Button fx:id="btnGeavanceerdZoeken" mnemonicParsing="false" onAction="#geavanceerdZoeken" text="Geavanceerd zoeken" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <TextField fx:id="txfTrefwoord" GridPane.rowIndex="2">
+            <TextField fx:id="txtTrefwoord" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>

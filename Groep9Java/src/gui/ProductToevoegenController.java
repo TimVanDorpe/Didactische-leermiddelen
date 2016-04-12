@@ -124,6 +124,7 @@ public class ProductToevoegenController extends Pane {
        
         String plaats = txtPlaats.getText();
         Firma firma = new Firma(txtFirma.getText() , txtEmailFirma.getText());
+        //DIT MOET ZEKER WEG !!
         Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
         Leergebied leergebied = new Leergebied(txtLeergebieden.getText());
         Leergebied leergebied2 = new Leergebied(txtLeergebieden.getText());
