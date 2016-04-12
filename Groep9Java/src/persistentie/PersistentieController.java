@@ -14,12 +14,20 @@ import java.util.List;
  */
 public class PersistentieController {
     
-    private ProductenMapper productenMapper;
+    private IProductMapper productMapper;
     
     public List<Product> geefProducten()
     {
-        if (productenMapper == null)
-            productenMapper = new ProductenMapper();
-        return productenMapper.geefProducten();
+        if (productMapper == null)
+            productMapper = new ProductMapper();
+        return productMapper.geefProducten();
     }
+
+    public void setProductMapper(IProductMapper productMapper) {
+        this.productMapper = productMapper;
+    }
+    
+    
+    
+    
 }

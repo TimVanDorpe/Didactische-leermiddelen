@@ -6,7 +6,7 @@ import javax.persistence.Id;
 @Entity(name = "Doelgroep")
 public class Doelgroep {
 
-	private String naam;
+    private String naam;
     @Id
     private Long id;
 
@@ -21,11 +21,10 @@ public class Doelgroep {
     public Doelgroep(String naam) {
         this.naam = naam;
     }
-        
-        public Doelgroep()
-        {
+
+    public Doelgroep() {
         //a
-        }
+    }
 
     public Long getId() {
         return id;
@@ -34,6 +33,5 @@ public class Doelgroep {
     public void setId(Long id) {
         this.id = id;
     }
-        
 
 }

@@ -1,7 +1,7 @@
 package gui;
 
 
-import domein.ProductController;
+import persistentie.ProductController;
 import javafx.scene.layout.HBox;
 
 public class ProductenFrameController extends HBox {

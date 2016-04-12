@@ -6,7 +6,7 @@
 package gui;
 
 import domein.Product;
-import domein.ProductController;
+import persistentie.ProductController;
 import java.io.IOException;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

@@ -18,7 +18,7 @@ import persistentie.PersistentieController;
  *
  * @author Tim
  */
-public class ProductenBeheer {
+public class ProductBeheer {
 
     private ObservableList<Product> productenLijst;
     private Product product;
@@ -35,8 +35,13 @@ public class ProductenBeheer {
       private EntityManager em;
     private EntityManagerFactory emf;
 
-    public ProductenBeheer(EntityManager em , EntityManagerFactory emf) {
-        persistentieController = new PersistentieController();
+    public ProductBeheer(EntityManager em , EntityManagerFactory emf) {
+        this(em,emf,new PersistentieController());
+        
+    }
+    
+    public ProductBeheer(EntityManager em, EntityManagerFactory emf, PersistentieController pc){
+        this.persistentieController = pc;
         producten = persistentieController.geefProducten();
         productenLijst = FXCollections.observableArrayList(producten);
         sortedList = productenLijst.sorted(sortOrder);

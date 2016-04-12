@@ -5,22 +5,25 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+
 @Entity(name = "Product")
 public class Product {
 
-	private List<Leergebied> leergebied;
-	private Doelgroep doelgroep;
-	private Firma firma;
-	private String foto;
-	private SimpleStringProperty naam = new SimpleStringProperty();
-	private SimpleStringProperty omschrijving = new SimpleStringProperty();
-        @Id
-	private int artikelnummer;
-	private double prijs;
-	private SimpleStringProperty aantal = new SimpleStringProperty();
-	private SimpleStringProperty plaats = new SimpleStringProperty();
+    private List<Leergebied> leergebied;
+    private Doelgroep doelgroep;
+    private Firma firma;
+    private String foto;
+    private SimpleStringProperty naam = new SimpleStringProperty();
+    private SimpleStringProperty omschrijving = new SimpleStringProperty();
+    @Id
+    private int artikelnummer;
+    private double prijs;
+    private SimpleStringProperty aantal = new SimpleStringProperty();
+    private SimpleStringProperty plaats = new SimpleStringProperty();
 
-    public Product(List<Leergebied> leergebied, Doelgroep doelgroep, Firma firma, String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
+    public Product(List<Leergebied> leergebied, Doelgroep doelgroep, Firma firma
+            , String foto, String naam, String omschrijving, int artikelnummer
+            , double prijs, int aantal, String plaats) {
         this.leergebied = leergebied;
         this.doelgroep = doelgroep;
         setFirma(firma);
@@ -40,7 +43,7 @@ public class Product {
     public void setLeergebied(List<Leergebied> leergebied) {
         this.leergebied = leergebied;
     }
-   
+
     public Doelgroep getDoelgroep() {
         return doelgroep;
     }
@@ -76,6 +79,7 @@ public class Product {
     public void setNaam(String naam) {
         this.naam.set(naam);
     }
+
     public SimpleStringProperty naamProperty() {
         return naam;
     }
@@ -87,6 +91,7 @@ public class Product {
     public void setOmschrijving(String omschrijving) {
         this.omschrijving.set(omschrijving);
     }
+
     public SimpleStringProperty omschrijvingProperty() {
         return omschrijving;
     }
@@ -114,6 +119,7 @@ public class Product {
     public void setAantal(int aantal) {
         this.aantal.set(Integer.toString(aantal));
     }
+
     public SimpleStringProperty aantalProperty() {
         return aantal;
     }
@@ -125,23 +131,23 @@ public class Product {
     public void setPlaats(String plaats) {
         this.plaats.set(plaats);
     }
+
     public SimpleStringProperty plaatsProperty() {
         return plaats;
     }
-        public void wijzig(Product product)
-        {
-            setNaam(product.getNaam());
-            setAantal(product.getAantal());
-            setArtikelnummer(product.getArtikelnummer());
-            setDoelgroep(product.getDoelgroep());
-            setFirma(product.getFirma());
-            setFoto(product.getFoto());
-            setLeergebied(product.getLeergebied());
-            setOmschrijving(product.getOmschrijving());
-            setPlaats(product.getPlaats());
-            setPrijs(product.getPrijs());
-        
-        }
 
-	
+    public void wijzig(Product product) {
+        setNaam(product.getNaam());
+        setAantal(product.getAantal());
+        setArtikelnummer(product.getArtikelnummer());
+        setDoelgroep(product.getDoelgroep());
+        setFirma(product.getFirma());
+        setFoto(product.getFoto());
+        setLeergebied(product.getLeergebied());
+        setOmschrijving(product.getOmschrijving());
+        setPlaats(product.getPlaats());
+        setPrijs(product.getPrijs());
+
+    }
+
 }

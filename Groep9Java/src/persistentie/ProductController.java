@@ -1,5 +1,11 @@
-package domein;
+package persistentie;
 
+import domein.Doelgroep;
+import domein.Firma;
+import domein.Gebruiker;
+import domein.Leergebied;
+import domein.Product;
+import domein.ProductBeheer;
 import java.util.Collection;
 import java.util.List;
 import java.util.Observable;
@@ -17,11 +23,11 @@ public class ProductController extends Observable{
     
     private Gebruiker aangemeldeGebruiker;
     private Product product;
-    private ProductenBeheer pb;
+    private ProductBeheer pb;
 
     public ProductController() {
         openPersistentie();
-        pb = new ProductenBeheer(em , emf);
+        pb = new ProductBeheer(em , emf);
         
     }
     

@@ -1,6 +1,6 @@
 
-import domein.ProductController;
-import domein.ProductenBeheer;
+import persistentie.ProductController;
+import domein.ProductBeheer;
 import gui.ProductenFrameController;
 import javafx.application.Application;
 import javafx.scene.Scene;

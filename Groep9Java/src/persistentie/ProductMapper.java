@@ -9,7 +9,7 @@ import domein.Doelgroep;
 import domein.Firma;
 import domein.Leergebied;
 import domein.Product;
-import domein.ProductenBeheer;
+import domein.ProductBeheer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +17,9 @@ import java.util.List;
  *
  * @author Tim
  */
-public class ProductenMapper {
+public class ProductMapper implements IProductMapper {
     
-        private ProductenBeheer pb;
+        private ProductBeheer pb;
       public List<Product> geefProducten() {
           List<Product> producten = new ArrayList<>();
         //Simulatie databank
