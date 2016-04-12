@@ -5,6 +5,7 @@
  */
 package domein;
 
+import junit.framework.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -15,11 +16,59 @@ import org.junit.Before;
  */
 public class ProductTest {
     
+    private Product p;
+    
+    
     @Before
     public void before(){
-        
+        p = new Product();
         
         
     }
+    
+    
+    @Test
+    public void setGoedeNaamTest(){
+        p.setNaam("goeieNaam");
+        assertEquals("goeieNaam", p.getNaam());
+    }
+    
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void setNaamSpecialeTekens(){
+        p.setNaam("&é");
+    }
+    
+    @Test(expected=NullPointerException.class)
+    public void setNaamNull(){
+        p.setNaam(null);
+    }
+    
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void setNaamLegeString(){
+        p.setNaam("");
+    }
+    
+    @Test
+    public void setGoeiePrijsTest(){
+        p.setPrijs(20.0);
+        assertEquals(20.0, p.getPrijs(), 1);
+    }
+    
+     @Test(expected=IllegalArgumentException.class)
+    public void setPrijsNegatiefTest(){
+        p.setPrijs(-20.0);
+    }
+    
+    @Test
+    public void setPrijsInt(){
+        p.setPrijs(10);
+        assertEquals(10.0, p.getPrijs(), 1);
+    }
+    
+    
+    
+    
     
 }
