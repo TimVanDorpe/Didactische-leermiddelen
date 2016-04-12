@@ -15,7 +15,7 @@
             <Font size="28.0" />
          </font>
       </Label>
-      <Button fx:id="btnAnnuleer" layoutX="111.0" layoutY="698.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="294.0" text="Annuleer" />
+      <Button fx:id="btnAnnuleer" layoutX="130.0" layoutY="645.0" mnemonicParsing="false" onAction="#annuleerToevoegen" prefHeight="31.0" prefWidth="294.0" text="Annuleer" />
       <Button fx:id="btnFoto" layoutX="709.0" layoutY="489.0" mnemonicParsing="false" onAction="#fotoToevoegen" prefHeight="31.0" prefWidth="185.0" text="Foto toevoegen" />
       <Button fx:id="btnToevoegen" layoutX="561.0" layoutY="698.0" mnemonicParsing="false" onAction="#voegProductToe" prefHeight="31.0" prefWidth="396.0" text="Toevoegen" />
       <ImageView fx:id="imgViewFoto" fitHeight="379.0" fitWidth="359.0" layoutX="622.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" />

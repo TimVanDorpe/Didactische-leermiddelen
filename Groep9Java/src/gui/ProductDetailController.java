@@ -37,8 +37,6 @@ import javax.imageio.ImageIO;
 public class ProductDetailController extends Pane implements Observer {
 
     @FXML
-    private AnchorPane AnchorPane;
-    @FXML
     private TextField txtNaam;
     @FXML
     private TextArea txtOmschrijving;
@@ -57,8 +55,6 @@ public class ProductDetailController extends Pane implements Observer {
     @FXML
     private TextField txtLeergebieden;
     @FXML
-    private CheckBox cbUitleenbaarheid;
-    @FXML
     private ImageView imgViewFoto;
     @FXML
     private Button btnToevoegen;
@@ -73,6 +69,8 @@ public class ProductDetailController extends Pane implements Observer {
      * Initializes the controller class.
      */
     final FileChooser fileChooser = new FileChooser();
+    @FXML
+    private CheckBox uitleenbaarheid;
 
    
     
@@ -172,4 +170,11 @@ public class ProductDetailController extends Pane implements Observer {
         txtPlaats.setText(product.getPlaats());
 
     }
+
+    @FXML
+    private void resetWaarden(ActionEvent event) {
+      //nog implementen
+    }
+    
+    
 }
