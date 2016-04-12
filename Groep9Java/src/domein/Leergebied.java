@@ -1,15 +1,20 @@
 package domein;
 
+import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity(name = "Leergebied")
-public class Leergebied {
+public class Leergebied implements Serializable {
 
-	private String naam;
+    private String naam;
     
-        @Id
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     public Leergebied() {
     }
@@ -28,11 +33,11 @@ public class Leergebied {
         this.naam = naam;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

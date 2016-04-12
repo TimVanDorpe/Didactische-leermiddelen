@@ -3,6 +3,7 @@ package domein;
 import java.util.Collection;
 import java.util.List;
 import java.util.Observable;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -61,6 +62,10 @@ public class DomeinController extends Observable{
         this.product = product;
         setChanged();
         notifyObservers(product);
+    }
+
+    public ObservableList<Product> zoekOpTrefwoord(String trefwoord) {
+        return pb.zoekOpTrefwoord(trefwoord);
     }
 
 }

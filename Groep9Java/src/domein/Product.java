@@ -1,23 +1,33 @@
 package domein;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity(name = "Product")
-public class Product {
-
+public class Product implements Serializable {
+    @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Leergebied> leergebied;
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Doelgroep doelgroep;
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Firma firma;
     private String foto;
     private String naam ;
     private String omschrijving;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int artikelnummer;
     private double prijs;
     private int aantal ;

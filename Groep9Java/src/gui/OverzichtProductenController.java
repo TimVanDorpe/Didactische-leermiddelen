@@ -8,6 +8,7 @@ package gui;
 import domein.Product;
 import domein.DomeinController;
 import java.io.IOException;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.event.ActionEvent;
@@ -39,7 +40,7 @@ public class OverzichtProductenController  extends BorderPane implements Observe
     @FXML
     private TableColumn<Product, String> clmPlaats;
     
-     private DomeinController domeinController;
+     private DomeinController dc;
     @FXML
     private Button btnToevoegen;
     @FXML
@@ -47,10 +48,10 @@ public class OverzichtProductenController  extends BorderPane implements Observe
     @FXML
     private Button btnGeavanceerdZoeken;
     @FXML
-    private TextField txfTrefwoord;
+    private TextField txtTrefwoord;
 
     public OverzichtProductenController(DomeinController domeinController) {
-        this.domeinController = domeinController;
+        this.dc = domeinController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtProducten.fxml"));
         
         loader.setRoot(this);
@@ -86,7 +87,7 @@ public class OverzichtProductenController  extends BorderPane implements Observe
 
     @Override
     public void update(Observable o, Object arg) {
-       tblProducten.setItems(domeinController.getProductSortedList());
+       tblProducten.setItems(dc.getProductSortedList());
     }
 
     @FXML
@@ -95,7 +96,7 @@ public class OverzichtProductenController  extends BorderPane implements Observe
         Stage stage = new Stage();
         stage.setTitle("Product toevoegen");
 
-        Scene scene = new Scene(new ProductToevoegenController(domeinController));
+        Scene scene = new Scene(new ProductToevoegenController(dc));
         stage.setScene(scene);
 
         
@@ -112,6 +113,10 @@ public class OverzichtProductenController  extends BorderPane implements Observe
 
     @FXML
     private void zoekOpTrefwoord(ActionEvent event) {
+        
+        String trefwoord = txtTrefwoord.getText();
+        tblProducten.setItems(dc.zoekOpTrefwoord(trefwoord));
+                
     }
 
     @FXML
@@ -119,7 +124,7 @@ public class OverzichtProductenController  extends BorderPane implements Observe
           Stage stage = new Stage();
         stage.setTitle("Geavanceerd zoeken");
 
-        Scene scene = new Scene(new ProductZoekFilterController(domeinController));
+        Scene scene = new Scene(new ProductZoekFilterController(dc));
         stage.setScene(scene);
 
         
