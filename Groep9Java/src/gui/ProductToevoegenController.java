@@ -22,12 +22,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
@@ -35,8 +36,6 @@ import javax.imageio.ImageIO;
 
 public class ProductToevoegenController extends Pane {
 
-    @FXML
-    private AnchorPane AnchorPane;
     @FXML
     private TextField txtNaam;
     @FXML
@@ -69,6 +68,8 @@ public class ProductToevoegenController extends Pane {
      final FileChooser fileChooser = new FileChooser();
     @FXML
     private ImageView imgViewFoto;
+    @FXML
+    private Label lblError;
 
     /**
      * Initializes the controller class.
@@ -91,11 +92,27 @@ public class ProductToevoegenController extends Pane {
     } 
      @FXML
      private void voegProductToe(ActionEvent event) {
+         try{
+             
+        
         String naam = txtNaam.getText();
         String omschrijving = txtOmschrijving.getText();
-        int artikkelnummer = Integer.parseInt(txtArtikelnummer.getText());
-        double prijs = Double.parseDouble(txtPrijs.getText());
-        int aantal = Integer.parseInt(txtAantal.getText());
+        
+        int artikkelnummer = 0;
+        if(txtArtikelnummer.getText() != null || !txtArtikelnummer.getText().equals("")){
+           artikkelnummer = Integer.parseInt(txtArtikelnummer.getText());
+        }
+        double prijs = 0.0;
+        if(txtPrijs.getText() != null || !txtPrijs.getText().equals("")){
+            prijs = Double.parseDouble(txtPrijs.getText());
+        }
+        int aantal = 0;
+        if(txtAantal.getText() != null || !txtAantal.getText().equals("")){
+           aantal = Integer.parseInt(txtAantal.getText());
+        }else{
+            throw new IllegalArgumentException("Aantal mag niet leeg zijn.");
+        }
+       
         String plaats = txtPlaats.getText();
         Firma firma = new Firma(txtFirma.getText() , txtEmailFirma.getText());
         Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
@@ -105,6 +122,10 @@ public class ProductToevoegenController extends Pane {
         leergebieden.add(leergebied);
         leergebieden.add(leergebied2);
         dc.voegProductToe(naam, naam, omschrijving, artikkelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
+         }catch(Exception e){
+             lblError.setText(e.toString());
+             lblError.setTextFill(Color.web("#F20000"));
+         }
     }  
 
    

@@ -10,18 +10,16 @@ import domein.ProductController;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 /**
  * FXML Controller class
@@ -44,6 +42,12 @@ public class OverzichtProductenController  extends BorderPane implements Observe
      private ProductController domeinController;
     @FXML
     private Button btnToevoegen;
+    @FXML
+    private Button btnTrefwoordZoeken;
+    @FXML
+    private Button btnGeavanceerdZoeken;
+    @FXML
+    private TextField txfTrefwoord;
 
     public OverzichtProductenController(ProductController domeinController) {
         this.domeinController = domeinController;
@@ -103,6 +107,26 @@ public class OverzichtProductenController  extends BorderPane implements Observe
         
         
         
+        
+    }
+
+    @FXML
+    private void zoekOpTrefwoord(ActionEvent event) {
+    }
+
+    @FXML
+    private void geavanceerdZoeken(ActionEvent event) {
+          Stage stage = new Stage();
+        stage.setTitle("Geavanceerd zoeken");
+
+        Scene scene = new Scene(new ProductZoekFilterController(domeinController));
+        stage.setScene(scene);
+
+        
+        //this.setDisable(true);
+        
+        
+        stage.show();
         
     }
     
