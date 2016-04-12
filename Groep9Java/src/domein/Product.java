@@ -139,7 +139,7 @@ public class Product {
     }
 
     public void setAantal(int aantal) {
-        if (aantal < 0) {
+        if (aantal <= 0) {
             throw new IllegalArgumentException("Aantal kan niet negatief zijn");
         }
         this.aantal = aantal;
