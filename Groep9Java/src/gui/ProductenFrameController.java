@@ -17,6 +17,7 @@ public class ProductenFrameController extends HBox {
         
        detailPanelController = new ProductDetailController(domeinController);
         domeinController.addObserver(detailPanelController);
+          domeinController.addObserver(overzichtPanel);
         getChildren().addAll(overzichtPanel,detailPanelController);
         
     }

@@ -8,6 +8,8 @@ package gui;
 import domein.Product;
 import domein.ProductController;
 import java.io.IOException;
+import java.util.Observable;
+import java.util.Observer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableColumn;
@@ -19,7 +21,7 @@ import javafx.scene.layout.BorderPane;
  *
  * @author Thomas
  */
-public class OverzichtProductenController  extends BorderPane{
+public class OverzichtProductenController  extends BorderPane implements Observer{
 
     @FXML
     private TableView<Product> tblProducten;
@@ -64,6 +66,14 @@ public class OverzichtProductenController  extends BorderPane{
         });
 
         tblProducten.setItems(domeinController.getProductSortedList());
+    }
+
+   
+    
+
+    @Override
+    public void update(Observable o, Object arg) {
+       tblProducten.setItems(domeinController.getProductSortedList());
     }
 
     

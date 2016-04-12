@@ -30,6 +30,7 @@ public class ProductController extends Observable{
 
     public void wijzigProduct(String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, List<Leergebied> leergebied) {
         pb.wijzigProduct(new Product(leergebied, doelgroep, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats));
+        notifyObservers();
     }
 
     public SortedList<Product> getProductSortedList() {

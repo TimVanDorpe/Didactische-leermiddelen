@@ -58,7 +58,7 @@ public class ProductenBeheer {
     public void wijzigProduct(Product product) {
 
         product.wijzig(product);
-
+        
     }
 
 }

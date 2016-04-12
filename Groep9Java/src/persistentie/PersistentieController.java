@@ -22,4 +22,8 @@ public class PersistentieController {
             productenMapper = new ProductenMapper();
         return productenMapper.geefProducten();
     }
+    
+     public void wijzigProduct(Product product){
+         productenMapper.wijzigProduct(product);
+     }
 }

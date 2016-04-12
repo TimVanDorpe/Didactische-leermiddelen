@@ -138,6 +138,7 @@ public class ProductDetailController extends Pane implements Observer {
         }
 
         dc.wijzigProduct(getUrl(), naam, omschrijving, artikkelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
+        
     }
 
     @FXML
