@@ -15,6 +15,8 @@ import java.util.List;
 public interface IProductMapper {
     
     public List<Product> geefProducten();
+
+    public void wijzigProduct(Product product);
     
     
 }

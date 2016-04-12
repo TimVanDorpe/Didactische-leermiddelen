@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class PersistentieController {
     
-    private IProductMapper productMapper;
+    private ProductMapper productMapper;
     
     public List<Product> geefProducten()
     {
@@ -23,9 +23,10 @@ public class PersistentieController {
         return productMapper.geefProducten();
     }
 
-    public void setProductMapper(IProductMapper productMapper) {
+    public void setProductMapper(ProductMapper productMapper) {
         this.productMapper = productMapper;
     }
+    
     
     
     

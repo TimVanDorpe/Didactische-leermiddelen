@@ -42,7 +42,11 @@ public class ProductBeheerTest {
         emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         em = emf.createEntityManager();
         
-        persistentieController.setProductMapper(pmdummy);
+        
+        
+        
+        
+        //persistentieController.setProductMapper(pmdummy);
         ProductBeheer pb = new ProductBeheer(em, emf, persistentieController);
     }
 

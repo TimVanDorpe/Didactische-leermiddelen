@@ -11,17 +11,19 @@ import domein.Leergebied;
 import domein.Product;
 import domein.ProductBeheer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  *
  * @author Tim
  */
-public class ProductMapper implements IProductMapper {
+public class ProductMapper {
     
-        private ProductBeheer pb;
-      public List<Product> geefProducten() {
-          List<Product> producten = new ArrayList<>();
+  
+  private List<Product> producten = new ArrayList<>();
+    public ProductMapper() {
+           
         //Simulatie databank
         List<Leergebied> leergebieden = new ArrayList();
         Leergebied tellen = new Leergebied("tellen");
@@ -35,8 +37,16 @@ public class ProductMapper implements IProductMapper {
       producten.add(new Product(leergebieden, kleuters, Hogent, "foto1", "klok", "Dit is een klok", 1, 1, 1, "B1002"));   
      // producten.add(new Product(leergebieden, kleuters, Hogent, foto, naam, omschrijving, 0, 0, 0, plaats));   
       
+    }
+        
+      public List<Product> geefProducten() {
+      
        
         return producten;
     }
+      
+      public void wijzigProduct(Product product){
+          //to do 
+      }
     
 }

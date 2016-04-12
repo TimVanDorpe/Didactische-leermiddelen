@@ -8,6 +8,8 @@ package gui;
 import domein.Product;
 import persistentie.ProductController;
 import java.io.IOException;
+import java.util.Observable;
+import java.util.Observer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -26,7 +28,7 @@ import javafx.stage.WindowEvent;
  *
  * @author Thomas
  */
-public class OverzichtProductenController  extends BorderPane{
+public class OverzichtProductenController  extends BorderPane implements Observer{
 
     @FXML
     private TableView<Product> tblProducten;
@@ -73,6 +75,14 @@ public class OverzichtProductenController  extends BorderPane{
         });
 
         tblProducten.setItems(domeinController.getProductSortedList());
+    }
+
+   
+    
+
+    @Override
+    public void update(Observable o, Object arg) {
+       tblProducten.setItems(domeinController.getProductSortedList());
     }
 
     @FXML
