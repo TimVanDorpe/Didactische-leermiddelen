@@ -50,16 +50,16 @@ public class ProductBeheer {
     private ObservableList<String> listStringLeergebiedenToegevoegd;
 
 
-//    public ProductBeheer(EntityManager em , EntityManagerFactory emf) {
-//        this(em,emf,new PersistentieController());
-//        productenLijst = FXCollections.observableArrayList(producten);
-//        sortedList = productenLijst.sorted(sortOrder);
-//    }
-    
-    public ProductBeheer(EntityManager em, EntityManagerFactory emf) {
-        this(em, emf, new PersistentieController());
-
+    public ProductBeheer(EntityManager em , EntityManagerFactory emf) {
+        this(em,emf,new PersistentieController());
+        productenLijst = FXCollections.observableArrayList(producten);
+        sortedList = productenLijst.sorted(sortOrder);
     }
+    
+//    public ProductBeheer(EntityManager em, EntityManagerFactory emf) {
+//        this(em, emf, new PersistentieController());
+//
+//    }
 
 //    public ProductBeheer(EntityManager em, EntityManagerFactory emf, PersistentieController pc) {
 //        this.persistentieController = pc;
@@ -74,13 +74,15 @@ public class ProductBeheer {
         this.em = em;
         this.emf = emf;
 
+         this.persistentieController = pc;
+        InitData data = new InitData(this);
+        data.maakProducten();   
+        
         leergebieden = FXCollections.observableArrayList(Arrays.asList(leergebiedenArray));
         leergebiedenToegevoegd = FXCollections.observableArrayList();
         listStringLeergebieden = FXCollections.observableArrayList();
         listStringLeergebiedenToegevoegd = FXCollections.observableArrayList();
-        this.persistentieController = pc;
-        InitData data = new InitData(this);
-        data.maakProducten();        
+            
         
        
     }

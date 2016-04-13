@@ -57,7 +57,7 @@ public class ProductToevoegenController extends Pane {
     private TextField txtEmailFirma;
     @FXML
     private TextField txtDoelgroepen;
-    private TextField txtLeergebieden;
+    //private TextField txtLeergebieden;
     @FXML
     private Button btnToevoegen;
     @FXML
@@ -138,8 +138,8 @@ public class ProductToevoegenController extends Pane {
             Firma firma = new Firma(txtFirma.getText(), txtEmailFirma.getText());
             //Dit moet zeker weg!!!!
             Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
-            Leergebied leergebied = new Leergebied(txtLeergebieden.getText());
-            Leergebied leergebied2 = new Leergebied(txtLeergebieden.getText());
+            Leergebied leergebied = new Leergebied("test");
+            Leergebied leergebied2 = new Leergebied("test");
             List<Leergebied> leergebieden = new ArrayList<>();
             leergebieden.add(leergebied);
             leergebieden.add(leergebied2);
