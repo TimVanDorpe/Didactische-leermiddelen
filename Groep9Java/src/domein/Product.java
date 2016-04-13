@@ -1,40 +1,66 @@
 package domein;
 
+import java.io.Serializable;
+import java.sql.Blob;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.image.Image;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity(name = "Product")
-public class Product {
-
+public class Product implements Serializable {
+    @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Leergebied> leergebied;
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Doelgroep doelgroep;
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Firma firma;
-    private String foto;
-    private SimpleStringProperty naam = new SimpleStringProperty();
-    private SimpleStringProperty omschrijving = new SimpleStringProperty();
+    private Blob foto;
+    private String naam ;
+    private String omschrijving;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int artikelnummer;
     private double prijs;
-    private SimpleStringProperty aantal = new SimpleStringProperty();
-    private SimpleStringProperty plaats = new SimpleStringProperty();
+    private int aantal ;
+    private String plaats ;
 
-    public Product(List<Leergebied> leergebied, Doelgroep doelgroep, Firma firma, String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
-        this.leergebied = leergebied;
-        this.doelgroep = doelgroep;
+    public Product(List<Leergebied> leergebied, Doelgroep doelgroep, Firma firma, Blob foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
+        setLeergebied(leergebied);
+        setDoelgroep(doelgroep);
         setFirma(firma);
-        this.foto = foto;
+        setFoto(foto);
         setNaam(naam);
         setOmschrijving(omschrijving);
-        this.artikelnummer = artikelnummer;
-        this.prijs = prijs;
+        setArtikelnummer(artikelnummer);
+        setPrijs(prijs);
         setAantal(aantal);
         setPlaats(plaats);
     }
+     public Product(List<Leergebied> leergebied, Doelgroep doelgroep, Firma firma,String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
+        this.leergebied = leergebied;
+        this.doelgroep = doelgroep;
+        this.firma = firma;
+        this.naam = naam;
+        this.omschrijving = omschrijving;
+        this.artikelnummer = artikelnummer;
+        this.prijs = prijs;
+        this.aantal = aantal;
+        this.plaats = plaats;
+    }
+    
+    
+    
     public Product(){
         
     }
@@ -62,16 +88,16 @@ public class Product {
         this.firma = firma;
     }
 
-    public String getFoto() {
+    public Blob getFoto() {
         return foto;
     }
 
-    public void setFoto(String foto) {
+    public void setFoto(Blob foto) {
         this.foto = foto;
     }
 
     public String getNaam() {
-        return naam.get();
+        return naam;
     }
 
     /**
@@ -90,23 +116,27 @@ public class Product {
         if (b) {
             throw new IllegalArgumentException("Naam mag geen speciale tekens bevatten");
         }
-        this.naam.set(naam);
+        this.naam = naam;
     }
 
     public SimpleStringProperty naamProperty() {
-        return naam;
+         SimpleStringProperty naamSimple = new SimpleStringProperty();
+        naamSimple.set(naam);
+        return naamSimple;
     }
 
     public String getOmschrijving() {
-        return omschrijving.get();
+        return omschrijving;
     }
 
     public void setOmschrijving(String omschrijving) {
-        this.omschrijving.set(omschrijving);
+        this.omschrijving = omschrijving;
     }
 
     public SimpleStringProperty omschrijvingProperty() {
-        return omschrijving;
+     SimpleStringProperty omschrijvingSimple = new SimpleStringProperty();
+     omschrijvingSimple.set(omschrijving);
+        return omschrijvingSimple;
     }
 
     public int getArtikelnummer() {
@@ -128,30 +158,38 @@ public class Product {
     }
 
     public int getAantal() {
-        return Integer.parseInt(aantal.get());
+        return aantal;   
     }
 
     public void setAantal(int aantal) {
-        if (aantal < 0) {
-            throw new IllegalArgumentException("Aantal kan niet negatief zijn");
+        if (aantal <= 0) {
+            throw new IllegalArgumentException("Aantal moet groter zijn dan nul");
         }
-        this.aantal.set(Integer.toString(aantal));
+        this.aantal = aantal;
     }
 
     public SimpleStringProperty aantalProperty() {
-        return aantal;
+        SimpleStringProperty aantalSimple = new SimpleStringProperty();
+        StringBuilder sb = new StringBuilder();
+        sb.append("");
+        sb.append(aantal);
+        String aantalBuild = sb.toString();
+        aantalSimple.set(aantalBuild);
+        return aantalSimple;
     }
 
     public String getPlaats() {
-        return plaats.get();
+        return plaats;
     }
 
     public void setPlaats(String plaats) {
-        this.plaats.set(plaats);
+        this.plaats = plaats;
     }
 
     public SimpleStringProperty plaatsProperty() {
-        return plaats;
+       SimpleStringProperty plaatsSimple = new SimpleStringProperty();
+     plaatsSimple.set(plaats);
+        return plaatsSimple;
     }
 
     public void wijzig(Product product) {

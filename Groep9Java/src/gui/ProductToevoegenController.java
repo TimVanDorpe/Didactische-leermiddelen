@@ -9,13 +9,16 @@ import domein.Doelgroep;
 import domein.Firma;
 import domein.Leergebied;
 import domein.DomeinController;
+import domein.Helper;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,7 +39,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 
-
 public class ProductToevoegenController extends Pane {
 
     @FXML
@@ -50,7 +52,7 @@ public class ProductToevoegenController extends Pane {
     @FXML
     private TextField txtAantal;
     @FXML
-    private TextField txtFirma , txtPlaats;
+    private TextField txtFirma, txtPlaats;
     @FXML
     private TextField txtEmailFirma;
     @FXML
@@ -66,8 +68,8 @@ public class ProductToevoegenController extends Pane {
     private DomeinController dc;
     @FXML
     private CheckBox uitleenbaarheid;
-    
-     final FileChooser fileChooser = new FileChooser();
+
+    final FileChooser fileChooser = new FileChooser();
     @FXML
     private ImageView imgViewFoto;
     @FXML
@@ -78,12 +80,10 @@ public class ProductToevoegenController extends Pane {
     /**
      * Initializes the controller class.
      */
-    
-    public ProductToevoegenController(DomeinController dc){
+    public ProductToevoegenController(DomeinController dc) {
         // TODO
-       
-       
-     FXMLLoader loader = new FXMLLoader(getClass().getResource("ProductToevoegen.fxml"));
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ProductToevoegen.fxml"));
         this.dc = dc;
         loader.setRoot(this);
         loader.setController(this);
@@ -92,91 +92,122 @@ public class ProductToevoegenController extends Pane {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-    
-    } 
-     @FXML
-     private void voegProductToe(ActionEvent event) {
-         try{
-             
-        
-        String naam = txtNaam.getText();
-        String omschrijving = txtOmschrijving.getText();
-        
-        int artikkelnummer = 0;
-        if(txtArtikelnummer.getText() != null || !txtArtikelnummer.getText().equals("")){
-           artikkelnummer = Integer.parseInt(txtArtikelnummer.getText());
-        }
-        double prijs = 0.0;
-        if(txtPrijs.getText() != null || !txtPrijs.getText().equals("")){
-            prijs = Double.parseDouble(txtPrijs.getText());
-        }
-        int aantal = 0;
-        if(txtAantal.getText() != null || !txtAantal.getText().equals("")){
-           aantal = Integer.parseInt(txtAantal.getText());
-        }else{
-            throw new IllegalArgumentException("Aantal mag niet leeg zijn.");
-        }
-       
-        String plaats = txtPlaats.getText();
-        Firma firma = new Firma(txtFirma.getText() , txtEmailFirma.getText());
-        Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
-        Leergebied leergebied = new Leergebied(txtLeergebieden.getText());
-        Leergebied leergebied2 = new Leergebied(txtLeergebieden.getText());
-        List<Leergebied> leergebieden = new ArrayList<>();
-        leergebieden.add(leergebied);
-        leergebieden.add(leergebied2);
-        
-        
-        
-        dc.voegProductToe(naam, naam, omschrijving, artikkelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
-         } catch (NullPointerException ex) {
+
+    }
+
+    @FXML
+    private void voegProductToe(ActionEvent event) {
+
+        Stage stage = (Stage) btnToevoegen.getScene().getWindow();
+
+        try {
+
+            if (txtNaam.getText().equals("")) {
+                throw new IllegalArgumentException("naam is verplicht");
+            }
+            String naam = txtNaam.getText();
+
+            String omschrijving = txtOmschrijving.getText();
+
+            int artikelnummer = 0;
+
+            if (!txtArtikelnummer.getText().equals("")) {
+
+                if (!Helper.isInteger(txtArtikelnummer.getText())) {
+                    throw new IllegalArgumentException("artikelnummer moet een getal zijn");
+                }
+
+                artikelnummer = Integer.parseInt(txtArtikelnummer.getText());
+            }
+            double prijs = 0.0;
+            if (!txtPrijs.getText().equals("")) {
+                if (!Helper.isDouble(txtPrijs.getText())) {
+                    throw new IllegalArgumentException("prijs moet een getal zijn");
+                }
+                prijs = Double.parseDouble(txtPrijs.getText());
+            }
+            if (txtAantal.getText().equals("")) {
+                throw new IllegalArgumentException("aantal is verplicht");
+            }
+            if (!Helper.isInteger(txtAantal.getText())) {
+                throw new IllegalArgumentException("aantal moet een getal zijn");
+            }
+            int aantal = Integer.parseInt(txtAantal.getText());
+
+            String plaats = txtPlaats.getText();
+            Firma firma = new Firma(txtFirma.getText(), txtEmailFirma.getText());
+            //Dit moet zeker weg!!!!
+            Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
+            Leergebied leergebied = new Leergebied(txtLeergebieden.getText());
+            Leergebied leergebied2 = new Leergebied(txtLeergebieden.getText());
+            List<Leergebied> leergebieden = new ArrayList<>();
+            leergebieden.add(leergebied);
+            leergebieden.add(leergebied2);
+
+            // do what you have to do
+            Blob foto;
+            if (imgViewFoto == null) {
+                throw new IllegalArgumentException("De foto mag niet leeg zijn !!");
+            } else {
+                foto = (Blob) imgViewFoto.getImage();
+            }
+
+            lblError.setText(""); // errortekst clearen
+
+            dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
+
+            stage.close();
+
+        } catch (NullPointerException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
+            alert.setTitle("Fout");
             alert.setContentText("Er deden zich fouten voor, probeer opnieuw (nullpointer)");
             alert.showAndWait();
-        } catch (NumberFormatException ex) {
+        }/*catch (NumberFormatException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setContentText("U vulde een verkeerde waarde in");
+            alert.setTitle("Fout");
+            alert.setContentText("blabla");
             alert.showAndWait();
-        } catch (IllegalArgumentException ex) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setContentText(ex.getMessage());
-            alert.showAndWait();
-        } catch(Exception e){
-             lblError.setText(e.toString());
-             lblError.setTextFill(Color.web("#F20000"));
-         }
-    }  
+        }*/ catch (IllegalArgumentException ex) {
 
-   
-   
-     @FXML
-    private void fotoToevoegen(ActionEvent event) {
+            lblError.setText(ex.getMessage());
+            lblError.setTextFill(Color.web("#F20000"));
+
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("Fout");
+//            alert.setContentText(ex.getMessage());
+//            alert.showAndWait();
+        }
+        /*catch (Exception e) {
+            lblError.setText(e.toString());
+            lblError.setTextFill(Color.web("#F20000"));
+        }*/
+    }
+
+    @FXML
+    private void fotoToevoegen(ActionEvent event
+    ) {
         File file = fileChooser.showOpenDialog(null);
         FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
         FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-        fileChooser.getExtensionFilters().addAll(extFilterJPG,extFilterPNG);
-        
+        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+
         try {
             BufferedImage bufferedImage = ImageIO.read(file);
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);
             imgViewFoto.setImage(image);
-            
+
         } catch (IOException ex) {
             Logger.getLogger(ProductDetailController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
     }
-    
-    
+
     @FXML
-    private void annuleerToevoegen(){
+    private void annuleerToevoegen() {
         Stage stage = (Stage) btnAnnuleer.getScene().getWindow();
-    // do what you have to do
-    stage.close();
+        // do what you have to do
+        stage.close();
     }
 
     @FXML

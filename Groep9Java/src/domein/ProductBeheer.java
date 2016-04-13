@@ -12,8 +12,10 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
+import javax.persistence.CascadeType;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.OneToMany;
 import persistentie.PersistentieController;
 
 /**
@@ -21,10 +23,10 @@ import persistentie.PersistentieController;
  * @author Tim
  */
 public class ProductBeheer {
-
-    private ObservableList<Product> productenLijst;
-    private Product product;
-    private List<Product> producten;
+    
+    private ObservableList<Product> productenLijst = FXCollections.observableArrayList();
+    private Product product;   
+    private List<Product> producten = new ArrayList<>();
     private PersistentieController persistentieController;
     private SortedList<Product> sortedList;
 
@@ -35,8 +37,7 @@ public class ProductBeheer {
 
     private EntityManager em;
     private EntityManagerFactory emf;
-
-    //LEERGEBIEDEN 
+    
     Leergebied mens = new Leergebied("Mens");
     Leergebied maatschapij = new Leergebied("Maatschappij");
     Leergebied geschiedenis = new Leergebied("Geschiedenis");
@@ -48,18 +49,28 @@ public class ProductBeheer {
     private ObservableList<String> listStringLeergebieden;
     private ObservableList<String> listStringLeergebiedenToegevoegd;
 
+
+//    public ProductBeheer(EntityManager em , EntityManagerFactory emf) {
+//        this(em,emf,new PersistentieController());
+//        productenLijst = FXCollections.observableArrayList(producten);
+//        sortedList = productenLijst.sorted(sortOrder);
+//    }
+    
     public ProductBeheer(EntityManager em, EntityManagerFactory emf) {
         this(em, emf, new PersistentieController());
 
     }
 
-    public ProductBeheer(EntityManager em, EntityManagerFactory emf, PersistentieController pc) {
-        this.persistentieController = pc;
-        InitData data = new InitData(this);
-        data.maakProducten();
-        producten = data.geefProducten();
-        productenLijst = FXCollections.observableArrayList(producten);
-        sortedList = productenLijst.sorted(sortOrder);
+//    public ProductBeheer(EntityManager em, EntityManagerFactory emf, PersistentieController pc) {
+//        this.persistentieController = pc;
+//        InitData data = new InitData(this);
+//        data.maakProducten();
+//        producten = data.geefProducten();
+//        productenLijst = FXCollections.observableArrayList(producten);
+//        sortedList = productenLijst.sorted(sortOrder);
+//    }
+    
+    public ProductBeheer(EntityManager em, EntityManagerFactory emf, PersistentieController pc){
         this.em = em;
         this.emf = emf;
 
@@ -67,6 +78,11 @@ public class ProductBeheer {
         leergebiedenToegevoegd = FXCollections.observableArrayList();
         listStringLeergebieden = FXCollections.observableArrayList();
         listStringLeergebiedenToegevoegd = FXCollections.observableArrayList();
+        this.persistentieController = pc;
+        InitData data = new InitData(this);
+        data.maakProducten();        
+        
+       
     }
 
     public SortedList<Product> getProductSortedList() {
@@ -75,11 +91,12 @@ public class ProductBeheer {
     }
 
     public void voegProductToe(Product product) {
-        em.getTransaction().begin();
-        productenLijst.add(product);
-        em.persist(product);
+        em.getTransaction().begin();        
+        productenLijst.add(product);  
+        producten.add(product);
+        em.persist(product);        
         em.getTransaction().commit();
-
+        
     }
 
     public List<Product> geefOverzichtProducten() {
@@ -100,6 +117,21 @@ public class ProductBeheer {
             }
         }
 
+    }
+
+    public ObservableList<Product> zoekOpTrefwoord(String trefwoord) {
+        ObservableList<Product> productenLijstMetTrefwoord = FXCollections.observableArrayList();  
+        List<Product> pp = new ArrayList<>();
+        
+       for (Product p : producten)
+       {
+       if(p.getNaam().contains(trefwoord) || p.getOmschrijving().contains(trefwoord))
+       {
+       pp.add(p);
+       }
+       }
+       productenLijstMetTrefwoord= FXCollections.observableArrayList(pp);
+       return productenLijstMetTrefwoord;
     }
 
     //LEERGEBIEDEN
