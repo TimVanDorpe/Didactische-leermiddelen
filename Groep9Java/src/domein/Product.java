@@ -47,16 +47,20 @@ public class Product implements Serializable {
         setAantal(aantal);
         setPlaats(plaats);
     }
+    
+    
+    
      public Product(List<Leergebied> leergebied, Doelgroep doelgroep, Firma firma,String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
-        this.leergebied = leergebied;
-        this.doelgroep = doelgroep;
-        this.firma = firma;
-        this.naam = naam;
-        this.omschrijving = omschrijving;
-        this.artikelnummer = artikelnummer;
-        this.prijs = prijs;
-        this.aantal = aantal;
-        this.plaats = plaats;
+        setLeergebied(leergebied);
+        setDoelgroep(doelgroep);
+        setFirma(firma);
+        setFoto(foto);
+        setNaam(naam);
+        setOmschrijving(omschrijving);
+        setArtikelnummer(artikelnummer);
+        setPrijs(prijs);
+        setAantal(aantal);
+        setPlaats(plaats);
     }
     
     
