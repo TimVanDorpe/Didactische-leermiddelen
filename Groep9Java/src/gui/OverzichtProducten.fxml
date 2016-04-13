@@ -11,7 +11,7 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="751.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <TableView fx:id="tblProducten" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+      <TableView fx:id="tblProducten" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#enableSelectionModel" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="clmNaam" prefWidth="200.0" text="Naam" />
           <TableColumn fx:id="clmOmschrijving" prefWidth="310.0" text="Omschrijving" />
@@ -32,8 +32,9 @@
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label prefHeight="35.0" prefWidth="241.0" text="Overzicht producten" GridPane.columnSpan="2">
@@ -45,7 +46,7 @@
                </GridPane.margin>
             </Label>
             <Button fx:id="btnToevoegen" mnemonicParsing="false" onAction="#naarProductPagina" prefHeight="30.0" prefWidth="190.0" text="Product toevoegen" GridPane.columnIndex="2" />
-            <Label text="Geef trefwoord:" GridPane.rowIndex="1">
+            <Label text="Geef trefwoord:" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
@@ -57,6 +58,7 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </TextField>
+            <Button fx:id="btnVerwijder" layoutX="528.0" layoutY="17.0" mnemonicParsing="false" onAction="#verwijderProduct" prefHeight="30.0" prefWidth="190.0" text="Product verwijderen" GridPane.columnIndex="1" />
          </children>
          <padding>
             <Insets bottom="10.0" />

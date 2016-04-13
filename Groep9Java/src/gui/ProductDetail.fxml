@@ -10,7 +10,7 @@
 
 <fx:root prefHeight="650.0" prefWidth="850.0" type="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="lblError" layoutX="274.0" layoutY="611.0" prefHeight="25.0" prefWidth="190.0" />
+      <Label fx:id="lblError" layoutX="274.0" layoutY="611.0" prefHeight="25.0" prefWidth="296.0" />
       <Label layoutX="24.0" layoutY="14.0" prefHeight="40.0" prefWidth="240.0" text="Details Materiaal">
          <font>
             <Font size="28.0" />

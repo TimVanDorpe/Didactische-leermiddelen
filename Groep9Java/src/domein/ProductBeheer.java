@@ -120,6 +120,11 @@ public class ProductBeheer {
         }
 
     }
+    
+    public void verwijderProduct(Product p){
+        productenLijst.remove(p);
+    }
+    
 
     public ObservableList<Product> zoekOpTrefwoord(String trefwoord) {
         ObservableList<Product> productenLijstMetTrefwoord = FXCollections.observableArrayList();  

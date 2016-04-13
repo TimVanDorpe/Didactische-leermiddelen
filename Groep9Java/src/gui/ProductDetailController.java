@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.embed.swing.SwingFXUtils;
@@ -26,7 +27,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -84,12 +87,30 @@ public class ProductDetailController extends Pane implements Observer {
         this.dc = dc;
         loader.setRoot(this);
         loader.setController(this);
+
         try {
             loader.load();
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
 
+        if (dc.getSelectionModelEmpty()) {
+            btnToevoegen.setDisable(true);
+        btnAnnuleer.setDisable(true);
+        btnFoto.setDisable(true); 
+        uitleenbaarheid.setDisable(true);
+        txtAantal.setDisable(true);
+        txtArtikelnummer.setDisable(true);
+        txtDoelgroepen.setDisable(true);
+        txtEmailFirma.setDisable(true);
+        txtFirma.setDisable(true);
+        txtLeergebieden.setDisable(true);
+        txtNaam.setDisable(true);
+        txtOmschrijving.setDisable(true);
+        txtPlaats.setDisable(true);
+        txtPrijs.setDisable(true);
+       
+        }
     }
 
     @FXML
@@ -219,6 +240,9 @@ public class ProductDetailController extends Pane implements Observer {
     //steekt alle gegevens in de textfields
     @Override
     public void update(Observable o, Object arg) {
+        
+        
+        
         Product product = (Product) arg;
         txtAantal.setText(Integer.toString(product.getAantal()));
         txtArtikelnummer.setText(Integer.toString(product.getArtikelnummer()));
@@ -228,7 +252,23 @@ public class ProductDetailController extends Pane implements Observer {
         txtNaam.setText(product.getNaam());
         txtOmschrijving.setText(product.getOmschrijving());
         txtPlaats.setText(product.getPlaats());
-
+        
+         //alles terug enablen als er iets geselcteerd wordt
+        btnToevoegen.setDisable(false);
+        btnAnnuleer.setDisable(false);
+        btnFoto.setDisable(false); 
+        uitleenbaarheid.setDisable(false);
+        txtAantal.setDisable(false);
+        txtArtikelnummer.setDisable(false);
+        txtDoelgroepen.setDisable(false);
+        txtEmailFirma.setDisable(false);
+        txtFirma.setDisable(false);
+        txtLeergebieden.setDisable(false);
+        txtNaam.setDisable(false);
+        txtOmschrijving.setDisable(false);
+        txtPlaats.setDisable(false);
+        txtPrijs.setDisable(false);
+       
     }
 
     @FXML

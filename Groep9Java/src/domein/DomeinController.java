@@ -12,26 +12,27 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class DomeinController extends Observable {
-    
+
     public final String PERSISTENCE_UNIT_NAME = "Groep09";
     private EntityManager em;
     private EntityManagerFactory emf;
-    
+
     private Gebruiker aangemeldeGebruiker;
     private Product product;
     private ProductBeheer pb;
-    
+    private boolean selectionModelEmpty;
+
     public DomeinController() {
         openPersistentie();
         pb = new ProductBeheer(em, emf);
-        
+
     }
-    
+
     private void openPersistentie() {
         emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         em = emf.createEntityManager();
     }
-    
+
     public void closePersistentie() {
         em.close();
         emf.close();
@@ -41,15 +42,16 @@ public class DomeinController extends Observable {
 
         pb.voegProductToe(new Product(leergebied, doelgroep, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats));
     }
+
     public void voegProductToeZonderFoto(String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, List<Leergebied> leergebied) {
 
         pb.voegProductToe(new Product(leergebied, doelgroep, firma, naam, omschrijving, artikelnummer, prijs, aantal, plaats));
     }
-    
+
     public List<Product> geefOverzichtProducten() {
         return pb.geefOverzichtProducten();
     }
-    
+
     public Product getProduct(int artikelnummer) {
         return pb.getProduct(artikelnummer);
     }
@@ -58,11 +60,16 @@ public class DomeinController extends Observable {
         pb.wijzigProduct(new Product(leergebied, doelgroep, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats));
         notifyObservers();
     }
-     public void wijzigProductZonderFoto(String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, List<Leergebied> leergebied) {
+
+    public void wijzigProductZonderFoto(String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, List<Leergebied> leergebied) {
         pb.wijzigProduct(new Product(leergebied, doelgroep, firma, naam, omschrijving, artikelnummer, prijs, aantal, plaats));
         notifyObservers();
     }
-    
+
+    public void verwijderProduct(Product p) {
+        pb.verwijderProduct(p);
+    }
+
     public SortedList<Product> getProductSortedList() {
         //Wrap the FilteredList in a SortedList
         return pb.getProductSortedList(); //SortedList is unmodifiable
@@ -78,11 +85,11 @@ public class DomeinController extends Observable {
     public ObservableList<Leergebied> getLeergebieden() {
         return pb.getLeergebieden();
     }
-    
+
     public ObservableList<Leergebied> getToegevoegd() {
         return pb.getToegevoegd();
     }
-    
+
 //    public boolean geenToegevoegd() {
 //        return pb.geenToegevoegd();
 //    }
@@ -90,31 +97,31 @@ public class DomeinController extends Observable {
 //    public boolean geenLeergebieden() {
 //        return pb.geenLeergebieden();
 //    }
-    
     public void voegLeergebiedToe(Leergebied naam) {
         pb.voegLeergebiedToe(naam);
     }
-    
+
     public void verwijderLeergebied(Leergebied selectedItem) {
         pb.verwijderLeergebied(selectedItem);
     }
+
     //String methoden
     public ObservableList<String> getStringLeergebieden() {
         return pb.getStringLeergebieden();
     }
-    
+
     public ObservableList<String> getStringLeergebiedenToegevoegd() {
         return pb.getStringLeergebiedenToegevoegd();
     }
-    
+
     public void voegLeergebiedToeString(String naam) {
         pb.voegLeergebiedToeString(naam);
     }
-    
+
     public void verwijderLeergebiedString(String naam) {
         pb.verwijderLeergebiedString(naam);
     }
-    
+
     public Leergebied getLeergebiedFromString(String naam) {
         return pb.getLeergebiedFromString(naam);
     }
@@ -123,9 +130,16 @@ public class DomeinController extends Observable {
         return pb.getLeergebiedToegevoegdFromString(naam);
     }
     //EINDE LEERGEBIED
-    
+
     public ObservableList<Product> zoekOpTrefwoord(String trefwoord) {
         return pb.zoekOpTrefwoord(trefwoord);
     }
 
+    public void setSelectionModelEmpty(boolean b) {
+        selectionModelEmpty = b;
+    }
+
+    public boolean getSelectionModelEmpty() {
+        return selectionModelEmpty;
+    }
 }
