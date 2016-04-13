@@ -20,9 +20,11 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -53,7 +55,6 @@ public class ProductToevoegenController extends Pane {
     private TextField txtEmailFirma;
     @FXML
     private TextField txtDoelgroepen;
-    @FXML
     private TextField txtLeergebieden;
     @FXML
     private Button btnToevoegen;
@@ -71,6 +72,8 @@ public class ProductToevoegenController extends Pane {
     private ImageView imgViewFoto;
     @FXML
     private Label lblError;
+    @FXML
+    private Button btnSelecteren;
 
     /**
      * Initializes the controller class.
@@ -175,6 +178,28 @@ public class ProductToevoegenController extends Pane {
     // do what you have to do
     stage.close();
     }
+
+    @FXML
+    private void selecteerLeergebieden(ActionEvent event) {
+        
+        Stage stage = new Stage();
+        stage.setTitle("Leergebied Selecteren");
+
+        Scene scene = new Scene(new LeergebiedSelecterenController(dc));
+        stage.setScene(scene);
+
+        
+        //this.setDisable(true);
+        
+        
+        stage.show();
+        
+        
+        
+        
+        
+    }
+    
     
     
     
