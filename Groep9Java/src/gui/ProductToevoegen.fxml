@@ -38,11 +38,11 @@
             <TextField fx:id="txtFirma" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="txtEmailFirma" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <TextField fx:id="txtDoelgroepen" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <TextField fx:id="txtLeergebieden" GridPane.columnIndex="1" GridPane.rowIndex="10" />
             <Label text="Naam" />
             <CheckBox fx:id="uitleenbaarheid" mnemonicParsing="false" text="Uitleenbaarheid" GridPane.rowIndex="5" />
             <Label text="Plaats" GridPane.rowIndex="7" />
             <TextField fx:id="txtPlaats" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Button fx:id="btnSelecteren" mnemonicParsing="false" onAction="#selecteerLeergebieden" prefHeight="25.0" prefWidth="308.0" text="Selecteren..." GridPane.columnIndex="1" GridPane.rowIndex="10" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="236.0" />
