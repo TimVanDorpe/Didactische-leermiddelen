@@ -9,6 +9,7 @@ import domein.Doelgroep;
 import domein.Firma;
 import domein.Leergebied;
 import domein.DomeinController;
+import domein.Helper;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -92,6 +93,9 @@ public class ProductToevoegenController extends Pane {
 
     @FXML
     private void voegProductToe(ActionEvent event) {
+
+        Stage stage = (Stage) btnToevoegen.getScene().getWindow();
+
         try {
 
             if (txtNaam.getText().equals("")) {
@@ -105,7 +109,7 @@ public class ProductToevoegenController extends Pane {
 
             if (!txtArtikelnummer.getText().equals("")) {
 
-                if (!isInteger(txtArtikelnummer.getText())) {
+                if (!Helper.isInteger(txtArtikelnummer.getText())) {
                     throw new IllegalArgumentException("artikelnummer moet een getal zijn");
                 }
 
@@ -113,7 +117,7 @@ public class ProductToevoegenController extends Pane {
             }
             double prijs = 0.0;
             if (!txtPrijs.getText().equals("")) {
-                 if (!isDouble(txtPrijs.getText())) {
+                if (!Helper.isDouble(txtPrijs.getText())) {
                     throw new IllegalArgumentException("prijs moet een getal zijn");
                 }
                 prijs = Double.parseDouble(txtPrijs.getText());
@@ -121,7 +125,7 @@ public class ProductToevoegenController extends Pane {
             if (txtAantal.getText().equals("")) {
                 throw new IllegalArgumentException("aantal is verplicht");
             }
-            if (!isInteger(txtAantal.getText())) {
+            if (!Helper.isInteger(txtAantal.getText())) {
                 throw new IllegalArgumentException("aantal moet een getal zijn");
             }
             int aantal = Integer.parseInt(txtAantal.getText());
@@ -135,8 +139,17 @@ public class ProductToevoegenController extends Pane {
             List<Leergebied> leergebieden = new ArrayList<>();
             leergebieden.add(leergebied);
             leergebieden.add(leergebied2);
+            
+            
+            lblError.setText(""); // errortekst clearen
 
             dc.voegProductToe(naam, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
+
+            
+            
+            // do what you have to do
+            stage.close();
+
         } catch (NullPointerException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Fout");
@@ -148,33 +161,21 @@ public class ProductToevoegenController extends Pane {
             alert.setContentText("blabla");
             alert.showAndWait();
         }*/ catch (IllegalArgumentException ex) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Fout");
-            alert.setContentText(ex.getMessage());
-            alert.showAndWait();
-        } catch (Exception e) {
+            
+                lblError.setText(ex.getMessage());
+                lblError.setTextFill(Color.web("#F20000"));
+            
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("Fout");
+//            alert.setContentText(ex.getMessage());
+//            alert.showAndWait();
+        } /*catch (Exception e) {
             lblError.setText(e.toString());
             lblError.setTextFill(Color.web("#F20000"));
-        }
+        }*/
     }
 
-    public static boolean isInteger(String s) {
-        try {
-            Integer.parseInt(s);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-        return true;
-    }
-    public static boolean isDouble(String s) {
-        try {
-            Double.parseDouble(s);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-        return true;
-    }
-
+    
     @FXML
     private void fotoToevoegen(ActionEvent event
     ) {

@@ -34,14 +34,14 @@ public class Product implements Serializable {
     private String plaats ;
 
     public Product(List<Leergebied> leergebied, Doelgroep doelgroep, Firma firma, String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
-        this.leergebied = leergebied;
-        this.doelgroep = doelgroep;
+        setLeergebied(leergebied);
+        setDoelgroep(doelgroep);
         setFirma(firma);
-        this.foto = foto;
+        setFoto(foto);
         setNaam(naam);
         setOmschrijving(omschrijving);
-        this.artikelnummer = artikelnummer;
-        this.prijs = prijs;
+        setArtikelnummer(artikelnummer);
+        setPrijs(prijs);
         setAantal(aantal);
         setPlaats(plaats);
     }
@@ -100,9 +100,6 @@ public class Product implements Serializable {
         if (b) {
             throw new IllegalArgumentException("Naam mag geen speciale tekens bevatten");
         }
-        if (b) {
-            throw new IllegalArgumentException("Naam mag geen speciale tekens bevatten");
-        }
         this.naam = naam;
     }
 
@@ -150,7 +147,7 @@ public class Product implements Serializable {
 
     public void setAantal(int aantal) {
         if (aantal <= 0) {
-            throw new IllegalArgumentException("Aantal kan niet negatief zijn");
+            throw new IllegalArgumentException("Aantal moet groter zijn dan nul");
         }
         this.aantal = aantal;
     }

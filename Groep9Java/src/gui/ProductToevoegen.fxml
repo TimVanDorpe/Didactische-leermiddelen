@@ -34,7 +34,7 @@
             <TextArea fx:id="txtOmschrijving" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="txtArtikelnummer" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="txtPrijs" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="txtAantal" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="txtAantal" text="1" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="txtFirma" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="txtEmailFirma" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <TextField fx:id="txtDoelgroepen" GridPane.columnIndex="1" GridPane.rowIndex="9" />
@@ -62,6 +62,6 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <Label fx:id="lblError" layoutX="64.0" layoutY="645.0" />
+      <Label fx:id="lblError" layoutX="555.0" layoutY="620.0" prefHeight="25.0" prefWidth="396.0" />
    </children>
 </fx:root>
