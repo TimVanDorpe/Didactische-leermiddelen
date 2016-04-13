@@ -9,9 +9,11 @@ import domein.Doelgroep;
 import domein.Firma;
 import domein.Leergebied;
 import domein.DomeinController;
+import domein.Helper;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -21,9 +23,11 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -53,8 +57,7 @@ public class ProductToevoegenController extends Pane {
     private TextField txtEmailFirma;
     @FXML
     private TextField txtDoelgroepen;
-    @FXML
-    private TextField txtLeergebieden;
+    //private TextField txtLeergebieden;
     @FXML
     private Button btnToevoegen;
     @FXML
@@ -71,6 +74,8 @@ public class ProductToevoegenController extends Pane {
     private ImageView imgViewFoto;
     @FXML
     private Label lblError;
+    @FXML
+    private Button btnSelecteren;
 
     /**
      * Initializes the controller class.
@@ -92,6 +97,9 @@ public class ProductToevoegenController extends Pane {
 
     @FXML
     private void voegProductToe(ActionEvent event) {
+
+        Stage stage = (Stage) btnToevoegen.getScene().getWindow();
+
         try {
 
             if (txtNaam.getText().equals("")) {
@@ -105,7 +113,7 @@ public class ProductToevoegenController extends Pane {
 
             if (!txtArtikelnummer.getText().equals("")) {
 
-                if (!isInteger(txtArtikelnummer.getText())) {
+                if (!Helper.isInteger(txtArtikelnummer.getText())) {
                     throw new IllegalArgumentException("artikelnummer moet een getal zijn");
                 }
 
@@ -113,7 +121,7 @@ public class ProductToevoegenController extends Pane {
             }
             double prijs = 0.0;
             if (!txtPrijs.getText().equals("")) {
-                 if (!isDouble(txtPrijs.getText())) {
+                if (!Helper.isDouble(txtPrijs.getText())) {
                     throw new IllegalArgumentException("prijs moet een getal zijn");
                 }
                 prijs = Double.parseDouble(txtPrijs.getText());
@@ -121,7 +129,7 @@ public class ProductToevoegenController extends Pane {
             if (txtAantal.getText().equals("")) {
                 throw new IllegalArgumentException("aantal is verplicht");
             }
-            if (!isInteger(txtAantal.getText())) {
+            if (!Helper.isInteger(txtAantal.getText())) {
                 throw new IllegalArgumentException("aantal moet een getal zijn");
             }
             int aantal = Integer.parseInt(txtAantal.getText());
@@ -130,13 +138,26 @@ public class ProductToevoegenController extends Pane {
             Firma firma = new Firma(txtFirma.getText(), txtEmailFirma.getText());
             //Dit moet zeker weg!!!!
             Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
-            Leergebied leergebied = new Leergebied(txtLeergebieden.getText());
-            Leergebied leergebied2 = new Leergebied(txtLeergebieden.getText());
+            Leergebied leergebied = new Leergebied("test");
+            Leergebied leergebied2 = new Leergebied("test");
             List<Leergebied> leergebieden = new ArrayList<>();
             leergebieden.add(leergebied);
             leergebieden.add(leergebied2);
 
-            dc.voegProductToe(naam, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
+            // do what you have to do
+            Blob foto;
+            if (imgViewFoto == null) {
+                throw new IllegalArgumentException("De foto mag niet leeg zijn !!");
+            } else {
+                foto = (Blob) imgViewFoto.getImage();
+            }
+
+            lblError.setText(""); // errortekst clearen
+
+            dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
+
+            stage.close();
+
         } catch (NullPointerException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Fout");
@@ -148,31 +169,19 @@ public class ProductToevoegenController extends Pane {
             alert.setContentText("blabla");
             alert.showAndWait();
         }*/ catch (IllegalArgumentException ex) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Fout");
-            alert.setContentText(ex.getMessage());
-            alert.showAndWait();
-        } catch (Exception e) {
+
+            lblError.setText(ex.getMessage());
+            lblError.setTextFill(Color.web("#F20000"));
+
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("Fout");
+//            alert.setContentText(ex.getMessage());
+//            alert.showAndWait();
+        }
+        /*catch (Exception e) {
             lblError.setText(e.toString());
             lblError.setTextFill(Color.web("#F20000"));
-        }
-    }
-
-    public static boolean isInteger(String s) {
-        try {
-            Integer.parseInt(s);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-        return true;
-    }
-    public static boolean isDouble(String s) {
-        try {
-            Double.parseDouble(s);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-        return true;
+        }*/
     }
 
     @FXML
@@ -201,4 +210,30 @@ public class ProductToevoegenController extends Pane {
         stage.close();
     }
 
+    @FXML
+    private void selecteerLeergebieden(ActionEvent event) {
+        
+        Stage stage = new Stage();
+        stage.setTitle("Leergebied Selecteren");
+
+        Scene scene = new Scene(new LeergebiedSelecterenController(dc));
+        stage.setScene(scene);
+
+        
+        //this.setDisable(true);
+        
+        
+        stage.show();
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
 }

@@ -6,6 +6,7 @@
 package domein;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collector;
@@ -36,24 +37,58 @@ public class ProductBeheer {
     private final Comparator<Product> byNaam = (p1, p2) -> p1.getNaam().compareToIgnoreCase(p2.getNaam());
     // alle comparators in de juiste volgorde, de volgorde waarop wordt gesorteerd.
     private final Comparator<Product> sortOrder = byNaam;
-    
-    
-      private EntityManager em;
+
+    private EntityManager em;
     private EntityManagerFactory emf;
+    
+    Leergebied mens = new Leergebied("Mens");
+    Leergebied maatschapij = new Leergebied("Maatschappij");
+    Leergebied geschiedenis = new Leergebied("Geschiedenis");
+
+    private Leergebied[] leergebiedenArray = {mens, maatschapij, geschiedenis};
+
+    private ObservableList<Leergebied> leergebieden;
+    private ObservableList<Leergebied> leergebiedenToegevoegd;
+    private ObservableList<String> listStringLeergebieden;
+    private ObservableList<String> listStringLeergebiedenToegevoegd;
+
 
     public ProductBeheer(EntityManager em , EntityManagerFactory emf) {
         this(em,emf,new PersistentieController());
         
     }
     
+//    public ProductBeheer(EntityManager em, EntityManagerFactory emf) {
+//        this(em, emf, new PersistentieController());
+//
+//    }
+
+//    public ProductBeheer(EntityManager em, EntityManagerFactory emf, PersistentieController pc) {
+//        this.persistentieController = pc;
+//        InitData data = new InitData(this);
+//        data.maakProducten();
+//        producten = data.geefProducten();
+//        productenLijst = FXCollections.observableArrayList(producten);
+//        sortedList = productenLijst.sorted(sortOrder);
+//    }
+    
     public ProductBeheer(EntityManager em, EntityManagerFactory emf, PersistentieController pc){
         this.em = em;
         this.emf = emf;
-        this.persistentieController = pc;
+
+         this.persistentieController = pc;
         InitData data = new InitData(this);
         data.maakProducten();        
          productenLijst = FXCollections.observableArrayList(producten);
         sortedList = productenLijst.sorted(sortOrder);
+
+        
+        leergebieden = FXCollections.observableArrayList(Arrays.asList(leergebiedenArray));
+        leergebiedenToegevoegd = FXCollections.observableArrayList();
+        listStringLeergebieden = FXCollections.observableArrayList();
+        listStringLeergebiedenToegevoegd = FXCollections.observableArrayList();
+            
+        
        
     }
 
@@ -85,15 +120,19 @@ public class ProductBeheer {
 
     public void wijzigProduct(Product product) {
 
-      for(Product p : productenLijst){
-            if(p.getArtikelnummer() == product.getArtikelnummer()){
+        for (Product p : productenLijst) {
+            if (p.getArtikelnummer() == product.getArtikelnummer()) {
                 productenLijst.remove(p);
                 productenLijst.add(product);
             }
         }
-        
 
     }
+    
+    public void verwijderProduct(Product p){
+        productenLijst.remove(p);
+    }
+    
 
     public ObservableList<Product> zoekOpTrefwoord(String trefwoord) {
         ObservableList<Product> productenLijstMetTrefwoord = FXCollections.observableArrayList();  
@@ -107,7 +146,8 @@ public class ProductBeheer {
        }
        }
        productenLijstMetTrefwoord= FXCollections.observableArrayList(pp);
-       return productenLijstMetTrefwoord;
+       sortedList = productenLijstMetTrefwoord.sorted(sortOrder);
+       return sortedList;
     }
 
      public void filterProductLijst(String trefwoord, int artikelnummer, double vanPrijs,double totPrijs, String plaats, String firma, String email,String doelgroep, String leergebied ) {
@@ -148,4 +188,87 @@ public class ProductBeheer {
        
         sortedList = productenLijst.sorted(sortOrder);
     }
+    //LEERGEBIEDEN
+    public ObservableList<Leergebied> getLeergebieden() {
+        return leergebieden;
+    }
+
+    public ObservableList<Leergebied> getToegevoegd() {
+        return leergebiedenToegevoegd;
+    }
+
+    public void voegLeergebiedToe(Leergebied naam) {
+        leergebiedenToegevoegd.add(naam);
+        leergebieden.remove(naam);
+
+    }
+
+    public void verwijderLeergebied(Leergebied naam) {
+
+        leergebieden.add(naam);
+        leergebiedenToegevoegd.remove(naam);
+
+    }
+
+    //String methoden
+    public ObservableList<String> getStringLeergebieden() {
+        for (Leergebied l : leergebieden) {
+            String naam = l.getNaam();
+            listStringLeergebieden.add(naam);
+        }
+        return listStringLeergebieden;
+    }
+
+    public ObservableList<String> getStringLeergebiedenToegevoegd() {
+        for (Leergebied l : leergebiedenToegevoegd) {
+            String naam = l.getNaam();
+            listStringLeergebiedenToegevoegd.add(naam);
+        }
+        return listStringLeergebiedenToegevoegd;
+    }
+
+    public Leergebied getLeergebiedFromString(String naam) {
+        for (Leergebied l : leergebieden) {
+            if (l.getNaam().equalsIgnoreCase(naam)) {
+                return l;
+            }
+        }
+        return null;
+    }
+
+    public Leergebied getLeergebiedToegevoegdFromString(String naam) {
+        for (Leergebied l : leergebiedenToegevoegd) {
+            if (l.getNaam().equalsIgnoreCase(naam)) {
+                return l;
+            }
+        }
+        return null;
+    }
+
+    public void voegLeergebiedToeString(String naam) {
+        listStringLeergebiedenToegevoegd.add(naam);
+        listStringLeergebieden.remove(naam);
+
+    }
+
+    public void verwijderLeergebiedString(String naam) {
+
+        listStringLeergebieden.add(naam);
+        listStringLeergebiedenToegevoegd.remove(naam);
+
+    }
+
+//    public boolean geenToegevoegd() {
+//        return leergebiedenToegevoegd.isEmpty();
+//
+//    }
+//
+//    public boolean geenLeergebieden() {
+//        return leergebieden.isEmpty();
+//
+//    }
+    
+    
+    
+    //EINDE LEERGEBIEDEN
 }
