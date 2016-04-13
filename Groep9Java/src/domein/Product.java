@@ -1,11 +1,13 @@
 package domein;
 
 import java.io.Serializable;
+import java.sql.Blob;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.image.Image;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +25,7 @@ public class Product implements Serializable {
     private Doelgroep doelgroep;
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Firma firma;
-    private String foto;
+    private Blob foto;
     private String naam ;
     private String omschrijving;
     @Id
@@ -33,7 +35,7 @@ public class Product implements Serializable {
     private int aantal ;
     private String plaats ;
 
-    public Product(List<Leergebied> leergebied, Doelgroep doelgroep, Firma firma, String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
+    public Product(List<Leergebied> leergebied, Doelgroep doelgroep, Firma firma, Blob foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
         setLeergebied(leergebied);
         setDoelgroep(doelgroep);
         setFirma(firma);
@@ -45,6 +47,20 @@ public class Product implements Serializable {
         setAantal(aantal);
         setPlaats(plaats);
     }
+     public Product(List<Leergebied> leergebied, Doelgroep doelgroep, Firma firma,String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
+        this.leergebied = leergebied;
+        this.doelgroep = doelgroep;
+        this.firma = firma;
+        this.naam = naam;
+        this.omschrijving = omschrijving;
+        this.artikelnummer = artikelnummer;
+        this.prijs = prijs;
+        this.aantal = aantal;
+        this.plaats = plaats;
+    }
+    
+    
+    
     public Product(){
         
     }
@@ -72,11 +88,11 @@ public class Product implements Serializable {
         this.firma = firma;
     }
 
-    public String getFoto() {
+    public Blob getFoto() {
         return foto;
     }
 
-    public void setFoto(String foto) {
+    public void setFoto(Blob foto) {
         this.foto = foto;
     }
 

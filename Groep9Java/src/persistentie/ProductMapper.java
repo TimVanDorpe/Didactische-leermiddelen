@@ -34,7 +34,7 @@ public class ProductMapper {
       
        
        //Opvullen met producten
-      producten.add(new Product(leergebieden, kleuters, Hogent, "foto1", "klok", "Dit is een klok", 1, 1, 1, "B1002"));   
+     // producten.add(new Product(leergebieden, kleuters, Hogent, "foto1", "klok", "Dit is een klok", 1, 1, 1, "B1002"));   
      // producten.add(new Product(leergebieden, kleuters, Hogent, foto, naam, omschrijving, 0, 0, 0, plaats));   
       
     }

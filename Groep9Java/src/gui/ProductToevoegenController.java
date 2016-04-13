@@ -13,6 +13,7 @@ import domein.Helper;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -139,15 +140,19 @@ public class ProductToevoegenController extends Pane {
             List<Leergebied> leergebieden = new ArrayList<>();
             leergebieden.add(leergebied);
             leergebieden.add(leergebied2);
-            
-            
+
+            // do what you have to do
+            Blob foto;
+            if (imgViewFoto == null) {
+                throw new IllegalArgumentException("De foto mag niet leeg zijn !!");
+            } else {
+                foto = (Blob) imgViewFoto.getImage();
+            }
+
             lblError.setText(""); // errortekst clearen
 
-            dc.voegProductToe(naam, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
+            dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
 
-            
-            
-            // do what you have to do
             stage.close();
 
         } catch (NullPointerException ex) {
@@ -161,21 +166,21 @@ public class ProductToevoegenController extends Pane {
             alert.setContentText("blabla");
             alert.showAndWait();
         }*/ catch (IllegalArgumentException ex) {
-            
-                lblError.setText(ex.getMessage());
-                lblError.setTextFill(Color.web("#F20000"));
-            
+
+            lblError.setText(ex.getMessage());
+            lblError.setTextFill(Color.web("#F20000"));
+
 //            Alert alert = new Alert(Alert.AlertType.ERROR);
 //            alert.setTitle("Fout");
 //            alert.setContentText(ex.getMessage());
 //            alert.showAndWait();
-        } /*catch (Exception e) {
+        }
+        /*catch (Exception e) {
             lblError.setText(e.toString());
             lblError.setTextFill(Color.web("#F20000"));
         }*/
     }
 
-    
     @FXML
     private void fotoToevoegen(ActionEvent event
     ) {

@@ -14,6 +14,7 @@ import domein.Helper;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -71,10 +72,7 @@ public class ProductDetailController extends Pane implements Observer {
     private Label lblError;
 
     private DomeinController dc;
-    String url = "";
-    /**
-     * Initializes the controller class.
-     */
+
     final FileChooser fileChooser = new FileChooser();
     @FXML
     private CheckBox uitleenbaarheid;
@@ -92,14 +90,6 @@ public class ProductDetailController extends Pane implements Observer {
             throw new RuntimeException(ex);
         }
 
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     @FXML
@@ -174,8 +164,12 @@ public class ProductDetailController extends Pane implements Observer {
             }
             lblError.setText(""); // errorlabel clear
 
-            dc.wijzigProduct(getUrl(), naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
+            if (imgViewFoto.getImage() == null) {
+                dc.wijzigProductZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
+            } else {
+                dc.wijzigProduct((Blob) imgViewFoto.getImage(), naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
 
+            }
 
         } catch (NullPointerException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -219,7 +213,7 @@ public class ProductDetailController extends Pane implements Observer {
             Logger.getLogger(ProductDetailController.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
-        setUrl(file.getPath());
+
     }
 
     //steekt alle gegevens in de textfields
