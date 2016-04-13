@@ -13,6 +13,7 @@ import domein.DomeinController;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -64,10 +65,7 @@ public class ProductDetailController extends Pane implements Observer {
     private Button btnAnnuleer;
 
     private DomeinController dc;
-    String url = "";
-    /**
-     * Initializes the controller class.
-     */
+    
     final FileChooser fileChooser = new FileChooser();
     @FXML
     private CheckBox uitleenbaarheid;
@@ -89,14 +87,7 @@ public class ProductDetailController extends Pane implements Observer {
 
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-    
+   
     
     @FXML
     private void wijzigProduct(ActionEvent event) {
@@ -133,9 +124,11 @@ public class ProductDetailController extends Pane implements Observer {
             Leergebied leergebied = new Leergebied(txtLeergebieden.getText());
             leergebieden.add(leergebied);
         }
-
-        dc.wijzigProduct(getUrl(), naam, omschrijving, artikkelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
-        
+        if(imgViewFoto.getImage() == null)
+        {dc.wijzigProductZonderFoto(naam, omschrijving, artikkelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);}
+        else{
+        dc.wijzigProduct((Blob) imgViewFoto.getImage(), naam, omschrijving, artikkelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
+        }
     }
 
     @FXML
@@ -152,7 +145,7 @@ public class ProductDetailController extends Pane implements Observer {
         } catch (IOException ex) {
             Logger.getLogger(ProductDetailController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        setUrl(file.getPath());
+       
     }
 
     //steekt alle gegevens in de textfields
@@ -173,16 +166,16 @@ public class ProductDetailController extends Pane implements Observer {
     @FXML
     private void resetWaarden(ActionEvent event) {
       //nog implementen
-      txtAantal.setText("");
-       txtArtikelnummer.setText("");
+        txtAantal.setText("");
+        txtArtikelnummer.setText("");
         txtDoelgroepen.setText("");
-         txtEmailFirma.setText("");
-          txtFirma.setText("");
-           txtLeergebieden.setText("");
-            txtNaam.setText("");
-             txtOmschrijving.setText("");
-              txtPlaats.setText("");
-               txtPrijs.setText("");
+        txtEmailFirma.setText("");
+        txtFirma.setText("");
+        txtLeergebieden.setText("");
+        txtNaam.setText("");
+        txtOmschrijving.setText("");
+        txtPlaats.setText("");
+        txtPrijs.setText("");
     }
     
     

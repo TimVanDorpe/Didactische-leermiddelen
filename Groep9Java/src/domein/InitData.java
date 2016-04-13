@@ -7,6 +7,7 @@ package domein;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -35,13 +36,13 @@ public class InitData {
         leergebieden.add(tellen);
         leergebieden.add(knutselen);
         leergebieden2.add(tellen);
-        
+        //Image foto = new image()
         Doelgroep kleuters = new Doelgroep("Kleuters");
        Firma Hogent = new Firma("Hogent");
        Hogent.setId(1);
        
-        pb.voegProductToe(new Product(leergebieden, kleuters, Hogent, "foto1", "klok", "Dit is een klok", 1, 1, 1, "B1002"));
-        pb.voegProductToe(new Product(leergebieden, kleuters, Hogent, "foto2", "geenklok" , "Ik ben zeker geen klok !" , 2 , 2 , 2 , "B1038"));
+        pb.voegProductToe(new Product(leergebieden, kleuters, Hogent,"klok", "Dit is een klok", 1, 1, 1, "B1002"));
+        pb.voegProductToe(new Product(leergebieden, kleuters, Hogent, "geenklok" , "Ik ben zeker geen klok !" , 2 , 2 , 2 , "B1038"));
     
     }
      

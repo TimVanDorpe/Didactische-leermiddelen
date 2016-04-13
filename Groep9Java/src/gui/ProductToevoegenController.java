@@ -12,6 +12,7 @@ import domein.DomeinController;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -113,7 +114,7 @@ public class ProductToevoegenController extends Pane {
             }
             double prijs = 0.0;
             if (!txtPrijs.getText().equals("")) {
-                 if (!isDouble(txtPrijs.getText())) {
+                if (!isDouble(txtPrijs.getText())) {
                     throw new IllegalArgumentException("prijs moet een getal zijn");
                 }
                 prijs = Double.parseDouble(txtPrijs.getText());
@@ -135,8 +136,15 @@ public class ProductToevoegenController extends Pane {
             List<Leergebied> leergebieden = new ArrayList<>();
             leergebieden.add(leergebied);
             leergebieden.add(leergebied2);
-
-            dc.voegProductToe(naam, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
+            
+            Blob foto;
+            if(imgViewFoto == null)
+            {throw new IllegalArgumentException("De foto mag niet leeg zijn !!");}
+            else
+            { foto = (Blob) imgViewFoto.getImage();}
+            
+            
+            dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
         } catch (NullPointerException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Fout");
@@ -166,6 +174,7 @@ public class ProductToevoegenController extends Pane {
         }
         return true;
     }
+
     public static boolean isDouble(String s) {
         try {
             Double.parseDouble(s);
