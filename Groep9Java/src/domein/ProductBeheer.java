@@ -138,7 +138,8 @@ public class ProductBeheer {
        }
        }
        productenLijstMetTrefwoord= FXCollections.observableArrayList(pp);
-       return productenLijstMetTrefwoord;
+       sortedList = productenLijstMetTrefwoord.sorted(sortOrder);
+       return sortedList;
     }
 
     //LEERGEBIEDEN

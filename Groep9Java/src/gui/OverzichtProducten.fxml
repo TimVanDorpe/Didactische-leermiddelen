@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -21,6 +22,12 @@
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </TableView>
    </center>
    <top>

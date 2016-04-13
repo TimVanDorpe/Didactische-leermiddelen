@@ -284,6 +284,7 @@ public class ProductDetailController extends Pane implements Observer {
         txtOmschrijving.setText("");
         txtPlaats.setText("");
         txtPrijs.setText("");
+        imgViewFoto.setImage(null);
     }
 
 }

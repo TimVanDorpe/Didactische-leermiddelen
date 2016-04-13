@@ -18,6 +18,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 /**
  *
@@ -26,7 +27,7 @@ import javafx.scene.layout.GridPane;
 class LeergebiedSelecterenController extends GridPane {
 
     @FXML
-    private Button btnSendRight, btnSendLeft, btnKlaar;
+    private Button btnSendRight, btnSendLeft, btnKlaar, btnAnnuleren;
 
     @FXML
     private ListView<String> alleLeergebieden, toegevoegdeLeergebieden;
@@ -100,4 +101,20 @@ class LeergebiedSelecterenController extends GridPane {
 //            }
 //        }
 //    }
+    
+    
+    @FXML
+    private void annuleren(ActionEvent event){
+        Stage stage = (Stage) btnAnnuleren.getScene().getWindow();
+        // do what you have to do
+        stage.close();
+    }
+    
+    
+    @FXML
+    private void klaarMetToevoegen(ActionEvent event){
+        Stage stage = (Stage) btnKlaar.getScene().getWindow();
+        // do what you have to do
+        stage.close();
+    }
 }
