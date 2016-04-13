@@ -41,9 +41,7 @@ public class DomeinController extends Observable{
         pb.voegProductToe(new Product(leergebied, doelgroep, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats));
     }
 
-    public List<Product> geefOverzichtProducten() {
-        return pb.geefOverzichtProducten();
-    }
+   
 
     public Product getProduct(int artikelnummer) {
         return pb.getProduct(artikelnummer);
@@ -56,7 +54,7 @@ public class DomeinController extends Observable{
 
     public SortedList<Product> getProductSortedList() {
         //Wrap the FilteredList in a SortedList
-        return pb.getProductSortedList(); //SortedList is unmodifiable
+        return pb.getSortedList(); //SortedList is unmodifiable
     }
     public void setGeselecteerdProduct(Product product) {
         this.product = product;
@@ -67,5 +65,20 @@ public class DomeinController extends Observable{
     public ObservableList<Product> zoekOpTrefwoord(String trefwoord) {
         return pb.zoekOpTrefwoord(trefwoord);
     }
+    
+    public void filterProductLijst( String trefwoord, int artikelnummer, double vanPrijs, double totPrijs,  String plaats, String firma, String email,String doelgroep, String leergebied ){
+         pb.filterProductLijst( trefwoord,  artikelnummer,vanPrijs ,totPrijs ,   plaats,  firma, email,  doelgroep,  leergebied );
+        setChanged();
+         notifyObservers();
+    }
+
+   
+
+    public void geefAlleProductenWeer() {
+      pb.geefAlleProducten();
+       
+    }
+
+   
 
 }

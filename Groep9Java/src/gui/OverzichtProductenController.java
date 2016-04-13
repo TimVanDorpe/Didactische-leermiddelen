@@ -50,8 +50,8 @@ public class OverzichtProductenController  extends BorderPane implements Observe
     @FXML
     private TextField txtTrefwoord;
 
-    public OverzichtProductenController(DomeinController domeinController) {
-        this.dc = domeinController;
+    public OverzichtProductenController(DomeinController dc) {
+        this.dc = dc;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtProducten.fxml"));
         
         loader.setRoot(this);
@@ -75,11 +75,11 @@ public class OverzichtProductenController  extends BorderPane implements Observe
        
         tblProducten.getSelectionModel().selectedItemProperty().addListener((ObservableValue,oldValue,newValue) -> {
             if(newValue!= null){
-                domeinController.setGeselecteerdProduct(newValue);
+                dc.setGeselecteerdProduct(newValue);
             }
         });
 
-        tblProducten.setItems(domeinController.getProductSortedList());
+        tblProducten.setItems(dc.getProductSortedList());
     }
 
    
@@ -133,6 +133,12 @@ public class OverzichtProductenController  extends BorderPane implements Observe
         
         stage.show();
         
+    }
+
+    @FXML
+    private void geefAllesWeer(ActionEvent event) {
+        dc.geefAlleProductenWeer();
+       tblProducten.setItems(dc.getProductSortedList());
     }
     
     

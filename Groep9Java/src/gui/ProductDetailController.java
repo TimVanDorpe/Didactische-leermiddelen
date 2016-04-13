@@ -158,6 +158,9 @@ public class ProductDetailController extends Pane implements Observer {
     //steekt alle gegevens in de textfields
     @Override
     public void update(Observable o, Object arg) {
+        if(arg == null){
+            
+        }
         Product product = (Product) arg;
         txtAantal.setText(Integer.toString(product.getAantal()));
         txtArtikelnummer.setText(Integer.toString(product.getArtikelnummer()));
