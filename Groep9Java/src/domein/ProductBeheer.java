@@ -131,6 +131,7 @@ public class ProductBeheer {
     
     public void verwijderProduct(Product p){
         productenLijst.remove(p);
+        producten.remove(p);
     }
     
 
