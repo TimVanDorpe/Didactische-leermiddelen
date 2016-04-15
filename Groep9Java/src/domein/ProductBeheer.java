@@ -7,17 +7,15 @@ package domein;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
-import javax.persistence.CascadeType;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.OneToMany;
 import persistentie.PersistentieController;
 
 /**
@@ -118,14 +116,14 @@ public class ProductBeheer {
         return producten.get(artikelnummer);
     }
 
-    public void wijzigProduct(Product product) {
-
-        for (Product p : productenLijst) {
-            if (p.getArtikelnummer() == product.getArtikelnummer()) {
-                productenLijst.remove(p);
-                productenLijst.add(product);
-            }
-        }
+    public void wijzigProduct(Product p, Product huidigProduct) {
+        Collections.replaceAll(productenLijst , huidigProduct , p);
+//        for (Product p : productenLijst) {
+//            if (p.getArtikelnummer() == product.getArtikelnummer()) {
+//                productenLijst.remove(p);
+//                productenLijst.add(product);
+//            }
+//        }
 
     }
     
@@ -152,7 +150,7 @@ public class ProductBeheer {
     }
 
      public void filterProductLijst(String trefwoord, int artikelnummer, double vanPrijs,double totPrijs, String plaats, String firma, String email,String doelgroep, String leergebied ) {
-           ObservableList<Product> gefilterdeProductenLijst = FXCollections.observableArrayList(producten);  
+           ObservableList<Product> gefilterdeProductenLijst = productenLijst; 
       
         if(!trefwoord.equals("")){
             gefilterdeProductenLijst.removeIf(p->  !p.getNaam().toLowerCase().contains(trefwoord.toLowerCase())&&!p.getOmschrijving().toLowerCase().contains(trefwoord.toLowerCase()));
@@ -160,6 +158,7 @@ public class ProductBeheer {
         if(artikelnummer != -1){
             gefilterdeProductenLijst.removeIf(p->p.getArtikelnummer() != artikelnummer );
         }
+       
         if(vanPrijs > -1 ){
            gefilterdeProductenLijst.removeIf(p->p.getPrijs()< vanPrijs );
         }
@@ -186,7 +185,7 @@ public class ProductBeheer {
       }
 
     void geefAlleProducten() {
-       
+       productenLijst = FXCollections.observableArrayList(producten);
         sortedList = productenLijst.sorted(sortOrder);
     }
     //LEERGEBIEDEN

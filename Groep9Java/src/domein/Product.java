@@ -148,6 +148,9 @@ public class Product implements Serializable {
     }
 
     public void setArtikelnummer(int artikelnummer) {
+        if (artikelnummer < 0) {
+            throw new IllegalArgumentException("Artikelnummer moet positief zijn");
+        }
         this.artikelnummer = artikelnummer;
     }
 

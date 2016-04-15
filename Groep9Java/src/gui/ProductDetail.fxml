@@ -8,17 +8,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root prefHeight="650.0" prefWidth="850.0" type="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="722.0" prefWidth="514.0" type="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="lblError" layoutX="274.0" layoutY="611.0" prefHeight="25.0" prefWidth="296.0" />
+      <Label fx:id="lblError" layoutX="64.0" layoutY="581.0" prefHeight="25.0" prefWidth="400.0" />
       <Label layoutX="24.0" layoutY="14.0" prefHeight="40.0" prefWidth="240.0" text="Details Materiaal">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
-      <Button fx:id="btnAnnuleer" layoutX="64.0" layoutY="573.0" mnemonicParsing="false" onAction="#resetWaarden" prefHeight="30.0" prefWidth="190.0" text="Reset waarden" />
+      <Button fx:id="btnLeegmaken" layoutX="64.0" layoutY="624.0" mnemonicParsing="false" onAction="#resetWaarden" prefHeight="30.0" prefWidth="190.0" text="Alle velden leeg maken" />
       <Button fx:id="btnFoto" layoutX="56.0" layoutY="79.0" mnemonicParsing="false" onAction="#fotoToevoegen" prefHeight="30.0" prefWidth="190.0" text="Foto toevoegen" />
-      <Button fx:id="btnToevoegen" layoutX="274.0" layoutY="573.0" mnemonicParsing="false" onAction="#wijzigProduct" prefHeight="30.0" prefWidth="190.0" text="Wijzig product" />
+      <Button fx:id="btnWijzigen" layoutX="274.0" layoutY="624.0" mnemonicParsing="false" onAction="#wijzigProduct" prefHeight="30.0" prefWidth="190.0" text="Wijzig product" />
       <GridPane layoutX="64.0" layoutY="153.0" prefHeight="420.0" prefWidth="400.0">
          <children>
             <Label text="Omschrijving" GridPane.rowIndex="1" />
@@ -63,5 +63,7 @@
          </rowConstraints>
       </GridPane>
       <ImageView fx:id="imgViewFoto" fitHeight="130.0" fitWidth="157.0" layoutX="307.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="btnAnnuleer" layoutX="64.0" layoutY="667.0" mnemonicParsing="false" onAction="#annuleerWijziging" prefHeight="30.0" prefWidth="190.0" text="Annuleer" />
+      <Button fx:id="btnToevoegen" layoutX="274.0" layoutY="667.0" mnemonicParsing="false" onAction="#voegProductToe" prefHeight="30.0" prefWidth="190.0" text="Product toevoegen" />
    </children>
 </fx:root>

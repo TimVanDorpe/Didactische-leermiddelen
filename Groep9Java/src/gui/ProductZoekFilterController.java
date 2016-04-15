@@ -5,7 +5,7 @@
  */
 package gui;
 
-import domein.DomeinController;
+import domein.ProductController;
 import static domein.Helper.isDouble;
 import static domein.Helper.isInteger;
 
@@ -28,7 +28,7 @@ import javafx.stage.Stage;
 
  
 public class ProductZoekFilterController extends Pane{
-private DomeinController domeinController;
+private ProductController domeinController;
     @FXML
     private Button btnAnnuleer;
     @FXML
@@ -60,7 +60,7 @@ private DomeinController domeinController;
 
   
 
-    ProductZoekFilterController(DomeinController domeinController) {
+    ProductZoekFilterController(ProductController domeinController) {
         this.domeinController = domeinController;
          FXMLLoader loader = new FXMLLoader(getClass().getResource("ProductZoekFilter.fxml"));
        
