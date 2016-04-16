@@ -160,7 +160,7 @@ public class Product implements Serializable {
 
     public void setPrijs(double prijs) {
         if(prijs<0.0)
-            throw new IllegalArgumentException("prijs kan niet negatief zijn");
+            throw new IllegalArgumentException("Prijs moet positief zijn");
         this.prijs = prijs;
     }
 
@@ -170,7 +170,7 @@ public class Product implements Serializable {
 
     public void setAantal(int aantal) {
         if (aantal <= 0) {
-            throw new IllegalArgumentException("Aantal moet groter zijn dan nul");
+            throw new IllegalArgumentException("Aantal moet positief zijn");
         }
         this.aantal = aantal;
     }

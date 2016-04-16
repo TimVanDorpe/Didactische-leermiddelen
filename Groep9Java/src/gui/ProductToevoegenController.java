@@ -9,7 +9,7 @@ import domein.Doelgroep;
 import domein.Firma;
 import domein.Leergebied;
 import domein.ProductController;
-import domein.Helper;
+import util.Helper;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -156,6 +156,10 @@ public class ProductToevoegenController extends Pane {
 
             dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
 
+            
+            
+            
+            
             stage.close();
 
         } catch (NullPointerException ex) {

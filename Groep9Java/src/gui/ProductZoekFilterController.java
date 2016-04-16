@@ -6,9 +6,7 @@
 package gui;
 
 import domein.ProductController;
-import static domein.Helper.isDouble;
-import static domein.Helper.isInteger;
-
+import util.Helper;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -94,7 +92,7 @@ private ProductController domeinController;
         int artikelnummer = -1;
         if (!txtArtikelnummer.getText().equals("")) {
 
-                if (!isInteger(txtArtikelnummer.getText())) {
+                if (!Helper.isInteger(txtArtikelnummer.getText())) {
                     throw new IllegalArgumentException("artikelnummer moet een getal zijn");
                 }
 
@@ -108,7 +106,7 @@ private ProductController domeinController;
          double vanPrijs = -1;
          double totPrijs = -1;
         if (!txfVanPrijs.getText().equals("") && !txfTotPrijs.getText().equals("")) {
-                 if (!isDouble(txfVanPrijs.getText()) && !isDouble(txfTotPrijs.getText())) {
+                 if (!Helper.isDouble(txfVanPrijs.getText()) && !Helper.isDouble(txfTotPrijs.getText())) {
                     throw new IllegalArgumentException("prijs moet een getal zijn");
                 }
                 vanPrijs = Double.parseDouble(txfVanPrijs.getText());
