@@ -10,7 +10,7 @@ import domein.Firma;
 import domein.Leergebied;
 import domein.Product;
 import domein.ProductController;
-import domein.Helper;
+import util.Helper;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -215,6 +215,7 @@ public class ProductDetailController extends Pane implements Observer {
         txtNaam.setText(product.getNaam());
         txtOmschrijving.setText(product.getOmschrijving());
         txtPlaats.setText(product.getPlaats());
+       
         
          //alles terug enablen als er iets geselcteerd wordt
         btnToevoegen.setDisable(false);
@@ -408,14 +409,16 @@ public class ProductDetailController extends Pane implements Observer {
             // do what you have to do
             Blob foto;
             if (imgViewFoto == null) {
-                throw new IllegalArgumentException("De foto mag niet leeg zijn !!");
+              
+                dc.voegProductToeZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
             } else {
                 foto = (Blob) imgViewFoto.getImage();
+                dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
             }
 
             lblError.setText(""); // errortekst clearen
 
-            dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
+            
 
            
 

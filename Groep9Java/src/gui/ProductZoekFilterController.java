@@ -6,8 +6,8 @@
 package gui;
 
 import domein.ProductController;
-import static domein.Helper.isDouble;
-import static domein.Helper.isInteger;
+import static util.Helper.isDouble;
+import static util.Helper.isInteger;
 
 import java.io.IOException;
 import javafx.event.ActionEvent;

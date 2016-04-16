@@ -17,7 +17,7 @@
          </font>
       </Label>
       <Button fx:id="btnLeegmaken" layoutX="64.0" layoutY="624.0" mnemonicParsing="false" onAction="#resetWaarden" prefHeight="30.0" prefWidth="190.0" text="Alle velden leeg maken" />
-      <Button fx:id="btnFoto" layoutX="56.0" layoutY="79.0" mnemonicParsing="false" onAction="#fotoToevoegen" prefHeight="30.0" prefWidth="190.0" text="Foto toevoegen" />
+      <Button fx:id="btnFoto" layoutX="56.0" layoutY="79.0" mnemonicParsing="false" onAction="#fotoToevoegen" prefHeight="30.0" prefWidth="190.0" text="Foto toevoegen..." />
       <Button fx:id="btnWijzigen" layoutX="274.0" layoutY="624.0" mnemonicParsing="false" onAction="#wijzigProduct" prefHeight="30.0" prefWidth="190.0" text="Wijzig product" />
       <GridPane layoutX="64.0" layoutY="153.0" prefHeight="420.0" prefWidth="400.0">
          <children>

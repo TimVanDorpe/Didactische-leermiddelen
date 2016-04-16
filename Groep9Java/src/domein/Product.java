@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,10 +27,12 @@ public class Product implements Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Firma firma;
     private Blob foto;
+    @Column(unique=true)
     private String naam ;
     private String omschrijving;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
     private int artikelnummer;
     private double prijs;
     private int aantal ;
@@ -198,19 +201,5 @@ public class Product implements Serializable {
      plaatsSimple.set(plaats);
         return plaatsSimple;
     }
-
-    public void wijzig(Product product) {
-        setNaam(product.getNaam());
-        setAantal(product.getAantal());
-        setArtikelnummer(product.getArtikelnummer());
-        setDoelgroep(product.getDoelgroep());
-        setFirma(product.getFirma());
-        setFoto(product.getFoto());
-        setLeergebied(product.getLeergebied());
-        setOmschrijving(product.getOmschrijving());
-        setPlaats(product.getPlaats());
-        setPrijs(product.getPrijs());
-
-    }
-
+   
 }

@@ -13,9 +13,7 @@ import javax.persistence.Persistence;
 
 public class ProductController extends Observable {
 
-    public final String PERSISTENCE_UNIT_NAME = "Groep09";
-    private EntityManager em;
-    private EntityManagerFactory emf;
+ 
 
     private Gebruiker aangemeldeGebruiker;
     private Product huidigProduct;
@@ -23,20 +21,10 @@ public class ProductController extends Observable {
     private boolean selectionModelEmpty;
 
     public ProductController() {
-        openPersistentie();
-        pb = new ProductBeheer(em, emf);
+        
+        pb = new ProductBeheer();
 
-    }
-
-    private void openPersistentie() {
-        emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-        em = emf.createEntityManager();
-    }
-
-    public void closePersistentie() {
-        em.close();
-        emf.close();
-    }
+    }    
 
     public void voegProductToe(Blob foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, List<Leergebied> leergebied) {
 
