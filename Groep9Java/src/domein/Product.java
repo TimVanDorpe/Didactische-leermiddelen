@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,17 +26,19 @@ public class Product implements Serializable {
     private Doelgroep doelgroep;
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Firma firma;
-    private Blob foto;
+    private String foto;
+    @Column(unique=true)
     private String naam ;
     private String omschrijving;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
     private int artikelnummer;
     private double prijs;
     private int aantal ;
     private String plaats ;
 
-    public Product(List<Leergebied> leergebied, Doelgroep doelgroep, Firma firma, Blob foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
+    public Product(List<Leergebied> leergebied, Doelgroep doelgroep, Firma firma, String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
         setLeergebied(leergebied);
         setDoelgroep(doelgroep);
         setFirma(firma);
@@ -54,7 +57,6 @@ public class Product implements Serializable {
         setLeergebied(leergebied);
         setDoelgroep(doelgroep);
         setFirma(firma);
-        setFoto(foto);
         setNaam(naam);
         setOmschrijving(omschrijving);
         setArtikelnummer(artikelnummer);
@@ -92,11 +94,11 @@ public class Product implements Serializable {
         this.firma = firma;
     }
 
-    public Blob getFoto() {
+    public String getFoto() {
         return foto;
     }
 
-    public void setFoto(Blob foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
 
@@ -198,19 +200,5 @@ public class Product implements Serializable {
      plaatsSimple.set(plaats);
         return plaatsSimple;
     }
-
-    public void wijzig(Product product) {
-        setNaam(product.getNaam());
-        setAantal(product.getAantal());
-        setArtikelnummer(product.getArtikelnummer());
-        setDoelgroep(product.getDoelgroep());
-        setFirma(product.getFirma());
-        setFoto(product.getFoto());
-        setLeergebied(product.getLeergebied());
-        setOmschrijving(product.getOmschrijving());
-        setPlaats(product.getPlaats());
-        setPrijs(product.getPrijs());
-
-    }
-
+   
 }

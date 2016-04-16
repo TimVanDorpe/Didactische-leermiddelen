@@ -10,13 +10,14 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import persistentie.PersistentieController;
+import util.GenericDao;
+import util.GenericDaoJpa;
+
 
 /**
  *
@@ -25,9 +26,8 @@ import persistentie.PersistentieController;
 public class ProductBeheer {
     
     private ObservableList<Product> productenLijst = FXCollections.observableArrayList();
-    private Product product;   
-    private List<Product> producten = new ArrayList<>();
-    private PersistentieController persistentieController;
+    private Product product;     
+
     private SortedList<Product> sortedList;
     
 
@@ -35,9 +35,9 @@ public class ProductBeheer {
     private final Comparator<Product> byNaam = (p1, p2) -> p1.getNaam().compareToIgnoreCase(p2.getNaam());
     // alle comparators in de juiste volgorde, de volgorde waarop wordt gesorteerd.
     private final Comparator<Product> sortOrder = byNaam;
-
-    private EntityManager em;
-    private EntityManagerFactory emf;
+    
+    private GenericDaoJpa gdj;
+    
     
     Leergebied mens = new Leergebied("Mens");
     Leergebied maatschapij = new Leergebied("Maatschappij");
@@ -51,10 +51,6 @@ public class ProductBeheer {
     private ObservableList<String> listStringLeergebiedenToegevoegd;
 
 
-    public ProductBeheer(EntityManager em , EntityManagerFactory emf) {
-        this(em,emf,new PersistentieController());
-        
-    }
     
 //    public ProductBeheer(EntityManager em, EntityManagerFactory emf) {
 //        this(em, emf, new PersistentieController());
@@ -70,14 +66,13 @@ public class ProductBeheer {
 //        sortedList = productenLijst.sorted(sortOrder);
 //    }
     
-    public ProductBeheer(EntityManager em, EntityManagerFactory emf, PersistentieController pc){
-        this.em = em;
-        this.emf = emf;
-
-         this.persistentieController = pc;
+    public ProductBeheer(){
+        
+        gdj = new GenericDaoJpa(Product.class);
+       
         InitData data = new InitData(this);
         data.maakProducten();        
-         productenLijst = FXCollections.observableArrayList(producten);
+        
         sortedList = productenLijst.sorted(sortOrder);
 
         
@@ -89,6 +84,13 @@ public class ProductBeheer {
         
        
     }
+
+    public void setGdj(GenericDaoJpa gdj) {
+        this.gdj = gdj;
+    }
+    
+    
+    
 
     public SortedList<Product> getSortedList() {
        
@@ -103,21 +105,24 @@ public class ProductBeheer {
     
 
     public void voegProductToe(Product product) {
-        em.getTransaction().begin();        
+        gdj.startTransaction();
         productenLijst.add(product);  
-        producten.add(product);
-        em.persist(product);        
-        em.getTransaction().commit();
+        gdj.insert(product);
+        gdj.commitTransaction();
         
     }
 
     
     public Product getProduct(int artikelnummer) {
-        return producten.get(artikelnummer);
+        return productenLijst.get(artikelnummer);
     }
 
     public void wijzigProduct(Product p, Product huidigProduct) {
+         gdj.startTransaction();
         Collections.replaceAll(productenLijst , huidigProduct , p);
+        gdj.update(p);
+ //       gdj.commitTransaction();
+        
 //        for (Product p : productenLijst) {
 //            if (p.getArtikelnummer() == product.getArtikelnummer()) {
 //                productenLijst.remove(p);
@@ -128,8 +133,10 @@ public class ProductBeheer {
     }
     
     public void verwijderProduct(Product p){
+        gdj.startTransaction();
         productenLijst.remove(p);
-        producten.remove(p);
+        gdj.delete(p);
+        gdj.commitTransaction();
     }
     
 
@@ -137,7 +144,7 @@ public class ProductBeheer {
         ObservableList<Product> productenLijstMetTrefwoord = FXCollections.observableArrayList();  
         List<Product> pp = new ArrayList<>();
         
-       for (Product p : producten)
+       for (Product p : productenLijst)
        {
        if(p.getNaam().toLowerCase().contains(trefwoord.toLowerCase()) || p.getOmschrijving().toLowerCase().contains(trefwoord.toLowerCase()))
        {
@@ -185,7 +192,7 @@ public class ProductBeheer {
       }
 
     void geefAlleProducten() {
-       productenLijst = FXCollections.observableArrayList(producten);
+       
         sortedList = productenLijst.sorted(sortOrder);
     }
     //LEERGEBIEDEN

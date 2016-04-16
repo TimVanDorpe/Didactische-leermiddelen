@@ -144,17 +144,18 @@ public class ProductToevoegenController extends Pane {
             leergebieden.add(leergebied);
             leergebieden.add(leergebied2);
 
-            // do what you have to do
-            Blob foto;
+            String foto;
             if (imgViewFoto == null) {
-                throw new IllegalArgumentException("De foto mag niet leeg zijn !!");
+              
+                dc.voegProductToeZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
             } else {
-                foto = (Blob) imgViewFoto.getImage();
+                foto = imgViewFoto.getImage().impl_getUrl();
+                dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
             }
 
             lblError.setText(""); // errortekst clearen
 
-            dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
+         
 
             
             

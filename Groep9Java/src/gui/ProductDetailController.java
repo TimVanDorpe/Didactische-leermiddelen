@@ -173,7 +173,7 @@ public class ProductDetailController extends Pane implements Observer {
             if (imgViewFoto.getImage() == null) {
                 dc.wijzigProductZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
             } else {
-                dc.wijzigProduct((Blob) imgViewFoto.getImage(), naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
+                dc.wijzigProduct(imgViewFoto.getImage().impl_getUrl(), naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
 
             }
 
@@ -259,6 +259,7 @@ public class ProductDetailController extends Pane implements Observer {
         // update ??? welke argumenten
     }
 
+
     @FXML
     private void voegProductToe(ActionEvent event) {
         try {
@@ -275,16 +276,18 @@ public class ProductDetailController extends Pane implements Observer {
             leergebieden.add(leergebied2);
 
             // do what you have to do
-            Blob foto;
-            if (imgViewFoto == null) {
-                throw new IllegalArgumentException("De foto mag niet leeg zijn !!");
+            String foto;
+            if (imgViewFoto.getImage() == null) {
+              
+                dc.voegProductToeZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
             } else {
-                foto = (Blob) imgViewFoto.getImage();
+                foto = imgViewFoto.getImage().impl_getUrl();
+                dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
             }
 
             lblError.setText(""); // errortekst clearen
 
-            dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
+            
 
         } /* catch (NullPointerException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

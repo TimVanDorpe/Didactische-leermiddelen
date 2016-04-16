@@ -52,14 +52,14 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <Button fx:id="btnToevoegen" mnemonicParsing="false" onAction="#naarProductPagina" prefHeight="30.0" prefWidth="190.0" text="Product toevoegen" GridPane.columnIndex="2" />
+            <Button fx:id="btnToevoegen" mnemonicParsing="false" onAction="#naarProductPagina" prefHeight="30.0" prefWidth="190.0" text="Product toevoegen..." GridPane.columnIndex="2" />
             <Label text="Geef trefwoord:" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
             <Button fx:id="btnTrefwoordZoeken" mnemonicParsing="false" onAction="#zoekOpTrefwoord" text="Zoeken" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button fx:id="btnGeavanceerdZoeken" mnemonicParsing="false" onAction="#geavanceerdZoeken" text="Geavanceerd zoeken" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button fx:id="btnGeavanceerdZoeken" mnemonicParsing="false" onAction="#geavanceerdZoeken" text="Geavanceerd zoeken..." GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <TextField fx:id="txtTrefwoord" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />
