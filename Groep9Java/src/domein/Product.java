@@ -26,7 +26,7 @@ public class Product implements Serializable {
     private Doelgroep doelgroep;
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Firma firma;
-    private Blob foto;
+    private String foto;
     @Column(unique=true)
     private String naam ;
     private String omschrijving;
@@ -38,7 +38,7 @@ public class Product implements Serializable {
     private int aantal ;
     private String plaats ;
 
-    public Product(List<Leergebied> leergebied, Doelgroep doelgroep, Firma firma, Blob foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
+    public Product(List<Leergebied> leergebied, Doelgroep doelgroep, Firma firma, String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
         setLeergebied(leergebied);
         setDoelgroep(doelgroep);
         setFirma(firma);
@@ -57,7 +57,6 @@ public class Product implements Serializable {
         setLeergebied(leergebied);
         setDoelgroep(doelgroep);
         setFirma(firma);
-        setFoto(foto);
         setNaam(naam);
         setOmschrijving(omschrijving);
         setArtikelnummer(artikelnummer);
@@ -95,11 +94,11 @@ public class Product implements Serializable {
         this.firma = firma;
     }
 
-    public Blob getFoto() {
+    public String getFoto() {
         return foto;
     }
 
-    public void setFoto(Blob foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
 

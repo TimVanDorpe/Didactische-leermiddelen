@@ -26,8 +26,7 @@ import util.GenericDaoJpa;
 public class ProductBeheer {
     
     private ObservableList<Product> productenLijst = FXCollections.observableArrayList();
-    private Product product;   
-    private List<Product> producten = new ArrayList<>();
+    private Product product;     
 
     private SortedList<Product> sortedList;
     
@@ -73,7 +72,7 @@ public class ProductBeheer {
        
         InitData data = new InitData(this);
         data.maakProducten();        
-         productenLijst = FXCollections.observableArrayList(producten);
+        
         sortedList = productenLijst.sorted(sortOrder);
 
         
@@ -108,22 +107,21 @@ public class ProductBeheer {
     public void voegProductToe(Product product) {
         gdj.startTransaction();
         productenLijst.add(product);  
-        producten.add(product);
-       gdj.insert(product);
+        gdj.insert(product);
         gdj.commitTransaction();
         
     }
 
     
     public Product getProduct(int artikelnummer) {
-        return producten.get(artikelnummer);
+        return productenLijst.get(artikelnummer);
     }
 
     public void wijzigProduct(Product p, Product huidigProduct) {
          gdj.startTransaction();
         Collections.replaceAll(productenLijst , huidigProduct , p);
         gdj.update(p);
-        gdj.commitTransaction();
+ //       gdj.commitTransaction();
         
 //        for (Product p : productenLijst) {
 //            if (p.getArtikelnummer() == product.getArtikelnummer()) {
@@ -137,7 +135,6 @@ public class ProductBeheer {
     public void verwijderProduct(Product p){
         gdj.startTransaction();
         productenLijst.remove(p);
-        producten.remove(p);
         gdj.delete(p);
         gdj.commitTransaction();
     }
@@ -147,7 +144,7 @@ public class ProductBeheer {
         ObservableList<Product> productenLijstMetTrefwoord = FXCollections.observableArrayList();  
         List<Product> pp = new ArrayList<>();
         
-       for (Product p : producten)
+       for (Product p : productenLijst)
        {
        if(p.getNaam().toLowerCase().contains(trefwoord.toLowerCase()) || p.getOmschrijving().toLowerCase().contains(trefwoord.toLowerCase()))
        {
@@ -195,7 +192,7 @@ public class ProductBeheer {
       }
 
     void geefAlleProducten() {
-       productenLijst = FXCollections.observableArrayList(producten);
+       
         sortedList = productenLijst.sorted(sortOrder);
     }
     //LEERGEBIEDEN
