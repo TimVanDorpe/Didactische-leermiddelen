@@ -55,8 +55,8 @@ public class OverzichtProductenController extends BorderPane implements Observer
     @FXML
     private TextField txtTrefwoord;
 
-        @FXML
-    private Button btnVerwijder;
+//        @FXML
+//    private Button btnVerwijder;
     
 
     public OverzichtProductenController(ProductController domeinController) {
@@ -90,7 +90,7 @@ public class OverzichtProductenController extends BorderPane implements Observer
         tblProducten.setItems(domeinController.getProductSortedList());
         if (tblProducten.getSelectionModel().isEmpty()) {
             dc.setSelectionModelEmpty(true);
-            btnVerwijder.setDisable(true);
+            //btnVerwijder.setDisable(true);
         } else {
             dc.setSelectionModelEmpty(false);
         }
@@ -99,7 +99,7 @@ public class OverzichtProductenController extends BorderPane implements Observer
     @Override
     public void update(Observable o, Object arg) {
         tblProducten.setItems(dc.getProductSortedList());
-        btnVerwijder.setDisable(false);
+       // btnVerwijder.setDisable(false);
     }
 
     @FXML

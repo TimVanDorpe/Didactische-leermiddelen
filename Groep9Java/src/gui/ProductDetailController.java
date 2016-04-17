@@ -211,6 +211,10 @@ public class ProductDetailController extends Pane implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (arg != null) {
+            
+            lblError.setText("");
+            maakLabelsTerugNormaal();
+            
             Product product = (Product) arg;
             txtAantal.setText(Integer.toString(product.getAantal()));
             txtArtikelnummer.setText(Integer.toString(product.getArtikelnummer()));
@@ -262,7 +266,6 @@ public class ProductDetailController extends Pane implements Observer {
         dc.updateDetailvenster();
     }
 
-
     @FXML
     private void voegProductToe(ActionEvent event) {
         try {
@@ -281,7 +284,7 @@ public class ProductDetailController extends Pane implements Observer {
             // do what you have to do
             String foto;
             if (imgViewFoto.getImage() == null) {
-              
+
                 dc.voegProductToeZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
             } else {
                 foto = imgViewFoto.getImage().impl_getUrl();
@@ -290,14 +293,7 @@ public class ProductDetailController extends Pane implements Observer {
 
             lblError.setText(""); // errortekst clearen
 
-            
-
-        } /* catch (NullPointerException ex) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Fout");
-            alert.setContentText("Er deden zich fouten voor, probeer opnieuw (nullpointer)");
-            alert.showAndWait();
-        }*/ catch (IllegalArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
 
             lblError.setText(ex.getMessage());
             lblError.setTextFill(Color.web("#F20000"));
@@ -310,72 +306,51 @@ public class ProductDetailController extends Pane implements Observer {
 
         maakLabelsTerugNormaal();
 
+        isInputValid();
 
-        // specialleke: als zowel naam & aantal leeg zijn
-        if (txtNaam.getText().equals("") && txtAantal.getText().equals("")) {
-            throw new IllegalArgumentException("Naam en aantal zijn niet ingevuld");
-        }
-        
-        
+        //alster meer dan 2 fout zijn algemene message
         if (!isInputValid() && aantalVerkeerd >= 2) {
-            throw new IllegalArgumentException("Een aantal velden zijn niet correct");
+            throw new IllegalArgumentException("Een aantal velden zijn niet correct ingevuld");
         }
 
-        // hier dan instellen en throws voor als ze afzonderlijk fout zijn
-
         
-        
-        if (txtNaam.getText().equals("")) {
-            throw new IllegalArgumentException("Naam is verplicht");
-        }if(dc.isNaamUniek(txtNaam.getText())){
-            throw new IllegalArgumentException("Naam bestaat al");
-        }
-        
-        this.naam = txtNaam.getText();
-        
-        this.omschrijving = txtOmschrijving.getText();
+        //specifieke message
+        if (!isInputValid()) {
+            throw new IllegalArgumentException(error);
+        } else {
 
-        this.artikelnummer = 0;
+            this.naam = txtNaam.getText();
 
-        if (!txtArtikelnummer.getText().equals("")) {
+            this.omschrijving = txtOmschrijving.getText();
 
-            if (!Helper.isInteger(txtArtikelnummer.getText())) {
-                throw new IllegalArgumentException("Artikelnummer moet een getal zijn");
+            //dit moet ook nog anders
+            this.artikelnummer = 0;
+
+            if (!txtArtikelnummer.getText().equals("")) {
+
+                this.artikelnummer = Integer.parseInt(txtArtikelnummer.getText());
+            }
+            this.prijs = 0.0;
+            if (!txtPrijs.getText().equals("")) {
+                this.prijs = Double.parseDouble(txtPrijs.getText());
             }
 
-            this.artikelnummer = Integer.parseInt(txtArtikelnummer.getText());
-        }
-        this.prijs = 0.0;
-        if (!txtPrijs.getText().equals("")) {
-            if (!Helper.isDouble(txtPrijs.getText())) {
-                throw new IllegalArgumentException("Prijs moet een getal zijn");
+            this.aantal = Integer.parseInt(txtAantal.getText());
+
+            this.plaats = txtPlaats.getText();
+
+            if (txtFirma.getText() == null) {
+                txtFirma.setText("");
+            }
+            if (txtEmailFirma.getText() == null) {
+                txtEmailFirma.setText("");
             }
 
-            this.prijs = Double.parseDouble(txtPrijs.getText());
-        }
-        if (txtAantal.getText().equals("")) {
-            throw new IllegalArgumentException("Aantal is verplicht");
-        }
-        if (!Helper.isInteger(txtAantal.getText())) {
-            throw new IllegalArgumentException("Aantal moet een getal zijn");
-        }
-
-        this.aantal = Integer.parseInt(txtAantal.getText());
-
-        this.plaats = txtPlaats.getText();
-
-        if (txtFirma.getText() == null) {
-            txtFirma.setText("");
-        }
-        if (txtEmailFirma.getText() == null) {
-            txtEmailFirma.setText("");
-        }
-
-        if (txtDoelgroepen.getText() == null) {
-            txtDoelgroepen.setText("");
-        }
-        Firma firma = new Firma(firmaNaam, firmaEmail);
-        //Dit moet zeker weg!!!!
+            if (txtDoelgroepen.getText() == null) {
+                txtDoelgroepen.setText("");
+            }
+            Firma firma = new Firma(firmaNaam, firmaEmail);
+            //Dit moet zeker weg!!!!
 //            Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
 //            Leergebied leergebied = new Leergebied("test");
 //            Leergebied leergebied2 = new Leergebied("test");
@@ -383,73 +358,118 @@ public class ProductDetailController extends Pane implements Observer {
 //            leergebieden.add(leergebied);
 //            leergebieden.add(leergebied2);
 //
-        Blob foto;
-        if (imgViewFoto == null) {
-            throw new IllegalArgumentException("De foto mag niet leeg zijn !!");
-        } else {
-            foto = (Blob) imgViewFoto.getImage();
-        }
+            Blob foto;
+            if (imgViewFoto == null) {
+                throw new IllegalArgumentException("De foto mag niet leeg zijn !!");
+            } else {
+                foto = (Blob) imgViewFoto.getImage();
+            }
 
+        }
     }
 
     private void maakLabelsTerugNormaal() {
 
-        lblNaam.setText("Naam");
+        lblNaam.setText("Naam*");
         lblNaam.setTextFill(Color.web("#000000"));
         lblArtikelnummer.setText("Artikelnummer vd firma");
         lblArtikelnummer.setTextFill(Color.web("#000000"));
         lblPrijs.setText("Prijs");
         lblPrijs.setTextFill(Color.web("#000000"));
-        lblAantal.setText("Aantal");
+        lblAantal.setText("Aantal*");
         lblAantal.setTextFill(Color.web("#000000"));
     }
 
     private boolean isInputValid() {
-        
+
+        String message = "";
         boolean c = true;
         int teller = 0;
-
-        if (txtAantal.getText().equals("") || Integer.parseInt(txtAantal.getText()) < 0) {
-            lblAantal.setText("Aantal*");
-            lblAantal.setTextFill(Color.web("#F20000"));
-            teller++;
-            c = false;
-        }
 
         if (txtNaam.getText().equals("")) {
             lblNaam.setText("Naam*");
             lblNaam.setTextFill(Color.web("#F20000"));
             teller++;
             c = false;
+            message += "Naam is verplicht\n";
         }
+
+        if (dc.isNaamUniek(txtNaam.getText())) {
+            lblNaam.setText("Naam*");
+            lblNaam.setTextFill(Color.web("#F20000"));
+            teller++;
+            c = false;
+            message += "Naam moet uniek zijn\n";
+        }
+
+        if (txtAantal.getText().equals("")) {
+            lblAantal.setText("Aantal*");
+            lblAantal.setTextFill(Color.web("#F20000"));
+            teller++;
+            c = false;
+            message += "Aantal is verplicht\n";
+        }
+
+        if (Helper.isInteger(txtAantal.getText())) {
+            if (Integer.parseInt(txtAantal.getText()) < 0) {
+                lblAantal.setText("Aantal*");
+                lblAantal.setTextFill(Color.web("#F20000"));
+                teller++;
+                c = false;
+                message += "Aantal moet groter zijn dan nul\n";
+            }
+        } else {
+
+            lblAantal.setText("Aantal*");
+            lblAantal.setTextFill(Color.web("#F20000"));
+            teller++;
+            c = false;
+            message += "Aantal moet een getal zijn\n";
+
+        }
+
         if (!txtArtikelnummer.getText().equals("")) {
 
-            if (!Helper.isInteger(txtArtikelnummer.getText()) || Integer.parseInt(txtArtikelnummer.getText()) < 0) {
+            if (!Helper.isInteger(txtArtikelnummer.getText())) {
                 lblArtikelnummer.setText("Artikelnummer vd firma*");
                 lblArtikelnummer.setTextFill(Color.web("#F20000"));
                 teller++;
                 c = false;
+                message += "Artikelnummer moet een getal zijn\n";
+            } else if (Integer.parseInt(txtArtikelnummer.getText()) < 0) {
+                lblArtikelnummer.setText("Artikelnummer vd firma*");
+                lblArtikelnummer.setTextFill(Color.web("#F20000"));
+                teller++;
+                c = false;
+                message += "Artikelnummer moet groter zijn dan nul\n";
             }
         }
 
         if (!txtPrijs.getText().equals("")) {
-            if (!Helper.isDouble(txtPrijs.getText()) || Double.parseDouble(txtPrijs.getText()) < 0.0) {
+            if (!Helper.isDouble(txtPrijs.getText())) {
                 lblPrijs.setText("Prijs*");
                 lblPrijs.setTextFill(Color.web("#F20000"));
                 teller++;
                 c = false;
+                message += "Prijs moet een getal zijn\n";
+            } else if (Double.parseDouble(txtPrijs.getText()) < 0.0) {
+                lblPrijs.setText("Prijs*");
+                lblPrijs.setTextFill(Color.web("#F20000"));
+                teller++;
+                c = false;
+                message += "Prijs moet groter zijn dan nul\n";
             }
         }
 
         aantalVerkeerd = teller;
-
+        error = message;
         return c;
 
     }
 
     @FXML
     private void verwijderProduct(ActionEvent event) {
-          Stage stage = new Stage();
+        Stage stage = new Stage();
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmatie");
