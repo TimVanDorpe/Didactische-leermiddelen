@@ -144,30 +144,7 @@ public class OverzichtProductenController extends BorderPane implements Observer
     }
     
     
-    @FXML
-    private void verwijderProduct(ActionEvent event) {
-        Stage stage = new Stage();
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmatie");
-        alert.setHeaderText("Product verwijderen");
-        alert.setContentText("U staat op het punt om dit product te verwijderen. Weet u het zeker?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            // OK
-
-            dc.verwijderProduct(tblProducten.getSelectionModel().getSelectedItem());
-
-        } else {
-            // Niet OK
-
-            stage.close();
-
-        }
-
-        stage.close();
-    }
+   
 
  
 

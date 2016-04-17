@@ -40,6 +40,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 
 public class ProductDetailController extends Pane implements Observer {
@@ -107,6 +108,8 @@ public class ProductDetailController extends Pane implements Observer {
     String naam, omschrijving, firmaNaam, firmaEmail, plaats, error;
     int artikelnummer, aantal, aantalVerkeerd;
     double prijs;
+    @FXML
+    private Button btnVerwijderen;
 
     public ProductDetailController(ProductController dc) {
         // TODO
@@ -256,7 +259,7 @@ public class ProductDetailController extends Pane implements Observer {
 
     @FXML
     private void annuleerWijziging(ActionEvent event) {
-        // update ??? welke argumenten
+        dc.updateDetailvenster();
     }
 
 
@@ -320,12 +323,16 @@ public class ProductDetailController extends Pane implements Observer {
 
         // hier dan instellen en throws voor als ze afzonderlijk fout zijn
 
+        
+        
         if (txtNaam.getText().equals("")) {
             throw new IllegalArgumentException("Naam is verplicht");
+        }if(dc.isNaamUniek(txtNaam.getText())){
+            throw new IllegalArgumentException("Naam bestaat al");
         }
-
+        
         this.naam = txtNaam.getText();
-
+        
         this.omschrijving = txtOmschrijving.getText();
 
         this.artikelnummer = 0;
@@ -438,5 +445,30 @@ public class ProductDetailController extends Pane implements Observer {
 
         return c;
 
+    }
+
+    @FXML
+    private void verwijderProduct(ActionEvent event) {
+          Stage stage = new Stage();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmatie");
+        alert.setHeaderText("Product verwijderen");
+        alert.setContentText("U staat op het punt om dit product te verwijderen. Weet u het zeker?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            // OK
+
+            dc.verwijderProduct();
+
+        } else {
+            // Niet OK
+
+            stage.close();
+
+        }
+
+        stage.close();
     }
 }

@@ -278,4 +278,10 @@ public class ProductBeheer {
     
     
     //EINDE LEERGEBIEDEN
+
+    boolean isNaamUniek(String naam) {
+        return productenLijst.stream().anyMatch(p-> p.getNaam().equals(naam)) ;
+    }
+
+   
 }

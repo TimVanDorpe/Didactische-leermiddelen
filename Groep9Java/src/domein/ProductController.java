@@ -55,8 +55,8 @@ public class ProductController extends Observable {
         notifyObservers();
     }
 
-    public void verwijderProduct(Product p) {
-        pb.verwijderProduct(p);
+    public void verwijderProduct() {
+        pb.verwijderProduct(huidigProduct);
     }
 
     public SortedList<Product> getProductSortedList() {
@@ -145,5 +145,14 @@ public class ProductController extends Observable {
 
     public boolean getSelectionModelEmpty() {
         return selectionModelEmpty;
+    }
+
+    public boolean isNaamUniek(String naam) {
+        return pb.isNaamUniek(naam);
+    }
+
+    public void updateDetailvenster() {
+        setChanged();
+        notifyObservers(huidigProduct);
     }
 }
