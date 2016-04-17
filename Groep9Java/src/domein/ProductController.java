@@ -36,6 +36,10 @@ public class ProductController extends Observable {
         pb.voegProductToe(new Product(leergebied, doelgroep, firma, naam, omschrijving, artikelnummer, prijs, aantal, plaats));
     }
 
+    public Product getHuidigProduct() {
+        return huidigProduct;
+    }
+
    
 
     public Product getProduct(int artikelnummer) {
@@ -155,4 +159,7 @@ public class ProductController extends Observable {
         setChanged();
         notifyObservers(huidigProduct);
     }
+    
+    
+   
 }

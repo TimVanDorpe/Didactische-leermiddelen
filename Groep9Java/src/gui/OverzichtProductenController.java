@@ -152,5 +152,6 @@ public class OverzichtProductenController extends BorderPane implements Observer
     private void enableSelectionModel(MouseEvent event) {
          dc.setSelectionModelEmpty(false);
     }
+    
 
 }

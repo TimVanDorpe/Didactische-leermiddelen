@@ -211,10 +211,10 @@ public class ProductDetailController extends Pane implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (arg != null) {
-            
+
             lblError.setText("");
             maakLabelsTerugNormaal();
-            
+
             Product product = (Product) arg;
             txtAantal.setText(Integer.toString(product.getAantal()));
             txtArtikelnummer.setText(Integer.toString(product.getArtikelnummer()));
@@ -313,7 +313,6 @@ public class ProductDetailController extends Pane implements Observer {
             throw new IllegalArgumentException("Een aantal velden zijn niet correct ingevuld");
         }
 
-        
         //specifieke message
         if (!isInputValid()) {
             throw new IllegalArgumentException(error);
@@ -393,13 +392,14 @@ public class ProductDetailController extends Pane implements Observer {
             c = false;
             message += "Naam is verplicht\n";
         }
-
-        if (dc.isNaamUniek(txtNaam.getText())) {
-            lblNaam.setText("Naam*");
-            lblNaam.setTextFill(Color.web("#F20000"));
-            teller++;
-            c = false;
-            message += "Naam moet uniek zijn\n";
+        if (!dc.getHuidigProduct().getNaam().equals(txtNaam.getText())) {
+            if (dc.isNaamUniek(txtNaam.getText())) {
+                lblNaam.setText("Naam*");
+                lblNaam.setTextFill(Color.web("#F20000"));
+                teller++;
+                c = false;
+                message += "Naam moet uniek zijn\n";
+            }
         }
 
         if (txtAantal.getText().equals("")) {

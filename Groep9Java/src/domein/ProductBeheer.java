@@ -31,6 +31,8 @@ public class ProductBeheer {
     private SortedList<Product> sortedList;
     
 
+    private Product geselecteerdProduct;
+    
     //hier alle comparators
     private final Comparator<Product> byNaam = (p1, p2) -> p1.getNaam().compareToIgnoreCase(p2.getNaam());
     // alle comparators in de juiste volgorde, de volgorde waarop wordt gesorteerd.
@@ -121,7 +123,7 @@ public class ProductBeheer {
          gdj.startTransaction();
         Collections.replaceAll(productenLijst , huidigProduct , p);
         gdj.update(p);
- //       gdj.commitTransaction();
+        gdj.commitTransaction();
         
 //        for (Product p : productenLijst) {
 //            if (p.getArtikelnummer() == product.getArtikelnummer()) {
@@ -283,5 +285,6 @@ public class ProductBeheer {
         return productenLijst.stream().anyMatch(p-> p.getNaam().equals(naam)) ;
     }
 
+    
    
 }
