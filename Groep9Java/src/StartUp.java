@@ -1,4 +1,6 @@
 
+import domein.BeheerderBeheer;
+import domein.ProductData;
 import domein.ProductController;
 import domein.ProductBeheer;
 import gui.ProductenFrameController;
@@ -16,6 +18,7 @@ public class StartUp extends Application {
 
     @Override
     public void start(Stage stage) {
+        
         Scene scene = new Scene(new ProductenFrameController(new ProductController()));
         stage.setScene(scene);
         stage.setTitle("Didactische leermiddelen");

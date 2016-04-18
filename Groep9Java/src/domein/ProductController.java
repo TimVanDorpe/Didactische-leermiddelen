@@ -15,7 +15,6 @@ public class ProductController extends Observable {
 
  
 
-    private Gebruiker aangemeldeGebruiker;
     private Product huidigProduct;
     private ProductBeheer pb;
     private boolean selectionModelEmpty;
