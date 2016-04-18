@@ -6,19 +6,24 @@
 package gui;
 
 import domein.Product;
-import domein.DomeinController;
+import domein.ProductController;
 import java.io.IOException;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -27,7 +32,7 @@ import javafx.stage.Stage;
  *
  * @author Thomas
  */
-public class OverzichtProductenController  extends BorderPane implements Observer{
+public class OverzichtProductenController extends BorderPane implements Observer {
 
     @FXML
     private TableView<Product> tblProducten;
@@ -39,8 +44,8 @@ public class OverzichtProductenController  extends BorderPane implements Observe
     private TableColumn<Product, String> clmAantal;
     @FXML
     private TableColumn<Product, String> clmPlaats;
-    
-     private DomeinController dc;
+
+    private ProductController dc;
     @FXML
     private Button btnToevoegen;
     @FXML
@@ -50,10 +55,14 @@ public class OverzichtProductenController  extends BorderPane implements Observe
     @FXML
     private TextField txtTrefwoord;
 
-    public OverzichtProductenController(DomeinController domeinController) {
+//        @FXML
+//    private Button btnVerwijder;
+    
+
+    public OverzichtProductenController(ProductController domeinController) {
         this.dc = domeinController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtProducten.fxml"));
-        
+
         loader.setRoot(this);
         loader.setController(this);
         try {
@@ -72,68 +81,77 @@ public class OverzichtProductenController  extends BorderPane implements Observe
         clmPlaats.setCellValueFactory(
                 cellData -> cellData.getValue().plaatsProperty());
 
-       
-        tblProducten.getSelectionModel().selectedItemProperty().addListener((ObservableValue,oldValue,newValue) -> {
-            if(newValue!= null){
+        tblProducten.getSelectionModel().selectedItemProperty().addListener((ObservableValue, oldValue, newValue) -> {
+            if (newValue != null) {
                 domeinController.setGeselecteerdProduct(newValue);
             }
         });
 
         tblProducten.setItems(domeinController.getProductSortedList());
+        if (tblProducten.getSelectionModel().isEmpty()) {
+            dc.setSelectionModelEmpty(true);
+            //btnVerwijder.setDisable(true);
+        } else {
+            dc.setSelectionModelEmpty(false);
+        }
     }
-
-   
-    
 
     @Override
     public void update(Observable o, Object arg) {
-       tblProducten.setItems(dc.getProductSortedList());
+        tblProducten.setItems(dc.getProductSortedList());
+       // btnVerwijder.setDisable(false);
     }
 
     @FXML
     private void naarProductPagina(ActionEvent event) {
-        
+
         Stage stage = new Stage();
         stage.setTitle("Product toevoegen");
 
         Scene scene = new Scene(new ProductToevoegenController(dc));
         stage.setScene(scene);
 
-        
         //this.setDisable(true);
-        
-        
         stage.show();
-        
-        
-        
-        
-        
+
     }
 
     @FXML
     private void zoekOpTrefwoord(ActionEvent event) {
-        
+
         String trefwoord = txtTrefwoord.getText();
         tblProducten.setItems(dc.zoekOpTrefwoord(trefwoord));
-                
+
     }
 
     @FXML
     private void geavanceerdZoeken(ActionEvent event) {
-          Stage stage = new Stage();
+        Stage stage = new Stage();
         stage.setTitle("Geavanceerd zoeken");
 
         Scene scene = new Scene(new ProductZoekFilterController(dc));
         stage.setScene(scene);
 
-        
         //this.setDisable(true);
-        
-        
         stage.show();
-        
+
+    }
+
+    @FXML
+    private void geefAllesWeer(ActionEvent event) {
+        dc.geefAlleProductenWeer();
+       tblProducten.setItems(dc.getProductSortedList());
     }
     
     
+   
+
+ 
+
+    @FXML
+    private void enableSelectionModel(MouseEvent event) {
+         dc.setSelectionModelEmpty(false);
+    }
+    
+
 }

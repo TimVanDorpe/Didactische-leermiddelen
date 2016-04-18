@@ -5,7 +5,7 @@
  */
 package gui;
 
-import domein.DomeinController;
+import domein.ProductController;
 import domein.Leergebied;
 import java.io.IOException;
 import javafx.collections.ListChangeListener;
@@ -32,9 +32,9 @@ class LeergebiedSelecterenController extends GridPane {
     @FXML
     private ListView<String> alleLeergebieden, toegevoegdeLeergebieden;
 
-    public DomeinController dc;
+    public ProductController dc;
 
-    public LeergebiedSelecterenController(DomeinController dc) {
+    public LeergebiedSelecterenController(ProductController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("LeergebiedSelecteren.fxml"));
         this.dc = dc;
         loader.setRoot(this);

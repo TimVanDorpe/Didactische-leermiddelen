@@ -5,23 +5,18 @@
  */
 package gui;
 
-import domein.Doelgroep;
-import domein.Firma;
-import domein.Leergebied;
-import domein.DomeinController;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import domein.ProductController;
+import util.Helper;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -31,7 +26,7 @@ import javafx.scene.paint.Color;
 
  
 public class ProductZoekFilterController extends Pane{
-private DomeinController domeinController;
+private ProductController domeinController;
     @FXML
     private Button btnAnnuleer;
     @FXML
@@ -63,8 +58,17 @@ private DomeinController domeinController;
 
   
 
-    ProductZoekFilterController(DomeinController domeinController) {
+    ProductZoekFilterController(ProductController domeinController) {
         this.domeinController = domeinController;
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("ProductZoekFilter.fxml"));
+       
+        loader.setRoot(this);
+        loader.setController(this);
+        try {
+            loader.load();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     
@@ -74,42 +78,54 @@ private DomeinController domeinController;
 
     @FXML
     private void annuleer(ActionEvent event) {
+         Stage stage = (Stage) btnAnnuleer.getScene().getWindow();
+        // do what you have to do
+        stage.close();
     }
 
     @FXML
     private void filterProducten(ActionEvent event) {
-          try{
+//          try{
         String trefwoord = txtNaam.getText();
       
         
-        int artikkelnummer = 0;
-        if(txtArtikelnummer.getText() != null || !txtArtikelnummer.getText().equals("")){
-            artikkelnummer = Integer.parseInt(txtArtikelnummer.getText());
-        }
-        double prijs = 0.0;
+        int artikelnummer = -1;
+        if (!txtArtikelnummer.getText().equals("")) {
+
+                if (!Helper.isInteger(txtArtikelnummer.getText())) {
+                    throw new IllegalArgumentException("artikelnummer moet een getal zijn");
+                }
+
+                artikelnummer = Integer.parseInt(txtArtikelnummer.getText());
+            }
+       
 //        if(txtPrijs.getText() != null || !txtPrijs.getText().equals("")){
 //            prijs = Double.parseDouble(txtPrijs.getText());
 //        }
-        int aantal = 0;
-        if(txtAantal.getText() != null || !txtAantal.getText().equals("")){
-           aantal = Integer.parseInt(txtAantal.getText());
-        }else{
-            throw new IllegalArgumentException("Aantal mag niet leeg zijn.");
-        }
-       
+      
+         double vanPrijs = -1;
+         double totPrijs = -1;
+        if (!txfVanPrijs.getText().equals("") && !txfTotPrijs.getText().equals("")) {
+                 if (!Helper.isDouble(txfVanPrijs.getText()) && !Helper.isDouble(txfTotPrijs.getText())) {
+                    throw new IllegalArgumentException("prijs moet een getal zijn");
+                }
+                vanPrijs = Double.parseDouble(txfVanPrijs.getText());
+                totPrijs = Double.parseDouble(txfTotPrijs.getText());
+            }
         String plaats = txtPlaats.getText();
-        Firma firma = new Firma(txtFirma.getText() , txtEmailFirma.getText());
-        Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
-        Leergebied leergebied = new Leergebied(txtLeergebieden.getText());
-        Leergebied leergebied2 = new Leergebied(txtLeergebieden.getText());
-        List<Leergebied> leergebieden = new ArrayList<>();
-        leergebieden.add(leergebied);
-        leergebieden.add(leergebied2);
-        //dc.voegProductToe(naam, naam, omschrijving, artikkelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
-         }catch(Exception e){
-             lblError.setText(e.toString());
-             lblError.setTextFill(Color.web("#F20000"));
-         }
+        String firma = txtFirma.getText();
+        String email = txtEmailFirma.getText();
+        String doelgroep = txtDoelgroepen.getText();
+        String leergebieden = txtLeergebieden.getText();
+     
+        domeinController.filterProductLijst(trefwoord, artikelnummer, vanPrijs, totPrijs, plaats, firma,email, doelgroep, leergebieden);
+         Stage stage = (Stage) this.getScene().getWindow();
+        // do what you have to do
+        stage.close();
+//         }catch(Exception e){
+//             lblError.setText(e.toString());
+//             lblError.setTextFill(Color.web("#F20000"));
+//         }
     }
 
    

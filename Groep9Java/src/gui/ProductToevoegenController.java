@@ -8,8 +8,8 @@ package gui;
 import domein.Doelgroep;
 import domein.Firma;
 import domein.Leergebied;
-import domein.DomeinController;
-import domein.Helper;
+import domein.ProductController;
+import util.Helper;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -65,7 +65,7 @@ public class ProductToevoegenController extends Pane {
     @FXML
     private Button btnAnnuleer;
 
-    private DomeinController dc;
+    private ProductController dc;
     @FXML
     private CheckBox uitleenbaarheid;
 
@@ -80,7 +80,7 @@ public class ProductToevoegenController extends Pane {
     /**
      * Initializes the controller class.
      */
-    public ProductToevoegenController(DomeinController dc) {
+    public ProductToevoegenController(ProductController dc) {
         // TODO
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ProductToevoegen.fxml"));
@@ -146,18 +146,22 @@ public class ProductToevoegenController extends Pane {
             leergebieden.add(leergebied);
             leergebieden.add(leergebied2);
 
-            // do what you have to do
-            Blob foto;
+            String foto;
             if (imgViewFoto == null) {
-                throw new IllegalArgumentException("De foto mag niet leeg zijn !!");
+              
+                dc.voegProductToeZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
             } else {
-                foto = (Blob) imgViewFoto.getImage();
+                foto = imgViewFoto.getImage().impl_getUrl();
+                dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
             }
 
             lblError.setText(""); // errortekst clearen
           
-            dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep,dc.getToegevoegd());
 
+            
+            
+            
+            
             stage.close();
 
         } catch (NullPointerException ex) {
@@ -232,6 +236,8 @@ public class ProductToevoegenController extends Pane {
         
         
     }
+    
+    
     
     
     

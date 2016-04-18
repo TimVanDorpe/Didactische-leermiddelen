@@ -1,6 +1,6 @@
 package gui;
 
-import domein.DomeinController;
+import domein.ProductController;
 import javafx.scene.layout.HBox;
 
 public class ProductenFrameController extends HBox {
@@ -8,9 +8,9 @@ public class ProductenFrameController extends HBox {
     private OverzichtProductenController overzichtPanel;
     private ProductDetailController detailPanelController;
 
-    private DomeinController domeinController;
+    private ProductController domeinController;
     
-    public ProductenFrameController(DomeinController domeinController) {
+    public ProductenFrameController(ProductController domeinController) {
         this.domeinController = domeinController;
         overzichtPanel = new OverzichtProductenController(domeinController);
         

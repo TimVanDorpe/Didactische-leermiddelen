@@ -11,65 +11,65 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class DomeinController extends Observable {
-    
-    public final String PERSISTENCE_UNIT_NAME = "Groep09";
-    private EntityManager em;
-    private EntityManagerFactory emf;
-    
-    private Gebruiker aangemeldeGebruiker;
-    private Product product;
-    private ProductBeheer pb;
-    
-    public DomeinController() {
-        openPersistentie();
-        pb = new ProductBeheer(em, emf);
-        
-    }
-    
-    private void openPersistentie() {
-        emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-        em = emf.createEntityManager();
-    }
-    
-    public void closePersistentie() {
-        em.close();
-        emf.close();
-    }
+public class ProductController extends Observable {
 
-    public void voegProductToe(Blob foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, ObservableList<Leergebied> leergebied) {
+ 
+
+    private Gebruiker aangemeldeGebruiker;
+    private Product huidigProduct;
+    private ProductBeheer pb;
+    private boolean selectionModelEmpty;
+
+    public ProductController() {
+        
+        pb = new ProductBeheer();
+
+    }    
+
+    public void voegProductToe(String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, List<Leergebied> leergebied) {
 
         pb.voegProductToe(new Product(leergebied, doelgroep, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats));
     }
-    public void voegProductToeZonderFoto(String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, ObservableList<Leergebied> leergebied) {
+
+    public void voegProductToeZonderFoto(String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, List<Leergebied> leergebied) {
 
         pb.voegProductToe(new Product(leergebied, doelgroep, firma, naam, omschrijving, artikelnummer, prijs, aantal, plaats));
     }
-    
-    public List<Product> geefOverzichtProducten() {
-        return pb.geefOverzichtProducten();
+
+    public Product getHuidigProduct() {
+        return huidigProduct;
     }
-    
+
+   
+
     public Product getProduct(int artikelnummer) {
         return pb.getProduct(artikelnummer);
     }
 
-    public void wijzigProduct(Blob foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, List<Leergebied> leergebied) {
-        pb.wijzigProduct(new Product(leergebied, doelgroep, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats));
+    public void wijzigProduct(String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, List<Leergebied> leergebied) {
+        pb.wijzigProduct(new Product(leergebied, doelgroep, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats), huidigProduct);
+         setChanged();
         notifyObservers();
     }
-     public void wijzigProductZonderFoto(String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, List<Leergebied> leergebied) {
-        pb.wijzigProduct(new Product(leergebied, doelgroep, firma, naam, omschrijving, artikelnummer, prijs, aantal, plaats));
+
+    public void wijzigProductZonderFoto(String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, List<Leergebied> leergebied) {
+        Product nieuwProduct = new Product(leergebied, doelgroep, firma, naam, omschrijving, artikelnummer, prijs, aantal, plaats);
+        pb.wijzigProduct(nieuwProduct, huidigProduct);
+         setChanged();
         notifyObservers();
     }
-    
+
+    public void verwijderProduct() {
+        pb.verwijderProduct(huidigProduct);
+    }
+
     public SortedList<Product> getProductSortedList() {
         //Wrap the FilteredList in a SortedList
-        return pb.getProductSortedList(); //SortedList is unmodifiable
+        return pb.getSortedList(); //SortedList is unmodifiable
     }
 
     public void setGeselecteerdProduct(Product product) {
-        this.product = product;
+        this.huidigProduct = product;
         setChanged();
         notifyObservers(product);
     }
@@ -78,11 +78,11 @@ public class DomeinController extends Observable {
     public ObservableList<Leergebied> getLeergebieden() {
         return pb.getLeergebieden();
     }
-    
+
     public ObservableList<Leergebied> getToegevoegd() {
         return pb.getToegevoegd();
     }
-    
+
 //    public boolean geenToegevoegd() {
 //        return pb.geenToegevoegd();
 //    }
@@ -90,31 +90,31 @@ public class DomeinController extends Observable {
 //    public boolean geenLeergebieden() {
 //        return pb.geenLeergebieden();
 //    }
-    
     public void voegLeergebiedToe(Leergebied naam) {
         pb.voegLeergebiedToe(naam);
     }
-    
+
     public void verwijderLeergebied(Leergebied selectedItem) {
         pb.verwijderLeergebied(selectedItem);
     }
+
     //String methoden
     public ObservableList<String> getStringLeergebieden() {
         return pb.getStringLeergebieden();
     }
-    
+
     public ObservableList<String> getStringLeergebiedenToegevoegd() {
         return pb.getStringLeergebiedenToegevoegd();
     }
-    
+
     public void voegLeergebiedToeString(String naam) {
         pb.voegLeergebiedToeString(naam);
     }
-    
+
     public void verwijderLeergebiedString(String naam) {
         pb.verwijderLeergebiedString(naam);
     }
-    
+
     public Leergebied getLeergebiedFromString(String naam) {
         return pb.getLeergebiedFromString(naam);
     }
@@ -123,9 +123,43 @@ public class DomeinController extends Observable {
         return pb.getLeergebiedToegevoegdFromString(naam);
     }
     //EINDE LEERGEBIED
-    
+
     public ObservableList<Product> zoekOpTrefwoord(String trefwoord) {
         return pb.zoekOpTrefwoord(trefwoord);
     }
+    
+    public void filterProductLijst( String trefwoord, int artikelnummer, double vanPrijs, double totPrijs,  String plaats, String firma, String email,String doelgroep, String leergebied ){
+         pb.filterProductLijst( trefwoord,  artikelnummer,vanPrijs ,totPrijs ,   plaats,  firma, email,  doelgroep,  leergebied );
+        setChanged();
+         notifyObservers();
+    }
 
+   
+
+    public void geefAlleProductenWeer() {
+      pb.geefAlleProducten();
+       
+    }
+
+   
+
+    public void setSelectionModelEmpty(boolean b) {
+        selectionModelEmpty = b;
+    }
+
+    public boolean getSelectionModelEmpty() {
+        return selectionModelEmpty;
+    }
+
+    public boolean isNaamUniek(String naam) {
+        return pb.isNaamUniek(naam);
+    }
+
+    public void updateDetailvenster() {
+        setChanged();
+        notifyObservers(huidigProduct);
+    }
+    
+    
+   
 }

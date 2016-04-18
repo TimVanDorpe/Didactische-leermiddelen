@@ -8,41 +8,41 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root prefHeight="650.0" prefWidth="850.0" type="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="751.0" prefWidth="514.0" type="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="lblError" layoutX="274.0" layoutY="611.0" prefHeight="25.0" prefWidth="190.0" />
+      <Label fx:id="lblError" layoutX="64.0" layoutY="581.0" prefHeight="25.0" prefWidth="400.0" />
       <Label layoutX="24.0" layoutY="14.0" prefHeight="40.0" prefWidth="240.0" text="Details Materiaal">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
-      <Button fx:id="btnAnnuleer" layoutX="68.0" layoutY="596.0" mnemonicParsing="false" onAction="#resetWaarden" prefHeight="30.0" prefWidth="190.0" text="Reset waarden" />
-      <Button fx:id="btnFoto" layoutX="56.0" layoutY="79.0" mnemonicParsing="false" onAction="#fotoToevoegen" prefHeight="30.0" prefWidth="190.0" text="Foto toevoegen" />
-      <Button fx:id="btnToevoegen" layoutX="274.0" layoutY="596.0" mnemonicParsing="false" onAction="#wijzigProduct" prefHeight="30.0" prefWidth="190.0" text="Wijzig product" />
-      <GridPane layoutX="68.0" layoutY="153.0" prefHeight="430.0" prefWidth="396.0">
+      <Button fx:id="btnLeegmaken" layoutX="64.0" layoutY="668.0" mnemonicParsing="false" onAction="#resetWaarden" prefHeight="30.0" prefWidth="190.0" text="Alle velden leeg maken" />
+      <Button fx:id="btnFoto" layoutX="56.0" layoutY="79.0" mnemonicParsing="false" onAction="#fotoToevoegen" prefHeight="30.0" prefWidth="190.0" text="Foto toevoegen..." />
+      <Button fx:id="btnWijzigen" layoutX="274.0" layoutY="631.0" mnemonicParsing="false" onAction="#wijzigProduct" prefHeight="30.0" prefWidth="190.0" text="Product wijzigen" />
+      <GridPane layoutX="64.0" layoutY="153.0" prefHeight="420.0" prefWidth="400.0">
          <children>
-            <Label text="Omschrijving" GridPane.rowIndex="1" />
-            <Label text="Artikelnummer van de firma" GridPane.rowIndex="2" />
-            <Label text="Prijs" GridPane.rowIndex="3" />
-            <Label text="Aantal" GridPane.rowIndex="4" />
+            <Label fx:id="lblOmschrijving" text="Omschrijving" GridPane.rowIndex="1" />
+            <Label fx:id="lblArtikelnummer" text="Artikelnummer vd firma" GridPane.rowIndex="7" />
+            <Label fx:id="lblPrijs" text="Prijs" GridPane.rowIndex="3" />
+            <Label fx:id="lblAantal" text="Aantal*" GridPane.rowIndex="4" />
             <Label GridPane.rowIndex="5" />
-            <Label text="Firma" GridPane.rowIndex="6" />
-            <Label text="E-mailadres contactpersoon firma" GridPane.rowIndex="8" />
-            <Label text="Doelgroepen" GridPane.rowIndex="9" />
-            <Label prefHeight="20.0" prefWidth="74.0" text="Leergebieden" GridPane.rowIndex="10" />
+            <Label fx:id="lblFirma" text="Firma" GridPane.rowIndex="6" />
+            <Label fx:id="lblEmail" text="E-mail firma" GridPane.rowIndex="8" />
+            <Label fx:id="lblDoelgroepen" text="Doelgroepen" GridPane.rowIndex="9" />
+            <Label fx:id="lblLeergebieden" text="Leergebieden" GridPane.rowIndex="10" />
             <TextField fx:id="txtNaam" layoutY="-50.0" GridPane.columnIndex="1" />
             <TextArea fx:id="txtOmschrijving" layoutY="-50.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="txtArtikelnummer" layoutY="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtArtikelnummer" layoutY="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <TextField fx:id="txtPrijs" layoutY="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="txtAantal" layoutY="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="txtFirma" layoutY="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="txtEmailFirma" layoutY="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <TextField fx:id="txtDoelgroepen" layoutY="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <Label text="Naam" />
+            <Label fx:id="lblNaam" prefHeight="21.0" prefWidth="106.0" text="Naam*" />
             <CheckBox fx:id="uitleenbaarheid" mnemonicParsing="false" text="Uitleenbaarheid" GridPane.rowIndex="5" />
-            <Label text="Plaats" GridPane.rowIndex="7" />
-            <TextField fx:id="txtPlaats" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <ListView fx:id="listLeergebieden" prefHeight="57.0" prefWidth="231.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <Label fx:id="lblPlaats" text="Plaats" GridPane.rowIndex="2" />
+            <TextField fx:id="txtPlaats" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="236.0" />
@@ -51,8 +51,8 @@
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="89.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="29.0" minHeight="10.0" prefHeight="26.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="42.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
@@ -63,5 +63,8 @@
          </rowConstraints>
       </GridPane>
       <ImageView fx:id="imgViewFoto" fitHeight="130.0" fitWidth="157.0" layoutX="307.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="btnAnnuleer" layoutX="64.0" layoutY="631.0" mnemonicParsing="false" onAction="#annuleerWijziging" prefHeight="30.0" prefWidth="190.0" text="Annuleer" />
+      <Button fx:id="btnToevoegen" layoutX="274.0" layoutY="668.0" mnemonicParsing="false" onAction="#voegProductToe" prefHeight="30.0" prefWidth="190.0" text="Product toevoegen" />
+      <Button fx:id="btnVerwijderen" layoutX="274.0" layoutY="706.0" mnemonicParsing="false" onAction="#verwijderProduct" prefHeight="30.0" prefWidth="190.0" text="Product verwijderen" />
    </children>
 </fx:root>

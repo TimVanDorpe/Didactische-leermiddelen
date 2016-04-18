@@ -7,16 +7,17 @@ package domein;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
-import javax.persistence.CascadeType;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.OneToMany;
-import persistentie.PersistentieController;
+import util.GenericDao;
+import util.GenericDaoJpa;
+
 
 /**
  *
@@ -25,19 +26,21 @@ import persistentie.PersistentieController;
 public class ProductBeheer {
 
     private ObservableList<Product> productenLijst = FXCollections.observableArrayList();
-    private Product product;
-    private List<Product> producten = new ArrayList<>();
-    private PersistentieController persistentieController;
-    private SortedList<Product> sortedList;
+    private Product product;     
 
+    private SortedList<Product> sortedList;
+    
+
+    private Product geselecteerdProduct;
+    
     //hier alle comparators
     private final Comparator<Product> byNaam = (p1, p2) -> p1.getNaam().compareToIgnoreCase(p2.getNaam());
     // alle comparators in de juiste volgorde, de volgorde waarop wordt gesorteerd.
     private final Comparator<Product> sortOrder = byNaam;
-
-    private EntityManager em;
-    private EntityManagerFactory emf;
-
+    
+    private GenericDaoJpa gdj;
+    
+    
     Leergebied mens = new Leergebied("Mens");
     Leergebied maatschapij = new Leergebied("Maatschappij");
     Leergebied geschiedenis = new Leergebied("Geschiedenis");
@@ -49,12 +52,8 @@ public class ProductBeheer {
     private ObservableList<String> listStringLeergebieden;
     private ObservableList<String> listStringLeergebiedenToegevoegd;
 
-    public ProductBeheer(EntityManager em, EntityManagerFactory emf) {
-        this(em, emf, new PersistentieController());
-        productenLijst = FXCollections.observableArrayList(producten);
-        sortedList = productenLijst.sorted(sortOrder);
-    }
 
+    
 //    public ProductBeheer(EntityManager em, EntityManagerFactory emf) {
 //        this(em, emf, new PersistentieController());
 //
@@ -67,14 +66,17 @@ public class ProductBeheer {
 //        productenLijst = FXCollections.observableArrayList(producten);
 //        sortedList = productenLijst.sorted(sortOrder);
 //    }
-    public ProductBeheer(EntityManager em, EntityManagerFactory emf, PersistentieController pc) {
-        this.em = em;
-        this.emf = emf;
-
-        this.persistentieController = pc;
+    
+    public ProductBeheer(){
+        
+        gdj = new GenericDaoJpa(Product.class);
+       
         InitData data = new InitData(this);
-        data.maakProducten();
+        data.maakProducten();        
+        
+        sortedList = productenLijst.sorted(sortOrder);
 
+        
         leergebieden = FXCollections.observableArrayList(Arrays.asList(leergebiedenArray));
         leergebiedenToegevoegd = FXCollections.observableArrayList();
         listStringLeergebieden = FXCollections.observableArrayList();
@@ -82,53 +84,116 @@ public class ProductBeheer {
 
     }
 
-    public SortedList<Product> getProductSortedList() {
+    public void setGdj(GenericDaoJpa gdj) {
+        this.gdj = gdj;
+    }
+    
+    
+    
+
+    public SortedList<Product> getSortedList() {
+       
         //Wrap the FilteredList in a SortedList
         return sortedList; //SortedList is unmodifiable
     }
 
+    public void setSortedList(SortedList<Product> sortedList) {
+        this.sortedList = sortedList;
+    }
+    
+    
+
     public void voegProductToe(Product product) {
-        em.getTransaction().begin();
-        productenLijst.add(product);
-        producten.add(product);
-        em.persist(product);
-        em.getTransaction().commit();
-
+        gdj.startTransaction();
+        productenLijst.add(product);  
+        gdj.insert(product);
+        gdj.commitTransaction();
+        
     }
 
-    public List<Product> geefOverzichtProducten() {
-
-        return producten;
-    }
-
+    
     public Product getProduct(int artikelnummer) {
-        return producten.get(artikelnummer);
+        return productenLijst.get(artikelnummer);
     }
 
-    public void wijzigProduct(Product product) {
-
-        for (Product p : productenLijst) {
-            if (p.getArtikelnummer() == product.getArtikelnummer()) {
-                productenLijst.remove(p);
-                productenLijst.add(product);
-            }
-        }
+    public void wijzigProduct(Product p, Product huidigProduct) {
+         gdj.startTransaction();
+        Collections.replaceAll(productenLijst , huidigProduct , p);
+        gdj.update(p);
+        gdj.commitTransaction();
+        
+//        for (Product p : productenLijst) {
+//            if (p.getArtikelnummer() == product.getArtikelnummer()) {
+//                productenLijst.remove(p);
+//                productenLijst.add(product);
+//            }
+//        }
 
     }
+    
+    public void verwijderProduct(Product p){
+        gdj.startTransaction();
+        productenLijst.remove(p);
+        gdj.delete(p);
+        gdj.commitTransaction();
+    }
+    
 
     public ObservableList<Product> zoekOpTrefwoord(String trefwoord) {
         ObservableList<Product> productenLijstMetTrefwoord = FXCollections.observableArrayList();
         List<Product> pp = new ArrayList<>();
-
-        for (Product p : producten) {
-            if (p.getNaam().contains(trefwoord) || p.getOmschrijving().contains(trefwoord)) {
-                pp.add(p);
-            }
-        }
-        productenLijstMetTrefwoord = FXCollections.observableArrayList(pp);
-        return productenLijstMetTrefwoord;
+        
+       for (Product p : productenLijst)
+       {
+       if(p.getNaam().toLowerCase().contains(trefwoord.toLowerCase()) || p.getOmschrijving().toLowerCase().contains(trefwoord.toLowerCase()))
+       {
+       pp.add(p);
+       }
+       }
+       productenLijstMetTrefwoord= FXCollections.observableArrayList(pp);
+       sortedList = productenLijstMetTrefwoord.sorted(sortOrder);
+       return sortedList;
     }
 
+     public void filterProductLijst(String trefwoord, int artikelnummer, double vanPrijs,double totPrijs, String plaats, String firma, String email,String doelgroep, String leergebied ) {
+           ObservableList<Product> gefilterdeProductenLijst = productenLijst; 
+      
+        if(!trefwoord.equals("")){
+            gefilterdeProductenLijst.removeIf(p->  !p.getNaam().toLowerCase().contains(trefwoord.toLowerCase())&&!p.getOmschrijving().toLowerCase().contains(trefwoord.toLowerCase()));
+        }
+        if(artikelnummer != -1){
+            gefilterdeProductenLijst.removeIf(p->p.getArtikelnummer() != artikelnummer );
+        }
+       
+        if(vanPrijs > -1 ){
+           gefilterdeProductenLijst.removeIf(p->p.getPrijs()< vanPrijs );
+        }
+        if(totPrijs > -1 ){
+           gefilterdeProductenLijst.removeIf(p-> p.getPrijs()> totPrijs );
+        }
+        if(!plaats.equals("") ){
+            gefilterdeProductenLijst.removeIf(p->p.getPlaats()!= null && !p.getPlaats().toLowerCase().contains(plaats.toLowerCase()));
+        }
+        if(!firma.equals("") ){
+            gefilterdeProductenLijst.removeIf(p->p.getFirma().getNaam() != null && !p.getFirma().getNaam().toLowerCase().contains(firma.toLowerCase()));
+        }
+        if(!email.equals("")){
+            gefilterdeProductenLijst.removeIf(p->p.getFirma().getEmailContactPersoon() != null && !p.getFirma().getEmailContactPersoon().toLowerCase().contains(email.toLowerCase()));
+        }
+        if(!doelgroep.equals("")){
+            
+            gefilterdeProductenLijst.removeIf(p->p.getDoelgroep()!= null && !p.getDoelgroep().getNaam().toLowerCase().contains(doelgroep.toLowerCase()));
+        }
+        //Leergebieden moeten nog gefilterd worden
+        
+         sortedList = gefilterdeProductenLijst.sorted(sortOrder);
+         
+      }
+
+    void geefAlleProducten() {
+       
+        sortedList = productenLijst.sorted(sortOrder);
+    }
     //LEERGEBIEDEN
     public ObservableList<Leergebied> getLeergebieden() {
         return leergebieden;
@@ -209,4 +274,11 @@ public class ProductBeheer {
 //
 //    }
     //EINDE LEERGEBIEDEN
+
+    boolean isNaamUniek(String naam) {
+        return productenLijst.stream().anyMatch(p-> p.getNaam().equals(naam)) ;
+    }
+
+    
+   
 }
