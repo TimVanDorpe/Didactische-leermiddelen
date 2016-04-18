@@ -21,6 +21,8 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,6 +31,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -57,8 +60,10 @@ public class ProductDetailController extends Pane implements Observer {
     private TextField txtEmailFirma;
     @FXML
     private TextField txtDoelgroepen;
+   // @FXML
+   // private TextField txtLeergebieden;
     @FXML
-    private TextField txtLeergebieden;
+    private ListView<String> listLeergebieden;
     @FXML
     private ImageView imgViewFoto;
     @FXML
@@ -153,13 +158,13 @@ public class ProductDetailController extends Pane implements Observer {
                 naamDoelgroep = "";
             }
             Doelgroep doelgroep = new Doelgroep(naamDoelgroep);
-            String namenLeergebieden = txtLeergebieden.getText();
-            List<Leergebied> leergebieden = new ArrayList<>();
+            String namenLeergebieden = "";
+            ObservableList<Leergebied> leergebieden = FXCollections.observableArrayList();
             if (namenLeergebieden == null) {
                 Leergebied leergebied = new Leergebied("");
                 leergebieden.add(leergebied);
             } else {
-                Leergebied leergebied = new Leergebied(txtLeergebieden.getText());
+                Leergebied leergebied = new Leergebied("test");
                 leergebieden.add(leergebied);
             }
             lblError.setText(""); // errorlabel clear
@@ -215,6 +220,15 @@ public class ProductDetailController extends Pane implements Observer {
         }
 
     }
+    
+    private ObservableList<String> zetLeergebiedenOmNaarString(List<Leergebied> leergebiedenVanProduct){
+        ObservableList<String> Stringsleergebieden = FXCollections.observableArrayList(); 
+        for (Leergebied l : leergebiedenVanProduct) {
+            String naam = l.getNaam();
+            Stringsleergebieden.add(naam);
+        }
+        return Stringsleergebieden;
+    }
 
     //steekt alle gegevens in de textfields
     @Override
@@ -228,6 +242,8 @@ public class ProductDetailController extends Pane implements Observer {
         txtNaam.setText(product.getNaam());
         txtOmschrijving.setText(product.getOmschrijving());
         txtPlaats.setText(product.getPlaats());
+        
+        listLeergebieden.setItems(zetLeergebiedenOmNaarString(product.getLeergebied()));
 
     }
 
@@ -239,7 +255,7 @@ public class ProductDetailController extends Pane implements Observer {
         txtDoelgroepen.setText("");
         txtEmailFirma.setText("");
         txtFirma.setText("");
-        txtLeergebieden.setText("");
+        //txtLeergebieden.setText("");
         txtNaam.setText("");
         txtOmschrijving.setText("");
         txtPlaats.setText("");
