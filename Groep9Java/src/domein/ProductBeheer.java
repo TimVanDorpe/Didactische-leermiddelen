@@ -70,7 +70,7 @@ public class ProductBeheer {
         
         gdj = new GenericDaoJpa(Product.class);
        
-        InitData data = new InitData(this);
+        ProductData data = new ProductData(this);
         data.maakProducten();        
         
         sortedList = productenLijst.sorted(sortOrder);

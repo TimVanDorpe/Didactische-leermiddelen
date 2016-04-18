@@ -13,13 +13,14 @@ import javafx.scene.image.Image;
  *
  * @author Timva
  */
-public class InitData {
+public class ProductData {
     
     
     private ProductBeheer pb;
+
    
 
-    public InitData(ProductBeheer pb) {
+    public ProductData(ProductBeheer pb) {
         this.pb = pb;
     }
     
@@ -43,7 +44,7 @@ public class InitData {
        Firma UGent = new Firma("UGent");
        Hogent.setId(1);
        
-       
+      
        //new Product(leergebieden, kleuters, UGent, naam, omschrijving,artikelnummer , prijs, aantal, plaats)
         pb.voegProductToe(new Product(leergebieden, kleuters, Hogent,"urlX", "Klok", "Dit is een klok", 1, 1, 1, "B1002"));
         pb.voegProductToe(new Product(leergebieden, kleuters, Hogent, "Wereldkaart" , "Een kaart van 50 cm op 30cm" , 2 , 2 , 2 , "B1038"));
