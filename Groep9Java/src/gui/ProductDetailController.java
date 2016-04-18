@@ -295,15 +295,15 @@ public class ProductDetailController extends Pane implements Observer {
             List<Leergebied> leergebieden = new ArrayList<>();
             leergebieden.add(leergebied);
             leergebieden.add(leergebied2);
-
+            
             // do what you have to do
             String foto;
             if (imgViewFoto.getImage() == null) {
 
-                dc.voegProductToeZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
+                dc.voegProductToeZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getLeergebieden());
             } else {
                 foto = imgViewFoto.getImage().impl_getUrl();
-                dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
+                dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getLeergebieden());
             }
 
             lblError.setText(""); // errortekst clearen

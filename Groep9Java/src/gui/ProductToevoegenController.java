@@ -138,21 +138,24 @@ public class ProductToevoegenController extends Pane {
             Firma firma = new Firma(txtFirma.getText(), txtEmailFirma.getText());
             //Dit moet zeker weg!!!!
             Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
-            Leergebied leergebied = new Leergebied("test");
-            Leergebied leergebied2 = new Leergebied("test");
+//            Leergebied leergebied = new Leergebied("test");
+//            Leergebied leergebied2 = new Leergebied("test");
+//            
+//            List<Leergebied> leergebieden = new ArrayList<>();
+//           
+//            leergebieden.add(leergebied);
+//            leergebieden.add(leergebied2);
             
-            List<Leergebied> leergebieden = new ArrayList<>();
-           
-            leergebieden.add(leergebied);
-            leergebieden.add(leergebied2);
-
+            
+            List<Leergebied> test = new ArrayList<>(dc.getLeergebieden());
+          
             String foto;
             if (imgViewFoto == null) {
               
-                dc.voegProductToeZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
+                dc.voegProductToeZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getToegevoegd());
             } else {
                 foto = imgViewFoto.getImage().impl_getUrl();
-                dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
+                dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getToegevoegd());
             }
 
             lblError.setText(""); // errortekst clearen
@@ -164,11 +167,11 @@ public class ProductToevoegenController extends Pane {
             
             stage.close();
 
-        } catch (NullPointerException ex) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Fout");
-            alert.setContentText("Er deden zich fouten voor, probeer opnieuw (nullpointer)");
-            alert.showAndWait();
+//        } catch (NullPointerException ex) {
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("Fout");
+//            alert.setContentText("Er deden zich fouten voor, probeer opnieuw (nullpointer)");
+//            alert.showAndWait();
         }/*catch (NumberFormatException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Fout");
