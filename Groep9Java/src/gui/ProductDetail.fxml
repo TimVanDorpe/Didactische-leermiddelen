@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root prefHeight="751.0" prefWidth="514.0" type="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProductDetailController">
+<fx:root prefHeight="751.0" prefWidth="514.0" type="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="lblError" layoutX="64.0" layoutY="581.0" prefHeight="25.0" prefWidth="400.0" />
       <Label layoutX="24.0" layoutY="14.0" prefHeight="40.0" prefWidth="240.0" text="Details Materiaal">
@@ -38,9 +38,9 @@
             <TextField fx:id="txtFirma" layoutY="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="txtEmailFirma" layoutY="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <TextField fx:id="txtDoelgroepen" layoutY="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <TextField fx:id="txtLeergebieden" layoutY="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
             <Label fx:id="lblNaam" prefHeight="21.0" prefWidth="106.0" text="Naam*" />
             <CheckBox fx:id="uitleenbaarheid" mnemonicParsing="false" text="Uitleenbaarheid" GridPane.rowIndex="5" />
+            <ListView fx:id="listLeergebieden" prefHeight="57.0" prefWidth="231.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
             <Label fx:id="lblPlaats" text="Plaats" GridPane.rowIndex="2" />
             <TextField fx:id="txtPlaats" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
@@ -54,12 +54,12 @@
             <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="29.0" minHeight="10.0" prefHeight="26.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="42.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
       <ImageView fx:id="imgViewFoto" fitHeight="130.0" fitWidth="157.0" layoutX="307.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />

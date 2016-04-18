@@ -24,13 +24,15 @@ import util.GenericDaoJpa;
  * @author Tim
  */
 public class ProductBeheer {
-    
+
     private ObservableList<Product> productenLijst = FXCollections.observableArrayList();
     private Product product;     
 
     private SortedList<Product> sortedList;
     
 
+    private Product geselecteerdProduct;
+    
     //hier alle comparators
     private final Comparator<Product> byNaam = (p1, p2) -> p1.getNaam().compareToIgnoreCase(p2.getNaam());
     // alle comparators in de juiste volgorde, de volgorde waarop wordt gesorteerd.
@@ -56,7 +58,6 @@ public class ProductBeheer {
 //        this(em, emf, new PersistentieController());
 //
 //    }
-
 //    public ProductBeheer(EntityManager em, EntityManagerFactory emf, PersistentieController pc) {
 //        this.persistentieController = pc;
 //        InitData data = new InitData(this);
@@ -80,9 +81,7 @@ public class ProductBeheer {
         leergebiedenToegevoegd = FXCollections.observableArrayList();
         listStringLeergebieden = FXCollections.observableArrayList();
         listStringLeergebiedenToegevoegd = FXCollections.observableArrayList();
-            
-        
-       
+
     }
 
     public void setGdj(GenericDaoJpa gdj) {
@@ -121,7 +120,7 @@ public class ProductBeheer {
          gdj.startTransaction();
         Collections.replaceAll(productenLijst , huidigProduct , p);
         gdj.update(p);
- //       gdj.commitTransaction();
+        gdj.commitTransaction();
         
 //        for (Product p : productenLijst) {
 //            if (p.getArtikelnummer() == product.getArtikelnummer()) {
@@ -141,7 +140,7 @@ public class ProductBeheer {
     
 
     public ObservableList<Product> zoekOpTrefwoord(String trefwoord) {
-        ObservableList<Product> productenLijstMetTrefwoord = FXCollections.observableArrayList();  
+        ObservableList<Product> productenLijstMetTrefwoord = FXCollections.observableArrayList();
         List<Product> pp = new ArrayList<>();
         
        for (Product p : productenLijst)
@@ -264,8 +263,8 @@ public class ProductBeheer {
         listStringLeergebiedenToegevoegd.remove(naam);
 
     }
-
-//    public boolean geenToegevoegd() {
+    
+   //    public boolean geenToegevoegd() {
 //        return leergebiedenToegevoegd.isEmpty();
 //
 //    }
@@ -274,14 +273,12 @@ public class ProductBeheer {
 //        return leergebieden.isEmpty();
 //
 //    }
-    
-    
-    
     //EINDE LEERGEBIEDEN
 
     boolean isNaamUniek(String naam) {
         return productenLijst.stream().anyMatch(p-> p.getNaam().equals(naam)) ;
     }
 
+    
    
 }

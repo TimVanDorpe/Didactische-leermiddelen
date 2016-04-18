@@ -70,7 +70,6 @@
                   <Insets right="20.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="btnVerwijder" layoutX="528.0" layoutY="17.0" mnemonicParsing="false" onAction="#verwijderProduct" prefHeight="30.0" prefWidth="190.0" text="Product verwijderen" GridPane.columnIndex="1" />
          </children>
          <padding>
             <Insets bottom="10.0" />

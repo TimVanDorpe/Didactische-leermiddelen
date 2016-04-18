@@ -140,7 +140,9 @@ public class ProductToevoegenController extends Pane {
             Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
             Leergebied leergebied = new Leergebied("test");
             Leergebied leergebied2 = new Leergebied("test");
+            
             List<Leergebied> leergebieden = new ArrayList<>();
+           
             leergebieden.add(leergebied);
             leergebieden.add(leergebied2);
 
@@ -154,8 +156,7 @@ public class ProductToevoegenController extends Pane {
             }
 
             lblError.setText(""); // errortekst clearen
-
-         
+          
 
             
             
