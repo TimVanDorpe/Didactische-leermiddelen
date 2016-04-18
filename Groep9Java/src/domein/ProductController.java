@@ -26,12 +26,13 @@ public class ProductController extends Observable {
     }    
 
     public void voegProductToe(String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, ObservableList<Leergebied> leergebied) {
-
-        pb.voegProductToe(new Product(leergebied, doelgroep, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats));
+        isNaamUniek(naam);
+        Product nieuwProduct = new Product(leergebied, doelgroep, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats);
+        pb.voegProductToe(nieuwProduct);
     }
 
     public void voegProductToeZonderFoto(String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, ObservableList<Leergebied> leergebied) {
-
+        isNaamUniek(naam);
         pb.voegProductToe(new Product(leergebied, doelgroep, firma, naam, omschrijving, artikelnummer, prijs, aantal, plaats));
     }
 
@@ -46,12 +47,18 @@ public class ProductController extends Observable {
     }
 
     public void wijzigProduct(String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, ObservableList<Leergebied> leergebied) {
+        if(!naam.toLowerCase().equals(huidigProduct.getNaam().toLowerCase())){
+            isNaamUniek(naam);
+        }
         pb.wijzigProduct(new Product(leergebied, doelgroep, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats), huidigProduct);
          setChanged();
         notifyObservers();
     }
 
     public void wijzigProductZonderFoto(String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, ObservableList<Leergebied> leergebied) {
+         if(!naam.toLowerCase().equals(huidigProduct.getNaam().toLowerCase())){
+            isNaamUniek(naam);
+        }
         Product nieuwProduct = new Product(leergebied, doelgroep, firma, naam, omschrijving, artikelnummer, prijs, aantal, plaats);
         pb.wijzigProduct(nieuwProduct, huidigProduct);
          setChanged();
@@ -150,8 +157,9 @@ public class ProductController extends Observable {
         return selectionModelEmpty;
     }
 
-    public boolean isNaamUniek(String naam) {
-        return pb.isNaamUniek(naam);
+    public void isNaamUniek(String naam) {
+        
+        pb.isNaamUniek(naam);
     }
 
     public void updateDetailvenster() {
