@@ -186,6 +186,11 @@ public class ProductBeheer {
     public ObservableList<Leergebied> getToegevoegd() {
         return leergebiedenToegevoegd;
     }
+    
+    public List<Leergebied> getListLeergebiedToegevoegd(){
+        List<Leergebied> listToegevoegd =  new ArrayList<>(getToegevoegd());
+        return listToegevoegd;
+    }
 
     public void voegLeergebiedToe(Leergebied naam) {
         leergebiedenToegevoegd.add(naam);
