@@ -149,13 +149,13 @@ public class ProductToevoegenController extends Pane {
             
             List<Leergebied> test = new ArrayList<>(dc.getLeergebieden());
           
-            String foto;
+            
             if (imgViewFoto == null) {
               
                 dc.voegProductToeZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getToegevoegd());
             } else {
-                foto = imgViewFoto.getImage().impl_getUrl();
-                dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getToegevoegd());
+                
+                //dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getToegevoegd());
             }
 
             lblError.setText(""); // errortekst clearen
