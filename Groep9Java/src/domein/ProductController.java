@@ -128,6 +128,10 @@ public class ProductController extends Observable {
     public Leergebied getLeergebiedToegevoegdFromString(String naam) {
         return pb.getLeergebiedToegevoegdFromString(naam);
     }
+    
+      public void voegToeAanLeergebieden(Leergebied leergebied){
+      pb.voegToeAanLeergebieden(leergebied);
+      }
     //EINDE LEERGEBIED
 
     public ObservableList<Product> zoekOpTrefwoord(String trefwoord) {
@@ -166,6 +170,8 @@ public class ProductController extends Observable {
         setChanged();
         notifyObservers(huidigProduct);
     }
+
+ 
     
     
    

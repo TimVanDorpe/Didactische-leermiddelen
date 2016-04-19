@@ -9,16 +9,14 @@ import domein.ProductController;
 import domein.Leergebied;
 import java.io.IOException;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 
 /**
  *
@@ -27,8 +25,10 @@ import javafx.stage.WindowEvent;
 class LeergebiedSelecterenController extends GridPane {
 
     @FXML
-    private Button btnSendRight, btnSendLeft, btnKlaar;
+    private Button btnSendRight, btnSendLeft, btnKlaar, btnToevoegenNieuwLeergebied;
 
+    @FXML
+    private TextField txtNieuwLeergebied;
     @FXML
     private ListView<String> alleLeergebieden, toegevoegdeLeergebieden;
 
@@ -44,14 +44,11 @@ class LeergebiedSelecterenController extends GridPane {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        
-       
-
 
         //leergebied strings
         setLeergebieden();
 
-//        dc.getToegevoegd().addListener(
+//     dc.getToegevoegd().addListener(
 //        (ListChangeListener<String>) e-> btnSendLeft.setDisable(
 //                        dc.geenToegevoegd()));
 //        
@@ -99,17 +96,22 @@ class LeergebiedSelecterenController extends GridPane {
 //       domeinController.removeHero(selectedItem());
 
     }
-
+//
 //    @FXML
 //    private void mouseClickedCandidate(MouseEvent event) {
 //        int teller = event.getClickCount();
+//        Leergebied leergebied;
+//
 //        if (teller == 2) {
-//            Leergebied selectedItem = alleLeergebieden.getSelectionModel().getSelectedItem();
+//            String selectedItem = alleLeergebieden.getSelectionModel().getSelectedItem();
 //            if (selectedItem != null) {
-//                dc.voegLeergebiedToe(selectedItem);
+//                dc.voegLeergebiedToeString(selectedItem);
+//                leergebied = dc.getLeergebiedToegevoegdFromString(selectedItem);
+//                dc.voegLeergebiedToe(leergebied);
 //            }
 //        }
 //    }
+
     @FXML
     private void klaarMetToevoegen(ActionEvent event) {
         Stage stage = (Stage) btnKlaar.getScene().getWindow();
@@ -131,4 +133,16 @@ class LeergebiedSelecterenController extends GridPane {
 //
 //        });
 //    }
+    @FXML
+    private void toevoegenNieuwLeergebied(ActionEvent event) {
+        String nieuwleergebied = txtNieuwLeergebied.getText();
+        Leergebied leergebied = new Leergebied(nieuwleergebied);
+        dc.voegToeAanLeergebieden(leergebied);
+        txtNieuwLeergebied.clear();
+        alleLeergebieden.getItems().clear();
+        toegevoegdeLeergebieden.getItems().clear();
+
+        setLeergebieden();
+
+    }
 }

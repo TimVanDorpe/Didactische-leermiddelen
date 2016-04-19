@@ -11,13 +11,13 @@
 
 <fx:root prefHeight="751.0" prefWidth="514.0" type="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="lblError" layoutX="64.0" layoutY="581.0" prefHeight="25.0" prefWidth="400.0" />
+      <Label fx:id="lblError" layoutX="64.0" layoutY="605.0" prefHeight="25.0" prefWidth="400.0" />
       <Label layoutX="24.0" layoutY="14.0" prefHeight="40.0" prefWidth="240.0" text="Details Materiaal">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
-      <Button fx:id="btnLeegmaken" layoutX="64.0" layoutY="668.0" mnemonicParsing="false" onAction="#resetWaarden" prefHeight="30.0" prefWidth="190.0" text="Alle velden leeg maken" />
+      <Button fx:id="btnLeegmaken" layoutX="64.0" layoutY="668.0" mnemonicParsing="false" onAction="#resetWaarden" prefHeight="30.0" prefWidth="190.0" text="Selectie verwijderen" />
       <Button fx:id="btnFoto" layoutX="56.0" layoutY="79.0" mnemonicParsing="false" onAction="#fotoToevoegen" prefHeight="30.0" prefWidth="190.0" text="Foto toevoegen..." />
       <Button fx:id="btnWijzigen" layoutX="274.0" layoutY="630.0" mnemonicParsing="false" onAction="#wijzigProduct" prefHeight="30.0" prefWidth="190.0" text="Product wijzigen" />
       <GridPane layoutX="54.0" layoutY="144.0" prefHeight="452.0" prefWidth="400.0">
@@ -41,7 +41,7 @@
             <TextField fx:id="txtDoelgroepen" layoutY="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
             <Label fx:id="lblNaam" prefHeight="21.0" prefWidth="106.0" text="Naam*" />
             <CheckBox fx:id="uitleenbaarheid" mnemonicParsing="false" text="Uitleenbaarheid" GridPane.rowIndex="5" />
-            <ListView fx:id="listLeergebieden" prefHeight="61.0" prefWidth="218.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <ListView fx:id="listLeergebieden" prefHeight="101.0" prefWidth="192.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
             <Label fx:id="lblPlaats" text="Plaats" GridPane.rowIndex="2" />
             <TextField fx:id="txtPlaats" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Button fx:id="btnSelecteerLeergebied" mnemonicParsing="false" onAction="#selecteerLeergebieden" text="Selecteer" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
@@ -64,8 +64,8 @@
             <RowConstraints maxHeight="98.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="101.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="98.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="121.0" minHeight="10.0" prefHeight="121.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="98.0" minHeight="10.0" prefHeight="85.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="121.0" minHeight="10.0" prefHeight="71.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
       <ImageView fx:id="imgViewFoto" fitHeight="130.0" fitWidth="157.0" layoutX="307.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
