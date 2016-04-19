@@ -27,7 +27,7 @@ import javafx.stage.Stage;
 class LeergebiedSelecterenController extends GridPane {
 
     @FXML
-    private Button btnSendRight, btnSendLeft, btnKlaar, btnAnnuleren;
+    private Button btnSendRight, btnSendLeft, btnKlaar;
 
     @FXML
     private ListView<String> alleLeergebieden, toegevoegdeLeergebieden;
@@ -103,12 +103,7 @@ class LeergebiedSelecterenController extends GridPane {
 //    }
     
     
-    @FXML
-    private void annuleren(ActionEvent event){
-        Stage stage = (Stage) btnAnnuleren.getScene().getWindow();
-        // do what you have to do
-        stage.close();
-    }
+  
     
     
     @FXML

@@ -35,7 +35,6 @@
             <Button fx:id="btnSendLeft" mnemonicParsing="false" onAction="#sendLeft" text="&lt;&lt;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
-      <Button fx:id="btnKlaar" mnemonicParsing="false" onAction="#klaarMetToevoegen" text="Klaar" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-      <Button fx:id="btnAnnuleren" mnemonicParsing="false" onAction="#annuleren" text="Annuleren" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <Button fx:id="btnKlaar" mnemonicParsing="false" onAction="#klaarMetToevoegen" text="Klaar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
    </children>
 </fx:root>

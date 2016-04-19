@@ -28,6 +28,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -106,7 +107,7 @@ public class ProductDetailController extends Pane implements Observer {
     @FXML
     private CheckBox uitleenbaarheid;
     @FXML
-    private Button btnLeegmaken;
+    private Button btnLeegmaken, btnSelecteerLeergebied;
     @FXML
     private Button btnWijzigen;
 
@@ -179,9 +180,9 @@ public class ProductDetailController extends Pane implements Observer {
             lblError.setText(""); // errorlabel clear
 
             if (imgViewFoto.getImage() == null) {
-                dc.wijzigProductZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
+                dc.wijzigProductZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getToegevoegd());
             } else {
-                dc.wijzigProduct(imgViewFoto.getImage().impl_getUrl(), naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, leergebieden);
+                dc.wijzigProduct(imgViewFoto.getImage().impl_getUrl(), naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getToegevoegd());
 
             }
 
@@ -244,6 +245,7 @@ public class ProductDetailController extends Pane implements Observer {
             btnToevoegen.setDisable(false);
             btnAnnuleer.setDisable(false);
             btnFoto.setDisable(false);
+            btnWijzigen.setDisable(false);
             uitleenbaarheid.setDisable(false);
             txtAantal.setDisable(false);
             txtArtikelnummer.setDisable(false);
@@ -274,6 +276,9 @@ public class ProductDetailController extends Pane implements Observer {
         txtPlaats.setText("");
         txtPrijs.setText("");
         imgViewFoto.setImage(null);
+        dc.setGeselecteerdProduct(null);
+        listLeergebieden.setItems(null);
+        btnWijzigen.setDisable(true);
     }
 
     @FXML
@@ -300,10 +305,10 @@ public class ProductDetailController extends Pane implements Observer {
             String foto;
             if (imgViewFoto.getImage() == null) {
 
-                dc.voegProductToeZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getLeergebieden());
+                dc.voegProductToeZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getToegevoegd());
             } else {
                 foto = imgViewFoto.getImage().impl_getUrl();
-                dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getLeergebieden());
+                dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getToegevoegd());
             }
 
             lblError.setText(""); // errortekst clearen
@@ -407,7 +412,7 @@ public class ProductDetailController extends Pane implements Observer {
             c = false;
             message += "Naam is verplicht\n";
         }
-        if (!dc.getHuidigProduct().getNaam().equals(txtNaam.getText())) {
+        //if (!dc.getHuidigProduct().getNaam().equals(txtNaam.getText()) && dc.getHuidigProduct() !=null) {
             if (dc.isNaamUniek(txtNaam.getText())) {
                 lblNaam.setText("Naam*");
                 lblNaam.setTextFill(Color.web("#F20000"));
@@ -415,7 +420,7 @@ public class ProductDetailController extends Pane implements Observer {
                 c = false;
                 message += "Naam moet uniek zijn\n";
             }
-        }
+        //}
 
         if (txtAantal.getText().equals("")) {
             lblAantal.setText("Aantal*");
@@ -505,5 +510,28 @@ public class ProductDetailController extends Pane implements Observer {
         }
 
         stage.close();
+    }
+    
+    
+    
+       @FXML
+    private void selecteerLeergebieden(ActionEvent event) {
+        
+        Stage stage = new Stage();
+        stage.setTitle("Leergebied Selecteren");
+
+        Scene scene = new Scene(new LeergebiedSelecterenController(dc));
+        stage.setScene(scene);
+
+        
+        //this.setDisable(true);
+        
+        
+        stage.show();
+        
+        
+        
+        
+        
     }
 }

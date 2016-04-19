@@ -37,7 +37,7 @@ public class ProductData {
         leergebieden.add(tellen);
         leergebieden.add(knutselen);
         leergebieden2.add(tellen);
-        //Image foto = new image()
+      // Image foto = new image()
         Doelgroep kleuters = new Doelgroep("Kleuters");
       //  Doelgroep kleuters = new Doelgroep("Kleuters");
        Firma Hogent = new Firma("Hogent", "personeel@hogent.be");
