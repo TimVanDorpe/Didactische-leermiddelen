@@ -6,11 +6,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="326.0" prefWidth="424.0" type="GridPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="379.0" prefWidth="541.0" type="GridPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.0" minWidth="10.0" prefWidth="197.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="158.0" minWidth="10.0" prefWidth="88.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="205.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.0" minWidth="10.0" prefWidth="133.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="158.0" minWidth="7.0" prefWidth="62.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="123.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="224.0" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints maxHeight="157.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
@@ -20,8 +21,8 @@
    <children>
       <Label text="Leergebieden" GridPane.halignment="CENTER" />
       <Label text="Toegevoegd" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-      <ListView fx:id="alleLeergebieden" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
-      <ListView fx:id="toegevoegdeLeergebieden" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <ListView fx:id="alleLeergebieden" prefHeight="239.0" prefWidth="110.0" GridPane.rowIndex="1" />
+      <ListView fx:id="toegevoegdeLeergebieden" prefHeight="261.0" prefWidth="139.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -35,6 +36,21 @@
             <Button fx:id="btnSendLeft" mnemonicParsing="false" onAction="#sendLeft" text="&lt;&lt;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
-      <Button fx:id="btnKlaar" mnemonicParsing="false" onAction="#klaarMetToevoegen" text="Klaar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <Button fx:id="btnKlaar" mnemonicParsing="false" onAction="#klaarMetToevoegen" text="Klaar" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <Label text="Nieuw leergebied toevoegen" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+      <GridPane GridPane.columnIndex="3" GridPane.rowIndex="1">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="126.0" minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="179.0" minHeight="10.0" prefHeight="141.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextField fx:id="txtNieuwLeergebied" prefHeight="25.0" prefWidth="199.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BASELINE" />
+            <Label text="Naam van nieuw leergebied" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
+            <Button fx:id="btnToevoegenNieuwLeergebied" mnemonicParsing="false" onAction="#toevoegenNieuwLeergebied" text="Toevoegen aan lijst leergebieden" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
    </children>
 </fx:root>

@@ -150,6 +150,8 @@ public class ProductDetailController extends Pane implements Observer {
             btnLeegmaken.setDisable(true);
             btnVerwijderen.setDisable(true);
 
+            btnSelecteerLeergebied.setDisable(true);
+            listLeergebieden.setDisable(true);
         }
     }
 
@@ -171,15 +173,6 @@ public class ProductDetailController extends Pane implements Observer {
                 naamDoelgroep = "";
             }
             Doelgroep doelgroep = new Doelgroep(naamDoelgroep);
-            String namenLeergebieden = "";
-            ObservableList<Leergebied> leergebieden = FXCollections.observableArrayList();
-            if (namenLeergebieden == null) {
-                Leergebied leergebied = new Leergebied("");
-                leergebieden.add(leergebied);
-            } else {
-                Leergebied leergebied = new Leergebied("test");
-                leergebieden.add(leergebied);
-            }
             lblError.setText(""); // errorlabel clear
 
             if (imgViewFoto.getImage() == null) {
@@ -263,6 +256,9 @@ public class ProductDetailController extends Pane implements Observer {
             btnWijzigen.setDisable(false);
             btnLeegmaken.setDisable(false);
             btnVerwijderen.setDisable(false);
+            btnSelecteerLeergebied.setDisable(false);
+            listLeergebieden.setDisable(false);
+
         }
 
     }

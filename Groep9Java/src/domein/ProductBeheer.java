@@ -257,6 +257,11 @@ public class ProductBeheer {
 //        return leergebieden.isEmpty();
 //
 //    }
+    //NIEUW LEERGEBIED TOEVOEGEN
+  public void voegToeAanLeergebieden(Leergebied leergebied){
+      leergebieden.add(leergebied);
+  }
+    
     //EINDE LEERGEBIEDEN
     public boolean isNaamUniek(String naam, String naamGeselecteerdProduct, boolean isWijziging) {
         if (isWijziging) {

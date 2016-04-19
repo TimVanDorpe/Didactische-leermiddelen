@@ -52,7 +52,6 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <Button fx:id="btnToevoegen" mnemonicParsing="false" onAction="#naarProductPagina" prefHeight="30.0" prefWidth="190.0" text="Product toevoegen..." GridPane.columnIndex="2" />
             <Label text="Geef trefwoord:" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />

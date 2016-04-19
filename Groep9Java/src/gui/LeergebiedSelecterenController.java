@@ -8,15 +8,13 @@ package gui;
 import domein.ProductController;
 import domein.Leergebied;
 import java.io.IOException;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -27,8 +25,10 @@ import javafx.stage.Stage;
 class LeergebiedSelecterenController extends GridPane {
 
     @FXML
-    private Button btnSendRight, btnSendLeft, btnKlaar;
+    private Button btnSendRight, btnSendLeft, btnKlaar, btnToevoegenNieuwLeergebied;
 
+    @FXML
+    private TextField txtNieuwLeergebied;
     @FXML
     private ListView<String> alleLeergebieden, toegevoegdeLeergebieden;
 
@@ -46,26 +46,32 @@ class LeergebiedSelecterenController extends GridPane {
         }
 
         //leergebied strings
-        alleLeergebieden.setItems(dc.getStringLeergebieden());
-        toegevoegdeLeergebieden.setItems(dc.getStringLeergebiedenToegevoegd());
-        toegevoegdeLeergebieden.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-//        dc.getToegevoegd().addListener(
+        setLeergebieden();
+
+//     dc.getToegevoegd().addListener(
 //        (ListChangeListener<String>) e-> btnSendLeft.setDisable(
 //                        dc.geenToegevoegd()));
 //        
 //        dc.getLeergebieden().addListener(
 //        (ListChangeListener<String>) e-> btnSendRight.setDisable(
 //                        dc.geenLeergebieden()));
+    }
+
+    private void setLeergebieden() {
+
+        alleLeergebieden.setItems(dc.getStringLeergebieden());
+        toegevoegdeLeergebieden.setItems(dc.getStringLeergebiedenToegevoegd());
+        toegevoegdeLeergebieden.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
     }
 
     @FXML
     private void sendRight(ActionEvent event) {
         String selectedItem = alleLeergebieden.getSelectionModel().getSelectedItem();
-        addHero(selectedItem);
+        addLeergebied(selectedItem);
     }
 
-    private void addHero(String naam) {
+    private void addLeergebied(String naam) {
         Leergebied leergebied = dc.getLeergebiedFromString(naam);
         if (naam != null) {
             alleLeergebieden.getSelectionModel().clearSelection();
@@ -80,7 +86,7 @@ class LeergebiedSelecterenController extends GridPane {
 
         String selectedItem = toegevoegdeLeergebieden.getSelectionModel().getSelectedItem();
         Leergebied leergebied = dc.getLeergebiedToegevoegdFromString(selectedItem);
-        
+
         if (selectedItem != null) {
             toegevoegdeLeergebieden.getSelectionModel().clearSelection();
             dc.verwijderLeergebiedString(selectedItem);
@@ -90,26 +96,53 @@ class LeergebiedSelecterenController extends GridPane {
 //       domeinController.removeHero(selectedItem());
 
     }
-
+//
 //    @FXML
 //    private void mouseClickedCandidate(MouseEvent event) {
 //        int teller = event.getClickCount();
+//        Leergebied leergebied;
+//
 //        if (teller == 2) {
-//            Leergebied selectedItem = alleLeergebieden.getSelectionModel().getSelectedItem();
+//            String selectedItem = alleLeergebieden.getSelectionModel().getSelectedItem();
 //            if (selectedItem != null) {
-//                dc.voegLeergebiedToe(selectedItem);
+//                dc.voegLeergebiedToeString(selectedItem);
+//                leergebied = dc.getLeergebiedToegevoegdFromString(selectedItem);
+//                dc.voegLeergebiedToe(leergebied);
 //            }
 //        }
 //    }
-    
-    
-  
-    
-    
+
     @FXML
-    private void klaarMetToevoegen(ActionEvent event){
+    private void klaarMetToevoegen(ActionEvent event) {
         Stage stage = (Stage) btnKlaar.getScene().getWindow();
         // do what you have to do
+
+        alleLeergebieden.getItems().clear();
+        toegevoegdeLeergebieden.getItems().clear();
         stage.close();
+    }
+
+//    private void sluitVenster() {
+//       
+//        Stage stage = (Stage) getScene().getWindow();
+//        stage.setOnCloseRequest((WindowEvent we) -> {
+//            System.out.println("Stage is closing");
+//            alleLeergebieden.getItems().clear();
+//            toegevoegdeLeergebieden.getItems().clear();
+//                    stage.close();
+//
+//        });
+//    }
+    @FXML
+    private void toevoegenNieuwLeergebied(ActionEvent event) {
+        String nieuwleergebied = txtNieuwLeergebied.getText();
+        Leergebied leergebied = new Leergebied(nieuwleergebied);
+        dc.voegToeAanLeergebieden(leergebied);
+        txtNieuwLeergebied.clear();
+        alleLeergebieden.getItems().clear();
+        toegevoegdeLeergebieden.getItems().clear();
+
+        setLeergebieden();
+
     }
 }
