@@ -13,26 +13,24 @@ import javax.persistence.Persistence;
 
 public class ProductController extends Observable {
 
- 
-
     private Product huidigProduct;
     private ProductBeheer pb;
     private boolean selectionModelEmpty;
 
     public ProductController() {
-        
+
         pb = new ProductBeheer();
 
-    }    
+    }
 
     public void voegProductToe(String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, ObservableList<Leergebied> leergebied) {
-        isNaamUniek(naam);
+        //isNaamUniek(naam);
         Product nieuwProduct = new Product(leergebied, doelgroep, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats);
         pb.voegProductToe(nieuwProduct);
     }
 
     public void voegProductToeZonderFoto(String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, ObservableList<Leergebied> leergebied) {
-        isNaamUniek(naam);
+        //isNaamUniek(naam);
         pb.voegProductToe(new Product(leergebied, doelgroep, firma, naam, omschrijving, artikelnummer, prijs, aantal, plaats));
     }
 
@@ -40,28 +38,26 @@ public class ProductController extends Observable {
         return huidigProduct;
     }
 
-   
-
     public Product getProduct(int artikelnummer) {
         return pb.getProduct(artikelnummer);
     }
 
     public void wijzigProduct(String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, ObservableList<Leergebied> leergebied) {
-        if(!naam.toLowerCase().equals(huidigProduct.getNaam().toLowerCase())){
-            isNaamUniek(naam);
+        if (!naam.toLowerCase().equals(huidigProduct.getNaam().toLowerCase())) {
+            //isNaamUniek(naam);
         }
         pb.wijzigProduct(new Product(leergebied, doelgroep, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats), huidigProduct);
-         setChanged();
+        setChanged();
         notifyObservers();
     }
 
     public void wijzigProductZonderFoto(String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, ObservableList<Leergebied> leergebied) {
-         if(!naam.toLowerCase().equals(huidigProduct.getNaam().toLowerCase())){
-            isNaamUniek(naam);
+        if (!naam.toLowerCase().equals(huidigProduct.getNaam().toLowerCase())) {
+            //isNaamUniek(naam);
         }
         Product nieuwProduct = new Product(leergebied, doelgroep, firma, naam, omschrijving, artikelnummer, prijs, aantal, plaats);
         pb.wijzigProduct(nieuwProduct, huidigProduct);
-         setChanged();
+        setChanged();
         notifyObservers();
     }
 
@@ -133,21 +129,17 @@ public class ProductController extends Observable {
     public ObservableList<Product> zoekOpTrefwoord(String trefwoord) {
         return pb.zoekOpTrefwoord(trefwoord);
     }
-    
-    public void filterProductLijst( String trefwoord, int artikelnummer, double vanPrijs, double totPrijs,  String plaats, String firma, String email,String doelgroep, String leergebied ){
-         pb.filterProductLijst( trefwoord,  artikelnummer,vanPrijs ,totPrijs ,   plaats,  firma, email,  doelgroep,  leergebied );
-        setChanged();
-         notifyObservers();
-    }
 
-   
+    public void filterProductLijst(String trefwoord, int artikelnummer, double vanPrijs, double totPrijs, String plaats, String firma, String email, String doelgroep, String leergebied) {
+        pb.filterProductLijst(trefwoord, artikelnummer, vanPrijs, totPrijs, plaats, firma, email, doelgroep, leergebied);
+        setChanged();
+        notifyObservers();
+    }
 
     public void geefAlleProductenWeer() {
-      pb.geefAlleProducten();
-       
-    }
+        pb.geefAlleProducten();
 
-   
+    }
 
     public void setSelectionModelEmpty(boolean b) {
         selectionModelEmpty = b;
@@ -157,16 +149,17 @@ public class ProductController extends Observable {
         return selectionModelEmpty;
     }
 
-    public void isNaamUniek(String naam) {
-        
-        pb.isNaamUniek(naam);
+    public boolean isNaamUniek(String naam, boolean isWijziging) {
+
+        if (this.getHuidigProduct() != null) {
+            return pb.isNaamUniek(naam, this.getHuidigProduct().getNaam(), isWijziging);
+        }
+        return pb.isNaamUniek(naam, "", isWijziging);
     }
 
     public void updateDetailvenster() {
         setChanged();
         notifyObservers(huidigProduct);
     }
-    
-    
-   
+
 }

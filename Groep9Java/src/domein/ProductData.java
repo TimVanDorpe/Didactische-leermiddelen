@@ -47,9 +47,9 @@ public class ProductData {
       
        //new Product(leergebieden, kleuters, UGent, naam, omschrijving,artikelnummer , prijs, aantal, plaats)
         pb.voegProductToe(new Product(leergebieden, kleuters, Hogent,"urlX", "Klok", "Dit is een klok", 1, 1, 1, "B1002"));
-        pb.voegProductToe(new Product(leergebieden, kleuters, Hogent, "Wereldkaart" , "Een kaart van 50 cm op 30cm" , 2 , 2 , 2 , "B1038"));
+        pb.voegProductToe(new Product(leergebieden, kleuters, Hogent, "Wereldkaart" , "Een kaart van 50 cm op 30 cm" , 2 , 2 , 2 , "B1038"));
         pb.voegProductToe(new Product(leergebieden, kleuters, UGent, "Dobbelstenen met schatkist" , "Doos met spelletjes" , 6 , 10 , 5 , "B1038"));
-        pb.voegProductToe(new Product(leergebieden, kleuters, UGent, "Blanco draaischijf" , "met verschillende blanco schijven in hard paprer" , 7 , 25 , 3 , "B1038"));
+        pb.voegProductToe(new Product(leergebieden, kleuters, UGent, "Blanco draaischijf" , "met verschillende blanco schijven in hard papier" , 7 , 25 , 3 , "B1038"));
     
     }
      

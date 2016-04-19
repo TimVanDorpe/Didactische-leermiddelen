@@ -65,8 +65,8 @@ public class ProductDetailController extends Pane implements Observer {
     private TextField txtEmailFirma;
     @FXML
     private TextField txtDoelgroepen;
-   // @FXML
-   // private TextField txtLeergebieden;
+    // @FXML
+    // private TextField txtLeergebieden;
     @FXML
     private ListView<String> listLeergebieden;
     @FXML
@@ -146,6 +146,9 @@ public class ProductDetailController extends Pane implements Observer {
             txtOmschrijving.setDisable(true);
             txtPlaats.setDisable(true);
             txtPrijs.setDisable(true);
+            btnWijzigen.setDisable(true);
+            btnLeegmaken.setDisable(true);
+            btnVerwijderen.setDisable(true);
 
         }
     }
@@ -154,7 +157,7 @@ public class ProductDetailController extends Pane implements Observer {
     private void wijzigProduct(ActionEvent event) {
 
         try {
-            valideerVelden();
+            valideerVelden(true);
 
             /*
              code hieronder van firma, doelgroep leergebieden etc zal alst werkt
@@ -212,9 +215,9 @@ public class ProductDetailController extends Pane implements Observer {
         }
 
     }
-    
-    private ObservableList<String> zetLeergebiedenOmNaarString(List<Leergebied> leergebiedenVanProduct){
-        ObservableList<String> Stringsleergebieden = FXCollections.observableArrayList(); 
+
+    private ObservableList<String> zetLeergebiedenOmNaarString(List<Leergebied> leergebiedenVanProduct) {
+        ObservableList<String> Stringsleergebieden = FXCollections.observableArrayList();
         for (Leergebied l : leergebiedenVanProduct) {
             String naam = l.getNaam();
             Stringsleergebieden.add(naam);
@@ -257,7 +260,9 @@ public class ProductDetailController extends Pane implements Observer {
             txtOmschrijving.setDisable(false);
             txtPlaats.setDisable(false);
             txtPrijs.setDisable(false);
-
+            btnWijzigen.setDisable(false);
+            btnLeegmaken.setDisable(false);
+            btnVerwijderen.setDisable(false);
         }
 
     }
@@ -279,6 +284,7 @@ public class ProductDetailController extends Pane implements Observer {
         dc.setGeselecteerdProduct(null);
         listLeergebieden.setItems(null);
         btnWijzigen.setDisable(true);
+        btnVerwijderen.setDisable(true);
     }
 
     @FXML
@@ -290,7 +296,7 @@ public class ProductDetailController extends Pane implements Observer {
     private void voegProductToe(ActionEvent event) {
         try {
 
-            valideerVelden();
+            valideerVelden(false);
 
             Firma firma = new Firma(txtFirma.getText(), txtEmailFirma.getText());
             //Dit moet zeker weg!!!!
@@ -300,7 +306,7 @@ public class ProductDetailController extends Pane implements Observer {
             List<Leergebied> leergebieden = new ArrayList<>();
             leergebieden.add(leergebied);
             leergebieden.add(leergebied2);
-            
+
             // do what you have to do
             String foto;
             if (imgViewFoto.getImage() == null) {
@@ -322,19 +328,19 @@ public class ProductDetailController extends Pane implements Observer {
 
     }
 
-    private void valideerVelden() {
+    private void valideerVelden(boolean isWijziging) {
 
         maakLabelsTerugNormaal();
 
-        isInputValid();
+        isInputValid(isWijziging);
 
         //alster meer dan 2 fout zijn algemene message
-        if (!isInputValid() && aantalVerkeerd >= 2) {
+        if (!isInputValid(isWijziging) && aantalVerkeerd >= 2) {
             throw new IllegalArgumentException("Een aantal velden zijn niet correct ingevuld");
         }
 
         //specifieke message
-        if (!isInputValid()) {
+        if (!isInputValid(isWijziging)) {
             throw new IllegalArgumentException(error);
         } else {
 
@@ -399,7 +405,7 @@ public class ProductDetailController extends Pane implements Observer {
         lblAantal.setTextFill(Color.web("#000000"));
     }
 
-    private boolean isInputValid() {
+    private boolean isInputValid(boolean isWijziging) {
 
         String message = "";
         boolean c = true;
@@ -412,15 +418,14 @@ public class ProductDetailController extends Pane implements Observer {
             c = false;
             message += "Naam is verplicht\n";
         }
-       
-            dc.isNaamUniek(txtNaam.getText());
-//              lblNaam.setText("Naam*");
-//                lblNaam.setTextFill(Color.web("#F20000"));
-//                teller++;
-//                c = false;
-//                message += "Naam moet uniek zijn\n";  
-//            
-        
+
+        if (!dc.isNaamUniek(txtNaam.getText(), isWijziging)) {
+            lblNaam.setText("Naam*");
+            lblNaam.setTextFill(Color.web("#F20000"));
+            teller++;
+            c = false;
+            message += "Naam moet uniek zijn\n";
+        }
 
         if (txtAantal.getText().equals("")) {
             lblAantal.setText("Aantal*");
@@ -511,27 +516,18 @@ public class ProductDetailController extends Pane implements Observer {
 
         stage.close();
     }
-    
-    
-    
-       @FXML
+
+    @FXML
     private void selecteerLeergebieden(ActionEvent event) {
-        
+
         Stage stage = new Stage();
         stage.setTitle("Leergebied Selecteren");
 
         Scene scene = new Scene(new LeergebiedSelecterenController(dc));
         stage.setScene(scene);
 
-        
         //this.setDisable(true);
-        
-        
         stage.show();
-        
-        
-        
-        
-        
+
     }
 }
