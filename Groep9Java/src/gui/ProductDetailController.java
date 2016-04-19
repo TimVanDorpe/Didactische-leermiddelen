@@ -175,7 +175,7 @@ public class ProductDetailController extends Pane implements Observer {
             lblError.setText(""); // errorlabel clear
 
             if (imgViewFoto.getImage() == null) {
-                dc.wijzigProductZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getToegevoegd());
+                dc.wijzigProductZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getListLeergebiedToegevoegd());
             } else {
                 dc.wijzigProduct(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getToegevoegd());
 

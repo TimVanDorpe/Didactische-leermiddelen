@@ -69,6 +69,7 @@ class LeergebiedSelecterenController extends GridPane {
     private void sendRight(ActionEvent event) {
         String selectedItem = alleLeergebieden.getSelectionModel().getSelectedItem();
         addLeergebied(selectedItem);
+      
     }
 
     private void addLeergebied(String naam) {
@@ -77,6 +78,7 @@ class LeergebiedSelecterenController extends GridPane {
             alleLeergebieden.getSelectionModel().clearSelection();
             dc.voegLeergebiedToeString(naam);
             dc.voegLeergebiedToe(leergebied);
+
         }
     }
 
@@ -92,6 +94,7 @@ class LeergebiedSelecterenController extends GridPane {
             dc.verwijderLeergebiedString(selectedItem);
             dc.verwijderLeergebied(leergebied);//hier geen for each-> die is niet slim genoeg en kan dit niet aan 
         }
+     
 //       if ( selectedItem!=null)
 //       domeinController.removeHero(selectedItem());
 

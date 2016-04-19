@@ -25,7 +25,7 @@ import util.GenericDaoJpa;
 public class ProductBeheer {
 
     private ObservableList<Product> productenLijst = FXCollections.observableArrayList();
-    private Product product;
+    //private Product product;
 
     private SortedList<Product> sortedList;
 
@@ -77,6 +77,14 @@ public class ProductBeheer {
 
     }
 
+    public ObservableList<Product> getProductenLijst() {
+        return productenLijst;
+    }
+
+    
+    
+    
+    
     public void setGdj(GenericDaoJpa gdj) {
         this.gdj = gdj;
     }
@@ -187,6 +195,11 @@ public class ProductBeheer {
 
     public ObservableList<Leergebied> getToegevoegd() {
         return leergebiedenToegevoegd;
+    }
+    
+    public List<Leergebied> getListLeergebiedToegevoegd(){
+        List<Leergebied> listToegevoegd =  new ArrayList<>(getToegevoegd());
+        return listToegevoegd;
     }
 
     public void voegLeergebiedToe(Leergebied naam) {
