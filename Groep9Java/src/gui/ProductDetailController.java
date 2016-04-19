@@ -412,15 +412,15 @@ public class ProductDetailController extends Pane implements Observer {
             c = false;
             message += "Naam is verplicht\n";
         }
-        //if (!dc.getHuidigProduct().getNaam().equals(txtNaam.getText()) && dc.getHuidigProduct() !=null) {
-            if (dc.isNaamUniek(txtNaam.getText())) {
-                lblNaam.setText("Naam*");
-                lblNaam.setTextFill(Color.web("#F20000"));
-                teller++;
-                c = false;
-                message += "Naam moet uniek zijn\n";
-            }
-        //}
+       
+            dc.isNaamUniek(txtNaam.getText());
+//              lblNaam.setText("Naam*");
+//                lblNaam.setTextFill(Color.web("#F20000"));
+//                teller++;
+//                c = false;
+//                message += "Naam moet uniek zijn\n";  
+//            
+        
 
         if (txtAantal.getText().equals("")) {
             lblAantal.setText("Aantal*");

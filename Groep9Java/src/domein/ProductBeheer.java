@@ -275,8 +275,11 @@ public class ProductBeheer {
 //    }
     //EINDE LEERGEBIEDEN
 
-    boolean isNaamUniek(String naam) {
-        return productenLijst.stream().anyMatch(p-> p.getNaam().equals(naam)) ;
+    public void isNaamUniek(String naam) {
+        if(productenLijst.stream().anyMatch(p-> p.getNaam().toLowerCase().equals(naam.toLowerCase()))){
+            throw new IllegalArgumentException("Naam moet uniek zijn");
+        }
+       
     }
 
     

@@ -16,13 +16,13 @@ import org.junit.Before;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import persistentie.IProductMapper;
-import persistentie.PersistentieController;
-
 /**
  *
  * @author Jens
  */
+
+
+/*
 public class ProductBeheerTest {
     
     private ProductBeheer pb;
@@ -107,5 +107,7 @@ public class ProductBeheerTest {
         Mockito.verify(landMapperDummy).findLand(CODE);
     }
     
-    */
+    
 }
+
+*/
