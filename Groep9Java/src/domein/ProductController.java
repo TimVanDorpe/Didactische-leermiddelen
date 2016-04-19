@@ -23,13 +23,13 @@ public class ProductController extends Observable {
 
     }
 
-    public void voegProductToe(String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, ObservableList<Leergebied> leergebied) {
+    public void voegProductToe(String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, List<Leergebied> leergebied) {
         //isNaamUniek(naam);
         Product nieuwProduct = new Product(leergebied, doelgroep, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats);
         pb.voegProductToe(nieuwProduct);
     }
 
-    public void voegProductToeZonderFoto(String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, ObservableList<Leergebied> leergebied) {
+    public void voegProductToeZonderFoto(String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, List<Leergebied> leergebied) {
         //isNaamUniek(naam);
         pb.voegProductToe(new Product(leergebied, doelgroep, firma, naam, omschrijving, artikelnummer, prijs, aantal, plaats));
     }
@@ -42,7 +42,7 @@ public class ProductController extends Observable {
         return pb.getProduct(artikelnummer);
     }
 
-    public void wijzigProduct(String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, ObservableList<Leergebied> leergebied) {
+    public void wijzigProduct(String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, List<Leergebied> leergebied) {
         if (!naam.toLowerCase().equals(huidigProduct.getNaam().toLowerCase())) {
             //isNaamUniek(naam);
         }
@@ -51,7 +51,7 @@ public class ProductController extends Observable {
         notifyObservers();
     }
 
-    public void wijzigProductZonderFoto(String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, ObservableList<Leergebied> leergebied) {
+    public void wijzigProductZonderFoto(String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, List<Leergebied> leergebied) {
         if (!naam.toLowerCase().equals(huidigProduct.getNaam().toLowerCase())) {
             //isNaamUniek(naam);
         }
@@ -85,13 +85,20 @@ public class ProductController extends Observable {
         return pb.getToegevoegd();
     }
 
-//    public boolean geenToegevoegd() {
-//        return pb.geenToegevoegd();
-//    }
-//    
-//    public boolean geenLeergebieden() {
-//        return pb.geenLeergebieden();
-//    }
+    public List<Leergebied> getListLeergebiedToegevoegd() {
+        return pb.getListLeergebiedToegevoegd();
+    }
+        //    public void wijzigLeergebiedenHuidigProduct(){
+        //        huidigProduct.setLeergebied(leergebied);
+        //    }
+
+        //    public boolean geenToegevoegd() {
+        //        return pb.geenToegevoegd();
+        //    }
+        //    
+        //    public boolean geenLeergebieden() {
+        //        return pb.geenLeergebieden();
+        //    }
     public void voegLeergebiedToe(Leergebied naam) {
         pb.voegLeergebiedToe(naam);
     }
@@ -124,12 +131,12 @@ public class ProductController extends Observable {
     public Leergebied getLeergebiedToegevoegdFromString(String naam) {
         return pb.getLeergebiedToegevoegdFromString(naam);
     }
-    
-      public void voegToeAanLeergebieden(Leergebied leergebied){
-      pb.voegToeAanLeergebieden(leergebied);
-      }
-    //EINDE LEERGEBIED
 
+    public void voegToeAanLeergebieden(Leergebied leergebied) {
+        pb.voegToeAanLeergebieden(leergebied);
+    }
+
+    //EINDE LEERGEBIED
     public ObservableList<Product> zoekOpTrefwoord(String trefwoord) {
         return pb.zoekOpTrefwoord(trefwoord);
     }

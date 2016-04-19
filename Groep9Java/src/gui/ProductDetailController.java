@@ -176,9 +176,9 @@ public class ProductDetailController extends Pane implements Observer {
             lblError.setText(""); // errorlabel clear
 
             if (imgViewFoto.getImage() == null) {
-                dc.wijzigProductZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getToegevoegd());
+                dc.wijzigProductZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getListLeergebiedToegevoegd());
             } else {
-                dc.wijzigProduct(imgViewFoto.getImage().impl_getUrl(), naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getToegevoegd());
+                dc.wijzigProduct(imgViewFoto.getImage().impl_getUrl(), naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getListLeergebiedToegevoegd());
 
             }
 
@@ -307,10 +307,11 @@ public class ProductDetailController extends Pane implements Observer {
             String foto;
             if (imgViewFoto.getImage() == null) {
 
-                dc.voegProductToeZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getToegevoegd());
+                dc.voegProductToeZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getListLeergebiedToegevoegd());
+            Product prod= dc.getHuidigProduct();
             } else {
                 foto = imgViewFoto.getImage().impl_getUrl();
-                dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getToegevoegd());
+                dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getListLeergebiedToegevoegd());
             }
 
             lblError.setText(""); // errortekst clearen
