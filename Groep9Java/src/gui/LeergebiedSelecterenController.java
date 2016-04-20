@@ -140,7 +140,7 @@ class LeergebiedSelecterenController extends GridPane {
     private void toevoegenNieuwLeergebied(ActionEvent event) {
         String nieuwleergebied = txtNieuwLeergebied.getText();
         Leergebied leergebied = new Leergebied(nieuwleergebied);
-        dc.voegToeAanLeergebieden(leergebied);
+        dc.voegNieuwToeAanLeergebieden(leergebied);
         txtNieuwLeergebied.clear();
         alleLeergebieden.getItems().clear();
         toegevoegdeLeergebieden.getItems().clear();

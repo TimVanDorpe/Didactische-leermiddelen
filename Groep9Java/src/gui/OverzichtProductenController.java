@@ -102,19 +102,7 @@ public class OverzichtProductenController extends BorderPane implements Observer
        // btnVerwijder.setDisable(false);
     }
 
-    @FXML
-    private void naarProductPagina(ActionEvent event) {
-
-        Stage stage = new Stage();
-        stage.setTitle("Product toevoegen");
-
-        Scene scene = new Scene(new ProductToevoegenController(dc));
-        stage.setScene(scene);
-
-        //this.setDisable(true);
-        stage.show();
-
-    }
+    
 
     @FXML
     private void zoekOpTrefwoord(ActionEvent event) {

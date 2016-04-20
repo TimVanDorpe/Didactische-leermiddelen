@@ -63,12 +63,11 @@ public class ProductDetailController extends Pane implements Observer {
     private TextField txtFirma, txtPlaats;
     @FXML
     private TextField txtEmailFirma;
-    @FXML
-    private TextField txtDoelgroepen;
+
     // @FXML
     // private TextField txtLeergebieden;
     @FXML
-    private ListView<String> listLeergebieden;
+    private ListView<String> listLeergebieden, listDoelgroepen;
     @FXML
     private ImageView imgViewFoto;
     @FXML
@@ -107,7 +106,7 @@ public class ProductDetailController extends Pane implements Observer {
     @FXML
     private CheckBox uitleenbaarheid;
     @FXML
-    private Button btnLeegmaken, btnSelecteerLeergebied;
+    private Button btnLeegmaken, btnSelecteerLeergebied, btnSelecteerDoelgroep;
     @FXML
     private Button btnWijzigen;
 
@@ -138,7 +137,6 @@ public class ProductDetailController extends Pane implements Observer {
             uitleenbaarheid.setDisable(true);
             txtAantal.setDisable(true);
             txtArtikelnummer.setDisable(true);
-            txtDoelgroepen.setDisable(true);
             txtEmailFirma.setDisable(true);
             txtFirma.setDisable(true);
             //txtLeergebieden.setDisable(true);
@@ -149,9 +147,11 @@ public class ProductDetailController extends Pane implements Observer {
             btnWijzigen.setDisable(true);
             btnLeegmaken.setDisable(true);
             btnVerwijderen.setDisable(true);
-
+            
             btnSelecteerLeergebied.setDisable(true);
             listLeergebieden.setDisable(true);
+            btnSelecteerDoelgroep.setDisable(true);
+            listDoelgroepen.setDisable(true);
         }
     }
 
@@ -167,18 +167,18 @@ public class ProductDetailController extends Pane implements Observer {
              ook weer dubbele code bij toevoegen/wijzigen te vermijden (jens)
              */
             Firma firma = new Firma(firmaNaam, firmaEmail);
-
-            String naamDoelgroep = txtDoelgroepen.getText();
-            if (naamDoelgroep == null) {
-                naamDoelgroep = "";
-            }
-            Doelgroep doelgroep = new Doelgroep(naamDoelgroep);
+//
+//            String naamDoelgroep = txtDoelgroepen.getText();
+//            if (naamDoelgroep == null) {
+//                naamDoelgroep = "";
+//            }
+//            Doelgroep doelgroep = new Doelgroep(naamDoelgroep);
             lblError.setText(""); // errorlabel clear
 
             if (imgViewFoto.getImage() == null) {
-                dc.wijzigProductZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getListLeergebiedToegevoegd());
+                dc.wijzigProductZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
             } else {
-                dc.wijzigProduct(imgViewFoto.getImage().impl_getUrl(), naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getListLeergebiedToegevoegd());
+                dc.wijzigProduct(imgViewFoto.getImage().impl_getUrl(), naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
 
             }
 
@@ -211,10 +211,17 @@ public class ProductDetailController extends Pane implements Observer {
 
     private ObservableList<String> zetLeergebiedenOmNaarString(List<Leergebied> leergebiedenVanProduct) {
         ObservableList<String> Stringsleergebieden = FXCollections.observableArrayList();
-        for (Leergebied l : leergebiedenVanProduct) {
-            String naam = l.getNaam();
+        leergebiedenVanProduct.stream().map((l) -> l.getNaam()).forEach((naam) -> {
             Stringsleergebieden.add(naam);
-        }
+        });
+        return Stringsleergebieden;
+    }
+
+    private ObservableList<String> zetDoelgroepenOmNaarString(List<Doelgroep> doelgroepenVanProduct) {
+        ObservableList<String> Stringsleergebieden = FXCollections.observableArrayList();
+        doelgroepenVanProduct.stream().map((l) -> l.getNaam()).forEach((naam) -> {
+            Stringsleergebieden.add(naam);
+        });
         return Stringsleergebieden;
     }
 
@@ -236,7 +243,7 @@ public class ProductDetailController extends Pane implements Observer {
             txtOmschrijving.setText(product.getOmschrijving());
             txtPlaats.setText(product.getPlaats());
             listLeergebieden.setItems(zetLeergebiedenOmNaarString(product.getLeergebied()));
-
+            listDoelgroepen.setItems(zetDoelgroepenOmNaarString(product.getDoelgroep()));
             //alles terug enablen als er iets geselcteerd wordt
             btnToevoegen.setDisable(false);
             btnAnnuleer.setDisable(false);
@@ -245,10 +252,8 @@ public class ProductDetailController extends Pane implements Observer {
             uitleenbaarheid.setDisable(false);
             txtAantal.setDisable(false);
             txtArtikelnummer.setDisable(false);
-            txtDoelgroepen.setDisable(false);
             txtEmailFirma.setDisable(false);
             txtFirma.setDisable(false);
-            //txtLeergebieden.setDisable(false);
             txtNaam.setDisable(false);
             txtOmschrijving.setDisable(false);
             txtPlaats.setDisable(false);
@@ -258,6 +263,8 @@ public class ProductDetailController extends Pane implements Observer {
             btnVerwijderen.setDisable(false);
             btnSelecteerLeergebied.setDisable(false);
             listLeergebieden.setDisable(false);
+            btnSelecteerDoelgroep.setDisable(false);
+            listDoelgroepen.setDisable(false);
 
         }
 
@@ -268,7 +275,6 @@ public class ProductDetailController extends Pane implements Observer {
         //nog implementen
         txtAantal.setText("");
         txtArtikelnummer.setText("");
-        txtDoelgroepen.setText("");
         txtEmailFirma.setText("");
         txtFirma.setText("");
         //txtLeergebieden.setText("");
@@ -296,7 +302,7 @@ public class ProductDetailController extends Pane implements Observer {
 
             Firma firma = new Firma(txtFirma.getText(), txtEmailFirma.getText());
             //Dit moet zeker weg!!!!
-            Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
+//            Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
             Leergebied leergebied = new Leergebied("test");
             Leergebied leergebied2 = new Leergebied("test");
             List<Leergebied> leergebieden = new ArrayList<>();
@@ -307,11 +313,11 @@ public class ProductDetailController extends Pane implements Observer {
             String foto;
             if (imgViewFoto.getImage() == null) {
 
-                dc.voegProductToeZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getListLeergebiedToegevoegd());
-            Product prod= dc.getHuidigProduct();
+                dc.voegProductToeZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
+                Product prod = dc.getHuidigProduct();
             } else {
                 foto = imgViewFoto.getImage().impl_getUrl();
-                dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getListLeergebiedToegevoegd());
+                dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
             }
 
             lblError.setText(""); // errortekst clearen
@@ -368,9 +374,9 @@ public class ProductDetailController extends Pane implements Observer {
                 txtEmailFirma.setText("");
             }
 
-            if (txtDoelgroepen.getText() == null) {
-                txtDoelgroepen.setText("");
-            }
+//            if (txtDoelgroepen.getText() == null) {
+//                txtDoelgroepen.setText("");
+//            }
             Firma firma = new Firma(firmaNaam, firmaEmail);
             //Dit moet zeker weg!!!!
 //            Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
@@ -521,6 +527,20 @@ public class ProductDetailController extends Pane implements Observer {
         stage.setTitle("Leergebied Selecteren");
 
         Scene scene = new Scene(new LeergebiedSelecterenController(dc));
+        stage.setScene(scene);
+
+        //this.setDisable(true);
+        stage.show();
+
+    }
+
+    @FXML
+    private void selecteerDoelgroepen(ActionEvent event) {
+
+        Stage stage = new Stage();
+        stage.setTitle("Doelgroep Selecteren");
+
+        Scene scene = new Scene(new DoelgroepSelecterenController(dc));
         stage.setScene(scene);
 
         //this.setDisable(true);
