@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -30,7 +31,7 @@ public class LoginSchermController extends Pane {
     @FXML
     private TextField txfGerbuikersNaam;
     @FXML
-    private TextField txfWachtwoord;
+    private PasswordField txfWachtwoord;
     @FXML
     private Button btnAanmelden;
     @FXML

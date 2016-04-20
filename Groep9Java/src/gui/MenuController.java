@@ -58,11 +58,12 @@ public class MenuController extends VBox{
     @FXML
     public void toonCatalogus(){
         
+        
     }
     
     @FXML
     public void toonReservaties(){
-        
+       
     }
     
     @FXML
