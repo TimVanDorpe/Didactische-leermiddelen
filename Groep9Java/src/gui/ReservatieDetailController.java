@@ -39,11 +39,9 @@ public class ReservatieDetailController extends Pane implements Observer {
 
     private ReservatieController rc;
 
-
     @FXML
     private Button btnWijzigen;
 
-  
     @FXML
     private Button btnVerwijderen;
     @FXML
@@ -72,7 +70,7 @@ public class ReservatieDetailController extends Pane implements Observer {
     private ImageView imgViewFoto;
     @FXML
     private Button btnAnnuleer;
-     @FXML
+    @FXML
     private Button btnLeegmaken;
 
     private String product, student, startDatum, eindDatum;
@@ -112,17 +110,41 @@ public class ReservatieDetailController extends Pane implements Observer {
         try {
             //valideerVelden(true);
 
-            this.product = txtProduct.getText();
-            this.aantal = Integer.parseInt(txtAantal.getText());
-            this.student = txtStudent.getText();
+            /* NA DEMO UIT COMMENTAAR
+             this.product = txtProduct.getText();
+              this.student = txtStudent.getText();
             this.startDatum = txtStartDatum.getText();
             this.eindDatum = txtEindDatum.getText();
+             */
+            //DEZE OOK TIJDELIJK VOOR DEMO
+            if (txtAantal.getText().equals("") || !Helper.isInteger(txtAantal.getText())) {
+                throw new IllegalArgumentException("Aantal moet een getal zijn");
+            }
+
+            if (Helper.isInteger(txtAantal.getText()) && (Integer.parseInt(txtAantal.getText()) <= 0)) {
+                throw new IllegalArgumentException("Aantal moet positief zijn");
+            }
+            if (Helper.isInteger(txtAantal.getText()) && (Integer.parseInt(txtAantal.getText()) > 20)) {
+                throw new IllegalArgumentException("Aantal kan niet groter zijn dan het totaal beschikbare aantal");
+            }
+
+            this.aantal = Integer.parseInt(txtAantal.getText());
 
             lblError.setText("");
 
-            rc.wijzigReservatie(product, aantal, student, startDatum, eindDatum);
+            //rc.wijzigReservatie(product, aantal, student, startDatum, eindDatum); UIT COMMENTAAR NA DEMO
+            rc.wijzigAantal(Integer.parseInt(txtAantal.getText()));
+            
+
+            //TIJDELIJK VOOR DEMO
+            lblAantal.setText("Aantal");
+            lblAantal.setTextFill(Color.web("#000000"));
 
         } catch (IllegalArgumentException ex) {
+
+            //TIJDELIJK VOOR DEMO
+            lblAantal.setText("Aantal*");
+            lblAantal.setTextFill(Color.web("#F20000"));
 
             lblError.setText(ex.getMessage());
             lblError.setTextFill(Color.web("#F20000"));
@@ -137,29 +159,35 @@ public class ReservatieDetailController extends Pane implements Observer {
 
             lblError.setText("");
             //maakLabelsTerugNormaal();
+            
+            //DEMO TIJDELIJK
+            lblAantal.setText("Aantal");
+            lblAantal.setTextFill(Color.web("#000000"));
 
             Reservatie res = (Reservatie) arg;
             txtAantal.setText(Integer.toString(res.getGereserveerdAantal()));
-            
+
             txtProduct.setText(res.getGereserveerdProduct().getNaam());
-            
+
             txtStudent.setText(res.getGebruiker());
-            
-            txtStartDatum.setText(res.getStartDatum().toString());
-            
-            txtEindDatum.setText(res.getEindDatum().toString());
-            
+
+            txtStartDatum.setText(Helper.format(res.getStartDatum()));
+
+            txtEindDatum.setText(Helper.format(res.getEindDatum()));
 
             //alles terug enablen als er iets geselcteerd wordt
+            /* DIT MOET TERUG UIT COMMENTAAR NA DEMO
             btnAnnuleer.setDisable(false);
-            txtAantal.setDisable(false);
             txtEindDatum.setDisable(false);
             txtStartDatum.setDisable(false);
             txtProduct.setDisable(false);
             txtStudent.setDisable(false);
-            btnWijzigen.setDisable(false);
             btnLeegmaken.setDisable(false);
+             */
+            txtAantal.setDisable(false);
+            btnWijzigen.setDisable(false);
             btnVerwijderen.setDisable(false);
+
         }
     }
 

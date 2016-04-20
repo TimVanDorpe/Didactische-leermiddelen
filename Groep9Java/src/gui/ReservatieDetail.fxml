@@ -28,7 +28,7 @@
             <TextField fx:id="txtEindDatum" layoutY="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="txtAantal" layoutY="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="txtStartDatum" layoutY="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label fx:id="lblProduct" prefHeight="21.0" prefWidth="106.0" text="Product" />
+            <Label fx:id="lblProduct" prefHeight="21.0" prefWidth="106.0" text="Materiaal" />
             <Label fx:id="lblStudent" text="Student" GridPane.rowIndex="1" />
             <TextField fx:id="txtStudent" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>

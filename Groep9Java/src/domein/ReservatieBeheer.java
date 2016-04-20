@@ -5,7 +5,7 @@
  */
 package domein;
 
-import java.util.Arrays;
+import java.util.Comparator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
@@ -19,10 +19,34 @@ public class ReservatieBeheer {
     private SortedList<Reservatie> sortedList;
     private ObservableList<Reservatie> reservatieLijst = FXCollections.observableArrayList();
 
-    public ReservatieBeheer() {
-
+    
+     //hier alle comparators
+    private final Comparator<Reservatie> byNaam = (p1, p2) -> p1.getGereserveerdProduct().getNaam().compareToIgnoreCase(p2.getGereserveerdProduct().getNaam());
+    // alle comparators in de juiste volgorde, de volgorde waarop wordt gesorteerd.
+    private final Comparator<Reservatie> sortOrder = byNaam;
+    
+    
+    public ReservatieBeheer(ProductBeheer pb) {
+        ReservatieData data = new ReservatieData(this, pb);
+        data.maakReservaties();
+        
+        
+        sortedList = reservatieLijst.sorted(sortOrder);
+        
     }
 
+     public SortedList<Reservatie> getSortedList() {
+
+        //Wrap the FilteredList in a SortedList
+        return sortedList; //SortedList is unmodifiable
+    }
+
+    public void setSortedList(SortedList<Reservatie> sortedList) {
+        this.sortedList = sortedList;
+    }
+
+    
+    
     public ObservableList<Reservatie> getReservatieLijst() {
         return reservatieLijst;
     }
@@ -39,9 +63,6 @@ public class ReservatieBeheer {
         reservatieLijst.remove(r);
     }
 
-    ObservableList<Reservatie> getSortedList() {
-        return sortedList;
-    }
 
     void wijzigReservatie(Reservatie nieuweReservatie, Reservatie huidigeReservatie) {
         huidigeReservatie.setGereserveerdAantal(nieuweReservatie.getGereserveerdAantal());
@@ -51,4 +72,9 @@ public class ReservatieBeheer {
         huidigeReservatie.setGebruiker(nieuweReservatie.getGebruiker());
     }
 
+    
+    public void wijzigAantal(Reservatie r, int aantal){
+        r.setGereserveerdAantal(aantal);
+    }
+    
 }

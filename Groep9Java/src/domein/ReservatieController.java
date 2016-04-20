@@ -17,14 +17,13 @@ import javafx.collections.ObservableList;
  */
 public class ReservatieController extends Observable {
 
-    
     private ProductController pc;
     private ReservatieBeheer rb;
     private Reservatie huidigeReservatie;
     private boolean selectionModelEmpty;
 
     public ReservatieController(ProductController pc) {
-        rb = new ReservatieBeheer();
+        rb = new ReservatieBeheer(pc.getPb());
         this.pc = pc;
     }
 
@@ -54,31 +53,31 @@ public class ReservatieController extends Observable {
 
         return rb.getSortedList(); //SortedList is unmodifiable
 
-
     }
-    
+
     public void wijzigReservatie(String product, int aantal, String student, String startDatum, String eindDatum) {
-        
-        Calendar start = new GregorianCalendar(Integer.parseInt(startDatum.substring(0, 4)), 
-                Integer.parseInt(startDatum.substring(5,7)), Integer.parseInt(startDatum.substring(8, 10),
-                        Integer.parseInt(startDatum.substring(11,13))));
-        Calendar eind = new GregorianCalendar(Integer.parseInt(eindDatum.substring(0, 4)), 
-                Integer.parseInt(eindDatum.substring(5,7)), Integer.parseInt(eindDatum.substring(8, 10),
-                        Integer.parseInt(eindDatum.substring(11,13))));
-        
-            Product prod = pc.getProductenLijst().stream().filter(p->p.getNaam().toLowerCase().equals(product)).findAny().get();
-                
-                
-                //productenLijst.stream().anyMatch(p -> p.getNaam().toLowerCase().equals(naam.toLowerCase()
-        
+
+        GregorianCalendar start = new GregorianCalendar(Integer.parseInt(startDatum.substring(0, 4)),
+                Integer.parseInt(startDatum.substring(5, 7)), Integer.parseInt(startDatum.substring(8, 10),
+                Integer.parseInt(startDatum.substring(11, 13))));
+        GregorianCalendar eind = new GregorianCalendar(Integer.parseInt(eindDatum.substring(0, 4)),
+                Integer.parseInt(eindDatum.substring(5, 7)), Integer.parseInt(eindDatum.substring(8, 10),
+                Integer.parseInt(eindDatum.substring(11, 13))));
+
+        Product prod = pc.getProductenLijst().stream().filter(p -> p.getNaam().toLowerCase().equals(product)).findAny().get();
+
         Reservatie nieuweReservatie = new Reservatie(start, eind, student, prod, aantal);
-                
-                rb.wijzigReservatie(nieuweReservatie, huidigeReservatie);
+        rb.wijzigReservatie(nieuweReservatie, huidigeReservatie);
         setChanged();
         notifyObservers();
     }
     
-    
+    public void wijzigAantal(int aantal){ // VOOR DEMO
+        rb.wijzigAantal(huidigeReservatie, aantal);
+        setChanged();
+        notifyObservers();
+    }
+
     public void updateDetailvenster() {
         setChanged();
         notifyObservers(huidigeReservatie);

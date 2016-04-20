@@ -28,11 +28,11 @@ public class ReservatieData {
     
     public void maakReservaties(){
         
-        Calendar startDatum1 = new GregorianCalendar(2016, 5, 2, 8, 0, 0);
-        Calendar eindDatum1 = new GregorianCalendar(2016, 5, 6, 17, 0, 0);
+        GregorianCalendar startDatum1 = new GregorianCalendar(2016, 5, 6, 8, 0, 0);
+        GregorianCalendar eindDatum1 = new GregorianCalendar(2016, 5, 10, 17, 0, 0);
         
-        Calendar startDatum2 = new GregorianCalendar(2016, 5, 9, 8, 0, 0);
-        Calendar eindDatum2 = new GregorianCalendar(2016, 5, 13, 17, 0,0);
+        GregorianCalendar startDatum2 = new GregorianCalendar(2016, 5, 13, 8, 0, 0);
+        GregorianCalendar eindDatum2 = new GregorianCalendar(2016, 5, 17, 17, 0,0);
         
         String gebruiker1 = "student1@hogent.be";
         String gebruiker2 = "student2@hogent.be";

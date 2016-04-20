@@ -30,9 +30,9 @@ public class ProductData {
         List<Leergebied> leergebieden = new ArrayList();
         List<Leergebied> leergebieden2 = new ArrayList();
         
-        Leergebied tellen = new Leergebied("tellen");
+        Leergebied tellen = new Leergebied("Tellen");
         tellen.setId(0);
-        Leergebied knutselen = new Leergebied("knutselen");
+        Leergebied knutselen = new Leergebied("Knutselen");
          knutselen.setId(1);
         leergebieden.add(tellen);
         leergebieden.add(knutselen);
