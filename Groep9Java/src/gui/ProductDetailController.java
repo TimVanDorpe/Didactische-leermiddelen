@@ -14,7 +14,7 @@ import util.Helper;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Blob;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -30,7 +30,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
@@ -40,7 +39,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
@@ -114,6 +112,7 @@ public class ProductDetailController extends Pane implements Observer {
     String naam, omschrijving, firmaNaam, firmaEmail, plaats, error;
     int artikelnummer, aantal, aantalVerkeerd;
     double prijs;
+    URL foto;
     @FXML
     private Button btnVerwijderen;
 
@@ -178,7 +177,7 @@ public class ProductDetailController extends Pane implements Observer {
             if (imgViewFoto.getImage() == null) {
                 dc.wijzigProductZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getListLeergebiedToegevoegd());
             } else {
-                dc.wijzigProduct(imgViewFoto.getImage().impl_getUrl(), naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getListLeergebiedToegevoegd());
+                dc.wijzigProduct(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getToegevoegd());
 
             }
 
@@ -201,6 +200,7 @@ public class ProductDetailController extends Pane implements Observer {
             BufferedImage bufferedImage = ImageIO.read(file);
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);
             imgViewFoto.setImage(image);
+            foto = file.toURL();
 
         } catch (IOException ex) {
             Logger.getLogger(ProductDetailController.class
@@ -236,7 +236,7 @@ public class ProductDetailController extends Pane implements Observer {
             txtOmschrijving.setText(product.getOmschrijving());
             txtPlaats.setText(product.getPlaats());
             listLeergebieden.setItems(zetLeergebiedenOmNaarString(product.getLeergebied()));
-
+            
             //alles terug enablen als er iets geselcteerd wordt
             btnToevoegen.setDisable(false);
             btnAnnuleer.setDisable(false);
@@ -248,7 +248,6 @@ public class ProductDetailController extends Pane implements Observer {
             txtDoelgroepen.setDisable(false);
             txtEmailFirma.setDisable(false);
             txtFirma.setDisable(false);
-            //txtLeergebieden.setDisable(false);
             txtNaam.setDisable(false);
             txtOmschrijving.setDisable(false);
             txtPlaats.setDisable(false);
@@ -258,7 +257,18 @@ public class ProductDetailController extends Pane implements Observer {
             btnVerwijderen.setDisable(false);
             btnSelecteerLeergebied.setDisable(false);
             listLeergebieden.setDisable(false);
-
+            if(product.getFoto() != null){
+             try {
+                BufferedImage img = ImageIO.read(product.getFoto());
+                 Image image = SwingFXUtils.toFXImage(img, null);
+                imgViewFoto.setImage(image);
+            } catch (IOException ex) {
+                Logger.getLogger(ProductDetailController.class.getName()).log(Level.SEVERE, null, ex);
+            }}
+            else
+            {
+            imgViewFoto.setImage(null);
+            }
         }
 
     }
@@ -304,14 +314,12 @@ public class ProductDetailController extends Pane implements Observer {
             leergebieden.add(leergebied2);
 
             // do what you have to do
-            String foto;
+            
             if (imgViewFoto.getImage() == null) {
 
-                dc.voegProductToeZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getListLeergebiedToegevoegd());
-            Product prod= dc.getHuidigProduct();
-            } else {
-                foto = imgViewFoto.getImage().impl_getUrl();
-                dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getListLeergebiedToegevoegd());
+                dc.voegProductToeZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getToegevoegd());
+            } else {                
+                dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getToegevoegd());
             }
 
             lblError.setText(""); // errortekst clearen
@@ -380,12 +388,7 @@ public class ProductDetailController extends Pane implements Observer {
 //            leergebieden.add(leergebied);
 //            leergebieden.add(leergebied2);
 //
-            Blob foto;
-            if (imgViewFoto == null) {
-                throw new IllegalArgumentException("De foto mag niet leeg zijn !!");
-            } else {
-                foto = (Blob) imgViewFoto.getImage();
-            }
+            
 
         }
     }
@@ -527,4 +530,8 @@ public class ProductDetailController extends Pane implements Observer {
         stage.show();
 
     }
+    
+    
+    
+    
 }
