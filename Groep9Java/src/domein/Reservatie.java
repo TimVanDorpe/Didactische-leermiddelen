@@ -6,13 +6,14 @@
 package domein;
 
 import java.util.Calendar;
+import javafx.beans.property.SimpleStringProperty;
 
 /**
  *
  * @author Jens
  */
 public class Reservatie {
-    
+
     private Calendar startDatum, eindDatum;
     private String gebruiker;
     private Product gereserveerdProduct;
@@ -65,10 +66,40 @@ public class Reservatie {
     public void setGereserveerdAantal(int gereserveerdAantal) {
         this.gereserveerdAantal = gereserveerdAantal;
     }
+
+    public SimpleStringProperty productProperty() {
+        SimpleStringProperty productSimple = new SimpleStringProperty();
+        productSimple.set(gereserveerdProduct.getNaam());
+        return productSimple;
+    }
+
+    public SimpleStringProperty aantalProperty() {
+        SimpleStringProperty aantalSimple = new SimpleStringProperty();
+        StringBuilder sb = new StringBuilder();
+        sb.append("");
+        sb.append(gereserveerdAantal);
+        String aantalBuild = sb.toString();
+        aantalSimple.set(aantalBuild);
+        return aantalSimple;
+    }
+
+    public SimpleStringProperty studentProperty() {
+        SimpleStringProperty studentSimple = new SimpleStringProperty();
+        studentSimple.set(gebruiker);
+        return studentSimple;
+    }
     
+    public SimpleStringProperty startDatumProperty() {
+        SimpleStringProperty startDatumSimple = new SimpleStringProperty();
+        startDatumSimple.set(startDatum.toString());
+        return startDatumSimple;
+    }
     
+    public SimpleStringProperty eindDatumProperty() {
+        SimpleStringProperty EindDatumSimple = new SimpleStringProperty();
+        EindDatumSimple.set(eindDatum.toString());
+        return EindDatumSimple;
+    }
     
-    
-    
-    
+
 }

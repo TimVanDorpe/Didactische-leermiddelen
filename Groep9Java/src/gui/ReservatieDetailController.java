@@ -1,0 +1,369 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package gui;
+
+import domein.Doelgroep;
+import domein.Firma;
+import domein.Reservatie;
+import domein.ReservatieController;
+import util.Helper;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javax.imageio.ImageIO;
+
+public class ReservatieDetailController extends Pane implements Observer {
+
+    private ReservatieController rc;
+
+
+    @FXML
+    private Button btnWijzigen;
+
+  
+    @FXML
+    private Button btnVerwijderen;
+    @FXML
+    private Label lblError;
+    @FXML
+    private Label lblEindDatum;
+    @FXML
+    private Label lblAantal;
+    @FXML
+    private Label lblStartDatum;
+    @FXML
+    private TextField txtProduct;
+    @FXML
+    private TextField txtEindDatum;
+    @FXML
+    private TextField txtAantal;
+    @FXML
+    private TextField txtStartDatum;
+    @FXML
+    private Label lblProduct;
+    @FXML
+    private Label lblStudent;
+    @FXML
+    private TextField txtStudent;
+    @FXML
+    private ImageView imgViewFoto;
+    @FXML
+    private Button btnAnnuleer;
+     @FXML
+    private Button btnLeegmaken;
+
+    private String product, student, startDatum, eindDatum;
+    private int aantal;
+
+    public ReservatieDetailController(ReservatieController rc) {
+        // TODO
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ReservatieDetail.fxml"));
+        this.rc = rc;
+        loader.setRoot(this);
+        loader.setController(this);
+
+        try {
+            loader.load();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        if (rc.getSelectionModelEmpty()) {
+            btnAnnuleer.setDisable(true);
+            txtAantal.setDisable(true);
+            txtEindDatum.setDisable(true);
+            txtStartDatum.setDisable(true);
+            txtProduct.setDisable(true);
+            txtStudent.setDisable(true);
+            btnWijzigen.setDisable(true);
+            btnLeegmaken.setDisable(true);
+            btnVerwijderen.setDisable(true);
+
+        }
+    }
+
+    @FXML
+    private void wijzigReservatie(ActionEvent event) {
+
+        try {
+            //valideerVelden(true);
+
+            this.product = txtProduct.getText();
+            this.aantal = Integer.parseInt(txtAantal.getText());
+            this.student = txtStudent.getText();
+            this.startDatum = txtStartDatum.getText();
+            this.eindDatum = txtEindDatum.getText();
+
+            lblError.setText("");
+
+            rc.wijzigReservatie(product, aantal, student, startDatum, eindDatum);
+
+        } catch (IllegalArgumentException ex) {
+
+            lblError.setText(ex.getMessage());
+            lblError.setTextFill(Color.web("#F20000"));
+
+        }
+    }
+
+    //steekt alle gegevens in de textfields
+    @Override
+    public void update(Observable o, Object arg) {
+        if (arg != null) {
+
+            lblError.setText("");
+            //maakLabelsTerugNormaal();
+
+            Reservatie res = (Reservatie) arg;
+            txtAantal.setText(Integer.toString(res.getGereserveerdAantal()));
+            
+            txtProduct.setText(res.getGereserveerdProduct().getNaam());
+            
+            txtStudent.setText(res.getGebruiker());
+            
+            txtStartDatum.setText(res.getStartDatum().toString());
+            
+            txtEindDatum.setText(res.getEindDatum().toString());
+            
+
+            //alles terug enablen als er iets geselcteerd wordt
+            btnAnnuleer.setDisable(false);
+            txtAantal.setDisable(false);
+            txtEindDatum.setDisable(false);
+            txtStartDatum.setDisable(false);
+            txtProduct.setDisable(false);
+            txtStudent.setDisable(false);
+            btnWijzigen.setDisable(false);
+            btnLeegmaken.setDisable(false);
+            btnVerwijderen.setDisable(false);
+        }
+    }
+
+    @FXML
+    private void resetWaarden(ActionEvent event) {
+
+        txtAantal.setText("");
+        txtEindDatum.setText("");
+        txtStartDatum.setText("");
+        txtProduct.setText("");
+        txtStudent.setText("");
+
+        rc.setGeselecteerdeReservatie(null);
+        btnWijzigen.setDisable(true);
+        btnVerwijderen.setDisable(true);
+    }
+
+    @FXML
+    private void annuleerWijziging(ActionEvent event) {
+        rc.updateDetailvenster();
+    }
+
+    @FXML
+    private void verwijderReservatie(ActionEvent event) {
+        Stage stage = new Stage();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmatie");
+        alert.setHeaderText("Reservatie verwijderen");
+        alert.setContentText("U staat op het punt om deze reservatie te verwijderen. Weet u het zeker?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            // OK
+
+            rc.removeReservatie();
+
+        } else {
+            // Niet OK
+
+            stage.close();
+
+        }
+
+        stage.close();
+    }
+
+    /*
+    private void valideerVelden(boolean isWijziging) {
+
+        maakLabelsTerugNormaal();
+
+        isInputValid(isWijziging);
+
+        //alster meer dan 2 fout zijn algemene message
+        if (!isInputValid(isWijziging) && aantalVerkeerd >= 2) {
+            throw new IllegalArgumentException("Een aantal velden zijn niet correct ingevuld");
+        }
+
+        //specifieke message
+        if (!isInputValid(isWijziging)) {
+            throw new IllegalArgumentException(error);
+        } else {
+
+            this.naam = txtNaam.getText();
+
+            this.omschrijving = txtOmschrijving.getText();
+
+            //dit moet ook nog anders
+            this.artikelnummer = 0;
+
+            if (!txtArtikelnummer.getText().equals("")) {
+
+                this.artikelnummer = Integer.parseInt(txtArtikelnummer.getText());
+            }
+            this.prijs = 0.0;
+            if (!txtPrijs.getText().equals("")) {
+                this.prijs = Double.parseDouble(txtPrijs.getText());
+            }
+
+            this.aantal = Integer.parseInt(txtAantal.getText());
+
+            this.plaats = txtPlaats.getText();
+
+            if (txtFirma.getText() == null) {
+                txtFirma.setText("");
+            }
+            if (txtEmailFirma.getText() == null) {
+                txtEmailFirma.setText("");
+            }
+
+            if (txtDoelgroepen.getText() == null) {
+                txtDoelgroepen.setText("");
+            }
+            Firma firma = new Firma(firmaNaam, firmaEmail);
+            //Dit moet zeker weg!!!!
+//            Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
+//            Leergebied leergebied = new Leergebied("test");
+//            Leergebied leergebied2 = new Leergebied("test");
+//            List<Leergebied> leergebieden = new ArrayList<>();
+//            leergebieden.add(leergebied);
+//            leergebieden.add(leergebied2);
+//
+
+        }
+    }
+
+    private void maakLabelsTerugNormaal() {
+
+        lblNaam.setText("Naam*");
+        lblNaam.setTextFill(Color.web("#000000"));
+        lblArtikelnummer.setText("Artikelnummer vd firma");
+        lblArtikelnummer.setTextFill(Color.web("#000000"));
+        lblPrijs.setText("Prijs");
+        lblPrijs.setTextFill(Color.web("#000000"));
+        lblAantal.setText("Aantal*");
+        lblAantal.setTextFill(Color.web("#000000"));
+    }
+
+    private boolean isInputValid(boolean isWijziging) {
+
+        String message = "";
+        boolean c = true;
+        int teller = 0;
+
+        if (txtNaam.getText().equals("")) {
+            lblNaam.setText("Naam*");
+            lblNaam.setTextFill(Color.web("#F20000"));
+            teller++;
+            c = false;
+            message += "Naam is verplicht\n";
+        }
+
+        if (!dc.isNaamUniek(txtNaam.getText(), isWijziging)) {
+            lblNaam.setText("Naam*");
+            lblNaam.setTextFill(Color.web("#F20000"));
+            teller++;
+            c = false;
+            message += "Naam moet uniek zijn\n";
+        }
+
+        if (txtAantal.getText().equals("")) {
+            lblAantal.setText("Aantal*");
+            lblAantal.setTextFill(Color.web("#F20000"));
+            teller++;
+            c = false;
+            message += "Aantal is verplicht\n";
+        }
+
+        if (Helper.isInteger(txtAantal.getText())) {
+            if (Integer.parseInt(txtAantal.getText()) < 0) {
+                lblAantal.setText("Aantal*");
+                lblAantal.setTextFill(Color.web("#F20000"));
+                teller++;
+                c = false;
+                message += "Aantal moet groter zijn dan nul\n";
+            }
+        } else {
+
+            lblAantal.setText("Aantal*");
+            lblAantal.setTextFill(Color.web("#F20000"));
+            teller++;
+            c = false;
+            message += "Aantal moet een getal zijn\n";
+
+        }
+
+        if (!txtArtikelnummer.getText().equals("")) {
+
+            if (!Helper.isInteger(txtArtikelnummer.getText())) {
+                lblArtikelnummer.setText("Artikelnummer vd firma*");
+                lblArtikelnummer.setTextFill(Color.web("#F20000"));
+                teller++;
+                c = false;
+                message += "Artikelnummer moet een getal zijn\n";
+            } else if (Integer.parseInt(txtArtikelnummer.getText()) < 0) {
+                lblArtikelnummer.setText("Artikelnummer vd firma*");
+                lblArtikelnummer.setTextFill(Color.web("#F20000"));
+                teller++;
+                c = false;
+                message += "Artikelnummer moet groter zijn dan nul\n";
+            }
+        }
+
+        if (!txtPrijs.getText().equals("")) {
+            if (!Helper.isDouble(txtPrijs.getText())) {
+                lblPrijs.setText("Prijs*");
+                lblPrijs.setTextFill(Color.web("#F20000"));
+                teller++;
+                c = false;
+                message += "Prijs moet een getal zijn\n";
+            } else if (Double.parseDouble(txtPrijs.getText()) < 0.0) {
+                lblPrijs.setText("Prijs*");
+                lblPrijs.setTextFill(Color.web("#F20000"));
+                teller++;
+                c = false;
+                message += "Prijs moet groter zijn dan nul\n";
+            }
+        }
+
+        aantalVerkeerd = teller;
+        error = message;
+        return c;
+
+    }
+     */
+}

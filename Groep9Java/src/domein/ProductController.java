@@ -24,6 +24,10 @@ public class ProductController extends Observable {
 
     }
 
+    public List<Product> getProductenLijst(){
+        return pb.getProductenLijst();
+    }
+    
     public void voegProductToe(URL foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, ObservableList<Leergebied> leergebied) {
         //isNaamUniek(naam);
         Product nieuwProduct = new Product(leergebied, doelgroep, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats);
