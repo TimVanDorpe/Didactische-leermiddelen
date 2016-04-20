@@ -10,15 +10,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="751.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.OverzichtReservatiesController">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="751.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <TableView fx:id="tblReservaties" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#enableSelectionModel" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="clmProduct" prefWidth="200.0" text="Product" />
           <TableColumn fx:id="clmStudent" prefWidth="310.0" text="Student" />
             <TableColumn fx:id="clmAantal" minWidth="0.0" prefWidth="110.0" text="Aantal" />
-            <TableColumn fx:id="clmStartDatum" minWidth="0.0" prefWidth="129.0" text="StartDatum" />
-            <TableColumn fx:id="clmEIndDatum" minWidth="0.0" prefWidth="129.0" text="EindDatum" />
+            <TableColumn fx:id="clmStartDatum" minWidth="0.0" prefWidth="129.0" text="Start datum" />
+            <TableColumn fx:id="clmEindDatum" minWidth="0.0" prefWidth="129.0" text="Eind datum" />
         </columns>
          <BorderPane.margin>
             <Insets />
