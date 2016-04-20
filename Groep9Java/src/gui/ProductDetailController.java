@@ -131,26 +131,26 @@ public class ProductDetailController extends Pane implements Observer {
         }
 
         if (dc.getSelectionModelEmpty()) {
-            btnToevoegen.setDisable(true);
-            btnAnnuleer.setDisable(true);
-            btnFoto.setDisable(true);
-            uitleenbaarheid.setDisable(true);
-            txtAantal.setDisable(true);
-            txtArtikelnummer.setDisable(true);
-            txtDoelgroepen.setDisable(true);
-            txtEmailFirma.setDisable(true);
-            txtFirma.setDisable(true);
+            //btnToevoegen.setDisable(true);
+            //btnAnnuleer.setDisable(true);
+            //btnFoto.setDisable(true);
+            //uitleenbaarheid.setDisable(true);
+            //txtAantal.setDisable(true);
+            //txtArtikelnummer.setDisable(true);
+            //txtDoelgroepen.setDisable(true);
+            //txtEmailFirma.setDisable(true);
+            //txtFirma.setDisable(true);
             //txtLeergebieden.setDisable(true);
-            txtNaam.setDisable(true);
-            txtOmschrijving.setDisable(true);
-            txtPlaats.setDisable(true);
-            txtPrijs.setDisable(true);
+            //txtNaam.setDisable(true);
+            //txtOmschrijving.setDisable(true);
+            //txtPlaats.setDisable(true);
+            //txtPrijs.setDisable(true);
             btnWijzigen.setDisable(true);
             btnLeegmaken.setDisable(true);
             btnVerwijderen.setDisable(true);
 
-            btnSelecteerLeergebied.setDisable(true);
-            listLeergebieden.setDisable(true);
+            //btnSelecteerLeergebied.setDisable(true);
+            //listLeergebieden.setDisable(true);
         }
     }
 
