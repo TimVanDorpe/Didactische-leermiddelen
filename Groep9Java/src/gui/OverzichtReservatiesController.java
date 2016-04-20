@@ -29,6 +29,7 @@ import javafx.stage.Stage;
  */
 public class OverzichtReservatiesController extends BorderPane implements Observer {
 
+    @FXML
     private TableView<Reservatie> tblReservaties;
 
     private ReservatieController rc;

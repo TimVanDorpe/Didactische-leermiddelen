@@ -41,6 +41,7 @@ public class MenuController extends VBox {
     private Pane paneBeheerders;
     
     private ProductController pc;
+    private ReservatieController rc;
 
     public MenuController() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
@@ -53,8 +54,13 @@ public class MenuController extends VBox {
         }
 
         pc = new ProductController();
+        rc = new ReservatieController(pc);
         ProductenFrameController catalogus = new ProductenFrameController(pc);
         paneProducten.getChildren().add(catalogus);
+        
+         ReservatiesFrameController reservaties = new ReservatiesFrameController(rc);
+        
+        paneReservaties.getChildren().add(reservaties);
 
     }
 
@@ -65,8 +71,7 @@ public class MenuController extends VBox {
 
     @FXML
     public void toonReservaties() {
-        ReservatiesFrameController reservaties = new ReservatiesFrameController(new ReservatieController(pc));
-        paneReservaties.getChildren().add(reservaties);
+       
     }
 
     @FXML
