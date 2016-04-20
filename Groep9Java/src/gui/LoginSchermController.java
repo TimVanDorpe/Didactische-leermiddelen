@@ -7,8 +7,6 @@ package gui;
 
 import domein.Beheerder;
 import domein.BeheerderController;
-import domein.ProductController;
-import java.io.File;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,7 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -83,7 +80,7 @@ public class LoginSchermController extends Pane {
              Stage stage = new Stage();
         stage.setTitle("Didactische leermiddelen");
 
-        Scene scene = new Scene(new ProductenFrameController(new ProductController()));
+        Scene scene = new Scene(new MenuController());
         stage.setScene(scene);
 
         //this.setDisable(true);

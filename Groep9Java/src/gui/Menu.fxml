@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" type="VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="btnUitloggen" layoutX="503.0" layoutY="7.0" mnemonicParsing="false" text="Uitloggen" />
+            <Label layoutX="14.0" layoutY="12.0" text="Didactische leermiddelen" />
+            <Label fx:id="lblHuidigeGebruiker" alignment="CENTER_RIGHT" layoutX="335.0" layoutY="12.0" prefHeight="21.0" prefWidth="160.0" />
+         </children>
+      </Pane>
+      <TabPane prefHeight="512.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="tabCatalogus" onSelectionChanged="#toonCatalogus" text="Catalogus">
+               <content>
+                  <Pane fx:id="paneProducten" prefHeight="200.0" prefWidth="200.0" />
+               </content>
+          </Tab>
+          <Tab fx:id="tabReservaties" onSelectionChanged="#toonReservaties" text="Reservaties">
+               <content>
+                  <Pane fx:id="paneReservaties" prefHeight="200.0" prefWidth="200.0" />
+               </content>
+          </Tab>
+            <Tab fx:id="tabBeheerders" onSelectionChanged="#toonBeheerders" text="Beheerders">
+               <content>
+                  <Pane fx:id="paneBeheerders" prefHeight="200.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</fx:root>
