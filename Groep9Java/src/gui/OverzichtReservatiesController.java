@@ -5,21 +5,16 @@
  */
 package gui;
 
-import domein.Product;
 import domein.ProductController;
+import domein.Reservatie;
+import domein.ReservatieController;
 import java.io.IOException;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -35,33 +30,24 @@ import javafx.stage.Stage;
 public class OverzichtReservatiesController extends BorderPane implements Observer {
 
     @FXML
-    private TableView<Product> tblProducten;
-    @FXML
-    private TableColumn<Product, String> clmNaam;
-    @FXML
-    private TableColumn<Product, String> clmOmschrijving;
-    @FXML
-    private TableColumn<Product, String> clmAantal;
-    @FXML
-    private TableColumn<Product, String> clmPlaats;
+    private TableView<Reservatie> tblReservaties;
 
-    private ProductController dc;
-    @FXML
-    private Button btnToevoegen;
-    @FXML
-    private Button btnTrefwoordZoeken;
-    @FXML
-    private Button btnGeavanceerdZoeken;
-    @FXML
+    private ReservatieController rc;
     private TextField txtTrefwoord;
+    @FXML
+    private TableColumn<Reservatie, String> clmProduct;
+    @FXML
+    private TableColumn<Reservatie, String> clmStudent;
+    @FXML
+    private TableColumn<Reservatie, String> clmStartDatum;
+    @FXML
+    private TableColumn<Reservatie, String> clmAantal;
+    @FXML
+    private TableColumn<Reservatie, String> clmEindDatum;
 
-//        @FXML
-//    private Button btnVerwijder;
-    
-
-    public OverzichtReservatiesController(ProductController domeinController) {
-        this.dc = domeinController;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtProducten.fxml"));
+    public OverzichtReservatiesController(ReservatieController rc) {
+        this.rc = rc;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtReservaties.fxml"));
 
         loader.setRoot(this);
         loader.setController(this);
@@ -71,75 +57,43 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
             throw new RuntimeException(ex);
         }
 
-        clmNaam.setCellValueFactory(
-                cellData -> cellData.getValue().naamProperty());
-        clmOmschrijving.setCellValueFactory(
-                cellData -> cellData.getValue().omschrijvingProperty());
+        clmProduct.setCellValueFactory(
+                cellData -> cellData.getValue().productProperty());
+
+        clmStudent.setCellValueFactory(
+                cellData -> cellData.getValue().studentProperty());
 
         clmAantal.setCellValueFactory(
                 cellData -> cellData.getValue().aantalProperty());
-        clmPlaats.setCellValueFactory(
-                cellData -> cellData.getValue().plaatsProperty());
+        clmStartDatum.setCellValueFactory(
+                cellData -> cellData.getValue().startDatumProperty());
+        clmEindDatum.setCellValueFactory(
+                cellData -> cellData.getValue().eindDatumProperty());
 
-        tblProducten.getSelectionModel().selectedItemProperty().addListener((ObservableValue, oldValue, newValue) -> {
+        tblReservaties.getSelectionModel().selectedItemProperty().addListener((ObservableValue, oldValue, newValue) -> {
             if (newValue != null) {
-                domeinController.setGeselecteerdProduct(newValue);
+                rc.setGeselecteerdeReservatie(newValue);
             }
         });
 
-        tblProducten.setItems(domeinController.getProductSortedList());
-        if (tblProducten.getSelectionModel().isEmpty()) {
-            dc.setSelectionModelEmpty(true);
+        tblReservaties.setItems(rc.getReservatieLijst());
+        if (tblReservaties.getSelectionModel().isEmpty()) {
+            rc.setSelectionModelEmpty(true);
             //btnVerwijder.setDisable(true);
         } else {
-            dc.setSelectionModelEmpty(false);
+            rc.setSelectionModelEmpty(false);
         }
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        tblProducten.setItems(dc.getProductSortedList());
-       // btnVerwijder.setDisable(false);
+        tblReservaties.setItems(rc.getReservatieLijst());
+        // btnVerwijder.setDisable(false);
     }
-
-
-
-    @FXML
-    private void zoekOpTrefwoord(ActionEvent event) {
-
-        String trefwoord = txtTrefwoord.getText();
-        tblProducten.setItems(dc.zoekOpTrefwoord(trefwoord));
-
-    }
-
-    @FXML
-    private void geavanceerdZoeken(ActionEvent event) {
-        Stage stage = new Stage();
-        stage.setTitle("Geavanceerd zoeken");
-
-        Scene scene = new Scene(new ProductZoekFilterController(dc));
-        stage.setScene(scene);
-
-        //this.setDisable(true);
-        stage.show();
-
-    }
-
-    @FXML
-    private void geefAllesWeer(ActionEvent event) {
-        dc.geefAlleProductenWeer();
-       tblProducten.setItems(dc.getProductSortedList());
-    }
-    
-    
-   
-
- 
 
     @FXML
     private void enableSelectionModel(MouseEvent event) {
-         dc.setSelectionModelEmpty(false);
+        rc.setSelectionModelEmpty(false);
     }
-    
 
 }

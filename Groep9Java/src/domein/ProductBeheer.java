@@ -294,7 +294,7 @@ public class ProductBeheer {
                 }
             }
 
-        } else if (productenLijst.stream().anyMatch(p -> p.getNaam().toLowerCase().equals(naam.toLowerCase()))) {
+            } else if (productenLijst.stream().anyMatch(p -> p.getNaam().toLowerCase().equals(naam.toLowerCase()))) {
             return false;
         }
         return true;

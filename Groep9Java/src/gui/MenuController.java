@@ -6,8 +6,8 @@
 package gui;
 
 import domein.ProductController;
+import domein.ReservatieController;
 import java.io.IOException;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -21,7 +21,7 @@ import javafx.scene.layout.VBox;
  *
  * @author Thomas
  */
-public class MenuController extends VBox{
+public class MenuController extends VBox {
 
     @FXML
     private Button btnUitloggen;
@@ -39,6 +39,9 @@ public class MenuController extends VBox{
     private Pane paneReservaties;
     @FXML
     private Pane paneBeheerders;
+    
+    private ProductController pc;
+    private ReservatieController rc;
 
     public MenuController() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
@@ -50,27 +53,30 @@ public class MenuController extends VBox{
             throw new RuntimeException(ex);
         }
 
-        ProductenFrameController catalogus = new ProductenFrameController(new ProductController());
+        pc = new ProductController();
+        rc = new ReservatieController(pc);
+        ProductenFrameController catalogus = new ProductenFrameController(pc);
         paneProducten.getChildren().add(catalogus);
         
-    }
-   
-    @FXML
-    public void toonCatalogus(){
+         ReservatiesFrameController reservaties = new ReservatiesFrameController(rc);
         
-        
+        paneReservaties.getChildren().add(reservaties);
+
     }
-    
+
     @FXML
-    public void toonReservaties(){
+    public void toonCatalogus() {
+
+    }
+
+    @FXML
+    public void toonReservaties() {
        
     }
-    
+
     @FXML
-    public void toonBeheerders(){
-        
+    public void toonBeheerders() {
+
     }
-    
-    
- 
+
 }

@@ -5,34 +5,89 @@
  */
 package domein;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Observable;
 import javafx.collections.ObservableList;
 
 /**
  *
  * @author Jens
  */
-public class ReservatieController {
-    
+public class ReservatieController extends Observable {
+
+    private ProductController pc;
     private ReservatieBeheer rb;
-    
-    public ReservatieController(ReservatieBeheer rb) {
-        this.rb = rb;
+    private Reservatie huidigeReservatie;
+    private boolean selectionModelEmpty;
+
+    public ReservatieController(ProductController pc) {
+        rb = new ReservatieBeheer(pc.getPb());
+        this.pc = pc;
     }
-    
+
     public ObservableList<Reservatie> getReservatieLijst() {
         return rb.getReservatieLijst();
     }
-    
+
     public void setReservatieLijst(ObservableList<Reservatie> reservatieLijst) {
         rb.setReservatieLijst(reservatieLijst);
     }
-    
+
     public void addReservatie(Reservatie r) {
         rb.addReservatie(r);
     }
-    
-    public void removeReservatie(Reservatie r) {
-        rb.removeReservatie(r);
+
+    public void removeReservatie() {
+        rb.removeReservatie(huidigeReservatie);
+    }
+
+    public void setGeselecteerdeReservatie(Reservatie res) {
+        this.huidigeReservatie = res;
+        setChanged();
+        notifyObservers(res);
+    }
+
+    public ObservableList<Reservatie> getReservatieSortedList() {
+
+        return rb.getSortedList(); //SortedList is unmodifiable
+
+    }
+
+    public void wijzigReservatie(String product, int aantal, String student, String startDatum, String eindDatum) {
+
+        GregorianCalendar start = new GregorianCalendar(Integer.parseInt(startDatum.substring(0, 4)),
+                Integer.parseInt(startDatum.substring(5, 7)), Integer.parseInt(startDatum.substring(8, 10),
+                Integer.parseInt(startDatum.substring(11, 13))));
+        GregorianCalendar eind = new GregorianCalendar(Integer.parseInt(eindDatum.substring(0, 4)),
+                Integer.parseInt(eindDatum.substring(5, 7)), Integer.parseInt(eindDatum.substring(8, 10),
+                Integer.parseInt(eindDatum.substring(11, 13))));
+
+        Product prod = pc.getProductenLijst().stream().filter(p -> p.getNaam().toLowerCase().equals(product)).findAny().get();
+
+        Reservatie nieuweReservatie = new Reservatie(start, eind, student, prod, aantal);
+        rb.wijzigReservatie(nieuweReservatie, huidigeReservatie);
+        setChanged();
+        notifyObservers();
     }
     
+    public void wijzigAantal(int aantal){ // VOOR DEMO
+        rb.wijzigAantal(huidigeReservatie, aantal);
+        setChanged();
+        notifyObservers();
+    }
+
+    public void updateDetailvenster() {
+        setChanged();
+        notifyObservers(huidigeReservatie);
+    }
+
+    public void setSelectionModelEmpty(boolean b) {
+        selectionModelEmpty = b;
+    }
+
+    public boolean getSelectionModelEmpty() {
+        return selectionModelEmpty;
+    }
 }

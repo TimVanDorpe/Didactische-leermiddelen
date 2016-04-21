@@ -6,19 +6,22 @@
 package domein;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
+import javafx.beans.property.SimpleStringProperty;
+import util.Helper;
 
 /**
  *
  * @author Jens
  */
 public class Reservatie {
-    
-    private Calendar startDatum, eindDatum;
+
+    private GregorianCalendar startDatum, eindDatum;
     private String gebruiker;
     private Product gereserveerdProduct;
     private int gereserveerdAantal;
 
-    public Reservatie(Calendar startDatum, Calendar eindDatum, String gebruiker, Product gereserveerdProduct, int gereserveerdAantal) {
+    public Reservatie(GregorianCalendar startDatum, GregorianCalendar eindDatum, String gebruiker, Product gereserveerdProduct, int gereserveerdAantal) {
         setStartDatum(startDatum);
         setEindDatum(eindDatum);
         setGebruiker(gebruiker);
@@ -26,19 +29,19 @@ public class Reservatie {
         setGereserveerdAantal(gereserveerdAantal);
     }
 
-    public Calendar getStartDatum() {
+    public GregorianCalendar getStartDatum() {
         return startDatum;
     }
 
-    public void setStartDatum(Calendar startDatum) {
+    public void setStartDatum(GregorianCalendar startDatum) {
         this.startDatum = startDatum;
     }
 
-    public Calendar getEindDatum() {
+    public GregorianCalendar getEindDatum() {
         return eindDatum;
     }
 
-    public void setEindDatum(Calendar eindDatum) {
+    public void setEindDatum(GregorianCalendar eindDatum) {
         this.eindDatum = eindDatum;
     }
 
@@ -65,10 +68,42 @@ public class Reservatie {
     public void setGereserveerdAantal(int gereserveerdAantal) {
         this.gereserveerdAantal = gereserveerdAantal;
     }
+
+    public SimpleStringProperty productProperty() {
+        SimpleStringProperty productSimple = new SimpleStringProperty();
+        productSimple.set(gereserveerdProduct.getNaam());
+        return productSimple;
+    }
+
+    public SimpleStringProperty aantalProperty() {
+        SimpleStringProperty aantalSimple = new SimpleStringProperty();
+        StringBuilder sb = new StringBuilder();
+        sb.append("");
+        sb.append(gereserveerdAantal);
+        String aantalBuild = sb.toString();
+        aantalSimple.set(aantalBuild);
+        return aantalSimple;
+    }
+
+    public SimpleStringProperty studentProperty() {
+        SimpleStringProperty studentSimple = new SimpleStringProperty();
+        studentSimple.set(gebruiker);
+        return studentSimple;
+    }
     
+    public SimpleStringProperty startDatumProperty() {
+        
+        
+        SimpleStringProperty startDatumSimple = new SimpleStringProperty();
+        startDatumSimple.set(Helper.format(startDatum));
+        return startDatumSimple;
+    }
     
+    public SimpleStringProperty eindDatumProperty() {
+        SimpleStringProperty EindDatumSimple = new SimpleStringProperty();
+        EindDatumSimple.set(Helper.format(eindDatum));
+        return EindDatumSimple;
+    }
     
-    
-    
-    
+
 }
