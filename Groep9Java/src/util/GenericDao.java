@@ -11,13 +11,13 @@ import java.util.List;
  *
  * @author Timva
  */
-public interface GenericDao<product> {
+public interface GenericDao<T> {
 
-    public List<product> findAll();  
-    public product get(Long id);
-    public product update(product object);
-    public void delete(product object);
-    public void insert(product object);
+    public List<T> findAll();  
+    public T get(Long id);
+    public T update(T object);
+    public void delete(T object);
+    public void insert(T object);
     public boolean exists(Long id);
 
 } 

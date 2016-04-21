@@ -1,11 +1,20 @@
 package domein;
 
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-public class Beheerder {
+@Entity(name = "Beheerder")
+public class Beheerder implements Serializable{
     private String email, wachtwoord, naam;
     private String telefoonnummer;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     public Beheerder(String email, String wachtwoord) {
         this.email = email;
@@ -18,6 +27,12 @@ public class Beheerder {
         setTelefoonnummer(telefoonnummer);
         setWachtwoord(wachtwoord);
     }
+
+    public Beheerder() {
+    }
+    
+    
+    
 
     String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
     Pattern pattern = Pattern.compile(regex);
@@ -54,6 +69,14 @@ public class Beheerder {
 
     public String getTelefoonnummer() {
         return telefoonnummer;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     

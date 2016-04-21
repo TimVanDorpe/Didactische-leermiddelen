@@ -5,21 +5,30 @@
  */
 package domein;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javafx.beans.property.SimpleStringProperty;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import util.Helper;
 
 /**
  *
  * @author Jens
  */
-public class Reservatie {
+@Entity(name = "Reservatie")
+public class Reservatie implements Serializable{
 
     private GregorianCalendar startDatum, eindDatum;
     private String gebruiker;
     private Product gereserveerdProduct;
     private int gereserveerdAantal;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     public Reservatie(GregorianCalendar startDatum, GregorianCalendar eindDatum, String gebruiker, Product gereserveerdProduct, int gereserveerdAantal) {
         setStartDatum(startDatum);
@@ -28,6 +37,11 @@ public class Reservatie {
         setGereserveerdProduct(gereserveerdProduct);
         setGereserveerdAantal(gereserveerdAantal);
     }
+
+    public Reservatie() {
+    }
+    
+    
 
     public GregorianCalendar getStartDatum() {
         return startDatum;
@@ -103,6 +117,14 @@ public class Reservatie {
         SimpleStringProperty EindDatumSimple = new SimpleStringProperty();
         EindDatumSimple.set(Helper.format(eindDatum));
         return EindDatumSimple;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
 

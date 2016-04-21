@@ -29,10 +29,10 @@ public class BeheerderBeheer {
     }
 
     public void registreerBeheerder(Beheerder beheerder) {
-        // gdj.startTransaction();
+         gdj.startTransaction();
         beheerderLijst.add(beheerder);
-        //gdj.insert(beheerder);
-        // gdj.commitTransaction();
+        gdj.insert(beheerder);
+        gdj.commitTransaction();
 
     }
 
