@@ -1,6 +1,7 @@
 package domein;
 
 import java.io.Serializable;
+import java.net.URL;
 import java.sql.Blob;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -26,7 +27,7 @@ public class Product implements Serializable {
     private List<Doelgroep> doelgroep;
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Firma firma;
-    private String foto;
+    private URL foto;
     @Column(unique=true)
     private String naam ;
     private String omschrijving;
@@ -38,7 +39,7 @@ public class Product implements Serializable {
     private int aantal ;
     private String plaats ;
 
-    public Product(List<Leergebied> leergebied, List<Doelgroep> doelgroep, Firma firma, String foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
+    public Product(List<Leergebied> leergebied, List<Doelgroep> doelgroep, Firma firma, URL foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
         setLeergebied(leergebied);
         setDoelgroep(doelgroep);
         setFirma(firma);
@@ -94,17 +95,19 @@ public class Product implements Serializable {
         this.firma = firma;
     }
 
-    public String getFoto() {
+    public URL getFoto() {
         return foto;
     }
 
-    public void setFoto(String foto) {
+    public void setFoto(URL foto) {
         this.foto = foto;
     }
 
     public String getNaam() {
         return naam;
     }
+    
+    
 
     /**
      *

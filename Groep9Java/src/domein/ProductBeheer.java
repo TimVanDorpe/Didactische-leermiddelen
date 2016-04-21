@@ -25,7 +25,7 @@ import util.GenericDaoJpa;
 public class ProductBeheer {
 
     private ObservableList<Product> productenLijst = FXCollections.observableArrayList();
-    private Product product;
+    //private Product product;
 
     private SortedList<Product> sortedList;
 
@@ -93,6 +93,14 @@ public class ProductBeheer {
 
     }
 
+    public ObservableList<Product> getProductenLijst() {
+        return productenLijst;
+    }
+
+    
+    
+    
+    
     public void setGdj(GenericDaoJpa gdj) {
         this.gdj = gdj;
     }
@@ -121,16 +129,18 @@ public class ProductBeheer {
 
     public void wijzigProduct(Product p, Product huidigProduct) {
         gdj.startTransaction();
-        Collections.replaceAll(productenLijst, huidigProduct, p);
+        //Collections.replaceAll(productenLijst, huidigProduct, p);
+        //id mag niet vervangen worden.
+        huidigProduct.setAantal(p.getAantal());
+        huidigProduct.setArtikelnummer(p.getArtikelnummer());
+        huidigProduct.setDoelgroep(p.getDoelgroep());
+        huidigProduct.setFirma(p.getFirma());
+        huidigProduct.setLeergebied(p.getLeergebied());
+        huidigProduct.setOmschrijving(p.getOmschrijving());
+        huidigProduct.setPlaats(p.getPlaats());
+        huidigProduct.setPrijs(p.getPrijs());
         gdj.update(p);
         gdj.commitTransaction();
-
-//        for (Product p : productenLijst) {
-//            if (p.getArtikelnummer() == product.getArtikelnummer()) {
-//                productenLijst.remove(p);
-//                productenLijst.add(product);
-//            }
-//        }
     }
 
     public void verwijderProduct(Product p) {

@@ -1,9 +1,6 @@
 
-import domein.BeheerderBeheer;
-import domein.ProductData;
-import domein.ProductController;
-import domein.ProductBeheer;
-import gui.ProductenFrameController;
+import domein.BeheerderController;
+import gui.LoginSchermController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -19,9 +16,9 @@ public class StartUp extends Application {
     @Override
     public void start(Stage stage) {
         
-        Scene scene = new Scene(new ProductenFrameController(new ProductController()));
+        Scene scene = new Scene(new LoginSchermController(new BeheerderController()));
         stage.setScene(scene);
-        stage.setTitle("Didactische leermiddelen");
+        stage.setTitle("Didactische leermiddelen :  Login");
         // The stage will not get smaller than its preferred (initial) size.
         stage.setOnShown((WindowEvent t) -> {
             stage.setMinWidth(stage.getWidth());
