@@ -61,12 +61,11 @@ public class ProductDetailController extends Pane implements Observer {
     private TextField txtFirma, txtPlaats;
     @FXML
     private TextField txtEmailFirma;
-    @FXML
-    private TextField txtDoelgroepen;
+
     // @FXML
     // private TextField txtLeergebieden;
     @FXML
-    private ListView<String> listLeergebieden;
+    private ListView<String> listLeergebieden, listDoelgroepen;
     @FXML
     private ImageView imgViewFoto;
     @FXML
@@ -105,7 +104,7 @@ public class ProductDetailController extends Pane implements Observer {
     @FXML
     private CheckBox uitleenbaarheid;
     @FXML
-    private Button btnLeegmaken, btnSelecteerLeergebied;
+    private Button btnLeegmaken, btnSelecteerLeergebied, btnSelecteerDoelgroep;
     @FXML
     private Button btnWijzigen;
 
@@ -166,18 +165,18 @@ public class ProductDetailController extends Pane implements Observer {
              ook weer dubbele code bij toevoegen/wijzigen te vermijden (jens)
              */
             Firma firma = new Firma(firmaNaam, firmaEmail);
-
-            String naamDoelgroep = txtDoelgroepen.getText();
-            if (naamDoelgroep == null) {
-                naamDoelgroep = "";
-            }
-            Doelgroep doelgroep = new Doelgroep(naamDoelgroep);
+//
+//            String naamDoelgroep = txtDoelgroepen.getText();
+//            if (naamDoelgroep == null) {
+//                naamDoelgroep = "";
+//            }
+//            Doelgroep doelgroep = new Doelgroep(naamDoelgroep);
             lblError.setText(""); // errorlabel clear
 
             if (imgViewFoto.getImage() == null) {
-                dc.wijzigProductZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getListLeergebiedToegevoegd());
+                dc.wijzigProductZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
             } else {
-                dc.wijzigProduct(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getToegevoegd());
+                dc.wijzigProduct(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
 
             }
 
@@ -211,10 +210,17 @@ public class ProductDetailController extends Pane implements Observer {
 
     private ObservableList<String> zetLeergebiedenOmNaarString(List<Leergebied> leergebiedenVanProduct) {
         ObservableList<String> Stringsleergebieden = FXCollections.observableArrayList();
-        for (Leergebied l : leergebiedenVanProduct) {
-            String naam = l.getNaam();
+        leergebiedenVanProduct.stream().map((l) -> l.getNaam()).forEach((naam) -> {
             Stringsleergebieden.add(naam);
-        }
+        });
+        return Stringsleergebieden;
+    }
+
+    private ObservableList<String> zetDoelgroepenOmNaarString(List<Doelgroep> doelgroepenVanProduct) {
+        ObservableList<String> Stringsleergebieden = FXCollections.observableArrayList();
+        doelgroepenVanProduct.stream().map((l) -> l.getNaam()).forEach((naam) -> {
+            Stringsleergebieden.add(naam);
+        });
         return Stringsleergebieden;
     }
 
@@ -236,7 +242,7 @@ public class ProductDetailController extends Pane implements Observer {
             txtOmschrijving.setText(product.getOmschrijving());
             txtPlaats.setText(product.getPlaats());
             listLeergebieden.setItems(zetLeergebiedenOmNaarString(product.getLeergebied()));
-            
+            listDoelgroepen.setItems(zetDoelgroepenOmNaarString(product.getDoelgroep()));
             //alles terug enablen als er iets geselcteerd wordt
             btnToevoegen.setDisable(false);
             btnAnnuleer.setDisable(false);
@@ -245,7 +251,6 @@ public class ProductDetailController extends Pane implements Observer {
             uitleenbaarheid.setDisable(false);
             txtAantal.setDisable(false);
             txtArtikelnummer.setDisable(false);
-            txtDoelgroepen.setDisable(false);
             txtEmailFirma.setDisable(false);
             txtFirma.setDisable(false);
             txtNaam.setDisable(false);
@@ -269,6 +274,9 @@ public class ProductDetailController extends Pane implements Observer {
             {
             imgViewFoto.setImage(null);
             }
+            btnSelecteerDoelgroep.setDisable(false);
+            listDoelgroepen.setDisable(false);
+
         }
 
     }
@@ -278,7 +286,6 @@ public class ProductDetailController extends Pane implements Observer {
         //nog implementen
         txtAantal.setText("");
         txtArtikelnummer.setText("");
-        txtDoelgroepen.setText("");
         txtEmailFirma.setText("");
         txtFirma.setText("");
         //txtLeergebieden.setText("");
@@ -289,6 +296,7 @@ public class ProductDetailController extends Pane implements Observer {
         imgViewFoto.setImage(null);
         dc.setGeselecteerdProduct(null);
         listLeergebieden.setItems(null);
+        listDoelgroepen.setItems(null);
         btnWijzigen.setDisable(true);
         btnVerwijderen.setDisable(true);
     }
@@ -306,7 +314,7 @@ public class ProductDetailController extends Pane implements Observer {
 
             Firma firma = new Firma(txtFirma.getText(), txtEmailFirma.getText());
             //Dit moet zeker weg!!!!
-            Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
+//            Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
             Leergebied leergebied = new Leergebied("test");
             Leergebied leergebied2 = new Leergebied("test");
             List<Leergebied> leergebieden = new ArrayList<>();
@@ -317,11 +325,10 @@ public class ProductDetailController extends Pane implements Observer {
             
             if (imgViewFoto.getImage() == null) {
 
-                dc.voegProductToeZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getToegevoegd());
+                dc.voegProductToeZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
             } else {                
-                dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, doelgroep, dc.getToegevoegd());
+                dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
             }
-
             lblError.setText(""); // errortekst clearen
 
         } catch (IllegalArgumentException ex) {
@@ -376,9 +383,9 @@ public class ProductDetailController extends Pane implements Observer {
                 txtEmailFirma.setText("");
             }
 
-            if (txtDoelgroepen.getText() == null) {
-                txtDoelgroepen.setText("");
-            }
+//            if (txtDoelgroepen.getText() == null) {
+//                txtDoelgroepen.setText("");
+//            }
             Firma firma = new Firma(firmaNaam, firmaEmail);
             //Dit moet zeker weg!!!!
 //            Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
@@ -530,8 +537,18 @@ public class ProductDetailController extends Pane implements Observer {
         stage.show();
 
     }
-    
-    
-    
-    
+
+    @FXML
+    private void selecteerDoelgroepen(ActionEvent event) {
+
+        Stage stage = new Stage();
+        stage.setTitle("Doelgroep Selecteren");
+
+        Scene scene = new Scene(new DoelgroepSelecterenController(dc));
+        stage.setScene(scene);
+
+        //this.setDisable(true);
+        stage.show();
+
+    }
 }

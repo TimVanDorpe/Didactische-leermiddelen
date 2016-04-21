@@ -23,8 +23,8 @@ import javax.persistence.OneToMany;
 public class Product implements Serializable {
     @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Leergebied> leergebied;
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    private Doelgroep doelgroep;
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    private List<Doelgroep> doelgroep;
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Firma firma;
     private URL foto;
@@ -39,7 +39,7 @@ public class Product implements Serializable {
     private int aantal ;
     private String plaats ;
 
-    public Product(List<Leergebied> leergebied, Doelgroep doelgroep, Firma firma, URL foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
+    public Product(List<Leergebied> leergebied, List<Doelgroep> doelgroep, Firma firma, URL foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
         setLeergebied(leergebied);
         setDoelgroep(doelgroep);
         setFirma(firma);
@@ -54,7 +54,7 @@ public class Product implements Serializable {
     
     
     
-     public Product(List<Leergebied> leergebied, Doelgroep doelgroep, Firma firma,String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
+     public Product(List<Leergebied> leergebied, List<Doelgroep> doelgroep, Firma firma,String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
         setLeergebied(leergebied);
         setDoelgroep(doelgroep);
         setFirma(firma);
@@ -79,11 +79,11 @@ public class Product implements Serializable {
         this.leergebied = leergebied;
     }
 
-    public Doelgroep getDoelgroep() {
+    public List<Doelgroep> getDoelgroep() {
         return doelgroep;
     }
 
-    public void setDoelgroep(Doelgroep doelgroep) {
+    public void setDoelgroep(List<Doelgroep> doelgroep) {
         this.doelgroep = doelgroep;
     }
 

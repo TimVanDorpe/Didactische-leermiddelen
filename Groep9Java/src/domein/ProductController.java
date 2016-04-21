@@ -34,14 +34,14 @@ public class ProductController extends Observable {
     
     
     
-    public void voegProductToe(URL foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, ObservableList<Leergebied> leergebied) {
+    public void voegProductToe(URL foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, List<Doelgroep> doelgroep, List<Leergebied> leergebied) {
         //isNaamUniek(naam);
         Product nieuwProduct = new Product(leergebied, doelgroep, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats);
         pb.voegProductToe(nieuwProduct);
     }
 
-    public void voegProductToeZonderFoto(String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, List<Leergebied> leergebied) {
-        //isNaamUniek(naam);
+    public void voegProductToeZonderFoto(String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, List<Doelgroep> doelgroep, List<Leergebied> leergebied) {
+        //isNaamUniek(naam);Doelgroep
         pb.voegProductToe(new Product(leergebied, doelgroep, firma, naam, omschrijving, artikelnummer, prijs, aantal, plaats));
     }
 
@@ -53,7 +53,7 @@ public class ProductController extends Observable {
         return pb.getProduct(artikelnummer);
     }
 
-    public void wijzigProduct(URL foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, ObservableList<Leergebied> leergebied) {
+    public void wijzigProduct(URL foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, List<Doelgroep> doelgroep, List<Leergebied> leergebied) {
         if (!naam.toLowerCase().equals(huidigProduct.getNaam().toLowerCase())) {
             //isNaamUniek(naam);
         }
@@ -62,7 +62,7 @@ public class ProductController extends Observable {
         notifyObservers();
     }
 
-    public void wijzigProductZonderFoto(String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, Doelgroep doelgroep, List<Leergebied> leergebied) {
+    public void wijzigProductZonderFoto(String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, List<Doelgroep> doelgroep, List<Leergebied> leergebied) {
         if (!naam.toLowerCase().equals(huidigProduct.getNaam().toLowerCase())) {
             //isNaamUniek(naam);
         }
@@ -87,67 +87,6 @@ public class ProductController extends Observable {
         notifyObservers(product);
     }
 
-    //LEERGEBIED
-    public ObservableList<Leergebied> getLeergebieden() {
-        return pb.getLeergebieden();
-    }
-
-    public ObservableList<Leergebied> getToegevoegd() {
-        return pb.getToegevoegd();
-    }
-
-    public List<Leergebied> getListLeergebiedToegevoegd() {
-        return pb.getListLeergebiedToegevoegd();
-    }
-        //    public void wijzigLeergebiedenHuidigProduct(){
-        //        huidigProduct.setLeergebied(leergebied);
-        //    }
-
-        //    public boolean geenToegevoegd() {
-        //        return pb.geenToegevoegd();
-        //    }
-        //    
-        //    public boolean geenLeergebieden() {
-        //        return pb.geenLeergebieden();
-        //    }
-    public void voegLeergebiedToe(Leergebied naam) {
-        pb.voegLeergebiedToe(naam);
-    }
-
-    public void verwijderLeergebied(Leergebied selectedItem) {
-        pb.verwijderLeergebied(selectedItem);
-    }
-
-    //String methoden
-    public ObservableList<String> getStringLeergebieden() {
-        return pb.getStringLeergebieden();
-    }
-
-    public ObservableList<String> getStringLeergebiedenToegevoegd() {
-        return pb.getStringLeergebiedenToegevoegd();
-    }
-
-    public void voegLeergebiedToeString(String naam) {
-        pb.voegLeergebiedToeString(naam);
-    }
-
-    public void verwijderLeergebiedString(String naam) {
-        pb.verwijderLeergebiedString(naam);
-    }
-
-    public Leergebied getLeergebiedFromString(String naam) {
-        return pb.getLeergebiedFromString(naam);
-    }
-
-    public Leergebied getLeergebiedToegevoegdFromString(String naam) {
-        return pb.getLeergebiedToegevoegdFromString(naam);
-    }
-
-    public void voegToeAanLeergebieden(Leergebied leergebied) {
-        pb.voegToeAanLeergebieden(leergebied);
-    }
-
-    //EINDE LEERGEBIED
     public ObservableList<Product> zoekOpTrefwoord(String trefwoord) {
         return pb.zoekOpTrefwoord(trefwoord);
     }
@@ -183,5 +122,105 @@ public class ProductController extends Observable {
         setChanged();
         notifyObservers(huidigProduct);
     }
+    //LEERGEBIED
 
+    public ObservableList<Leergebied> getLeergebieden() {
+        return pb.getLeergebieden();
+    }
+
+    public ObservableList<Leergebied> getToegevoegdeLeergebieden() {
+        return pb.getToegevoegdeLeergebieden();
+    }
+
+    public List<Leergebied> getListToegevoegdeLeergebieden() {
+        return pb.getListToegevoegdeLeergebieden();
+    }
+
+    public void voegLeergebiedToe(Leergebied naam) {
+        pb.voegLeergebiedToe(naam);
+    }
+
+    public void verwijderLeergebied(Leergebied selectedItem) {
+        pb.verwijderLeergebied(selectedItem);
+    }
+
+    //String methoden
+    public ObservableList<String> getStringLeergebieden() {
+        return pb.getStringLeergebieden();
+    }
+
+    public ObservableList<String> getStringLeergebiedenToegevoegd() {
+        return pb.getStringLeergebiedenToegevoegd();
+    }
+
+    public void voegLeergebiedToeString(String naam) {
+        pb.voegLeergebiedToeString(naam);
+    }
+
+    public void verwijderLeergebiedString(String naam) {
+        pb.verwijderLeergebiedString(naam);
+    }
+
+    public Leergebied getLeergebiedFromString(String naam) {
+        return pb.getLeergebiedFromString(naam);
+    }
+
+    public Leergebied getLeergebiedToegevoegdFromString(String naam) {
+        return pb.getLeergebiedToegevoegdFromString(naam);
+    }
+
+    public void voegNieuwToeAanLeergebieden(Leergebied leergebied) {
+        pb.voegNieuwToeAanLeergebieden(leergebied);
+    }
+
+    //EINDE LEERGEBIED
+    //DOELGROEPEN
+    public ObservableList<Doelgroep> getDoelgroepen() {
+        return pb.getDoelgroepen();
+    }
+
+    public ObservableList<Doelgroep> getToegevoegdeDoelgroepen() {
+        return pb.getToegevoegdeDoelgroepen();
+    }
+
+    public List<Doelgroep> getListToegevoegdeDoelgroepen() {
+        return pb.getListToegevoegdeDoelgroepen();
+    }
+
+    public void voegDoelgroepToe(Doelgroep doelgroep) {
+        pb.voegDoelgroepToe(doelgroep);
+    }
+
+    public void verwijderDoelgroep(Doelgroep doelgroep) {
+        pb.verwijderDoelgroep(doelgroep);
+    }
+
+    //String methoden 
+    public ObservableList<String> getStringDoelgroepen() {
+        return pb.getStringDoelgroepen();
+    }
+
+    public ObservableList<String> getStringToegevoegdeDoelgroepen() {
+        return pb.getStringToegevoegdeDoelgroepen();
+    }
+
+      public void voegDoelgroepToeString(String naam) {
+        pb.voegDoelgroepToeString(naam);
+    }
+      
+    public void verwijderDoelgroepString(String selectedItem) {
+        pb.verwijderDoelgroepString(selectedItem);
+    }
+
+  
+
+    public Doelgroep getDoelgroepFromString(String naam) {
+        return pb.getDoelgroepFromString(naam);
+    }
+
+    public Doelgroep getDoelgroepToegevoegdFromString(String selectedItem) {
+        return pb.getDoelgroepToegevoegdFromString(selectedItem);
+    }
+
+    //EINDE DOELGROEPEN
 }
