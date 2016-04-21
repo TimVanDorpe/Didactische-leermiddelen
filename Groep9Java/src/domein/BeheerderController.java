@@ -21,5 +21,19 @@ public class BeheerderController {
         if(bb.geldigeLogin(beheerder))
             this.aangemeldeBeheerder = beheerder;
     }
+
+    public Beheerder getAangemeldeBeheerder() {
+        return aangemeldeBeheerder;
+    }
+
+    public void setAangemeldeBeheerder(Beheerder aangemeldeBeheerder) {
+        this.aangemeldeBeheerder = aangemeldeBeheerder;
+    }
+
+    public void logUit() {
+        this.aangemeldeBeheerder = null;
+    }
+    
+    
     
 }

@@ -49,11 +49,11 @@ public class ReservatieController extends Observable {
         notifyObservers(res);
     }
 
-    public ObservableList<Reservatie> getReservatieSortedList() {
-
-        return rb.getSortedList(); //SortedList is unmodifiable
-
-    }
+//    public ObservableList<Reservatie> getReservatieSortedList() {
+//
+//        return rb.getSortedList(); //SortedList is unmodifiable
+//
+//    }
 
     public void wijzigReservatie(String product, int aantal, String student, String startDatum, String eindDatum) {
 

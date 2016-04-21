@@ -81,7 +81,7 @@ public class LoginSchermController extends Pane {
              Stage stage = new Stage();
         stage.setTitle("Didactische leermiddelen");
 
-        Scene scene = new Scene(new MenuController());
+        Scene scene = new Scene(new MenuController(beheerderController));
         stage.setScene(scene);
 
         //this.setDisable(true);
