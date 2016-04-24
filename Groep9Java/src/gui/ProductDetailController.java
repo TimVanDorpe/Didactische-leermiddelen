@@ -14,6 +14,7 @@ import util.Helper;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -173,12 +174,13 @@ public class ProductDetailController extends Pane implements Observer {
 //            Doelgroep doelgroep = new Doelgroep(naamDoelgroep);
             lblError.setText(""); // errorlabel clear
 
-            if (imgViewFoto.getImage() == null) {
-                dc.wijzigProductZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
-            } else {
-                dc.wijzigProduct(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
-
-            }
+//            if (imgViewFoto.getImage() == null) {
+//                dc.wijzigProductZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
+//            } else {
+//                dc.wijzigProduct(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
+//
+//            }
+  dc.wijzigProduct(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
 
         } catch (IllegalArgumentException ex) {
 
@@ -323,12 +325,14 @@ public class ProductDetailController extends Pane implements Observer {
 
             // do what you have to do
             
-            if (imgViewFoto.getImage() == null) {
-
-                dc.voegProductToeZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
-            } else {                
-                dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
-            }
+//            if (imgViewFoto.getImage() == null) {
+//
+//                dc.voegProductToeZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
+//            } else {                
+//                dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
+//            }
+            dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
+          
             lblError.setText(""); // errortekst clearen
 
         } catch (IllegalArgumentException ex) {
@@ -379,14 +383,24 @@ public class ProductDetailController extends Pane implements Observer {
             if (txtFirma.getText() == null) {
                 txtFirma.setText("");
             }
+            this.firmaNaam = txtFirma.getText();
             if (txtEmailFirma.getText() == null) {
                 txtEmailFirma.setText("");
             }
+            this.firmaEmail = txtEmailFirma.getText();
 
+            if(imgViewFoto.getImage() == null){
+              
+                try {
+                    this.foto = new URL("http://i.imgur.com/tsvNPVH.png");
+                } catch (MalformedURLException ex) {
+                    Logger.getLogger(ProductDetailController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
 //            if (txtDoelgroepen.getText() == null) {
 //                txtDoelgroepen.setText("");
 //            }
-            Firma firma = new Firma(firmaNaam, firmaEmail);
+           // Firma firma = new Firma(firmaNaam, firmaEmail);
             //Dit moet zeker weg!!!!
 //            Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
 //            Leergebied leergebied = new Leergebied("test");

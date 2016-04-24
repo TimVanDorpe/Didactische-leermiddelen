@@ -5,17 +5,17 @@
  */
 package domein;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import util.GenericDao;
 import util.GenericDaoJpa;
 
 /**
@@ -77,7 +77,11 @@ public class ProductBeheer {
         gdj = new GenericDaoJpa(Product.class);
 
         ProductData data = new ProductData(this);
-        data.maakProducten();
+        try {
+            data.maakProducten();
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(ProductBeheer.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         sortedList = productenLijst.sorted(sortOrder);
 
@@ -107,6 +111,7 @@ public class ProductBeheer {
 
     public SortedList<Product> getSortedList() {
 
+ 
         //Wrap the FilteredList in a SortedList
         return sortedList; //SortedList is unmodifiable
     }
@@ -129,7 +134,7 @@ public class ProductBeheer {
 
     public void wijzigProduct(Product p, Product huidigProduct) {
         gdj.startTransaction();
-        //Collections.replaceAll(productenLijst, huidigProduct, p);
+        Collections.replaceAll(productenLijst, huidigProduct, p);
         //id mag niet vervangen worden.
         huidigProduct.setAantal(p.getAantal());
         huidigProduct.setArtikelnummer(p.getArtikelnummer());
@@ -139,8 +144,10 @@ public class ProductBeheer {
         huidigProduct.setOmschrijving(p.getOmschrijving());
         huidigProduct.setPlaats(p.getPlaats());
         huidigProduct.setPrijs(p.getPrijs());
-        gdj.update(p);
+        huidigProduct.setNaam(p.getNaam());
+        gdj.update(huidigProduct);
         gdj.commitTransaction();
+        geefAlleProducten();
     }
 
     public void verwijderProduct(Product p) {
@@ -199,15 +206,17 @@ public class ProductBeheer {
 
     }
 
-    void geefAlleProducten() {
-
+    public void geefAlleProducten() {
+        
+        productenLijst= FXCollections.observableArrayList(gdj.findAll());
+       
         sortedList = productenLijst.sorted(sortOrder);
     }
 
     //LEERGEBIEDEN--------------------------------------------
     public ObservableList<Leergebied> getLeergebieden() {//returnt linkse list
         return leergebiedenLinks;
-    }
+}
 
     public ObservableList<Leergebied> getToegevoegdeLeergebieden() {//returnt rechtse list
         return leergebiedenRechts;

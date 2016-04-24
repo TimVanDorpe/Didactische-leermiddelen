@@ -40,10 +40,6 @@ public class ProductController extends Observable {
         pb.voegProductToe(nieuwProduct);
     }
 
-    public void voegProductToeZonderFoto(String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, List<Doelgroep> doelgroep, List<Leergebied> leergebied) {
-        //isNaamUniek(naam);Doelgroep
-        pb.voegProductToe(new Product(leergebied, doelgroep, firma, naam, omschrijving, artikelnummer, prijs, aantal, plaats));
-    }
 
     public Product getHuidigProduct() {
         return huidigProduct;
@@ -62,15 +58,7 @@ public class ProductController extends Observable {
         notifyObservers();
     }
 
-    public void wijzigProductZonderFoto(String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, List<Doelgroep> doelgroep, List<Leergebied> leergebied) {
-        if (!naam.toLowerCase().equals(huidigProduct.getNaam().toLowerCase())) {
-            //isNaamUniek(naam);
-        }
-        Product nieuwProduct = new Product(leergebied, doelgroep, firma, naam, omschrijving, artikelnummer, prijs, aantal, plaats);
-        pb.wijzigProduct(nieuwProduct, huidigProduct);
-        setChanged();
-        notifyObservers();
-    }
+
 
     public void verwijderProduct() {
         pb.verwijderProduct(huidigProduct);

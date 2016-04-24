@@ -5,9 +5,10 @@
  */
 package domein;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.image.Image;
 
 /**
  *
@@ -24,7 +25,7 @@ public class ProductData {
         this.pb = pb;
     }
     
-    public void maakProducten()
+    public void maakProducten() throws MalformedURLException 
     {
         //leergebieden, kleuters, Hogent, "foto1", "klok", "Dit is een klok", 1, 1, 1, "B1002"
         List<Leergebied> leergebieden = new ArrayList();
@@ -47,12 +48,12 @@ public class ProductData {
        Firma UGent = new Firma("UGent");
        Hogent.setId(1);
        
-      
+       URL legeFoto = new URL("http://i.imgur.com/tsvNPVH.png");
        //new Product(leergebieden, kleuters, UGent, naam, omschrijving,artikelnummer , prijs, aantal, plaats)
-        pb.voegProductToe(new Product(leergebieden, doelgroepen, Hogent, "Klok", "Dit is een klok", 1, 1, 1, "B1002"));
-        pb.voegProductToe(new Product(leergebieden, doelgroepen, Hogent, "Wereldkaart" , "Een kaart van 50 cm op 30 cm" , 2 , 2 , 2 , "B1038"));
-        pb.voegProductToe(new Product(leergebieden, doelgroepen, UGent, "Dobbelstenen met schatkist" , "Doos met spelletjes" , 6 , 10 , 5 , "B1038"));
-        pb.voegProductToe(new Product(leergebieden, doelgroepen, UGent, "Blanco draaischijf" , "met verschillende blanco schijven in hard papier" , 7 , 25 , 3 , "B1038"));
+        pb.voegProductToe(new Product(leergebieden, doelgroepen, Hogent, legeFoto,"Klok", "Dit is een klok", 1, 1, 1, "B1002"));
+        pb.voegProductToe(new Product(leergebieden, doelgroepen, Hogent, legeFoto,"Wereldkaart" , "Een kaart van 50 cm op 30 cm" , 2 , 2 , 2 , "B1038"));
+        pb.voegProductToe(new Product(leergebieden, doelgroepen, UGent,legeFoto, "Dobbelstenen met schatkist" , "Doos met spelletjes" , 6 , 10 , 5 , "B1038"));
+        pb.voegProductToe(new Product(leergebieden, doelgroepen, UGent,legeFoto, "Blanco draaischijf" , "met verschillende blanco schijven in hard papier" , 7 , 25 , 3 , "B1038"));
     
     }
      
