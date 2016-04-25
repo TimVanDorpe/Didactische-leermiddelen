@@ -116,13 +116,15 @@ public class ProductBeheer {
 
     public void wijzigProduct(Product p, Product huidigProduct) {
         gdj.startTransaction();
-        Collections.replaceAll(productenLijst, huidigProduct, p);
+        productenLijst.remove(huidigProduct);
+        productenLijst.add(p);
+        //Collections.replaceAll(productenLijst, huidigProduct, p);
         //id mag niet vervangen worden.
         huidigProduct.setAantal(p.getAantal());
         huidigProduct.setArtikelnummer(p.getArtikelnummer());
-        huidigProduct.setDoelgroepen(p.getDoelgroepen());
+        //huidigProduct.setDoelgroepen(p.getDoelgroepen());
         huidigProduct.setFirma(p.getFirma());
-        huidigProduct.setLeergebieden(p.getLeergebieden());
+       //huidigProduct.setLeergebieden(p.getLeergebieden());
         huidigProduct.setOmschrijving(p.getOmschrijving());
         huidigProduct.setPlaats(p.getPlaats());
         huidigProduct.setPrijs(p.getPrijs());

@@ -173,6 +173,8 @@ public class ReservatieDetailController extends Pane implements Observer {
 
             txtEindDatum.setText(Helper.format(res.getEindDatum()));
 
+            
+            
             //alles terug enablen als er iets geselcteerd wordt
             /* DIT MOET TERUG UIT COMMENTAAR NA DEMO
             btnAnnuleer.setDisable(false);

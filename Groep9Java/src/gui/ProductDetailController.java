@@ -210,21 +210,21 @@ public class ProductDetailController extends Pane implements Observer {
 
     }
 
-    private ObservableList<String> zetLeergebiedenOmNaarString(List<Leergebied> leergebiedenVanProduct) {
-        ObservableList<String> Stringsleergebieden = FXCollections.observableArrayList();
-        leergebiedenVanProduct.stream().map((l) -> l.getNaam()).forEach((naam) -> {
-            Stringsleergebieden.add(naam);
-        });
-        return Stringsleergebieden;
-    }
-
-    private ObservableList<String> zetDoelgroepenOmNaarString(List<Doelgroep> doelgroepenVanProduct) {
-        ObservableList<String> Stringsleergebieden = FXCollections.observableArrayList();
-        doelgroepenVanProduct.stream().map((l) -> l.getNaam()).forEach((naam) -> {
-            Stringsleergebieden.add(naam);
-        });
-        return Stringsleergebieden;
-    }
+//    private ObservableList<String> zetLeergebiedenOmNaarString(List<Leergebied> leergebiedenVanProduct) {
+//        ObservableList<String> Stringsleergebieden = FXCollections.observableArrayList();
+//        leergebiedenVanProduct.stream().map((l) -> l.getNaam()).forEach((naam) -> {
+//            Stringsleergebieden.add(naam);
+//        });
+//        return Stringsleergebieden;
+//    }
+//
+//    private ObservableList<String> zetDoelgroepenOmNaarString(List<Doelgroep> doelgroepenVanProduct) {
+//        ObservableList<String> Stringsleergebieden = FXCollections.observableArrayList();
+//        doelgroepenVanProduct.stream().map((l) -> l.getNaam()).forEach((naam) -> {
+//            Stringsleergebieden.add(naam);
+//        });
+//        return Stringsleergebieden;
+//    }
 
     //steekt alle gegevens in de textfields
     @Override
@@ -243,27 +243,14 @@ public class ProductDetailController extends Pane implements Observer {
             txtNaam.setText(product.getNaam());
             txtOmschrijving.setText(product.getOmschrijving());
             txtPlaats.setText(product.getPlaats());
-            listLeergebieden.setItems(zetLeergebiedenOmNaarString(product.getLeergebieden()));
-            listDoelgroepen.setItems(zetDoelgroepenOmNaarString(product.getDoelgroepen()));
+            listLeergebieden.setItems(dc.geefStringsToegevoegdeLeergebieden());
+            listDoelgroepen.setItems(dc.geefStringsToegevoegdeLeergebieden());
             //alles terug enablen als er iets geselcteerd wordt
-            btnToevoegen.setDisable(false);
+            btnVerwijderen.setDisable(false);
             btnAnnuleer.setDisable(false);
-            btnFoto.setDisable(false);
-            btnWijzigen.setDisable(false);
-            uitleenbaarheid.setDisable(false);
-            txtAantal.setDisable(false);
-            txtArtikelnummer.setDisable(false);
-            txtEmailFirma.setDisable(false);
-            txtFirma.setDisable(false);
-            txtNaam.setDisable(false);
-            txtOmschrijving.setDisable(false);
-            txtPlaats.setDisable(false);
-            txtPrijs.setDisable(false);
             btnWijzigen.setDisable(false);
             btnLeegmaken.setDisable(false);
-            btnVerwijderen.setDisable(false);
-            btnSelecteerLeergebied.setDisable(false);
-            listLeergebieden.setDisable(false);
+           
             if(product.getFoto() != null){
              try {
                 BufferedImage img = ImageIO.read(product.getFoto());

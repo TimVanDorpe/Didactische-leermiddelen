@@ -34,13 +34,13 @@ public class Beheerder implements Serializable{
     
     
 
-    String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
-    Pattern pattern = Pattern.compile(regex);
+//    String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+//    Pattern pattern = Pattern.compile(regex);
     public void setEmail(String email) {
-         Matcher matcher = pattern.matcher(email);
-    if( matcher.matches()){
+//         Matcher matcher = pattern.matcher(email);
+//    if( matcher.matches()){
         this.email = email;
-    }
+   // }
     }
 
     public void setWachtwoord(String wachtwoord) {

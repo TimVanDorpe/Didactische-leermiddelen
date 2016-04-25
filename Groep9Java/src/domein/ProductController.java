@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 
@@ -47,8 +48,7 @@ public class ProductController extends Observable {
             //isNaamUniek(naam);
         }
         pb.wijzigProduct(new Product(huidigProduct.getLeergebieden(), huidigProduct.getDoelgroepen(), firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats), huidigProduct);
-        setChanged();
-        notifyObservers();
+  
     }
 
     public void verwijderProduct() {
@@ -132,6 +132,14 @@ public class ProductController extends Observable {
         nieuweLijstLeergebieden.remove(verwijderLeergebied);
         huidigProduct.setLeergebieden(nieuweLijstLeergebieden);
 
+    }
+    
+    public ObservableList<String> geefStringsToegevoegdeLeergebieden(){
+        ObservableList<String> listtoegevoegd =  FXCollections.observableArrayList();
+          getToegevoegdeLeergebieden().stream().map((l) -> l.getNaam()).forEach((naam) -> {
+              listtoegevoegd.add(naam);
+        });
+          return listtoegevoegd;
     }
 //    public List<Leergebied> getListToegevoegdeLeergebieden() {
 //        return pb.getListToegevoegdeLeergebieden();

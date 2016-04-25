@@ -32,7 +32,7 @@ import javafx.stage.Stage;
  *
  * @author Thomas
  */
-public class OverzichtProductenController extends BorderPane implements Observer {
+public class OverzichtProductenController extends BorderPane {
 
     @FXML
     private TableView<Product> tblProducten;
@@ -95,14 +95,15 @@ public class OverzichtProductenController extends BorderPane implements Observer
             dc.setSelectionModelEmpty(false);
         }
     }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        tblProducten.setItems(dc.getProductSortedList());
-       // btnVerwijder.setDisable(false);
-    }
-
-    
+//
+//    @Override
+//    public void update(Observable o, Object arg) {
+//        tblProducten.setItems(dc.getProductSortedList());
+//        tblProducten.getSelectionModel().clearSelection();
+//       // btnVerwijder.setDisable(false);
+//    }
+//
+//    
 
     @FXML
     private void zoekOpTrefwoord(ActionEvent event) {
