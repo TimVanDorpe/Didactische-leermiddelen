@@ -20,22 +20,19 @@ public class ProductController extends Observable {
 
     }
 
-    public List<Product> getProductenLijst(){
+    public List<Product> getProductenLijst() {
         return pb.getProductenLijst();
     }
 
     public ProductBeheer getPb() {
         return pb;
     }
-    
-    
-    
+
     public void voegProductToe(URL foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, List<Doelgroep> doelgroep, List<Leergebied> leergebied) {
         //isNaamUniek(naam);
         Product nieuwProduct = new Product(leergebied, doelgroep, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats);
         pb.voegProductToe(nieuwProduct);
     }
-
 
     public Product getHuidigProduct() {
         return huidigProduct;
@@ -53,8 +50,6 @@ public class ProductController extends Observable {
         setChanged();
         notifyObservers();
     }
-
-
 
     public void verwijderProduct() {
         pb.verwijderProduct(huidigProduct);
@@ -106,44 +101,46 @@ public class ProductController extends Observable {
         setChanged();
         notifyObservers(huidigProduct);
     }
-    
-    
+
     //LEERGEBIED
 //
     public List<Leergebied> getLeergebieden() {
-       List<Leergebied> productLijst = pb.getLeergebieden();
-        for (Leergebied l :huidigProduct.getLeergebieden() ) {
-                productLijst.remove(l);
-            }
+        List<Leergebied> productLijst = pb.getLeergebieden();
+        for (Leergebied l : huidigProduct.getLeergebieden()) {
+            productLijst.remove(l);
+        }
         return productLijst;
     }
 //
+
     public List<Leergebied> getToegevoegdeLeergebieden() {
         return huidigProduct.getLeergebieden();
     }
 //
+
     public void voegLeergebiedToeBijHuidigProduct(String naam) {
         Leergebied nieuwLeergebied = pb.haalLeergebiedUitLijst(naam);
         List<Leergebied> nieuweLijstLeergebieden = huidigProduct.getLeergebieden();
         nieuweLijstLeergebieden.add(nieuwLeergebied);
         huidigProduct.setLeergebieden(nieuweLijstLeergebieden);
-      
+
     }
-    
-     public void verwijderLeergebiedHuidigProduct(String naam) {
+
+    public void verwijderLeergebiedHuidigProduct(String naam) {
         Leergebied verwijderLeergebied = pb.haalLeergebiedUitLijst(naam);
         List<Leergebied> nieuweLijstLeergebieden = huidigProduct.getLeergebieden();
         nieuweLijstLeergebieden.remove(verwijderLeergebied);
         huidigProduct.setLeergebieden(nieuweLijstLeergebieden);
-      
+
     }
 //    public List<Leergebied> getListToegevoegdeLeergebieden() {
 //        return pb.getListToegevoegdeLeergebieden();
 //    }
 //
+
     public void nieuwLeergebiedToevoegen(String naam) {
         Leergebied leergebied = new Leergebied(naam);
-         List<Leergebied> nieuweLijstLeergebieden = huidigProduct.getLeergebieden();
+        List<Leergebied> nieuweLijstLeergebieden = huidigProduct.getLeergebieden();
         nieuweLijstLeergebieden.add(leergebied);
         huidigProduct.setLeergebieden(nieuweLijstLeergebieden);
         pb.voegLeergebiedToe(leergebied);
@@ -232,4 +229,36 @@ public class ProductController extends Observable {
 //    }
 //
 //    //EINDE DOELGROEPEN
+    public List<Doelgroep> getDoelgroepen() {
+        List<Doelgroep> productLijst = pb.getDoelgroepen();
+        for (Doelgroep d : huidigProduct.getDoelgroepen()) {
+            productLijst.remove(d);
+        }
+        return productLijst;
+    }
+//
+
+    public List<Doelgroep> getToegevoegdeDoelgroepen() {
+        return huidigProduct.getDoelgroepen();
+    }
+//
+
+ //    public List<Leergebied> getListToegevoegdeLeergebieden() {
+//        return pb.getListToegevoegdeLeergebieden();
+//    }
+//
+
+    public void voegDoelgroepenToeBijHuidigProduct(String naam) {
+        Leergebied nieuwLeergebied = pb.haalLeergebiedUitLijst(naam);
+        List<Leergebied> nieuweLijstLeergebieden = huidigProduct.getLeergebieden();
+        nieuweLijstLeergebieden.add(nieuwLeergebied);
+        huidigProduct.setLeergebieden(nieuweLijstLeergebieden);
+    }
+
+    public void verwijderDoelgroepHuidigProduct(String naam) {
+        Leergebied verwijderLeergebied = pb.haalLeergebiedUitLijst(naam);
+        List<Leergebied> nieuweLijstLeergebieden = huidigProduct.getLeergebieden();
+        nieuweLijstLeergebieden.remove(verwijderLeergebied);
+        huidigProduct.setLeergebieden(nieuweLijstLeergebieden);
+    }
 }

@@ -40,11 +40,7 @@ public class ProductBeheer {
 
     private List<Leergebied> leergebiedenLijst = new ArrayList<Leergebied>();
 
-    Doelgroep kleuters = new Doelgroep("Kleuters");
-    Doelgroep lager = new Doelgroep("Lagere onderwijs");
-    Doelgroep hoger = new Doelgroep("Hoger onderwijs");
-
-    private Doelgroep[] doelgroepenArray = {kleuters, lager, hoger};
+    private List<Doelgroep> doelgroepenLijst = new ArrayList<Doelgroep>();
 
 //    private ObservableList<Leergebied> leergebieden;
 //    
@@ -82,6 +78,10 @@ public class ProductBeheer {
         leergebiedenLijst.add(new Leergebied("Mens"));
         leergebiedenLijst.add(new Leergebied("Maatschappij"));
         leergebiedenLijst.add(new Leergebied("Geschiedenis"));
+
+        doelgroepenLijst.add(new Doelgroep("Kleuters"));
+        doelgroepenLijst.add(new Doelgroep("Lagere school"));
+        doelgroepenLijst.add(new Doelgroep("Hoger onderwijs"));
     }
 
     public ObservableList<Product> getProductenLijst() {
@@ -199,7 +199,8 @@ public class ProductBeheer {
     public List<Leergebied> getLeergebieden() {//returnt linkse list
         return leergebiedenLijst;
     }
-     public Leergebied haalLeergebiedUitLijst(String naam) {
+
+    public Leergebied haalLeergebiedUitLijst(String naam) {
         for (Leergebied l : leergebiedenLijst) {
             if (l.getNaam().equalsIgnoreCase(naam)) {
                 return l;
@@ -207,11 +208,27 @@ public class ProductBeheer {
         }
         return null;
     }
-     public void voegLeergebiedToe(Leergebied naam){
-         leergebiedenLijst.add(naam);
-     }
+
+    public void voegLeergebiedToe(Leergebied naam) {
+        leergebiedenLijst.add(naam);
+    }
+
+    //LEERGEBIEDEN--------------------------------------------
+    public List<Doelgroep> getDoelgroepen() {//returnt linkse list
+        return doelgroepenLijst;
+    }
+
+    public Doelgroep haalDoelgroepUitLijst(String naam) {
+        for (Doelgroep d : doelgroepenLijst) {
+            if (d.getNaam().equalsIgnoreCase(naam)) {
+                return d;
+            }
+        }
+        return null;
+    }
+
 //
-    
+
 //    public ObservableList<Leergebied> getToegevoegdeLeergebieden() {//returnt rechtse list
 //        return leergebiedenRechts;
 //    }
@@ -233,7 +250,6 @@ public class ProductBeheer {
 //        leergebiedenRechts.remove(naam);
 //
 //    }
-
 //    //String methoden
 //    public ObservableList<String> getStringLeergebieden() {
 //        for (Leergebied l : leergebiedenLinks) {

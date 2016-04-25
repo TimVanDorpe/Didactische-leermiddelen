@@ -5,10 +5,11 @@
  */
 package gui;
 
-import domein.ProductController;
 import domein.Leergebied;
+import domein.ProductController;
 import java.io.IOException;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -59,9 +60,20 @@ class LeergebiedSelecterenController extends GridPane {
     }
 
     private void updateView() {
+        
+        ObservableList<String> listnieuw =  FXCollections.observableArrayList();
+        dc.getLeergebieden().stream().map((l) -> l.getNaam()).forEach((naam) -> {
+            listnieuw.add(naam);
+        });
+        
+          ObservableList<String> listtoegevoegd =  FXCollections.observableArrayList();
+          dc.getToegevoegdeLeergebieden().stream().map((l) -> l.getNaam()).forEach((naam) -> {
+              listtoegevoegd.add(naam);
+        });
+        
 
-        alleLeergebieden.setItems(FXCollections.observableArrayList(dc.getLeergebieden().toString()));
-        toegevoegdeLeergebieden.setItems(FXCollections.observableArrayList(dc.getToegevoegdeLeergebieden().toString()));
+        alleLeergebieden.setItems(listnieuw);
+        toegevoegdeLeergebieden.setItems(listtoegevoegd);
         toegevoegdeLeergebieden.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
     }
