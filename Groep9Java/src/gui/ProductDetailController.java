@@ -180,7 +180,7 @@ public class ProductDetailController extends Pane implements Observer {
 //                dc.wijzigProduct(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
 //
 //            }
-  dc.wijzigProduct(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
+  dc.wijzigProduct(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma);
 
         } catch (IllegalArgumentException ex) {
 
@@ -243,8 +243,8 @@ public class ProductDetailController extends Pane implements Observer {
             txtNaam.setText(product.getNaam());
             txtOmschrijving.setText(product.getOmschrijving());
             txtPlaats.setText(product.getPlaats());
-            listLeergebieden.setItems(zetLeergebiedenOmNaarString(product.getLeergebied()));
-            listDoelgroepen.setItems(zetDoelgroepenOmNaarString(product.getDoelgroep()));
+            listLeergebieden.setItems(zetLeergebiedenOmNaarString(product.getLeergebieden()));
+            listDoelgroepen.setItems(zetDoelgroepenOmNaarString(product.getDoelgroepen()));
             //alles terug enablen als er iets geselcteerd wordt
             btnToevoegen.setDisable(false);
             btnAnnuleer.setDisable(false);
@@ -331,7 +331,7 @@ public class ProductDetailController extends Pane implements Observer {
 //            } else {                
 //                dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
 //            }
-            dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
+            //dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
           
             lblError.setText(""); // errortekst clearen
 

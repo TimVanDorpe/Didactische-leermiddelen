@@ -59,7 +59,7 @@ public class DoelgroepSelecterenController extends GridPane {
     }
 
     private void setDoelgroepen() {
-        alleDoelgroepen.setItems(dc.getStringDoelgroepen());
+        alleDoelgroepen.setItems(value);
         toegevoegdeDoelgroepen.setItems(dc.getStringToegevoegdeDoelgroepen());
         toegevoegdeDoelgroepen.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }

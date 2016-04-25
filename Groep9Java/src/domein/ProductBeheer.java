@@ -38,11 +38,7 @@ public class ProductBeheer {
 
     private GenericDaoJpa gdj;
 
-    Leergebied mens = new Leergebied("Mens");
-    Leergebied maatschapij = new Leergebied("Maatschappij");
-    Leergebied geschiedenis = new Leergebied("Geschiedenis");
-
-    private Leergebied[] leergebiedenArray = {mens, maatschapij, geschiedenis};
+    private List<Leergebied> leergebiedenLijst = new ArrayList<Leergebied>();
 
     Doelgroep kleuters = new Doelgroep("Kleuters");
     Doelgroep lager = new Doelgroep("Lagere onderwijs");
@@ -50,16 +46,9 @@ public class ProductBeheer {
 
     private Doelgroep[] doelgroepenArray = {kleuters, lager, hoger};
 
-    private ObservableList<Leergebied> leergebiedenLinks;
-    private ObservableList<Leergebied> leergebiedenRechts;
-    private ObservableList<String> stringLeergebiedenLinks;
-    private ObservableList<String> stringLeergebiedenRechts;
-
-    private ObservableList<Doelgroep> doelgroepenLinks;
-    private ObservableList<Doelgroep> doelgroepenRechts;
-    private ObservableList<String> stringDoelgroepenLinks;
-    private ObservableList<String> stringDoelgroepenRechts;
-
+//    private ObservableList<Leergebied> leergebieden;
+//    
+//    private ObservableList<Doelgroep> doelgroepen;
 //    public ProductBeheer(EntityManager em, EntityManagerFactory emf) {
 //        this(em, emf, new PersistentieController());
 //
@@ -85,33 +74,26 @@ public class ProductBeheer {
 
         sortedList = productenLijst.sorted(sortOrder);
 
-        leergebiedenLinks = FXCollections.observableArrayList(Arrays.asList(leergebiedenArray));
-        leergebiedenRechts = FXCollections.observableArrayList();
-        stringLeergebiedenLinks = FXCollections.observableArrayList();
-        stringLeergebiedenRechts = FXCollections.observableArrayList();
-
-        doelgroepenLinks = FXCollections.observableArrayList(Arrays.asList(doelgroepenArray));
-        doelgroepenRechts = FXCollections.observableArrayList();
-        stringDoelgroepenLinks = FXCollections.observableArrayList();
-        stringDoelgroepenRechts = FXCollections.observableArrayList();
-
+//        leergebieden = FXCollections.observableArrayList(Arrays.asList(leergebiedenArray));
+//      
+//
+//        doelgroepen = FXCollections.observableArrayList(Arrays.asList(doelgroepenArray));
+//        
+        leergebiedenLijst.add(new Leergebied("Mens"));
+        leergebiedenLijst.add(new Leergebied("Maatschappij"));
+        leergebiedenLijst.add(new Leergebied("Geschiedenis"));
     }
 
     public ObservableList<Product> getProductenLijst() {
         return productenLijst;
     }
 
-    
-    
-    
-    
     public void setGdj(GenericDaoJpa gdj) {
         this.gdj = gdj;
     }
 
     public SortedList<Product> getSortedList() {
 
- 
         //Wrap the FilteredList in a SortedList
         return sortedList; //SortedList is unmodifiable
     }
@@ -138,9 +120,9 @@ public class ProductBeheer {
         //id mag niet vervangen worden.
         huidigProduct.setAantal(p.getAantal());
         huidigProduct.setArtikelnummer(p.getArtikelnummer());
-        huidigProduct.setDoelgroep(p.getDoelgroep());
+        huidigProduct.setDoelgroepen(p.getDoelgroepen());
         huidigProduct.setFirma(p.getFirma());
-        huidigProduct.setLeergebied(p.getLeergebied());
+        huidigProduct.setLeergebieden(p.getLeergebieden());
         huidigProduct.setOmschrijving(p.getOmschrijving());
         huidigProduct.setPlaats(p.getPlaats());
         huidigProduct.setPrijs(p.getPrijs());
@@ -207,93 +189,105 @@ public class ProductBeheer {
     }
 
     public void geefAlleProducten() {
-        
-        productenLijst= FXCollections.observableArrayList(gdj.findAll());
-       
+
+        productenLijst = FXCollections.observableArrayList(gdj.findAll());
+
         sortedList = productenLijst.sorted(sortOrder);
     }
 
     //LEERGEBIEDEN--------------------------------------------
-    public ObservableList<Leergebied> getLeergebieden() {//returnt linkse list
-        return leergebiedenLinks;
-}
-
-    public ObservableList<Leergebied> getToegevoegdeLeergebieden() {//returnt rechtse list
-        return leergebiedenRechts;
+    public List<Leergebied> getLeergebieden() {//returnt linkse list
+        return leergebiedenLijst;
     }
-
-    public List<Leergebied> getListToegevoegdeLeergebieden() {//Zet toegevoegde om naar gewone list
-        List<Leergebied> listToegevoegd = new ArrayList<>(getToegevoegdeLeergebieden());
-        return listToegevoegd;
-    }
-
-    public void voegLeergebiedToe(Leergebied naam) {//send right
-        leergebiedenRechts.add(naam);
-        leergebiedenLinks.remove(naam);
-
-    }
-
-    public void verwijderLeergebied(Leergebied naam) {//send left
-
-        leergebiedenLinks.add(naam);
-        leergebiedenRechts.remove(naam);
-
-    }
-
-    //String methoden
-    public ObservableList<String> getStringLeergebieden() {
-        for (Leergebied l : leergebiedenLinks) {
-            String naam = l.getNaam();
-            stringLeergebiedenLinks.add(naam);
-        }
-        return stringLeergebiedenLinks;
-    }
-
-    public ObservableList<String> getStringLeergebiedenToegevoegd() {
-        for (Leergebied l : leergebiedenRechts) {
-            String naam = l.getNaam();
-            stringLeergebiedenRechts.add(naam);
-        }
-        return stringLeergebiedenRechts;
-    }
-
-    public Leergebied getLeergebiedFromString(String naam) {
-        for (Leergebied l : leergebiedenLinks) {
+     public Leergebied haalLeergebiedUitLijst(String naam) {
+        for (Leergebied l : leergebiedenLijst) {
             if (l.getNaam().equalsIgnoreCase(naam)) {
                 return l;
             }
         }
         return null;
     }
+     public void voegLeergebiedToe(Leergebied naam){
+         leergebiedenLijst.add(naam);
+     }
+//
+    
+//    public ObservableList<Leergebied> getToegevoegdeLeergebieden() {//returnt rechtse list
+//        return leergebiedenRechts;
+//    }
+//
+//    public List<Leergebied> getListToegevoegdeLeergebieden() {//Zet toegevoegde om naar gewone list
+//        List<Leergebied> listToegevoegd = new ArrayList<>(getToegevoegdeLeergebieden());
+//        return listToegevoegd;
+//    }
+//
+//    public void voegLeergebiedToe(Leergebied naam) {//send right
+//        leergebiedenRechts.add(naam);
+//        leergebiedenLinks.remove(naam);
+//
+//    }
+//
+//    public void verwijderLeergebied(Leergebied naam) {//send left
+//
+//        leergebiedenLinks.add(naam);
+//        leergebiedenRechts.remove(naam);
+//
+//    }
 
-    public Leergebied getLeergebiedToegevoegdFromString(String naam) {
-        for (Leergebied l : leergebiedenRechts) {
-            if (l.getNaam().equalsIgnoreCase(naam)) {
-                return l;
-            }
-        }
-        return null;
-    }
-
-    public void voegLeergebiedToeString(String naam) {
-        stringLeergebiedenRechts.add(naam);
-        stringLeergebiedenLinks.remove(naam);
-
-    }
-
-    public void verwijderLeergebiedString(String naam) {
-
-        stringLeergebiedenLinks.add(naam);
-        stringLeergebiedenRechts.remove(naam);
-
-    }
-
-    //NIEUW LEERGEBIED TOEVOEGEN
-    public void voegNieuwToeAanLeergebieden(Leergebied leergebied) {
-        leergebiedenLinks.add(leergebied);
-    }
-
-    //EINDE LEERGEBIEDEN--------------------------------------------
+//    //String methoden
+//    public ObservableList<String> getStringLeergebieden() {
+//        for (Leergebied l : leergebiedenLinks) {
+//            String naam = l.getNaam();
+//            stringLeergebiedenLinks.add(naam);
+//        }
+//        return stringLeergebiedenLinks;
+//    }
+//
+//    public ObservableList<String> getStringLeergebiedenToegevoegd() {
+//        for (Leergebied l : leergebiedenRechts) {
+//            String naam = l.getNaam();
+//            stringLeergebiedenRechts.add(naam);
+//        }
+//        return stringLeergebiedenRechts;
+//    }
+//
+//    public Leergebied getLeergebiedFromString(String naam) {
+//        for (Leergebied l : leergebiedenLinks) {
+//            if (l.getNaam().equalsIgnoreCase(naam)) {
+//                return l;
+//            }
+//        }
+//        return null;
+//    }
+//
+//    public Leergebied getLeergebiedToegevoegdFromString(String naam) {
+//        for (Leergebied l : leergebiedenRechts) {
+//            if (l.getNaam().equalsIgnoreCase(naam)) {
+//                return l;
+//            }
+//        }
+//        return null;
+//    }
+//
+//    public void voegLeergebiedToeString(String naam) {
+//        stringLeergebiedenRechts.add(naam);
+//        stringLeergebiedenLinks.remove(naam);
+//
+//    }
+//
+//    public void verwijderLeergebiedString(String naam) {
+//
+//        stringLeergebiedenLinks.add(naam);
+//        stringLeergebiedenRechts.remove(naam);
+//
+//    }
+//
+//    //NIEUW LEERGEBIED TOEVOEGEN
+//    public void voegNieuwToeAanLeergebieden(Leergebied leergebied) {
+//        leergebiedenLinks.add(leergebied);
+//    }
+//
+//    //EINDE LEERGEBIEDEN--------------------------------------------
     public boolean isNaamUniek(String naam, String naamGeselecteerdProduct, boolean isWijziging) {
         if (isWijziging) {
             if (!naamGeselecteerdProduct.equals(naam)) { // als het een wijziging is controleer dan niet op de huidig geselecteerde naam
@@ -303,81 +297,81 @@ public class ProductBeheer {
                 }
             }
 
-            } else if (productenLijst.stream().anyMatch(p -> p.getNaam().toLowerCase().equals(naam.toLowerCase()))) {
+        } else if (productenLijst.stream().anyMatch(p -> p.getNaam().toLowerCase().equals(naam.toLowerCase()))) {
             return false;
         }
         return true;
     }
 
-    //DOELGROEPEN----------------------------------------------------
-    ObservableList<Doelgroep> getDoelgroepen() {
-        return doelgroepenLinks;
-    }
-
-    ObservableList<Doelgroep> getToegevoegdeDoelgroepen() {
-        return doelgroepenRechts;
-    }
-
-    List<Doelgroep> getListToegevoegdeDoelgroepen() {
-        List<Doelgroep> listToegevoegd = new ArrayList<>(getToegevoegdeDoelgroepen());
-        return listToegevoegd;
-    }
-
-    void voegDoelgroepToe(Doelgroep doelgroep) {
-        doelgroepenRechts.add(doelgroep);
-        doelgroepenLinks.remove(doelgroep);
-    }
-
-    void verwijderDoelgroep(Doelgroep doelgroep) {
-        doelgroepenLinks.add(doelgroep);
-        doelgroepenRechts.remove(doelgroep);
-
-    }
-
-    //string doelgroepen
-    ObservableList<String> getStringDoelgroepen() {
-        for (Doelgroep l : doelgroepenLinks) {
-            String naam = l.getNaam();
-            stringDoelgroepenLinks.add(naam);
-        }
-        return stringDoelgroepenLinks;
-    }
-
-    Doelgroep getDoelgroepFromString(String naam) {
-        for (Doelgroep l : doelgroepenLinks) {
-            if (l.getNaam().equalsIgnoreCase(naam)) {
-                return l;
-            }
-        }
-        return null;
-    }
-
-    Doelgroep getDoelgroepToegevoegdFromString(String selectedItem) {
-        for (Doelgroep l : doelgroepenRechts) {
-            if (l.getNaam().equalsIgnoreCase(selectedItem)) {
-                return l;
-            }
-        }
-        return null;
-    }
-
-    ObservableList<String> getStringToegevoegdeDoelgroepen() {
-        for (Doelgroep l : doelgroepenRechts) {
-            String naam = l.getNaam();
-            stringDoelgroepenRechts.add(naam);
-        }
-        return stringDoelgroepenRechts;
-    }
-
-    void voegDoelgroepToeString(String naam) {
-        stringDoelgroepenRechts.add(naam);
-        stringDoelgroepenLinks.remove(naam);
-    }
-
-    void verwijderDoelgroepString(String selectedItem) {
-        stringDoelgroepenLinks.add(selectedItem);
-        stringDoelgroepenRechts.remove(selectedItem);
-    }
-
-    //EINDEDOELGROEPEN--------------------------------------------------------
+//    //DOELGROEPEN----------------------------------------------------
+//    public ObservableList<Doelgroep> getDoelgroepen() {
+//        return doelgroepen;
+//    }
+//
+//    ObservableList<Doelgroep> getToegevoegdeDoelgroepen() {
+//        return doelgroepenRechts;
+//    }
+//
+//    List<Doelgroep> getListToegevoegdeDoelgroepen() {
+//        List<Doelgroep> listToegevoegd = new ArrayList<>(getToegevoegdeDoelgroepen());
+//        return listToegevoegd;
+//    }
+//
+//    void voegDoelgroepToe(Doelgroep doelgroep) {
+//        doelgroepenRechts.add(doelgroep);
+//        doelgroepenLinks.remove(doelgroep);
+//    }
+//
+//    void verwijderDoelgroep(Doelgroep doelgroep) {
+//        doelgroepenLinks.add(doelgroep);
+//        doelgroepenRechts.remove(doelgroep);
+//
+//    }
+//
+//    //string doelgroepen
+//    ObservableList<String> getStringDoelgroepen() {
+//        for (Doelgroep l : doelgroepenLinks) {
+//            String naam = l.getNaam();
+//            stringDoelgroepenLinks.add(naam);
+//        }
+//        return stringDoelgroepenLinks;
+//    }
+//
+//    Doelgroep getDoelgroepFromString(String naam) {
+//        for (Doelgroep l : doelgroepenLinks) {
+//            if (l.getNaam().equalsIgnoreCase(naam)) {
+//                return l;
+//            }
+//        }
+//        return null;
+//    }
+//
+//    Doelgroep getDoelgroepToegevoegdFromString(String selectedItem) {
+//        for (Doelgroep l : doelgroepenRechts) {
+//            if (l.getNaam().equalsIgnoreCase(selectedItem)) {
+//                return l;
+//            }
+//        }
+//        return null;
+//    }
+//
+//    ObservableList<String> getStringToegevoegdeDoelgroepen() {
+//        for (Doelgroep l : doelgroepenRechts) {
+//            String naam = l.getNaam();
+//            stringDoelgroepenRechts.add(naam);
+//        }
+//        return stringDoelgroepenRechts;
+//    }
+//
+//    void voegDoelgroepToeString(String naam) {
+//        stringDoelgroepenRechts.add(naam);
+//        stringDoelgroepenLinks.remove(naam);
+//    }
+//
+//    void verwijderDoelgroepString(String selectedItem) {
+//        stringDoelgroepenLinks.add(selectedItem);
+//        stringDoelgroepenRechts.remove(selectedItem);
+//    }
+//
+//    //EINDEDOELGROEPEN--------------------------------------------------------
 }
