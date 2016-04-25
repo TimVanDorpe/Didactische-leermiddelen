@@ -180,7 +180,7 @@ public class ProductDetailController extends Pane implements Observer {
 //                dc.wijzigProduct(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
 //
 //            }
-  dc.wijzigProduct(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma);
+            dc.wijzigProduct(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma);
 
         } catch (IllegalArgumentException ex) {
 
@@ -235,6 +235,16 @@ public class ProductDetailController extends Pane implements Observer {
             maakLabelsTerugNormaal();
 
             Product product = (Product) arg;
+
+//            if (!(product.getNaam().equals(txtNaam.getText())
+//                    || String.format("%d", product.getAantal()).equals(txtAantal.getText())
+//                    || String.format("%d", product.getArtikelnummer()).equals(txtArtikelnummer.getText())
+//                    || String.format("%f", product.getPrijs()).equals(txtPrijs.getText())
+//                    || product.getOmschrijving().equals(txtOmschrijving.getText())
+//                    || product.getPlaats().equals(txtPlaats.getText()))) {
+//                ongewijzigdProductBevestiging();
+//            }
+
             txtAantal.setText(Integer.toString(product.getAantal()));
             txtArtikelnummer.setText(Integer.toString(product.getArtikelnummer()));
             txtFirma.setText(product.getFirma().getNaam());
@@ -264,17 +274,16 @@ public class ProductDetailController extends Pane implements Observer {
             btnVerwijderen.setDisable(false);
             btnSelecteerLeergebied.setDisable(false);
             listLeergebieden.setDisable(false);
-            if(product.getFoto() != null){
-             try {
-                BufferedImage img = ImageIO.read(product.getFoto());
-                 Image image = SwingFXUtils.toFXImage(img, null);
-                imgViewFoto.setImage(image);
-            } catch (IOException ex) {
-                Logger.getLogger(ProductDetailController.class.getName()).log(Level.SEVERE, null, ex);
-            }}
-            else
-            {
-            imgViewFoto.setImage(null);
+            if (product.getFoto() != null) {
+                try {
+                    BufferedImage img = ImageIO.read(product.getFoto());
+                    Image image = SwingFXUtils.toFXImage(img, null);
+                    imgViewFoto.setImage(image);
+                } catch (IOException ex) {
+                    Logger.getLogger(ProductDetailController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                imgViewFoto.setImage(null);
             }
             btnSelecteerDoelgroep.setDisable(false);
             listDoelgroepen.setDisable(false);
@@ -324,7 +333,6 @@ public class ProductDetailController extends Pane implements Observer {
             leergebieden.add(leergebied2);
 
             // do what you have to do
-            
 //            if (imgViewFoto.getImage() == null) {
 //
 //                dc.voegProductToeZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
@@ -332,7 +340,6 @@ public class ProductDetailController extends Pane implements Observer {
 //                dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
 //            }
             //dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
-          
             lblError.setText(""); // errortekst clearen
 
         } catch (IllegalArgumentException ex) {
@@ -389,8 +396,8 @@ public class ProductDetailController extends Pane implements Observer {
             }
             this.firmaEmail = txtEmailFirma.getText();
 
-            if(imgViewFoto.getImage() == null){
-              
+            if (imgViewFoto.getImage() == null) {
+
                 try {
                     this.foto = new URL("http://i.imgur.com/tsvNPVH.png");
                 } catch (MalformedURLException ex) {
@@ -400,7 +407,7 @@ public class ProductDetailController extends Pane implements Observer {
 //            if (txtDoelgroepen.getText() == null) {
 //                txtDoelgroepen.setText("");
 //            }
-           // Firma firma = new Firma(firmaNaam, firmaEmail);
+            // Firma firma = new Firma(firmaNaam, firmaEmail);
             //Dit moet zeker weg!!!!
 //            Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
 //            Leergebied leergebied = new Leergebied("test");
@@ -409,7 +416,6 @@ public class ProductDetailController extends Pane implements Observer {
 //            leergebieden.add(leergebied);
 //            leergebieden.add(leergebied2);
 //
-            
 
         }
     }
@@ -564,5 +570,29 @@ public class ProductDetailController extends Pane implements Observer {
         //this.setDisable(true);
         stage.show();
 
+    }
+
+    private void ongewijzigdProductBevestiging() {
+        Stage stage = new Stage();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmatie");
+        alert.setHeaderText("Niet opgeslagen wijzigingen gevonden");
+        alert.setContentText("Er zijn niet opgeslagen wijzigingen gevonden. Wilt u deze annuleren?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            // OK
+
+            stage.close();
+
+        } else {
+            // Niet OK
+
+            throw new IllegalArgumentException("Gelieve uw wijzigingen te bevestigen of te annuleren");
+
+        }
+
+        stage.close();
     }
 }
