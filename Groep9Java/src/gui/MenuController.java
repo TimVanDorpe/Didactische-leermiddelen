@@ -61,11 +61,11 @@ public class MenuController extends VBox {
         }
 
         pc = new ProductController();
-        rc = new ReservatieController(pc);
+        rc = new ReservatieController();
         ProductenFrameController catalogus = new ProductenFrameController(pc);
         paneProducten.getChildren().add(catalogus);
         
-         ReservatiesFrameController reservaties = new ReservatiesFrameController(rc);
+         ReservatiesFrameController reservaties = new ReservatiesFrameController(rc, pc);
         
         paneReservaties.getChildren().add(reservaties);
         lblHuidigeGebruiker.setText(beheerderController.getAangemeldeBeheerder().getEmail());
