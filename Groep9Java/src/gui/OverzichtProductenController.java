@@ -44,7 +44,7 @@ public class OverzichtProductenController extends BorderPane implements Observer
     private TableColumn<Product, String> clmAantal;
     @FXML
     private TableColumn<Product, String> clmPlaats;
-
+    
     private ProductController dc;
     @FXML
     private Button btnToevoegen;
@@ -131,15 +131,14 @@ public class OverzichtProductenController extends BorderPane implements Observer
        tblProducten.setItems(dc.getProductSortedList());
     }
     
-    
-   
-
- 
 
     @FXML
     private void enableSelectionModel(MouseEvent event) {
          dc.setSelectionModelEmpty(false);
     }
+    
+    
+    
     
 
 }

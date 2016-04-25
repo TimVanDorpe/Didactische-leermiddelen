@@ -1,21 +1,17 @@
 package domein;
 
 import java.net.URL;
-import java.sql.Blob;
-import java.util.Collection;
 import java.util.List;
 import java.util.Observable;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
-import javafx.scene.image.Image;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+
 
 public class ProductController extends Observable {
 
     private Product huidigProduct;
     private ProductBeheer pb;
+    
     private boolean selectionModelEmpty;
 
     public ProductController() {
@@ -31,9 +27,7 @@ public class ProductController extends Observable {
     public ProductBeheer getPb() {
         return pb;
     }
-    
-    
-    
+       
     public void voegProductToe(URL foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, List<Doelgroep> doelgroep, List<Leergebied> leergebied) {
         //isNaamUniek(naam);
         Product nieuwProduct = new Product(leergebied, doelgroep, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats);
@@ -211,4 +205,8 @@ public class ProductController extends Observable {
     }
 
     //EINDE DOELGROEPEN
+
+    public void voegLeegProductToe(Product leegProduct) {
+       pb.voegProductToe(leegProduct);
+    }
 }

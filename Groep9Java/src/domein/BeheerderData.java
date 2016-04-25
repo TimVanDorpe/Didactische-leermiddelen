@@ -19,7 +19,7 @@ public class BeheerderData {
     }
         
     public void genereerData(){
-         Beheerder beheerder1 = new Beheerder("beheerder@hogent.be", "Wachtwoord1", "beheerder", "0495671235");
+         Beheerder beheerder1 = new Beheerder("b@b.be", "root", "beheerder", "0495671235");
         
        bb.registreerBeheerder(beheerder1);
     }

@@ -5,9 +5,13 @@
  */
 package domein;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 
 /**
  *
@@ -17,34 +21,47 @@ public class ReservatieBeheer {
 
 //    private SortedList<Reservatie> sortedList;
     private ObservableList<Reservatie> reservatieLijst = FXCollections.observableArrayList();
-
+    private SortedList<Reservatie> sortedList;
+ 
+    private final Comparator<Reservatie> byProdcutNaam = (r1, r2) -> r1.getGereserveerdProduct().getNaam().compareToIgnoreCase(r2.getGereserveerdProduct().getNaam());
+ 
+    private final Comparator<Reservatie> sortOrder = byProdcutNaam;
     
-//     //hier alle comparators
-//    private final Comparator<Reservatie> byNaam = (p1, p2) -> p1.getGereserveerdProduct().getNaam().compareToIgnoreCase(p2.getGereserveerdProduct().getNaam());
-//    // alle comparators in de juiste volgorde, de volgorde waarop wordt gesorteerd.
-//    private final Comparator<Reservatie> sortOrder = byNaam;
-//    
+
     
     public ReservatieBeheer() {
         ReservatieData data = new ReservatieData(this);
         data.maakReservaties();
+        sortedList = reservatieLijst.sorted(sortOrder);
         
-        
-//        sortedList = reservatieLijst.sorted(sortOrder);
         
     }
 
-//     public SortedList<Reservatie> getSortedList() {
-//
-//        //Wrap the FilteredList in a SortedList
-//        return sortedList; //SortedList is unmodifiable
-//    }
-//
-//    public void setSortedList(SortedList<Reservatie> sortedList) {
-//        this.sortedList = sortedList;
-//    }
+    public SortedList<Reservatie> getSortedList() {
 
+      //Wrap the FilteredList in a SortedList
+       return sortedList; //SortedList is unmodifiable
+  }
+
+    public void setSortedList(SortedList<Reservatie> sortedList) {
+        this.sortedList = sortedList;
+   }
+
+    public ObservableList<Reservatie> zoekOpMateriaalNaam(String productNaam)
+    {
+    ObservableList<Reservatie> reservatieLijstMetTrefwoord = FXCollections.observableArrayList();
+        List<Reservatie> rr = new ArrayList<>();
+
+        for (Reservatie r : reservatieLijst) {
+            if (r.getGereserveerdProduct().getNaam().toLowerCase().contains(productNaam.toLowerCase()) || r.getGereserveerdProduct().getOmschrijving().toLowerCase().contains(productNaam.toLowerCase())) {
+                rr.add(r);
+            }
+        }
+        reservatieLijstMetTrefwoord = FXCollections.observableArrayList(rr);
+        sortedList = reservatieLijstMetTrefwoord.sorted(sortOrder);
+        return sortedList;
     
+    }
     
     public ObservableList<Reservatie> getReservatieLijst() {
         return reservatieLijst;

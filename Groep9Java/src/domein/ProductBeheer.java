@@ -39,7 +39,7 @@ public class ProductBeheer {
     private GenericDaoJpa gdj;
 
     Leergebied mens = new Leergebied("Mens");
-    Leergebied maatschapij = new Leergebied("Maatschappij");
+    Leergebied maatschapij = new Leergebied("Maatschappssssij");
     Leergebied geschiedenis = new Leergebied("Geschiedenis");
 
     private Leergebied[] leergebiedenArray = {mens, maatschapij, geschiedenis};
