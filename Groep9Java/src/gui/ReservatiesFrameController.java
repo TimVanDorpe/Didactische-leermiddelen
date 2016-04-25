@@ -15,7 +15,7 @@ public class ReservatiesFrameController extends HBox {
     public ReservatiesFrameController(ReservatieController rc, ProductController pc) {
         this.rc = rc;
         this.pc = pc;
-        overzichtPanel = new OverzichtReservatiesController(rc);
+        overzichtPanel = new OverzichtReservatiesController(rc, pc);
         
        detailPanelController = new ReservatieDetailController(rc, pc);
         rc.addObserver(detailPanelController);

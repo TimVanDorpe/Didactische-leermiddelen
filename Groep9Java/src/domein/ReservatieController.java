@@ -22,6 +22,7 @@ public class ReservatieController extends Observable {
     private boolean selectionModelEmpty;
 
     public ReservatieController() {
+        rb = new ReservatieBeheer();
     }
 
     public ObservableList<Reservatie> getReservatieLijst() {

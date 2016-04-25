@@ -126,7 +126,7 @@ public class ReservatieDetailController extends Pane implements Observer {
 
             lblError.setText("");
 
-            Product prod = pc.getProductenLijst().stream().filter(p -> p.getNaam().toLowerCase().equals(product)).findAny().get();
+            //Product prod = pc.getProductenLijst().stream().filter(p -> p.getNaam().equalsIgnoreCase(product)).findAny().get();
             
             // dit uit comment na demo
             //rc.wijzigReservatie(prod, aantal, student, startDatum, eindDatum);
