@@ -5,9 +5,11 @@
  */
 package gui;
 
-import domein.ProductController;
 import domein.Leergebied;
+import domein.ProductController;
 import java.io.IOException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,7 +48,7 @@ class LeergebiedSelecterenController extends GridPane {
         }
 
         //leergebied strings
-        setLeergebieden();
+        updateView();
 
 //     dc.getToegevoegd().addListener(
 //        (ListChangeListener<String>) e-> btnSendLeft.setDisable(
@@ -57,47 +59,54 @@ class LeergebiedSelecterenController extends GridPane {
 //                        dc.geenLeergebieden()));
     }
 
-    private void setLeergebieden() {
+    private void updateView() {
+        
+        ObservableList<String> listnieuw =  FXCollections.observableArrayList();
+        dc.getLeergebieden().stream().map((l) -> l.getNaam()).forEach((naam) -> {
+            listnieuw.add(naam);
+        });
+        
+//          ObservableList<String> listtoegevoegd =  FXCollections.observableArrayList();
+//          dc.getToegevoegdeLeergebieden().stream().map((l) -> l.getNaam()).forEach((naam) -> {
+//              listtoegevoegd.add(naam);
+//        });
+        
 
-        alleLeergebieden.setItems(dc.getStringLeergebieden());
-        toegevoegdeLeergebieden.setItems(dc.getStringLeergebiedenToegevoegd());
+        alleLeergebieden.setItems(listnieuw);
+        toegevoegdeLeergebieden.setItems(dc.geefStringsToegevoegdeLeergebieden());
         toegevoegdeLeergebieden.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
     }
 
     @FXML
     private void sendRight(ActionEvent event) {
-        String selectedItem = alleLeergebieden.getSelectionModel().getSelectedItem();
-        addLeergebied(selectedItem);
-      
-    }
-
-    private void addLeergebied(String naam) {
-        Leergebied leergebied = dc.getLeergebiedFromString(naam);
+        String naam = alleLeergebieden.getSelectionModel().getSelectedItem();
+        dc.voegLeergebiedToeBijHuidigProduct(naam);
         if (naam != null) {
+
             alleLeergebieden.getSelectionModel().clearSelection();
-            dc.voegLeergebiedToeString(naam);
-            dc.voegLeergebiedToe(leergebied);
 
         }
+        updateView();
+
     }
+
 
     //string to leergebied 
     @FXML
     private void sendLeft(ActionEvent event) {
 
-        String selectedItem = toegevoegdeLeergebieden.getSelectionModel().getSelectedItem();
-        Leergebied leergebied = dc.getLeergebiedToegevoegdFromString(selectedItem);
+        String naam = toegevoegdeLeergebieden.getSelectionModel().getSelectedItem();
+        dc.verwijderLeergebiedHuidigProduct(naam);
 
-        if (selectedItem != null) {
+        if (naam != null) {
             toegevoegdeLeergebieden.getSelectionModel().clearSelection();
-            dc.verwijderLeergebiedString(selectedItem);
-            dc.verwijderLeergebied(leergebied);//hier geen for each-> die is niet slim genoeg en kan dit niet aan 
+          
         }
-     
+        updateView();
+
 //       if ( selectedItem!=null)
 //       domeinController.removeHero(selectedItem());
-
     }
 //
 //    @FXML
@@ -139,13 +148,13 @@ class LeergebiedSelecterenController extends GridPane {
     @FXML
     private void toevoegenNieuwLeergebied(ActionEvent event) {
         String nieuwleergebied = txtNieuwLeergebied.getText();
-        Leergebied leergebied = new Leergebied(nieuwleergebied);
-        dc.voegNieuwToeAanLeergebieden(leergebied);
+        
+        dc.nieuwLeergebiedToevoegen(nieuwleergebied);
         txtNieuwLeergebied.clear();
         alleLeergebieden.getItems().clear();
         toegevoegdeLeergebieden.getItems().clear();
 
-        setLeergebieden();
+        updateView();
 
     }
 }

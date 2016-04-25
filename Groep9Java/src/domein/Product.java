@@ -22,9 +22,9 @@ import javax.persistence.OneToMany;
 @Entity(name = "Product")
 public class Product implements Serializable {
     @ManyToMany(cascade = CascadeType.PERSIST)
-    private List<Leergebied> leergebied;
+    private List<Leergebied> leergebieden;
     @ManyToMany(cascade = CascadeType.PERSIST)
-    private List<Doelgroep> doelgroep;
+    private List<Doelgroep> doelgroepen;
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Firma firma;
     private URL foto;
@@ -40,8 +40,8 @@ public class Product implements Serializable {
     private String plaats ;
 
     public Product(List<Leergebied> leergebied, List<Doelgroep> doelgroep, Firma firma, URL foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
-        setLeergebied(leergebied);
-        setDoelgroep(doelgroep);
+        setLeergebieden(leergebied);
+        setDoelgroepen(doelgroep);
         setFirma(firma);
         setFoto(foto);
         setNaam(naam);
@@ -59,8 +59,8 @@ public class Product implements Serializable {
     
     
      public Product(List<Leergebied> leergebied, List<Doelgroep> doelgroep, Firma firma,String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
-        setLeergebied(leergebied);
-        setDoelgroep(doelgroep);
+        setLeergebieden(leergebied);
+        setDoelgroepen(doelgroep);
         setFirma(firma);
         setNaam(naam);
         setOmschrijving(omschrijving);
@@ -75,20 +75,20 @@ public class Product implements Serializable {
     public Product(){
         
     }
-    public List<Leergebied> getLeergebied() {
-        return leergebied;
+    public List<Leergebied> getLeergebieden() {
+        return leergebieden;
     }
 
-    public void setLeergebied(List<Leergebied> leergebied) {
-        this.leergebied = leergebied;
+    public void setLeergebieden(List<Leergebied> leergebieden) {
+        this.leergebieden = leergebieden;
     }
 
-    public List<Doelgroep> getDoelgroep() {
-        return doelgroep;
+    public List<Doelgroep> getDoelgroepen() {
+        return doelgroepen;
     }
 
-    public void setDoelgroep(List<Doelgroep> doelgroep) {
-        this.doelgroep = doelgroep;
+    public void setDoelgroepen(List<Doelgroep> doelgroepen) {
+        this.doelgroepen = doelgroepen;
     }
 
     public Firma getFirma() {

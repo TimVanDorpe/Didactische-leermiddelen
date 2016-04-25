@@ -11,6 +11,8 @@ import domein.ProductController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -55,43 +57,53 @@ public class DoelgroepSelecterenController extends GridPane {
             throw new RuntimeException(ex);
         }
 
-        setDoelgroepen();
+        updateDoelgroepen();
     }
 
-    private void setDoelgroepen() {
-        alleDoelgroepen.setItems(dc.getStringDoelgroepen());
-        toegevoegdeDoelgroepen.setItems(dc.getStringToegevoegdeDoelgroepen());
+    private void updateDoelgroepen() {
+        
+           
+        ObservableList<String> listnieuw =  FXCollections.observableArrayList();
+        dc.getDoelgroepen().stream().map((l) -> l.getNaam()).forEach((naam) -> {
+            listnieuw.add(naam);
+        });
+        
+          ObservableList<String> listtoegevoegd =  FXCollections.observableArrayList();
+          dc.getToegevoegdeDoelgroepen().stream().map((l) -> l.getNaam()).forEach((naam) -> {
+              listtoegevoegd.add(naam);
+        });
+        
+        alleDoelgroepen.setItems(listnieuw);
+        toegevoegdeDoelgroepen.setItems(listtoegevoegd);
         toegevoegdeDoelgroepen.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     @FXML
     private void sendRight(ActionEvent event) {
-        String selectedItem = alleDoelgroepen.getSelectionModel().getSelectedItem();
-        addDoelgroep(selectedItem);
-
-    }
-
-    private void addDoelgroep(String naam) {
-        Doelgroep doelgroep = dc.getDoelgroepFromString(naam);
+        String naam = alleDoelgroepen.getSelectionModel().getSelectedItem();
+        dc.voegDoelgroepenToeBijHuidigProduct(naam);
         if (naam != null) {
+
             alleDoelgroepen.getSelectionModel().clearSelection();
-            dc.voegDoelgroepToeString(naam);
-            dc.voegDoelgroepToe(doelgroep);
 
         }
+        updateDoelgroepen();
+
     }
+
+
 
     @FXML
     private void sendLeft(ActionEvent event) {
 
-        String selectedItem = toegevoegdeDoelgroepen.getSelectionModel().getSelectedItem();
-        Doelgroep doelgroep = dc.getDoelgroepToegevoegdFromString(selectedItem);
+        String naam = toegevoegdeDoelgroepen.getSelectionModel().getSelectedItem();
+        dc.verwijderDoelgroepHuidigProduct(naam);
 
-        if (selectedItem != null) {
+        if (naam != null) {
             toegevoegdeDoelgroepen.getSelectionModel().clearSelection();
-            dc.verwijderDoelgroepString(selectedItem);
-            dc.verwijderDoelgroep(doelgroep);
+          
         }
+
 
     }
 

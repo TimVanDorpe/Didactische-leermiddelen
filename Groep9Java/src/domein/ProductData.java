@@ -35,15 +35,15 @@ public class ProductData {
         List<Leergebied> leergebieden2 = new ArrayList();
                 List<Doelgroep> doelgroepen = new ArrayList();
 
-        Leergebied tellen = new Leergebied("");
+        Leergebied tellen = new Leergebied("Wetenschap");
         tellen.setId(0);
-        Leergebied knutselen = new Leergebied("");
+        Leergebied knutselen = new Leergebied("Biologie");
          knutselen.setId(1);
         leergebieden.add(tellen);
         leergebieden.add(knutselen);
         leergebieden2.add(tellen);
       // Image foto = new image()
-        Doelgroep kleuters = new Doelgroep("");
+        Doelgroep kleuters = new Doelgroep("Kleuters");
        Doelgroep lager = new Doelgroep("");
        doelgroepen.add(kleuters);
        doelgroepen.add(lager);
