@@ -25,8 +25,8 @@ public class ReservatieBeheer {
 //    private final Comparator<Reservatie> sortOrder = byNaam;
 //    
     
-    public ReservatieBeheer(ProductBeheer pb) {
-        ReservatieData data = new ReservatieData(this, pb);
+    public ReservatieBeheer() {
+        ReservatieData data = new ReservatieData(this);
         data.maakReservaties();
         
         

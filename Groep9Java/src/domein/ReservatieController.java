@@ -17,14 +17,12 @@ import javafx.collections.ObservableList;
  */
 public class ReservatieController extends Observable {
 
-    private ProductController pc;
     private ReservatieBeheer rb;
     private Reservatie huidigeReservatie;
     private boolean selectionModelEmpty;
 
-    public ReservatieController(ProductController pc) {
-        rb = new ReservatieBeheer(pc.getPb());
-        this.pc = pc;
+    public ReservatieController() {
+        rb = new ReservatieBeheer();
     }
 
     public ObservableList<Reservatie> getReservatieLijst() {
@@ -55,7 +53,7 @@ public class ReservatieController extends Observable {
 //
 //    }
 
-    public void wijzigReservatie(String product, int aantal, String student, String startDatum, String eindDatum) {
+    public void wijzigReservatie(Product product, int aantal, String student, String startDatum, String eindDatum) {
 
         GregorianCalendar start = new GregorianCalendar(Integer.parseInt(startDatum.substring(0, 4)),
                 Integer.parseInt(startDatum.substring(5, 7)), Integer.parseInt(startDatum.substring(8, 10),
@@ -64,9 +62,8 @@ public class ReservatieController extends Observable {
                 Integer.parseInt(eindDatum.substring(5, 7)), Integer.parseInt(eindDatum.substring(8, 10),
                 Integer.parseInt(eindDatum.substring(11, 13))));
 
-        Product prod = pc.getProductenLijst().stream().filter(p -> p.getNaam().toLowerCase().equals(product)).findAny().get();
 
-        Reservatie nieuweReservatie = new Reservatie(start, eind, student, prod, aantal);
+        Reservatie nieuweReservatie = new Reservatie(start, eind, student, product, aantal);
         rb.wijzigReservatie(nieuweReservatie, huidigeReservatie);
         setChanged();
         notifyObservers();

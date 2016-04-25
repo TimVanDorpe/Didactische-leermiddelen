@@ -33,6 +33,8 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
     private TableView<Reservatie> tblReservaties;
 
     private ReservatieController rc;
+    
+    private ProductController pc;
     private TextField txtTrefwoord;
     @FXML
     private TableColumn<Reservatie, String> clmProduct;
@@ -45,8 +47,9 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
     @FXML
     private TableColumn<Reservatie, String> clmEindDatum;
 
-    public OverzichtReservatiesController(ReservatieController rc) {
+    public OverzichtReservatiesController(ReservatieController rc, ProductController pc) {
         this.rc = rc;
+        this.pc =pc;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtReservaties.fxml"));
 
         loader.setRoot(this);

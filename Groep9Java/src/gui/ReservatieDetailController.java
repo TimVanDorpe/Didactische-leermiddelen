@@ -5,20 +5,15 @@
  */
 package gui;
 
-import domein.Doelgroep;
-import domein.Firma;
+import domein.Product;
+import domein.ProductController;
 import domein.Reservatie;
 import domein.ReservatieController;
 import util.Helper;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,17 +22,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javax.imageio.ImageIO;
 
 public class ReservatieDetailController extends Pane implements Observer {
 
     private ReservatieController rc;
+    private ProductController pc;
 
     @FXML
     private Button btnWijzigen;
@@ -76,11 +69,12 @@ public class ReservatieDetailController extends Pane implements Observer {
     private String product, student, startDatum, eindDatum;
     private int aantal;
 
-    public ReservatieDetailController(ReservatieController rc) {
+    public ReservatieDetailController(ReservatieController rc, ProductController pc) {
         // TODO
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ReservatieDetail.fxml"));
         this.rc = rc;
+        this.pc = pc;
         loader.setRoot(this);
         loader.setController(this);
 
@@ -132,9 +126,13 @@ public class ReservatieDetailController extends Pane implements Observer {
 
             lblError.setText("");
 
-            //rc.wijzigReservatie(product, aantal, student, startDatum, eindDatum); UIT COMMENTAAR NA DEMO
-            rc.wijzigAantal(Integer.parseInt(txtAantal.getText()));
+            //Product prod = pc.getProductenLijst().stream().filter(p -> p.getNaam().equalsIgnoreCase(product)).findAny().get();
             
+            // dit uit comment na demo
+            //rc.wijzigReservatie(prod, aantal, student, startDatum, eindDatum);
+            
+            //demo
+            rc.wijzigAantal(Integer.parseInt(txtAantal.getText()));
 
             //TIJDELIJK VOOR DEMO
             lblAantal.setText("Aantal");
@@ -159,7 +157,7 @@ public class ReservatieDetailController extends Pane implements Observer {
 
             lblError.setText("");
             //maakLabelsTerugNormaal();
-            
+
             //DEMO TIJDELIJK
             lblAantal.setText("Aantal");
             lblAantal.setTextFill(Color.web("#000000"));
