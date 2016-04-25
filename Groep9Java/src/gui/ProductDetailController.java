@@ -72,7 +72,7 @@ public class ProductDetailController extends Pane implements Observer {
     @FXML
     private Button btnToevoegen;
     @FXML
-    private Button btnFoto;
+    private Button btnFoto , btnVoegProductToe;
     @FXML
     private Button btnAnnuleer;
 
@@ -95,7 +95,7 @@ public class ProductDetailController extends Pane implements Observer {
     @FXML
     private Label lblLeergebieden;
     @FXML
-    private Label lblEmail;
+    private Label lblEmail , lblTitelDetail;
     @FXML
     private Label lblPlaats;
 
@@ -107,7 +107,7 @@ public class ProductDetailController extends Pane implements Observer {
     @FXML
     private Button btnLeegmaken, btnSelecteerLeergebied, btnSelecteerDoelgroep;
     @FXML
-    private Button btnWijzigen;
+    private Button btnWijzigen , btnToevoegenAnnuleren;
 
     String naam, omschrijving, firmaNaam, firmaEmail, plaats, error;
     int artikelnummer, aantal, aantalVerkeerd;
@@ -148,6 +148,8 @@ public class ProductDetailController extends Pane implements Observer {
             btnWijzigen.setDisable(true);
             btnLeegmaken.setDisable(true);
             btnVerwijderen.setDisable(true);
+            btnVoegProductToe.setVisible(false);
+            btnToevoegenAnnuleren.setVisible(false);
 
             //btnSelecteerLeergebied.setDisable(true);
             //listLeergebieden.setDisable(true);
@@ -210,21 +212,21 @@ public class ProductDetailController extends Pane implements Observer {
 
     }
 
-    private ObservableList<String> zetLeergebiedenOmNaarString(List<Leergebied> leergebiedenVanProduct) {
-        ObservableList<String> Stringsleergebieden = FXCollections.observableArrayList();
-        leergebiedenVanProduct.stream().map((l) -> l.getNaam()).forEach((naam) -> {
-            Stringsleergebieden.add(naam);
-        });
-        return Stringsleergebieden;
-    }
-
-    private ObservableList<String> zetDoelgroepenOmNaarString(List<Doelgroep> doelgroepenVanProduct) {
-        ObservableList<String> Stringsleergebieden = FXCollections.observableArrayList();
-        doelgroepenVanProduct.stream().map((l) -> l.getNaam()).forEach((naam) -> {
-            Stringsleergebieden.add(naam);
-        });
-        return Stringsleergebieden;
-    }
+//    private ObservableList<String> zetLeergebiedenOmNaarString(List<Leergebied> leergebiedenVanProduct) {
+//        ObservableList<String> Stringsleergebieden = FXCollections.observableArrayList();
+//        leergebiedenVanProduct.stream().map((l) -> l.getNaam()).forEach((naam) -> {
+//            Stringsleergebieden.add(naam);
+//        });
+//        return Stringsleergebieden;
+//    }
+//
+//    private ObservableList<String> zetDoelgroepenOmNaarString(List<Doelgroep> doelgroepenVanProduct) {
+//        ObservableList<String> Stringsleergebieden = FXCollections.observableArrayList();
+//        doelgroepenVanProduct.stream().map((l) -> l.getNaam()).forEach((naam) -> {
+//            Stringsleergebieden.add(naam);
+//        });
+//        return Stringsleergebieden;
+//    }
 
     //steekt alle gegevens in de textfields
     @Override
@@ -253,37 +255,25 @@ public class ProductDetailController extends Pane implements Observer {
             txtNaam.setText(product.getNaam());
             txtOmschrijving.setText(product.getOmschrijving());
             txtPlaats.setText(product.getPlaats());
-            listLeergebieden.setItems(zetLeergebiedenOmNaarString(product.getLeergebieden()));
-            listDoelgroepen.setItems(zetDoelgroepenOmNaarString(product.getDoelgroepen()));
+            listLeergebieden.setItems(dc.geefStringsToegevoegdeLeergebieden());
+            listDoelgroepen.setItems(dc.geefStringsToegevoegdeLeergebieden());
             //alles terug enablen als er iets geselcteerd wordt
-            btnToevoegen.setDisable(false);
+            btnVerwijderen.setDisable(false);
             btnAnnuleer.setDisable(false);
-            btnFoto.setDisable(false);
-            btnWijzigen.setDisable(false);
-            uitleenbaarheid.setDisable(false);
-            txtAantal.setDisable(false);
-            txtArtikelnummer.setDisable(false);
-            txtEmailFirma.setDisable(false);
-            txtFirma.setDisable(false);
-            txtNaam.setDisable(false);
-            txtOmschrijving.setDisable(false);
-            txtPlaats.setDisable(false);
-            txtPrijs.setDisable(false);
             btnWijzigen.setDisable(false);
             btnLeegmaken.setDisable(false);
-            btnVerwijderen.setDisable(false);
-            btnSelecteerLeergebied.setDisable(false);
-            listLeergebieden.setDisable(false);
-            if (product.getFoto() != null) {
-                try {
-                    BufferedImage img = ImageIO.read(product.getFoto());
-                    Image image = SwingFXUtils.toFXImage(img, null);
-                    imgViewFoto.setImage(image);
-                } catch (IOException ex) {
-                    Logger.getLogger(ProductDetailController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                imgViewFoto.setImage(null);
+           
+            if(product.getFoto() != null){
+             try {
+                BufferedImage img = ImageIO.read(product.getFoto());
+                 Image image = SwingFXUtils.toFXImage(img, null);
+                imgViewFoto.setImage(image);
+            } catch (IOException ex) {
+                Logger.getLogger(ProductDetailController.class.getName()).log(Level.SEVERE, null, ex);
+            }}
+            else
+            {
+            imgViewFoto.setImage(null);
             }
             btnSelecteerDoelgroep.setDisable(false);
             listDoelgroepen.setDisable(false);
@@ -294,7 +284,11 @@ public class ProductDetailController extends Pane implements Observer {
 
     @FXML
     private void resetWaarden(ActionEvent event) {
-        //nog implementen
+       resetWaardenprivate();
+    }
+    private void resetWaardenprivate()
+    {
+    //nog implementen
         txtAantal.setText("");
         txtArtikelnummer.setText("");
         txtEmailFirma.setText("");
@@ -310,46 +304,14 @@ public class ProductDetailController extends Pane implements Observer {
         listDoelgroepen.setItems(null);
         btnWijzigen.setDisable(true);
         btnVerwijderen.setDisable(true);
+    
+    
     }
-
     @FXML
     private void annuleerWijziging(ActionEvent event) {
         dc.updateDetailvenster();
     }
 
-    @FXML
-    private void voegProductToe(ActionEvent event) {
-        try {
-
-            valideerVelden(false);
-
-            Firma firma = new Firma(txtFirma.getText(), txtEmailFirma.getText());
-            //Dit moet zeker weg!!!!
-//            Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
-            Leergebied leergebied = new Leergebied("test");
-            Leergebied leergebied2 = new Leergebied("test");
-            List<Leergebied> leergebieden = new ArrayList<>();
-            leergebieden.add(leergebied);
-            leergebieden.add(leergebied2);
-
-            // do what you have to do
-//            if (imgViewFoto.getImage() == null) {
-//
-//                dc.voegProductToeZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
-//            } else {                
-//                dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
-//            }
-            //dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
-            lblError.setText(""); // errortekst clearen
-
-        } catch (IllegalArgumentException ex) {
-
-            lblError.setText(ex.getMessage());
-            lblError.setTextFill(Color.web("#F20000"));
-
-        }
-
-    }
 
     private void valideerVelden(boolean isWijziging) {
 
@@ -595,4 +557,71 @@ public class ProductDetailController extends Pane implements Observer {
 
         stage.close();
     }
+    @FXML
+    private void zetProductklaarvoortoevoegen(ActionEvent event) {
+        
+        resetWaardenprivate();
+        btnVoegProductToe.setVisible(true);
+        btnToevoegenAnnuleren.setVisible(true);
+        btnAnnuleer.setVisible(false);
+        btnLeegmaken.setVisible(false);
+        btnWijzigen.setVisible(false);
+        btnVerwijderen.setVisible(false);
+        Product newProduct = new Product();
+        txtNaam.setPromptText("Naam van het nieuw product");
+        lblTitelDetail.setText("Materiaal toevoegen");
+        
+
+    }
+    @FXML
+    private void voegProductToe(ActionEvent event) {
+        try {
+
+            valideerVelden(false);
+
+            Firma firma = new Firma(txtFirma.getText(), txtEmailFirma.getText());
+            
+            Leergebied leergebied = new Leergebied("test");
+            Leergebied leergebied2 = new Leergebied("test");
+            List<Leergebied> leergebieden = new ArrayList<>();
+            leergebieden.add(leergebied);
+            leergebieden.add(leergebied2);
+           
+            dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getDoelgroepen(), dc.getToegevoegdeLeergebieden());
+          
+            lblError.setText(""); // errortekst clearen
+            btnVoegProductToe.setVisible(false);
+            btnToevoegenAnnuleren.setVisible(false);
+            btnAnnuleer.setVisible(true);
+            btnLeegmaken.setVisible(true);
+            btnWijzigen.setVisible(true);
+            btnVerwijderen.setVisible(true);
+            lblTitelDetail.setText("Details Materiaal");
+
+        } catch (IllegalArgumentException ex) {
+
+            lblError.setText(ex.getMessage());
+            lblError.setTextFill(Color.web("#F20000"));
+
+        }
+
+    }
+    
+    
+    @FXML
+    private void ToevoegenAnnuleren(ActionEvent event) { 
+        
+            btnVoegProductToe.setVisible(false);
+            btnToevoegenAnnuleren.setVisible(false);
+            btnAnnuleer.setVisible(true);
+            btnLeegmaken.setVisible(true);
+            btnWijzigen.setVisible(true);
+            btnVerwijderen.setVisible(true);
+            lblTitelDetail.setText("Details Materiaal");
+            resetWaardenprivate();
+    
+    }
+    
+    
+    
 }

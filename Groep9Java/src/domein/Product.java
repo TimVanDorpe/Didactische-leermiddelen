@@ -51,7 +51,11 @@ public class Product implements Serializable {
         setAantal(aantal);
         setPlaats(plaats);
     }
-    
+    public Product(String naam, int aantal)
+    {
+        setNaam(naam);
+        setAantal(aantal);
+    }
     
     
      public Product(List<Leergebied> leergebied, List<Doelgroep> doelgroep, Firma firma,String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {

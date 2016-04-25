@@ -66,14 +66,14 @@ class LeergebiedSelecterenController extends GridPane {
             listnieuw.add(naam);
         });
         
-          ObservableList<String> listtoegevoegd =  FXCollections.observableArrayList();
-          dc.getToegevoegdeLeergebieden().stream().map((l) -> l.getNaam()).forEach((naam) -> {
-              listtoegevoegd.add(naam);
-        });
+//          ObservableList<String> listtoegevoegd =  FXCollections.observableArrayList();
+//          dc.getToegevoegdeLeergebieden().stream().map((l) -> l.getNaam()).forEach((naam) -> {
+//              listtoegevoegd.add(naam);
+//        });
         
 
         alleLeergebieden.setItems(listnieuw);
-        toegevoegdeLeergebieden.setItems(listtoegevoegd);
+        toegevoegdeLeergebieden.setItems(dc.geefStringsToegevoegdeLeergebieden());
         toegevoegdeLeergebieden.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
     }
@@ -91,9 +91,6 @@ class LeergebiedSelecterenController extends GridPane {
 
     }
 
-    private void addLeergebied(String naam) {
-
-    }
 
     //string to leergebied 
     @FXML
@@ -106,6 +103,7 @@ class LeergebiedSelecterenController extends GridPane {
             toegevoegdeLeergebieden.getSelectionModel().clearSelection();
           
         }
+        updateView();
 
 //       if ( selectedItem!=null)
 //       domeinController.removeHero(selectedItem());

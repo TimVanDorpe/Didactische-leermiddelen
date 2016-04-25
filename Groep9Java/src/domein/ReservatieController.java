@@ -87,4 +87,10 @@ public class ReservatieController extends Observable {
     public boolean getSelectionModelEmpty() {
         return selectionModelEmpty;
     }
+    public ObservableList<Reservatie> zoekOpMateriaalNaam(String productNaam)
+    {
+        return rb.zoekOpMateriaalNaam(productNaam);
+    }
+    
+    
 }
