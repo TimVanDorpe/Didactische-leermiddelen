@@ -8,18 +8,12 @@ package gui;
 import domein.Product;
 import domein.ProductController;
 import java.io.IOException;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.Optional;
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -94,7 +88,15 @@ public class OverzichtProductenController extends BorderPane {
         } else {
             dc.setSelectionModelEmpty(false);
         }
+        tblProducten.contextMenuProperty().addListener(new ChangeListener<TableView>() {
+            @Override
+    public void changed(){
+        tblProducten.getSelectionModel().clearSelection();
     }
+        });
+            
+    }
+   
 //
 //    @Override
 //    public void update(Observable o, Object arg) {
