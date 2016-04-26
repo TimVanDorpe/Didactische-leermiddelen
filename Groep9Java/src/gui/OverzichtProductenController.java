@@ -8,7 +8,8 @@ package gui;
 import domein.Product;
 import domein.ProductController;
 import java.io.IOException;
-import javafx.beans.value.ChangeListener;
+import java.util.Observable;
+import java.util.Observer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
  *
  * @author Thomas
  */
-public class OverzichtProductenController extends BorderPane{
+public class OverzichtProductenController extends BorderPane implements Observer {
 
     @FXML
     private TableView<Product> tblProducten;
@@ -38,7 +39,7 @@ public class OverzichtProductenController extends BorderPane{
     private TableColumn<Product, String> clmAantal;
     @FXML
     private TableColumn<Product, String> clmPlaats;
-    
+
     private ProductController dc;
     @FXML
     private Button btnToevoegen;
@@ -51,8 +52,6 @@ public class OverzichtProductenController extends BorderPane{
 
 //        @FXML
 //    private Button btnVerwijder;
-    
-
     public OverzichtProductenController(ProductController domeinController) {
         this.dc = domeinController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtProducten.fxml"));
@@ -90,7 +89,17 @@ public class OverzichtProductenController extends BorderPane{
         }
     }
 
-    
+    @Override
+    public void update(Observable o, Object arg) {
+        if (arg == "maakAllesLeegNaWijziging") {
+            tblProducten.getSelectionModel().clearSelection();
+        }
+
+//tblProducten.setItems(dc.getProductSortedList());
+        //tblProducten.getSelectionModel().clearSelection();
+        // btnVerwijder.setDisable(false);
+    }
+
     @FXML
     private void zoekOpTrefwoord(ActionEvent event) {
 
@@ -114,19 +123,20 @@ public class OverzichtProductenController extends BorderPane{
 
     @FXML
     private void geefAllesWeer(ActionEvent event) {
-       dc.geefAlleProductenWeer();
-       tblProducten.setItems(dc.getProductSortedList());
-       tblProducten.getSelectionModel().clearSelection();
+        geefAllesWeer();
     }
-    
+
+    private void geefAllesWeer() {
+        dc.geefAlleProductenWeer();
+        tblProducten.setItems(dc.getProductSortedList());
+        tblProducten.getSelectionModel().clearSelection();
+    }
 
     @FXML
     private void enableSelectionModel(MouseEvent event) {
-         dc.setSelectionModelEmpty(false);
+        dc.setSelectionModelEmpty(false);
+        dc.geefAlleProductenWeer();
+        tblProducten.setItems(dc.getProductSortedList());
     }
-    
-    
-    
-    
 
 }

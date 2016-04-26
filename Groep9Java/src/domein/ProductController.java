@@ -49,7 +49,10 @@ public class ProductController extends Observable {
         }
         pb.wijzigProduct(new Product(huidigProduct.getLeergebieden(), huidigProduct.getDoelgroepen(), firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats), huidigProduct);
   
-        geefAlleProductenWeer();
+        setChanged();
+        notifyObservers("maakAllesLeegNaWijziging");
+        
+        //geefAlleProductenWeer();
         
         
     }
@@ -81,8 +84,8 @@ public class ProductController extends Observable {
 
     public void geefAlleProductenWeer() {
         pb.geefAlleProducten();
-        setChanged();
-        notifyObservers();
+        //setChanged();
+        //notifyObservers();
 
     }
 
