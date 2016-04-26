@@ -51,11 +51,8 @@ public class ReservatieDetailController extends Pane implements Observer {
     @FXML
     private TextField txtProduct;
     @FXML
-    private TextField txtEindDatum;
-    @FXML
     private TextField txtAantal;
-    @FXML
-    private TextField txtStartDatum;
+    
     @FXML
     private Label lblProduct;
     @FXML
@@ -69,11 +66,11 @@ public class ReservatieDetailController extends Pane implements Observer {
     @FXML
     private Button btnLeegmaken;
     @FXML
-    private DatePicker dpStartdatum , dpEindDatum;
+    private DatePicker dpStartdatum, dpEindDatum;
 
     private String product, student, startDatum, eindDatum;
     private int aantal;
-    private LocalDate startDate , eindDate;
+    private LocalDate startDate, eindDate;
 
     public ReservatieDetailController(ReservatieController rc, ProductController pc) {
         // TODO
@@ -93,8 +90,8 @@ public class ReservatieDetailController extends Pane implements Observer {
         if (rc.getSelectionModelEmpty()) {
             btnAnnuleer.setDisable(true);
             txtAantal.setDisable(true);
-            txtEindDatum.setDisable(true);
-            txtStartDatum.setDisable(true);
+          dpEindDatum.setDisable(true);
+            dpStartdatum.setDisable(true);
             txtProduct.setDisable(true);
             txtStudent.setDisable(true);
             btnWijzigen.setDisable(true);
@@ -136,7 +133,7 @@ public class ReservatieDetailController extends Pane implements Observer {
             
             // dit uit comment na demo
             rc.wijzigReservatie(prod, aantal, student, startDate, eindDate);
-            
+
             //demo
             rc.wijzigAantal(Integer.parseInt(txtAantal.getText()));
 
@@ -175,23 +172,19 @@ public class ReservatieDetailController extends Pane implements Observer {
 
             txtStudent.setText(res.getGebruiker());
 
-            txtStartDatum.setText(res.getStartDatum().format(DateTimeFormatter.ISO_DATE));
             
-            
+            dpStartdatum.setValue(res.getStartDatum());
+           
+            dpEindDatum.setValue(res.getEindDatum());
 
-            txtEindDatum.setText(res.getEindDatum().format(DateTimeFormatter.ISO_DATE));
-
-            
-            
             //alles terug enablen als er iets geselcteerd wordt
-            
             btnAnnuleer.setDisable(false);
-            txtEindDatum.setDisable(false);
-            txtStartDatum.setDisable(false);
+            
             txtProduct.setDisable(false);
             txtStudent.setDisable(false);
             btnLeegmaken.setDisable(false);
-             
+            dpStartdatum.setDisable(false);
+            dpEindDatum.setDisable(false);
             txtAantal.setDisable(false);
             btnWijzigen.setDisable(false);
             btnVerwijderen.setDisable(false);
@@ -203,8 +196,8 @@ public class ReservatieDetailController extends Pane implements Observer {
     private void resetWaarden(ActionEvent event) {
 
         txtAantal.setText("");
-        txtEindDatum.setText("");
-        txtStartDatum.setText("");
+        dpEindDatum.setValue(LocalDate.now());
+        dpStartdatum.setValue(LocalDate.now());
         txtProduct.setText("");
         txtStudent.setText("");
 
@@ -217,17 +210,18 @@ public class ReservatieDetailController extends Pane implements Observer {
     private void annuleerWijziging(ActionEvent event) {
         rc.updateDetailvenster();
     }
+
     @FXML
     private void geefStartDatum(ActionEvent event) {
         startDate = dpStartdatum.getValue();
-        
+
     }
+
     @FXML
     private void geefEindDatum(ActionEvent event) {
-         eindDate = dpEindDatum.getValue();
+        eindDate = dpEindDatum.getValue();
     }
-    
-    
+
     @FXML
     private void verwijderReservatie(ActionEvent event) {
         Stage stage = new Stage();
