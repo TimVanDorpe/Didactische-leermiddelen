@@ -192,8 +192,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
 //            }
             dc.wijzigProduct(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma);
             //dc.geefAlleProductenWeer();
-            
-            
+
             inputChanged = false;
 
         } catch (IllegalArgumentException ex) {
@@ -243,7 +242,14 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
     @Override
     public void update(Observable o, Object arg) {
 
-        /*
+        if (arg == "maakAllesLeegNaWijziging") {
+            resetWaardenprivate();
+            btnWijzigen.setDisable(true);
+            btnLeegmaken.setDisable(true);
+            btnVerwijderen.setDisable(true);
+            btnVoegProductToe.setVisible(false);
+            btnToevoegenAnnuleren.setVisible(false);
+        } else /*
         if ((Product) arg != dc.getHuidigProduct()) {
             txtNaam.textProperty().addListener(new ChangeListener<String>() {
                 @Override
@@ -253,8 +259,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             });
 
         }
-         */
-        //if (!inputChanged) {
+         */ //if (!inputChanged) {
         if (arg != null) {
 
             lblError.setText("");
@@ -300,8 +305,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             btnSelecteerDoelgroep.setDisable(false);
             listDoelgroepen.setDisable(false);
 
-        }
-        /*} else {
+        } /*} else {
             ongewijzigdProductBevestiging();
         }*/
 
@@ -651,7 +655,5 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
         resetWaardenprivate();
 
     }
-
-   
 
 }
