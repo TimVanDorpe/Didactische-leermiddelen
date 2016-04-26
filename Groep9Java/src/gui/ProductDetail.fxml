@@ -78,6 +78,6 @@
       <Button fx:id="btnToevoegen" layoutX="33.0" layoutY="63.0" mnemonicParsing="false" onAction="#zetProductklaarvoortoevoegen" prefHeight="31.0" prefWidth="208.0" text="Nieuw materiaal toevoegen" />
       <Button fx:id="btnVerwijderen" layoutX="274.0" layoutY="671.0" mnemonicParsing="false" onAction="#verwijderProduct" prefHeight="30.0" prefWidth="190.0" text="Materiaal verwijderen" />
       <Button fx:id="btnVoegProductToe" layoutX="274.0" layoutY="630.0" mnemonicParsing="false" onAction="#voegProductToe" prefHeight="31.0" prefWidth="190.0" text="Materiaal toevoegen" />
-      <Button fx:id="btnToevoegenAnnuleren" layoutX="64.0" layoutY="630.0" mnemonicParsing="false" onAction="#ToevoegenAnnuleren" prefHeight="31.0" prefWidth="190.0" text="Toevoegen annuleren" />
+      <Button fx:id="btnToevoegenAnnuleren" layoutX="64.0" layoutY="630.0" mnemonicParsing="false" onAction="#toevoegenAnnuleren" prefHeight="31.0" prefWidth="190.0" text="Toevoegen annuleren" />
    </children>
 </fx:root>
