@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -33,9 +34,12 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
     private TableView<Reservatie> tblReservaties;
 
     private ReservatieController rc;
-    
+    @FXML
+    private Button btnZoeken;
+      
     private ProductController pc;
-    private TextField txtTrefwoord;
+    @FXML 
+    private TextField txtZoeken;
     @FXML
     private TableColumn<Reservatie, String> clmProduct;
     @FXML
@@ -98,5 +102,15 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
     private void enableSelectionModel(MouseEvent event) {
         rc.setSelectionModelEmpty(false);
     }
+    
+     @FXML
+    private void ZoekenOpNaam(ActionEvent event) {
+        tblReservaties.setItems(rc.zoekOpMateriaalNaam(txtZoeken.getText()));
+        
+        
+        
+    }
+    
+    
 
 }

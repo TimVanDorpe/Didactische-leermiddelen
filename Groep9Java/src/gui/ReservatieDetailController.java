@@ -176,14 +176,14 @@ public class ReservatieDetailController extends Pane implements Observer {
             
             
             //alles terug enablen als er iets geselcteerd wordt
-            /* DIT MOET TERUG UIT COMMENTAAR NA DEMO
+            
             btnAnnuleer.setDisable(false);
             txtEindDatum.setDisable(false);
             txtStartDatum.setDisable(false);
             txtProduct.setDisable(false);
             txtStudent.setDisable(false);
             btnLeegmaken.setDisable(false);
-             */
+             
             txtAantal.setDisable(false);
             btnWijzigen.setDisable(false);
             btnVerwijderen.setDisable(false);
