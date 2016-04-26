@@ -82,6 +82,11 @@ public class ProductBeheer {
         doelgroepenLijst.add(new Doelgroep("Kleuters"));
         doelgroepenLijst.add(new Doelgroep("Lagere school"));
         doelgroepenLijst.add(new Doelgroep("Hoger onderwijs"));
+//        
+//        gdj.startTransaction();
+//        leergebiedenLijst.forEach(l->gdj.insert(l));
+//        doelgroepenLijst.forEach(l->gdj.insert(l));
+//        gdj.commitTransaction();
     }
 
     public ObservableList<Product> getProductenLijst() {

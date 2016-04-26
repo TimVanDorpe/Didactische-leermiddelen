@@ -70,29 +70,29 @@ public class LoginSchermController extends Pane {
     @FXML
     private void meldAan(ActionEvent event) {
         
-        try{
+//        try{
            
             if(txfGerbuikersNaam.getText() == null || txfWachtwoord.getText() == null){
                 throw new IllegalArgumentException("Alle velden moeten ingevuld zijn.");
             }
              beheerderController.meldAan(new Beheerder(txfGerbuikersNaam.getText(), txfWachtwoord.getText()));
          Stage st = (Stage) btnAanmelden.getScene().getWindow();
-            st.hide();
+         
              Stage stage = new Stage();
         stage.setTitle("Didactische leermiddelen");
 
         Scene scene = new Scene(new MenuController(beheerderController));
         stage.setScene(scene);
-
+   st.hide();
         //this.setDisable(true);
         stage.show();
         
-        } catch (IllegalArgumentException ex) {
-
-            lblError.setText(ex.getMessage());
-            lblError.setTextFill(Color.web("#F20000"));
-
-        }
+//        } catch (IllegalArgumentException ex) {
+//
+//            lblError.setText(ex.getMessage());
+//            lblError.setTextFill(Color.web("#F20000"));
+//
+//        }
        
     }
 

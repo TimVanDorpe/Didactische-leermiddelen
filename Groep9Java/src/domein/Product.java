@@ -6,8 +6,11 @@ import java.sql.Blob;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -205,7 +208,16 @@ public class Product implements Serializable {
     public SimpleStringProperty plaatsProperty() {
        SimpleStringProperty plaatsSimple = new SimpleStringProperty();
      plaatsSimple.set(plaats);
-        return plaatsSimple;
+        return plaatsSimple;   
     }
+
+    public ObservableList<String> geefStringsLeergebieden() {
+         ObservableList<String> listtoegevoegd =  FXCollections.observableArrayList(getLeergebieden().stream().map(Leergebied::getNaam).collect(Collectors.toList()));
+
+          return listtoegevoegd;
+      
+
+    }
+    
    
 }

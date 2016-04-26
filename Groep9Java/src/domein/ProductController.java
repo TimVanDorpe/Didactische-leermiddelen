@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
+import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
@@ -143,10 +144,8 @@ public class ProductController extends Observable {
     }
     
     public ObservableList<String> geefStringsToegevoegdeLeergebieden(){
-        ObservableList<String> listtoegevoegd =  FXCollections.observableArrayList();
-          getToegevoegdeLeergebieden().stream().map((l) -> l.getNaam()).forEach((naam) -> {
-              listtoegevoegd.add(naam);
-        });
+         ObservableList<String> listtoegevoegd =  FXCollections.observableArrayList(getLeergebieden().stream().map(Leergebied::getNaam).collect(Collectors.toList()));
+
           return listtoegevoegd;
     }
 //    public List<Leergebied> getListToegevoegdeLeergebieden() {
