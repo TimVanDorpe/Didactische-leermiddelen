@@ -620,7 +620,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             leergebieden.add(leergebied2);
 
             dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getDoelgroepen(), dc.getToegevoegdeLeergebieden());
-            inputChanged = false;
+            //inputChanged = false;
 
             lblError.setText(""); // errortekst clearen
             btnVoegProductToe.setVisible(false);

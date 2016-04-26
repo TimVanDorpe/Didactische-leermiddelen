@@ -11,6 +11,8 @@ import domein.Reservatie;
 import domein.ReservatieController;
 import util.Helper;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Optional;
@@ -20,6 +22,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -65,9 +68,12 @@ public class ReservatieDetailController extends Pane implements Observer {
     private Button btnAnnuleer;
     @FXML
     private Button btnLeegmaken;
+    @FXML
+    private DatePicker dpStartdatum , dpEindDatum;
 
     private String product, student, startDatum, eindDatum;
     private int aantal;
+    private LocalDate startDate , eindDate;
 
     public ReservatieDetailController(ReservatieController rc, ProductController pc) {
         // TODO
@@ -126,10 +132,10 @@ public class ReservatieDetailController extends Pane implements Observer {
 
             lblError.setText("");
 
-            //Product prod = pc.getProductenLijst().stream().filter(p -> p.getNaam().equalsIgnoreCase(product)).findAny().get();
+            Product prod = pc.getProductenLijst().stream().filter(p -> p.getNaam().equalsIgnoreCase(txtProduct.getText())).findAny().get();
             
             // dit uit comment na demo
-            //rc.wijzigReservatie(prod, aantal, student, startDatum, eindDatum);
+            rc.wijzigReservatie(prod, aantal, student, startDate, eindDate);
             
             //demo
             rc.wijzigAantal(Integer.parseInt(txtAantal.getText()));
@@ -169,9 +175,11 @@ public class ReservatieDetailController extends Pane implements Observer {
 
             txtStudent.setText(res.getGebruiker());
 
-            txtStartDatum.setText(Helper.format(res.getStartDatum()));
+            txtStartDatum.setText(res.getStartDatum().format(DateTimeFormatter.ISO_DATE));
+            
+            
 
-            txtEindDatum.setText(Helper.format(res.getEindDatum()));
+            txtEindDatum.setText(res.getEindDatum().format(DateTimeFormatter.ISO_DATE));
 
             
             
@@ -209,7 +217,17 @@ public class ReservatieDetailController extends Pane implements Observer {
     private void annuleerWijziging(ActionEvent event) {
         rc.updateDetailvenster();
     }
-
+    @FXML
+    private void geefStartDatum(ActionEvent event) {
+        startDate = dpStartdatum.getValue();
+        
+    }
+    @FXML
+    private void geefEindDatum(ActionEvent event) {
+         eindDate = dpEindDatum.getValue();
+    }
+    
+    
     @FXML
     private void verwijderReservatie(ActionEvent event) {
         Stage stage = new Stage();
