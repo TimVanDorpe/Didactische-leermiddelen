@@ -88,15 +88,7 @@ public class OverzichtProductenController extends BorderPane {
         } else {
             dc.setSelectionModelEmpty(false);
         }
-        tblProducten.contextMenuProperty().addListener(new ChangeListener<TableView>() {
-            @Override
-    public void changed(){
-        tblProducten.getSelectionModel().clearSelection();
     }
-        });
-            
-    }
-   
 //
 //    @Override
 //    public void update(Observable o, Object arg) {
