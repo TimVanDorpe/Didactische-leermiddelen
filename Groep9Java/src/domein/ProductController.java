@@ -132,7 +132,6 @@ public class ProductController extends Observable {
         List<Leergebied> nieuweLijstLeergebieden = huidigProduct.getLeergebieden();
         nieuweLijstLeergebieden.add(nieuwLeergebied);
         huidigProduct.setLeergebieden(nieuweLijstLeergebieden);
-
     }
 
     public void verwijderLeergebiedHuidigProduct(String naam) {
@@ -140,7 +139,6 @@ public class ProductController extends Observable {
         List<Leergebied> nieuweLijstLeergebieden = huidigProduct.getLeergebieden();
         nieuweLijstLeergebieden.remove(verwijderLeergebied);
         huidigProduct.setLeergebieden(nieuweLijstLeergebieden);
-
     }
     
     public ObservableList<String> geefStringsToegevoegdeLeergebieden(){

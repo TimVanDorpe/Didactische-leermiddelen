@@ -278,8 +278,8 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             txtNaam.setText(product.getNaam());
             txtOmschrijving.setText(product.getOmschrijving());
             txtPlaats.setText(product.getPlaats());
-            listLeergebieden.setItems(product.geefStringsLeergebieden());
-            listDoelgroepen.setItems(product.geefStringsLeergebieden());
+            listLeergebieden.setItems(dc.geefStringsToegevoegdeLeergebieden());
+            listDoelgroepen.setItems(dc.geefStringsToegevoegdeLeergebieden());
             //alles terug enablen als er iets geselcteerd wordt
             btnVerwijderen.setDisable(false);
             btnAnnuleer.setDisable(false);

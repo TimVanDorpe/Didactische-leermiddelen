@@ -24,6 +24,10 @@ import javax.persistence.OneToMany;
 
 @Entity(name = "Product")
 public class Product implements Serializable {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
     @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Leergebied> leergebieden;
     @ManyToMany(cascade = CascadeType.PERSIST)
@@ -34,9 +38,6 @@ public class Product implements Serializable {
     @Column(unique=true)
     private String naam ;
     private String omschrijving;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
     private int artikelnummer;
     private double prijs;
     private int aantal ;
