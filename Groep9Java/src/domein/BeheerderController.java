@@ -75,5 +75,8 @@ public class BeheerderController extends Observable {
     public void removeBeheerder() {
         bb.removeReservatie(huidigeBeheerder);
     }
-}
 
+    public void voegBeheerderToe(String naam, String email, String wachtwoord) {
+        bb.voegBeheerderToe(naam, email, wachtwoord) ;
+    }
+}

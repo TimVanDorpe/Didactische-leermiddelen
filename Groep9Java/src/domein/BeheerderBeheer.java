@@ -60,4 +60,9 @@ public class BeheerderBeheer {
     void removeReservatie(Beheerder huidigeBeheerder) {
         beheerderLijst.remove(huidigeBeheerder);
     }
+
+    void voegBeheerderToe(String naam, String email, String wachtwoord) {
+        Beheerder beh = new Beheerder(naam, email, wachtwoord);
+        beheerderLijst.add(beh);
+    }
 }

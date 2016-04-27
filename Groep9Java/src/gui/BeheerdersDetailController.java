@@ -52,6 +52,10 @@ public class BeheerdersDetailController extends Pane implements Observer {
     private Label lblError;
 
     private BeheerderController bc;
+    @FXML
+    private Button btnToevoegen;
+    
+
 
     BeheerdersDetailController(BeheerderController bc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BeheerdersDetail.fxml"));
@@ -60,12 +64,16 @@ public class BeheerdersDetailController extends Pane implements Observer {
         loader.setRoot(this);
         loader.setController(this);
 
+        
         try {
             loader.load();
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-
+        btnBeheerderWijzigen.setVisible(false);
+        btnSelectieVerwijderen.setVisible(false);
+        btnToevoegen.setVisible(false);
+        btnAnnuleren.setVisible(false);
         if (bc.getSelectionModelEmpty()) {
             btnAnnuleren.setDisable(true);
             btnBeheerderWijzigen.setDisable(true);
@@ -73,6 +81,8 @@ public class BeheerdersDetailController extends Pane implements Observer {
             btnBeheerderVerwijderen.setDisable(true);
             txtEmail.setDisable(true);
             txtNaam.setDisable(true);
+             btnAnnuleren.setVisible(false);
+        btnAnnuleren.setVisible(false);
 
         }
     }
@@ -97,8 +107,66 @@ public class BeheerdersDetailController extends Pane implements Observer {
             btnBeheerderVerwijderen.setDisable(false);
             txtEmail.setDisable(false);
             txtNaam.setDisable(false);
+             btnAnnuleren.setVisible(true);
+        btnAnnuleren.setVisible(false);
         }
     }
+    @FXML
+    private void nieuweBeheerderToevoegen(ActionEvent event) {
+          resetWaarden(event);
+        btnToevoegen.setVisible(true);
+        btnAnnuleren.setVisible(true);
+        btnAnnuleren.setVisible(false);
+        btnSelectieVerwijderen.setVisible(false);
+        btnBeheerderWijzigen.setVisible(false);
+        btnBeheerderVerwijderen.setVisible(false);
+        Beheerder beh = new Beheerder();
+        txtNaam.setPromptText("Naam van het nieuw product");
+        
+    }
+        @FXML
+    private void toevoegenBeheerder(ActionEvent event) {
+          try {
+
+           // valideerVelden(false);
+
+
+            String naam = txtNaam.getText();
+            String email = txtEmail.getText();
+            String wachtwoord = txtWachtwoord.getText();
+            
+
+            bc.voegBeheerderToe(naam, email, wachtwoord);           //inputChanged = false;
+
+            lblError.setText(""); // errortekst clearen
+            btnToevoegen.setVisible(false);
+            btnAnnuleren.setVisible(false);
+            btnBeheerderVerwijderen.setVisible(true);
+            btnSelectieVerwijderen.setVisible(true);
+            btnBeheerderWijzigen.setVisible(true);
+            
+
+        } catch (IllegalArgumentException ex) {
+
+            lblError.setText(ex.getMessage());
+            lblError.setTextFill(Color.web("#F20000"));
+
+        }
+
+    }
+
+    @FXML
+    private void toevoegenAnnuleren(ActionEvent event) {
+
+        btnToevoegen.setVisible(false);
+        btnAnnuleren.setVisible(false);
+        btnBeheerderVerwijderen.setVisible(true);
+        btnBeheerderWijzigen.setVisible(true);
+        btnSelectieVerwijderen.setVisible(true);
+       
+        resetWaarden(event);
+    }
+    
 
     @FXML
     private void wijzigBeheerder(ActionEvent event) {
@@ -114,17 +182,20 @@ public class BeheerdersDetailController extends Pane implements Observer {
             // dit uit comment na demo
             bc.wijzigBeheerder(naam, email, wachtwoord);
 
+
         } catch (IllegalArgumentException ex) {
 
             lblError.setText(ex.getMessage());
             lblError.setTextFill(Color.web("#F20000"));
 
         }
+        
     }
 
     @FXML
     private void annuleerWijziging(ActionEvent event) {
         bc.updateDetailVenster();
+
     }
 
     @FXML
@@ -137,6 +208,7 @@ public class BeheerdersDetailController extends Pane implements Observer {
         bc.setGeselecteerdeBeheerder(null);
         btnBeheerderWijzigen.setDisable(true);
         btnBeheerderVerwijderen.setDisable(true);
+
     }
 
     @FXML
@@ -153,6 +225,7 @@ public class BeheerdersDetailController extends Pane implements Observer {
             // OK
 
             bc.removeBeheerder();
+
 
         } else {
             // Niet OK
@@ -208,4 +281,6 @@ public class BeheerdersDetailController extends Pane implements Observer {
 //
 //        }
 //    }
+
+
 }
