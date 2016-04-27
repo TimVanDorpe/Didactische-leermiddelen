@@ -6,7 +6,8 @@
 package domein;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.GregorianCalendar;
 import javafx.beans.property.SimpleStringProperty;
 import javax.persistence.Entity;
@@ -22,7 +23,7 @@ import util.Helper;
 @Entity(name = "Reservatie")
 public class Reservatie implements Serializable{
 
-    private GregorianCalendar startDatum, eindDatum;
+    private LocalDate startDatum, eindDatum;
     private String gebruiker;
     private Product gereserveerdProduct;
     private int gereserveerdAantal;
@@ -31,8 +32,8 @@ public class Reservatie implements Serializable{
     private int id;
 
     public Reservatie(GregorianCalendar startDatum, GregorianCalendar eindDatum, String gebruiker, Product gereserveerdProduct, int gereserveerdAantal) {
-        setStartDatum(startDatum);
-        setEindDatum(eindDatum);
+        setStartDatum(startDatum.toZonedDateTime().toLocalDate());
+        setEindDatum(eindDatum.toZonedDateTime().toLocalDate());
         setGebruiker(gebruiker);
         setGereserveerdProduct(gereserveerdProduct);
         setGereserveerdAantal(gereserveerdAantal);
@@ -40,24 +41,36 @@ public class Reservatie implements Serializable{
 
     public Reservatie() {
     }
-    
-    
 
-    public GregorianCalendar getStartDatum() {
+    public Reservatie(LocalDate startDatum, LocalDate eindDatum, String gebruiker, Product gereserveerdProduct, int gereserveerdAantal) {
+        setStartDatum(startDatum);
+        setEindDatum(eindDatum);
+        setGebruiker(gebruiker);
+        setGereserveerdProduct(gereserveerdProduct);
+        setGereserveerdAantal(gereserveerdAantal);
+       
+    }
+
+    public LocalDate getStartDatum() {
         return startDatum;
     }
 
-    public void setStartDatum(GregorianCalendar startDatum) {
+    public void setStartDatum(LocalDate startDatum) {
         this.startDatum = startDatum;
     }
 
-    public GregorianCalendar getEindDatum() {
+    public LocalDate getEindDatum() {
         return eindDatum;
     }
 
-    public void setEindDatum(GregorianCalendar eindDatum) {
+    public void setEindDatum(LocalDate eindDatum) {
         this.eindDatum = eindDatum;
     }
+
+    
+    
+    
+
 
     public String getGebruiker() {
         return gebruiker;
@@ -109,13 +122,13 @@ public class Reservatie implements Serializable{
         
         
         SimpleStringProperty startDatumSimple = new SimpleStringProperty();
-        startDatumSimple.set(Helper.format(startDatum));
+        startDatumSimple.set(startDatum.format(DateTimeFormatter.ISO_LOCAL_DATE));
         return startDatumSimple;
     }
     
     public SimpleStringProperty eindDatumProperty() {
         SimpleStringProperty EindDatumSimple = new SimpleStringProperty();
-        EindDatumSimple.set(Helper.format(eindDatum));
+        EindDatumSimple.set(eindDatum.format(DateTimeFormatter.ISO_LOCAL_DATE));
         return EindDatumSimple;
     }
 

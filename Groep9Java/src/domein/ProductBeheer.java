@@ -131,7 +131,7 @@ public class ProductBeheer {
         huidigProduct.setNaam(p.getNaam());
         gdj.update(huidigProduct);
         gdj.commitTransaction();
-        //geefAlleProducten();
+        geefAlleProducten();
     }
 
     public void verwijderProduct(Product p) {

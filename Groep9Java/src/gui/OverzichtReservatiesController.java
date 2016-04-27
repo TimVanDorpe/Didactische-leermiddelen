@@ -103,6 +103,8 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
         rc.setSelectionModelEmpty(false);
     }
     
+      
+    
      @FXML
     private void ZoekenOpNaam(ActionEvent event) {
         tblReservaties.setItems(rc.zoekOpMateriaalNaam(txtZoeken.getText()));
