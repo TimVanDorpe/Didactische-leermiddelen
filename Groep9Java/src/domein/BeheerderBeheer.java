@@ -50,4 +50,14 @@ public class BeheerderBeheer {
         return beheerderLijst;
     }
 
+    void wijzigReservatie(Beheerder nieuweBeheerder, Beheerder huidigeBeheerder) {
+        huidigeBeheerder.setNaam(nieuweBeheerder.getNaam());
+        huidigeBeheerder.setEmail(nieuweBeheerder.getEmail());
+        huidigeBeheerder.setWachtwoord(nieuweBeheerder.getWachtwoord());
+
+    }
+
+    void removeReservatie(Beheerder huidigeBeheerder) {
+        beheerderLijst.remove(huidigeBeheerder);
+    }
 }

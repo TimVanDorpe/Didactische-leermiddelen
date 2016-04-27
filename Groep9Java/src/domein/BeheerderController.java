@@ -58,4 +58,22 @@ public class BeheerderController extends Observable {
     public boolean getSelectionModelEmpty() {
         return selectionModelEmpty;
     }
+
+    public void wijzigBeheerder(String naam, String email, String wachtwoord) {
+        Beheerder nieuweBeheerder = new Beheerder(naam, email, wachtwoord);
+        bb.wijzigReservatie(nieuweBeheerder, huidigeBeheerder);
+        setChanged();
+        notifyObservers();
+    }
+
+    public void updateDetailVenster() {
+
+        setChanged();
+        notifyObservers(huidigeBeheerder);
+    }
+
+    public void removeBeheerder() {
+        bb.removeReservatie(huidigeBeheerder);
+    }
 }
+
