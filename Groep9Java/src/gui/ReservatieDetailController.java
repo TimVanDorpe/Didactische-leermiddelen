@@ -126,6 +126,7 @@ public class ReservatieDetailController extends Pane implements Observer {
             }
 
             this.aantal = Integer.parseInt(txtAantal.getText());
+            this.student = txtStudent.getText();
 
             lblError.setText("");
 
