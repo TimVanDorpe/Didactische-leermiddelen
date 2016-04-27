@@ -12,7 +12,7 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="751.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <TableView fx:id="tblReservaties" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#enableSelectionModel" BorderPane.alignment="CENTER">
+      <TableView fx:id="tblReservaties" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#enableSelectionModel" prefHeight="550.0" prefWidth="751.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="clmProduct" prefWidth="200.0" text="Materiaal" />
           <TableColumn fx:id="clmStudent" prefWidth="310.0" text="Student" />
@@ -32,24 +32,18 @@
       </TableView>
    </center>
    <top>
-      <GridPane prefHeight="109.0" prefWidth="751.0" BorderPane.alignment="CENTER">
+      <GridPane prefHeight="121.0" prefWidth="751.0" BorderPane.alignment="CENTER">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="291.0" minWidth="10.0" prefWidth="291.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="10.0" prefWidth="238.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="40.0" prefWidth="266.0" text="Overzicht Reservaties" GridPane.columnSpan="2" GridPane.rowIndex="1">
+            <Label prefHeight="40.0" prefWidth="266.0" text="Overzicht Reservaties" GridPane.columnSpan="2">
                <font>
                   <Font size="28.0" />
                </font>
@@ -57,12 +51,12 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="txtZoeken" prefHeight="31.0" prefWidth="65.0" GridPane.rowIndex="5">
+            <TextField fx:id="txtZoeken" prefHeight="31.0" prefWidth="65.0" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" right="10.0" />
                </GridPane.margin>
             </TextField>
-            <Button fx:id="btnZoeken" mnemonicParsing="false" onAction="#ZoekenOpNaam" prefHeight="31.0" prefWidth="117.0" text="Zoeken" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <Button fx:id="btnZoeken" mnemonicParsing="false" onAction="#ZoekenOpNaam" prefHeight="31.0" prefWidth="117.0" text="Zoeken" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" right="10.0" />
                </GridPane.margin>

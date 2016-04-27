@@ -9,12 +9,12 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="514.0" type="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="34.0" layoutY="31.0" prefHeight="40.0" prefWidth="240.0" text="Details beheerder">
+      <Label layoutX="32.0" layoutY="16.0" prefHeight="40.0" prefWidth="240.0" text="Details beheerder">
          <font>
-            <Font size="28.0" />
+            <Font size="23.0" />
          </font>
       </Label>
-      <GridPane layoutX="88.0" layoutY="147.0" prefHeight="421.0" prefWidth="322.0">
+      <GridPane layoutX="88.0" layoutY="163.0" prefHeight="372.0" prefWidth="322.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -33,11 +33,11 @@
             <TextField fx:id="txtWachtwoord" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button fx:id="btnNieuweBeheerder" layoutX="298.0" layoutY="36.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="190.0" text="Nieuwe beheerder toevoegen" />
-      <Button fx:id="btnBeheerderWijzigen" layoutX="283.0" layoutY="618.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="190.0" text="Beheerder wijzigen" />
-      <Label fx:id="lblError" layoutX="56.0" layoutY="581.0" prefHeight="25.0" prefWidth="385.0" />
-      <Button fx:id="btnAnnuleren" layoutX="59.0" layoutY="618.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="190.0" text="Annuleren" />
-      <Button fx:id="btnSelectieVerwijderen" layoutX="59.0" layoutY="661.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="190.0" text="Selectie verwijderen" />
-      <Button fx:id="btnBeheerderVerwijderen" layoutX="283.0" layoutY="661.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="190.0" text="Beheerder verwijderen" />
+      <Button fx:id="btnNieuweBeheerder" layoutX="32.0" layoutY="56.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="190.0" text="Nieuwe beheerder toevoegen" />
+      <Button fx:id="btnBeheerderWijzigen" layoutX="283.0" layoutY="588.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="190.0" text="Beheerder wijzigen" />
+      <Label fx:id="lblError" layoutX="57.0" layoutY="535.0" prefHeight="25.0" prefWidth="385.0" />
+      <Button fx:id="btnAnnuleren" layoutX="57.0" layoutY="588.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="190.0" text="Annuleren" />
+      <Button fx:id="btnSelectieVerwijderen" layoutX="59.0" layoutY="631.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="190.0" text="Selectie verwijderen" />
+      <Button fx:id="btnBeheerderVerwijderen" layoutX="283.0" layoutY="631.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="190.0" text="Beheerder verwijderen" />
    </children>
 </fx:root>

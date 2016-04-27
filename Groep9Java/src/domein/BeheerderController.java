@@ -16,6 +16,8 @@ public class BeheerderController extends Observable {
 
     private BeheerderBeheer bb;
     private Beheerder aangemeldeBeheerder;
+    private Beheerder huidigeBeheerder;
+    private boolean selectionModelEmpty;
 
     public BeheerderController() {
         bb = new BeheerderBeheer();
@@ -40,7 +42,20 @@ public class BeheerderController extends Observable {
     }
 
     public ObservableList<Beheerder> getBeheerderslijst() {
-     return   bb.getBeheerderslijst();
+        return bb.getBeheerderslijst();
     }
 
+    public void setGeselecteerdeBeheerder(Beheerder beh) {
+        this.huidigeBeheerder = beh;
+        setChanged();
+        notifyObservers(beh);
+    }
+
+    public void setSelectionModelEmpty(boolean b) {
+        selectionModelEmpty = b;
+    }
+
+    public boolean getSelectionModelEmpty() {
+        return selectionModelEmpty;
+    }
 }
