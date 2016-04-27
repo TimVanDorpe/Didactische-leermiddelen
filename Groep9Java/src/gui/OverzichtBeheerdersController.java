@@ -52,26 +52,26 @@ public class OverzichtBeheerdersController extends BorderPane implements Observe
         }
         
         
-//        clmNaam.setCellValueFactory(
-//                cellData -> cellData.getValue().naamProperty());
-//
-//        clmEmail.setCellValueFactory(
-//                cellData -> cellData.getValue().emailProperty());
-//
-//        
-//         tblBeheerders.getSelectionModel().selectedItemProperty().addListener((ObservableValue, oldValue, newValue) -> {
-//            if (newValue != null) {
-//                bc.setGeselecteerdeReservatie(newValue);
-//            }
-//        });
-//
-//        tblBeheerders.setItems(rc.getReservatieLijst());
-//        if (tblReservaties.getSelectionModel().isEmpty()) {
-//            rc.setSelectionModelEmpty(true);
-//            //btnVerwijder.setDisable(true);
-//        } else {
-//            rc.setSelectionModelEmpty(false);
-//        }
+        clmNaam.setCellValueFactory(
+                cellData -> cellData.getValue().naamProperty());
+
+        clmEmail.setCellValueFactory(
+                cellData -> cellData.getValue().emailProperty());
+
+        
+         tblBeheerders.getSelectionModel().selectedItemProperty().addListener((ObservableValue, oldValue, newValue) -> {
+            if (newValue != null) {
+                bc.setGeselecteerdeBeheerder(newValue);
+            }
+        });
+
+        tblBeheerders.setItems(bc.getBeheerderslijst());
+        if (tblBeheerders.getSelectionModel().isEmpty()) {
+            bc.setSelectionModelEmpty(true);
+            //btnVerwijder.setDisable(true);
+        } else {
+            bc.setSelectionModelEmpty(false);
+        }
     }
 
     @FXML
