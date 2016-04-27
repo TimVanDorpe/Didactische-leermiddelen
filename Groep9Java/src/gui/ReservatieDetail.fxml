@@ -48,7 +48,7 @@
             <RowConstraints maxHeight="101.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <Button fx:id="btnAnnuleer" layoutX="64.0" layoutY="630.0" mnemonicParsing="false" onAction="#annuleerWijziging" prefHeight="30.0" prefWidth="190.0" text="Annuleer" />
+      <Button fx:id="btnAnnuleer" layoutX="64.0" layoutY="630.0" mnemonicParsing="false" onAction="#annuleerWijziging" prefHeight="30.0" prefWidth="190.0" text="Annuleer wijzigingen" />
       <Button fx:id="btnVerwijderen" layoutX="274.0" layoutY="668.0" mnemonicParsing="false" onAction="#verwijderReservatie" prefHeight="30.0" prefWidth="190.0" text="Reservatie verwijderen" />
    </children>
 </fx:root>

@@ -613,11 +613,11 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
 
             Firma firma = new Firma(txtFirma.getText(), txtEmailFirma.getText());
 
-            Leergebied leergebied = new Leergebied("test");
-            Leergebied leergebied2 = new Leergebied("test");
-            List<Leergebied> leergebieden = new ArrayList<>();
-            leergebieden.add(leergebied);
-            leergebieden.add(leergebied2);
+//            Leergebied leergebied = new Leergebied("test");
+//            Leergebied leergebied2 = new Leergebied("test");
+//            List<Leergebied> leergebieden = new ArrayList<>();
+//            leergebieden.add(leergebied);
+//            leergebieden.add(leergebied2);
 
             dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getDoelgroepen(), dc.getToegevoegdeLeergebieden());
             //inputChanged = false;
