@@ -5,11 +5,15 @@
  */
 package domein;
 
+import java.util.Observable;
+import javafx.collections.ObservableList;
+
 /**
  *
  * @author Thomas
  */
-public class BeheerderController {
+public class BeheerderController extends Observable {
+
     private BeheerderBeheer bb;
     private Beheerder aangemeldeBeheerder;
 
@@ -18,8 +22,9 @@ public class BeheerderController {
     }
 
     public void meldAan(Beheerder beheerder) {
-        if(bb.geldigeLogin(beheerder))
+        if (bb.geldigeLogin(beheerder)) {
             this.aangemeldeBeheerder = beheerder;
+        }
     }
 
     public Beheerder getAangemeldeBeheerder() {
@@ -33,7 +38,9 @@ public class BeheerderController {
     public void logUit() {
         this.aangemeldeBeheerder = null;
     }
-    
-    
-    
+
+    public ObservableList<Beheerder> getBeheerderslijst() {
+     return   bb.getBeheerderslijst();
+    }
+
 }
