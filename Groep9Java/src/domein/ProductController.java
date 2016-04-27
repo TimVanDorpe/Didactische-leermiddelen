@@ -286,4 +286,8 @@ public class ProductController extends Observable {
         nieuweLijstLeergebieden.remove(verwijderLeergebied);
         huidigProduct.setLeergebieden(nieuweLijstLeergebieden);
     }
+
+    public Product getProductByNaam(String text) {
+       return pb.getProductByNaam(text);
+    }
 }

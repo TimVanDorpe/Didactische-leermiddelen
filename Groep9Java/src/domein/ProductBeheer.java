@@ -129,6 +129,9 @@ public class ProductBeheer {
         huidigProduct.setPlaats(p.getPlaats());
         huidigProduct.setPrijs(p.getPrijs());
         huidigProduct.setNaam(p.getNaam());
+        huidigProduct.setFoto(p.getFoto());
+        huidigProduct.setLeergebieden(p.getLeergebieden());
+        huidigProduct.setDoelgroepen(p.getDoelgroepen());
         gdj.update(huidigProduct);
         gdj.commitTransaction();
         geefAlleProducten();
@@ -392,4 +395,14 @@ public class ProductBeheer {
 //    }
 //
 //    //EINDEDOELGROEPEN--------------------------------------------------------
+
+    Product getProductByNaam(String text) {
+        for (Product p : productenLijst)
+        {
+        if(p.getNaam().equalsIgnoreCase(text))
+        {return p;}
+        }
+       return null;
+     
+    }
 }

@@ -68,7 +68,7 @@ public class ReservatieDetailController extends Pane implements Observer {
     @FXML
     private DatePicker dpStartdatum, dpEindDatum;
 
-    private String product, student, startDatum, eindDatum;
+    private String product, student;
     private int aantal;
     private LocalDate startDate, eindDate;
 
@@ -222,6 +222,14 @@ public class ReservatieDetailController extends Pane implements Observer {
     private void geefEindDatum(ActionEvent event) {
         eindDate = dpEindDatum.getValue();
     }
+    
+    @FXML
+    private void addReservatie(ActionEvent event)
+    {
+        Reservatie r = new Reservatie(startDate, eindDate, txtStudent.getText(), pc.getProductByNaam(txtProduct.getText()), aantal);
+        rc.addReservatie(r);
+    }
+    
 
     @FXML
     private void verwijderReservatie(ActionEvent event) {

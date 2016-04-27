@@ -12,6 +12,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
+import util.GenericDaoJpa;
 
 /**
  *
@@ -27,13 +28,13 @@ public class ReservatieBeheer {
  
     private final Comparator<Reservatie> sortOrder = byProdcutNaam;
     
-
+    private GenericDaoJpa gdj;
     
     public ReservatieBeheer() {
         ReservatieData data = new ReservatieData(this);
         data.maakReservaties();
         sortedList = reservatieLijst.sorted(sortOrder);
-        
+         gdj = new GenericDaoJpa(Reservatie.class);
         
     }
 
@@ -72,6 +73,7 @@ public class ReservatieBeheer {
     }
 
     public void addReservatie(Reservatie r) {
+        
         reservatieLijst.add(r);
     }
 
