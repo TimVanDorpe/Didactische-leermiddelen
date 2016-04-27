@@ -7,22 +7,22 @@ package gui;
 
 import domein.Beheerder;
 import domein.BeheerderController;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.time.LocalDate;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Optional;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import util.Helper;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -52,6 +52,10 @@ public class BeheerdersDetailController extends Pane implements Observer {
     private Label lblError;
 
     private BeheerderController bc;
+    @FXML
+    private Button btnToevoegen;
+    
+
 
     BeheerdersDetailController(BeheerderController bc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BeheerdersDetail.fxml"));
@@ -60,14 +64,180 @@ public class BeheerdersDetailController extends Pane implements Observer {
         loader.setRoot(this);
         loader.setController(this);
 
+        
         try {
             loader.load();
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
+        btnBeheerderWijzigen.setVisible(false);
+        btnSelectieVerwijderen.setVisible(false);
+        btnToevoegen.setVisible(false);
+        btnAnnuleren.setVisible(false);
+        if (bc.getSelectionModelEmpty()) {
+            btnAnnuleren.setDisable(true);
+            btnBeheerderWijzigen.setDisable(true);
+            btnSelectieVerwijderen.setDisable(true);
+            btnBeheerderVerwijderen.setDisable(true);
+            txtEmail.setDisable(true);
+            txtNaam.setDisable(true);
+             btnAnnuleren.setVisible(false);
+        btnAnnuleren.setVisible(false);
+
+        }
     }
 
-//    public void voegNieuweBeheerderToe() {
+    @Override
+    public void update(Observable o, Object arg) {
+        if (arg != null) {
+
+            lblError.setText("");
+            //maakLabelsTerugNormaal();
+
+            //DEMO TIJDELIJK
+            Beheerder beh = (Beheerder) arg;
+            txtNaam.setText(beh.getNaam());
+            txtEmail.setText(beh.getEmail());
+            txtWachtwoord.setText(beh.getWachtwoord());
+
+            //alles terug enablen als er iets geselcteerd wordt
+            btnAnnuleren.setDisable(true);
+            btnBeheerderWijzigen.setDisable(true);
+            btnSelectieVerwijderen.setDisable(true);
+            btnBeheerderVerwijderen.setDisable(false);
+            txtEmail.setDisable(false);
+            txtNaam.setDisable(false);
+             btnAnnuleren.setVisible(true);
+        btnAnnuleren.setVisible(false);
+        }
+    }
+    @FXML
+    private void nieuweBeheerderToevoegen(ActionEvent event) {
+          resetWaarden(event);
+        btnToevoegen.setVisible(true);
+        btnAnnuleren.setVisible(true);
+        btnAnnuleren.setVisible(false);
+        btnSelectieVerwijderen.setVisible(false);
+        btnBeheerderWijzigen.setVisible(false);
+        btnBeheerderVerwijderen.setVisible(false);
+        Beheerder beh = new Beheerder();
+        txtNaam.setPromptText("Naam van het nieuw product");
+        
+    }
+        @FXML
+    private void toevoegenBeheerder(ActionEvent event) {
+          try {
+
+           // valideerVelden(false);
+
+
+            String naam = txtNaam.getText();
+            String email = txtEmail.getText();
+            String wachtwoord = txtWachtwoord.getText();
+            
+
+            bc.voegBeheerderToe(naam, email, wachtwoord);           //inputChanged = false;
+
+            lblError.setText(""); // errortekst clearen
+            btnToevoegen.setVisible(false);
+            btnAnnuleren.setVisible(false);
+            btnBeheerderVerwijderen.setVisible(true);
+            btnSelectieVerwijderen.setVisible(true);
+            btnBeheerderWijzigen.setVisible(true);
+            
+
+        } catch (IllegalArgumentException ex) {
+
+            lblError.setText(ex.getMessage());
+            lblError.setTextFill(Color.web("#F20000"));
+
+        }
+
+    }
+
+    @FXML
+    private void toevoegenAnnuleren(ActionEvent event) {
+
+        btnToevoegen.setVisible(false);
+        btnAnnuleren.setVisible(false);
+        btnBeheerderVerwijderen.setVisible(true);
+        btnBeheerderWijzigen.setVisible(true);
+        btnSelectieVerwijderen.setVisible(true);
+       
+        resetWaarden(event);
+    }
+    
+
+    @FXML
+    private void wijzigBeheerder(ActionEvent event) {
+        try {
+            String naam = txtNaam.getText();
+            String email = txtEmail.getText();
+            String wachtwoord = txtWachtwoord.getText();
+
+            lblError.setText("");
+
+            Beheerder beh = bc.getBeheerderslijst().stream().filter(p -> p.getNaam().equalsIgnoreCase(txtNaam.getText())).findAny().get();
+
+            // dit uit comment na demo
+            bc.wijzigBeheerder(naam, email, wachtwoord);
+
+
+        } catch (IllegalArgumentException ex) {
+
+            lblError.setText(ex.getMessage());
+            lblError.setTextFill(Color.web("#F20000"));
+
+        }
+        
+    }
+
+    @FXML
+    private void annuleerWijziging(ActionEvent event) {
+        bc.updateDetailVenster();
+
+    }
+
+    @FXML
+    private void resetWaarden(ActionEvent event) {
+         txtNaam.setText("");
+    
+        txtEmail.setText("");
+        txtWachtwoord.setText("");
+
+        bc.setGeselecteerdeBeheerder(null);
+        btnBeheerderWijzigen.setDisable(true);
+        btnBeheerderVerwijderen.setDisable(true);
+
+    }
+
+    @FXML
+    private void verwijderReservatie(ActionEvent event) {
+        Stage stage = new Stage();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmatie");
+        alert.setHeaderText("Beheerder verwijderen");
+        alert.setContentText("U staat op het punt om deze beheerder te verwijderen. Weet u het zeker?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            // OK
+
+            bc.removeBeheerder();
+
+
+        } else {
+            // Niet OK
+
+            stage.close();
+
+        }
+
+        stage.close();
+    }
+
+    //    public void voegNieuweBeheerderToe() {
 //        try {
 //
 //            URL url = new URL("https://studservice.hogent.be/auth/");
@@ -112,21 +282,5 @@ public class BeheerdersDetailController extends Pane implements Observer {
 //        }
 //    }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        if (arg != null) {
-
-            lblError.setText("");
-            //maakLabelsTerugNormaal();
-
-            //DEMO TIJDELIJK
-            Beheerder beh = (Beheerder) arg;
-            txtNaam.setText(beh.getNaam());
-            txtEmail.setText(beh.getEmail());
-            txtWachtwoord.setText(beh.getWachtwoord());
-
-            //alles terug enablen als er iets geselcteerd wordt
-        }
-    }
 
 }

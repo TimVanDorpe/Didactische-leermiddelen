@@ -10,7 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity(name = "Beheerder")
-public class Beheerder implements Serializable{
+public class Beheerder implements Serializable {
+
     private String email, wachtwoord, naam;
     private String telefoonnummer;
     @Id
@@ -31,9 +32,12 @@ public class Beheerder implements Serializable{
 
     public Beheerder() {
     }
-    
-    
-    
+
+    public Beheerder(String naam, String email, String wachtwoord) {
+        setEmail(email);
+        setNaam(naam);
+        setWachtwoord(wachtwoord);
+    }
 
 //    String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 //    Pattern pattern = Pattern.compile(regex);
@@ -41,7 +45,7 @@ public class Beheerder implements Serializable{
 //         Matcher matcher = pattern.matcher(email);
 //    if( matcher.matches()){
         this.email = email;
-   // }
+        // }
     }
 
     public void setWachtwoord(String wachtwoord) {
@@ -79,8 +83,8 @@ public class Beheerder implements Serializable{
     public void setId(int id) {
         this.id = id;
     }
-    
-     public SimpleStringProperty naamProperty() {
+
+    public SimpleStringProperty naamProperty() {
         SimpleStringProperty beheerderSimple = new SimpleStringProperty();
         beheerderSimple.set(getNaam());
         return beheerderSimple;
@@ -92,8 +96,4 @@ public class Beheerder implements Serializable{
         return beheerderSimple;
     }
 
-
-    
-    
-    
 }
