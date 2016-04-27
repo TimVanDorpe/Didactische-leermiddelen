@@ -61,18 +61,19 @@ public class DoelgroepSelecterenController extends GridPane {
     }
 
     private void updateDoelgroepen() {
-        
-           
-        ObservableList<String> listnieuw =  FXCollections.observableArrayList();
+
+        ObservableList<String> listnieuw = FXCollections.observableArrayList();
         dc.getDoelgroepen().stream().map((l) -> l.getNaam()).forEach((naam) -> {
             listnieuw.add(naam);
         });
-        
-          ObservableList<String> listtoegevoegd =  FXCollections.observableArrayList();
-          dc.getToegevoegdeDoelgroepen().stream().map((l) -> l.getNaam()).forEach((naam) -> {
-              listtoegevoegd.add(naam);
-        });
-        
+
+        ObservableList<String> listtoegevoegd = FXCollections.observableArrayList();
+        if (dc.getHuidigProduct() != null) {
+            dc.getToegevoegdeDoelgroepen().stream().map((l) -> l.getNaam()).forEach((naam) -> {
+                listtoegevoegd.add(naam);
+            });
+        }
+
         alleDoelgroepen.setItems(listnieuw);
         toegevoegdeDoelgroepen.setItems(listtoegevoegd);
         toegevoegdeDoelgroepen.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -91,8 +92,6 @@ public class DoelgroepSelecterenController extends GridPane {
 
     }
 
-
-
     @FXML
     private void sendLeft(ActionEvent event) {
 
@@ -101,9 +100,8 @@ public class DoelgroepSelecterenController extends GridPane {
 
         if (naam != null) {
             toegevoegdeDoelgroepen.getSelectionModel().clearSelection();
-          
-        }
 
+        }
 
     }
 
