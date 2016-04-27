@@ -3,6 +3,7 @@ package domein;
 import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.beans.property.SimpleStringProperty;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -79,6 +80,19 @@ public class Beheerder implements Serializable{
         this.id = id;
     }
     
+     public SimpleStringProperty naamProperty() {
+        SimpleStringProperty beheerderSimple = new SimpleStringProperty();
+        beheerderSimple.set(getNaam());
+        return beheerderSimple;
+    }
+
+    public SimpleStringProperty emailProperty() {
+        SimpleStringProperty beheerderSimple = new SimpleStringProperty();
+        beheerderSimple.set(getEmail());
+        return beheerderSimple;
+    }
+
+
     
     
     

@@ -83,9 +83,11 @@ public class ReservatieBeheer {
     void wijzigReservatie(Reservatie nieuweReservatie, Reservatie huidigeReservatie) {
         huidigeReservatie.setGereserveerdAantal(nieuweReservatie.getGereserveerdAantal());
         huidigeReservatie.setGereserveerdProduct(nieuweReservatie.getGereserveerdProduct());
+        huidigeReservatie.setGebruiker(nieuweReservatie.getGebruiker());
         huidigeReservatie.setStartDatum(nieuweReservatie.getStartDatum());
         huidigeReservatie.setEindDatum(nieuweReservatie.getEindDatum());
-        huidigeReservatie.setGebruiker(nieuweReservatie.getGebruiker());
+        
+        
      
     }
 

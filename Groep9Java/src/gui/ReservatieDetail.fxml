@@ -11,15 +11,15 @@
 
 <fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="751.0" prefWidth="514.0" type="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="lblError" layoutX="64.0" layoutY="605.0" prefHeight="25.0" prefWidth="400.0" />
+      <Label fx:id="lblError" layoutX="64.0" layoutY="561.0" prefHeight="25.0" prefWidth="400.0" />
       <Label layoutX="24.0" layoutY="14.0" prefHeight="40.0" prefWidth="240.0" text="Details Reservatie">
          <font>
-            <Font size="28.0" />
+            <Font size="23.0" />
          </font>
       </Label>
-      <Button fx:id="btnLeegmaken" layoutX="64.0" layoutY="668.0" mnemonicParsing="false" onAction="#resetWaarden" prefHeight="30.0" prefWidth="190.0" text="Selectie verwijderen" />
-      <Button fx:id="btnWijzigen" layoutX="274.0" layoutY="630.0" mnemonicParsing="false" onAction="#wijzigReservatie" prefHeight="30.0" prefWidth="190.0" text="Reservatie wijzigen" />
-      <GridPane layoutX="54.0" layoutY="144.0" prefHeight="452.0" prefWidth="400.0">
+      <Button fx:id="btnLeegmaken" layoutX="64.0" layoutY="645.0" mnemonicParsing="false" onAction="#resetWaarden" prefHeight="30.0" prefWidth="190.0" text="Selectie verwijderen" />
+      <Button fx:id="btnWijzigen" layoutX="274.0" layoutY="600.0" mnemonicParsing="false" onAction="#wijzigReservatie" prefHeight="30.0" prefWidth="190.0" text="Reservatie wijzigen" />
+      <GridPane layoutX="54.0" layoutY="144.0" prefHeight="417.0" prefWidth="400.0">
          <children>
             <Label fx:id="lblEindDatum" text="Einddatum" GridPane.rowIndex="4" />
             <Label fx:id="lblAantal" text="Aantal" GridPane.rowIndex="2" />
@@ -48,7 +48,7 @@
             <RowConstraints maxHeight="101.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <Button fx:id="btnAnnuleer" layoutX="64.0" layoutY="630.0" mnemonicParsing="false" onAction="#annuleerWijziging" prefHeight="30.0" prefWidth="190.0" text="Annuleer" />
-      <Button fx:id="btnVerwijderen" layoutX="274.0" layoutY="668.0" mnemonicParsing="false" onAction="#verwijderReservatie" prefHeight="30.0" prefWidth="190.0" text="Reservatie verwijderen" />
+      <Button fx:id="btnAnnuleer" layoutX="64.0" layoutY="600.0" mnemonicParsing="false" onAction="#annuleerWijziging" prefHeight="30.0" prefWidth="190.0" text="Annuleer" />
+      <Button fx:id="btnVerwijderen" layoutX="274.0" layoutY="645.0" mnemonicParsing="false" onAction="#verwijderReservatie" prefHeight="30.0" prefWidth="190.0" text="Reservatie verwijderen" />
    </children>
 </fx:root>
