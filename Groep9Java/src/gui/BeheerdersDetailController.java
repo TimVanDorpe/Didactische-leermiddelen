@@ -81,6 +81,7 @@ public class BeheerdersDetailController extends Pane implements Observer {
             btnBeheerderVerwijderen.setDisable(true);
             txtEmail.setDisable(true);
             txtNaam.setDisable(true);
+            txtWachtwoord.setDisable(true);
              btnAnnuleren.setVisible(false);
         btnAnnuleren.setVisible(false);
 
@@ -107,6 +108,7 @@ public class BeheerdersDetailController extends Pane implements Observer {
             btnBeheerderVerwijderen.setDisable(false);
             txtEmail.setDisable(false);
             txtNaam.setDisable(false);
+            txtWachtwoord.setDisable(false);
              btnAnnuleren.setVisible(true);
         btnAnnuleren.setVisible(false);
         }
@@ -121,7 +123,7 @@ public class BeheerdersDetailController extends Pane implements Observer {
         btnBeheerderWijzigen.setVisible(false);
         btnBeheerderVerwijderen.setVisible(false);
         Beheerder beh = new Beheerder();
-        txtNaam.setPromptText("Naam van het nieuw product");
+        txtNaam.setPromptText("Naam van de nieuwe beheerder");
         
     }
         @FXML

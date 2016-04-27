@@ -44,7 +44,7 @@
          <children>
             <Label prefHeight="40.0" prefWidth="266.0" text="Overzicht Materiaal" GridPane.columnSpan="2">
                <font>
-                  <Font size="28.0" />
+                  <Font size="23.0" />
                </font>
                <GridPane.margin>
                   <Insets left="10.0" />
@@ -55,20 +55,20 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <Button fx:id="btnTrefwoordZoeken" mnemonicParsing="false" onAction="#zoekOpTrefwoord" prefHeight="31.0" prefWidth="117.0" text="Zoeken" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="btnTrefwoordZoeken" mnemonicParsing="false" onAction="#zoekOpTrefwoord" prefWidth="117.0" text="Zoeken" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin></Button>
-            <Button fx:id="btnGeavanceerdZoeken" mnemonicParsing="false" onAction="#geavanceerdZoeken" prefHeight="31.0" prefWidth="145.0" text="Geavanceerd zoeken..." GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button fx:id="btnGeavanceerdZoeken" mnemonicParsing="false" onAction="#geavanceerdZoeken" text="Geavanceerd zoeken..." GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin></Button>
-            <TextField fx:id="txtTrefwoord" prefHeight="31.0" prefWidth="330.0" GridPane.rowIndex="1">
+            <TextField fx:id="txtTrefwoord" maxHeight="25.0" maxWidth="146.0" prefHeight="25.0" prefWidth="146.0" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets left="10.0" />
+                  <Insets left="100.0" />
                </GridPane.margin>
             </TextField>
-            <Button mnemonicParsing="false" onAction="#geefAllesWeer" prefHeight="31.0" prefWidth="117.0" text="Alles weergeven" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <Button mnemonicParsing="false" onAction="#geefAllesWeer" prefWidth="132.0" text="Alles weergeven" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>

@@ -600,7 +600,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
         btnWijzigen.setVisible(false);
         btnVerwijderen.setVisible(false);
         Product newProduct = new Product();
-        txtNaam.setPromptText("Naam van het nieuw product");
+        txtNaam.setPromptText("Naam van het nieuwe materiaal");
         lblTitelDetail.setText("Materiaal toevoegen");
 
     }
