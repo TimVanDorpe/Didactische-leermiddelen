@@ -93,7 +93,8 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
                 cellData -> cellData.getValue().opTeHalenProperty());
         clmTeruggebracht.setCellValueFactory(
                 cellData -> cellData.getValue().teruggebrachtProperty());
-        clmStatus.setCellValueFactory(rc.berekenStaus());
+        clmStatus.setCellValueFactory (
+                cellData -> cellData.getValue().berekenStatus());
         tblReservaties.getSelectionModel().selectedItemProperty().addListener((ObservableValue, oldValue, newValue) -> {
             if (newValue != null) {
                 rc.setGeselecteerdeReservatie(newValue);

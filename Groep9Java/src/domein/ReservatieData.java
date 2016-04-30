@@ -50,10 +50,10 @@ public class ReservatieData {
         
         
         
-        rb.addReservatie(new Reservatie(startDatum1, eindDatum1, gebruiker1, p3, 3));
-        rb.addReservatie(new Reservatie(startDatum1, eindDatum1, gebruiker2, p3, 2));
-        rb.addReservatie(new Reservatie(startDatum2, eindDatum2, gebruiker1, p2, 1));
-        rb.addReservatie(new Reservatie(startDatum2, eindDatum2, gebruiker1, p1, 2));
+        rb.addReservatie(new Reservatie(startDatum1, eindDatum1, gebruiker1, p3, 3, 6, 6));
+        rb.addReservatie(new Reservatie(startDatum1, eindDatum1, gebruiker2, p3, 2 ,6 ,6));
+        rb.addReservatie(new Reservatie(startDatum2, eindDatum2, gebruiker1, p2, 1 ,12 ,6));
+        rb.addReservatie(new Reservatie(startDatum2, eindDatum2, gebruiker1, p1, 2 , 2 ,6));
         
         
         

@@ -133,7 +133,7 @@ public class ReservatieDetailController extends Pane implements Observer {
             Product prod = pc.getProductenLijst().stream().filter(p -> p.getNaam().equalsIgnoreCase(txtProduct.getText())).findAny().get();
             
             // dit uit comment na demo
-            rc.wijzigReservatie(prod, aantal, student, startDate, eindDate);
+            rc.wijzigReservatie(prod, aantal, student, startDate, eindDate, 3 , 8);
 
             //demo
             rc.wijzigAantal(Integer.parseInt(txtAantal.getText()));
@@ -226,7 +226,7 @@ public class ReservatieDetailController extends Pane implements Observer {
     @FXML
     private void addReservatie(ActionEvent event)
     {
-        Reservatie r = new Reservatie(startDate, eindDate, txtStudent.getText(), pc.getProductByNaam(txtProduct.getText()), aantal);
+        Reservatie r = new Reservatie(startDate, eindDate, txtStudent.getText(), pc.getProductByNaam(txtProduct.getText()), aantal ,  8, 2);
         rc.addReservatie(r);
     }
     

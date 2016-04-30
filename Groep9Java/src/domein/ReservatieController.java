@@ -23,6 +23,14 @@ public class ReservatieController extends Observable {
 
     private ReservatieBeheer rb;
     private Reservatie huidigeReservatie;
+
+    public Reservatie getHuidigeReservatie() {
+        return huidigeReservatie;
+    }
+
+    public void setHuidigeReservatie(Reservatie huidigeReservatie) {
+        this.huidigeReservatie = huidigeReservatie;
+    }
     private boolean selectionModelEmpty;
 
     public ReservatieController() {

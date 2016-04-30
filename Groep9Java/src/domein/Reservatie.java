@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import static org.eclipse.persistence.expressions.ExpressionOperator.Today;
 import util.Helper;
 
 /**
@@ -53,6 +54,8 @@ public class Reservatie implements Serializable {
         setOpTeHalen(opTeHalen);
         setTeruggebracht(teruggebracht);
     }
+    
+    
 
     public int getOpTeHalen() {
         return opTeHalen;
@@ -182,7 +185,50 @@ public class Reservatie implements Serializable {
         // als op te halen = totaal aantal dan return "uit te lenen"
         // zo niet dan "uitgeleend"
         // als startdatum groter is en einddatum groter is dan niks weergeven?
+        SimpleStringProperty status = new SimpleStringProperty();
+        status.set("");
+        boolean isEindDatumKleinerDanVandaag;
+        boolean isAantalOk;
+        if (eindDatum.isBefore(LocalDate.now())) {
+            isEindDatumKleinerDanVandaag = true;
+            status.set("te laat");
+        } else {
+            isEindDatumKleinerDanVandaag = false;
+            status.set("er is nog tijd");
+        }
         
+        if(opTeHalen + teruggebracht == getTotaalAantal())
+        {isAantalOk = true;
+        status.set("aantal is ok");}
+        else
+        {isAantalOk = false;}
+        
+        if(isAantalOk && isEindDatumKleinerDanVandaag)
+        {status.set("voltooid");}
+//        else
+//        {status.set("te laat");}
+        
+        
+        if (startDatum.isBefore(LocalDate.now()) && eindDatum.isAfter(LocalDate.now())) {
+            if (opTeHalen == getTotaalAantal()) {
+                status.set("uit te lenen");
+            } else {
+
+            }
+        } 
+//        else {
+//            status.set("Startdatum is achter vandaag of einddation is voor vandaag");
+//        }
+        
+        
+        return status;
+        
+    }
+    
+    int getTotaalAantal()
+    {
+    return gereserveerdAantal + teruggebracht;
+    
     }
 
 }
