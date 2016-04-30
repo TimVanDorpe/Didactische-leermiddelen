@@ -116,12 +116,7 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
         // btnVerwijder.setDisable(false);
     }
 
-    @FXML
-    private void enableSelectionModel(MouseEvent event) {
-        rc.setSelectionModelEmpty(false);
-    }
-    
-      
+   
     
      @FXML
     private void ZoekenOpNaam(ActionEvent event) {

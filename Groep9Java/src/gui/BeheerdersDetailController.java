@@ -142,7 +142,7 @@ public class BeheerdersDetailController extends Pane implements Observer {
             btnToevoegen.setVisible(false);
             btnAnnuleren.setVisible(false);
             btnBeheerderVerwijderen.setVisible(true);
-            btnSelectieVerwijderen.setVisible(true);
+            btnSelectieVerwijderen.setVisible(false);
             
             
 
