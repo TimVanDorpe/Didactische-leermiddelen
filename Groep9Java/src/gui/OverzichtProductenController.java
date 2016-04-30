@@ -95,9 +95,6 @@ public class OverzichtProductenController extends BorderPane implements Observer
             tblProducten.getSelectionModel().clearSelection();
         }
 
-//tblProducten.setItems(dc.getProductSortedList());
-        //tblProducten.getSelectionModel().clearSelection();
-        // btnVerwijder.setDisable(false);
     }
 
     @FXML
@@ -127,7 +124,7 @@ public class OverzichtProductenController extends BorderPane implements Observer
     }
 
     private void geefAllesWeer() {
-        dc.geefAlleProductenWeer();
+       
         tblProducten.setItems(dc.getProductSortedList());
         tblProducten.getSelectionModel().clearSelection();
     }
@@ -135,7 +132,7 @@ public class OverzichtProductenController extends BorderPane implements Observer
     @FXML
     private void enableSelectionModel(MouseEvent event) {
         dc.setSelectionModelEmpty(false);
-        dc.geefAlleProductenWeer();
+        
         tblProducten.setItems(dc.getProductSortedList());
     }
 

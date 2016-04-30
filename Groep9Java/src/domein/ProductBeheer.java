@@ -100,7 +100,7 @@ public class ProductBeheer {
     }
 
     public SortedList<Product> getSortedList() {
-
+        sortedList = productenLijst.sorted(sortOrder);
         //Wrap the FilteredList in a SortedList
         return sortedList; //SortedList is unmodifiable
     }
@@ -143,7 +143,7 @@ public class ProductBeheer {
         huidigProduct.setDoelgroepen(p.getDoelgroepen());
         gdjProduct.update(huidigProduct);
         gdjProduct.commitTransaction();
-        geefAlleProducten();
+       
     }
 
     public void verwijderProduct(Product p) {
@@ -202,12 +202,7 @@ public class ProductBeheer {
 
     }
 
-    public void geefAlleProducten() {
-
-        productenLijst = FXCollections.observableArrayList(gdjProduct.findAll());
-
-        sortedList = productenLijst.sorted(sortOrder);
-    }
+    
 
     //LEERGEBIEDEN--------------------------------------------
     public List<Leergebied> getLeergebieden() {//returnt linkse list

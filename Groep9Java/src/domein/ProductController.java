@@ -85,6 +85,7 @@ public class ProductController extends Observable {
 
     public SortedList<Product> getProductSortedList() {
         //Wrap the FilteredList in a SortedList
+        
         return pb.getSortedList(); //SortedList is unmodifiable
     }
 
@@ -106,12 +107,7 @@ public class ProductController extends Observable {
         notifyObservers();
     }
 
-    public void geefAlleProductenWeer() {
-        pb.geefAlleProducten();
-        //setChanged();
-        //notifyObservers();
-
-    }
+    
 
     public void setSelectionModelEmpty(boolean b) {
         selectionModelEmpty = b;
