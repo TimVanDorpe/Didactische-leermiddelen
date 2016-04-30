@@ -14,6 +14,7 @@ public class Beheerder implements Serializable {
 
     private String email, wachtwoord, naam;
     private String telefoonnummer;
+    private boolean hoofdAdmin;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -23,20 +24,22 @@ public class Beheerder implements Serializable {
         this.wachtwoord = wachtwoord;
     }
 
-    public Beheerder(String email, String wachtwoord, String naam, String telefoonnummer) {
+    public Beheerder(String email, String wachtwoord, String naam, Boolean hoofdAdmin , String telefoonnummer) {
         setEmail(email);
         setNaam(naam);
         setTelefoonnummer(telefoonnummer);
         setWachtwoord(wachtwoord);
+        setHoofdAdmin(hoofdAdmin);
     }
 
     public Beheerder() {
     }
 
-    public Beheerder(String naam, String email, String wachtwoord) {
+    public Beheerder(String naam, String email, String wachtwoord , Boolean hoofdAdmin) {
         setEmail(email);
         setNaam(naam);
         setWachtwoord(wachtwoord);
+        setHoofdAdmin(hoofdAdmin);
     }
 
 //    String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
@@ -52,6 +55,16 @@ public class Beheerder implements Serializable {
         this.wachtwoord = wachtwoord;
     }
 
+    public boolean isHoofdAdmin() {
+        return hoofdAdmin;
+    }
+
+    public void setHoofdAdmin(boolean hoofdAdmin) {
+        this.hoofdAdmin = hoofdAdmin;
+    }
+    
+    
+    
     public void setNaam(String naam) {
         this.naam = naam;
     }

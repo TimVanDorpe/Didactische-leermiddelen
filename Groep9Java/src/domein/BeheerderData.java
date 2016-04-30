@@ -19,8 +19,8 @@ public class BeheerderData {
     }
         
     public void genereerData(){
-         Beheerder beheerder1 = new Beheerder("beheerder@hogent.be", "Wachtwoord1", "beheerder", "0495671235");
-         Beheerder beheerder2 = new Beheerder("a", "a", "a", "a");
+         Beheerder beheerder1 = new Beheerder("beheerder@hogent.be", "Wachtwoord1", "beheerder", true, "0495671235");
+         Beheerder beheerder2 = new Beheerder("a", "a", "a", true, "a");
         
        bb.registreerBeheerder(beheerder1);
        bb.registreerBeheerder(beheerder2);

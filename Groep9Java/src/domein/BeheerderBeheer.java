@@ -71,13 +71,13 @@ public class BeheerderBeheer {
 
     }
 
-    void removeReservatie(Beheerder huidigeBeheerder) {
-        beheerderLijst.remove(huidigeBeheerder);
-    }
 
     void voegBeheerderToe(String naam, String email, String wachtwoord) {
-        Beheerder beh = new Beheerder(naam, email, wachtwoord);
+        Beheerder beh = new Beheerder(naam, email, wachtwoord , false);
+        gdj.startTransaction();
         beheerderLijst.add(beh);
+        gdj.insert(beh);
+        gdj.commitTransaction();
     }
 
     public ObservableList<Beheerder> zoekOpBeheerdersNaam(String beheerderNaam) {
@@ -96,5 +96,12 @@ public class BeheerderBeheer {
         return sortedList;
         
         
+    }
+
+    void removeBeheerder(Beheerder huidigeBeheerder) {
+        gdj.startTransaction();
+         beheerderLijst.remove(huidigeBeheerder);
+         gdj.delete(huidigeBeheerder);
+         gdj.commitTransaction();
     }
 }
