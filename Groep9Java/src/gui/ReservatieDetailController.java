@@ -256,11 +256,7 @@ public class ReservatieDetailController extends Pane implements Observer {
         stage.close();
     }
 
-    @FXML
-    private void addReservatie(ActionEvent event)
-    {
-       
-    }
+ 
 
 
     
