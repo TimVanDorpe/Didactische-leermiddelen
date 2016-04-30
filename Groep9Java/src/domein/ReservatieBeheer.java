@@ -31,10 +31,11 @@ public class ReservatieBeheer {
     private GenericDaoJpa gdj;
     
     public ReservatieBeheer() {
+        gdj = new GenericDaoJpa(Reservatie.class);        
         ReservatieData data = new ReservatieData(this);
         data.maakReservaties();
         sortedList = reservatieLijst.sorted(sortOrder);
-         gdj = new GenericDaoJpa(Reservatie.class);
+         
         
     }
 
@@ -73,21 +74,31 @@ public class ReservatieBeheer {
     }
 
     public void addReservatie(Reservatie r) {
-        
+        gdj.startTransaction();
         reservatieLijst.add(r);
+        gdj.insert(r);
+        gdj.commitTransaction();
     }
 
     public void removeReservatie(Reservatie r) {
+        gdj.startTransaction();
         reservatieLijst.remove(r);
+        gdj.delete(r);
+        gdj.commitTransaction();
     }
 
 
     void wijzigReservatie(Reservatie nieuweReservatie, Reservatie huidigeReservatie) {
+        
+        gdj.startTransaction();
+        
         huidigeReservatie.setGereserveerdAantal(nieuweReservatie.getGereserveerdAantal());
         huidigeReservatie.setGereserveerdProduct(nieuweReservatie.getGereserveerdProduct());
         huidigeReservatie.setGebruiker(nieuweReservatie.getGebruiker());
         huidigeReservatie.setStartDatum(nieuweReservatie.getStartDatum());
         huidigeReservatie.setEindDatum(nieuweReservatie.getEindDatum());
+        gdj.update(huidigeReservatie);
+        gdj.commitTransaction();
         
         
      

@@ -28,12 +28,13 @@ public class Product implements Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Firma firma;
     private URL foto;
-    @Column(unique=true)
+    //@Column(unique=true)
     private String naam ;
     private String omschrijving;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    
     private int artikelnummer;
     private double prijs;
     private int aantal ;

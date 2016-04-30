@@ -19,7 +19,7 @@ public class BeheerderBeheer {
     private GenericDaoJpa gdj;
 
     public BeheerderBeheer() {
-        gdj = new GenericDaoJpa(Product.class);
+        gdj = new GenericDaoJpa(Beheerder.class);
         BeheerderData data = new BeheerderData(this);
         data.genereerData();
     }
