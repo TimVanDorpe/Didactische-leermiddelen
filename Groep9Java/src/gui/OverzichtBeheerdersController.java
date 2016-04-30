@@ -76,6 +76,8 @@ public class OverzichtBeheerdersController extends BorderPane implements Observe
 
     @FXML
     private void zoekenOpNaam(ActionEvent event) {
+        
+        tblBeheerders.setItems(bc.zoekenOpBeheerdersNaam(txtZoeken.getText()));
     }
 
     @Override

@@ -79,4 +79,9 @@ public class BeheerderController extends Observable {
     public void voegBeheerderToe(String naam, String email, String wachtwoord) {
         bb.voegBeheerderToe(naam, email, wachtwoord) ;
     }
+
+    public ObservableList<Beheerder> zoekenOpBeheerdersNaam(String text) {
+      return bb.zoekOpBeheerdersNaam(text);
+      
+    }
 }

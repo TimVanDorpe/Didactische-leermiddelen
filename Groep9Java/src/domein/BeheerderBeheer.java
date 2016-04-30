@@ -5,8 +5,12 @@
  */
 package domein;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import util.GenericDaoJpa;
 
 /**
@@ -17,12 +21,22 @@ public class BeheerderBeheer {
 
     private ObservableList<Beheerder> beheerderLijst = FXCollections.observableArrayList();
     private GenericDaoJpa gdj;
+    private SortedList<Beheerder> sortedList; 
+    private final Comparator<Beheerder> byBeheerderNaam = (r1, r2) -> r1.getNaam().compareToIgnoreCase(r2.getNaam()); 
+    private final Comparator<Beheerder> sortOrder = byBeheerderNaam;
 
     public BeheerderBeheer() {
         gdj = new GenericDaoJpa(Product.class);
         BeheerderData data = new BeheerderData(this);
+        sortedList = beheerderLijst.sorted(sortOrder);
         data.genereerData();
     }
+
+    public SortedList<Beheerder> getSortedList() {
+        sortedList = beheerderLijst.sorted(sortOrder);
+        return sortedList;
+    }
+    
 
     public void setGdj(GenericDaoJpa gdj) {
         this.gdj = gdj;
@@ -47,7 +61,7 @@ public class BeheerderBeheer {
     }
 
     ObservableList<Beheerder> getBeheerderslijst() {
-        return beheerderLijst;
+        return sortedList;
     }
 
     void wijzigReservatie(Beheerder nieuweBeheerder, Beheerder huidigeBeheerder) {
@@ -64,5 +78,23 @@ public class BeheerderBeheer {
     void voegBeheerderToe(String naam, String email, String wachtwoord) {
         Beheerder beh = new Beheerder(naam, email, wachtwoord);
         beheerderLijst.add(beh);
+    }
+
+    public ObservableList<Beheerder> zoekOpBeheerdersNaam(String beheerderNaam) {
+       
+        ObservableList<Beheerder> beheerderLijstMetTrefwoord = FXCollections.observableArrayList();
+        List<Beheerder> rr = new ArrayList<>();
+
+        for (Beheerder r : beheerderLijst) {
+            if (r.getNaam().toLowerCase().contains(beheerderNaam.toLowerCase())) {
+                rr.add(r);
+            }
+        }
+        beheerderLijstMetTrefwoord = FXCollections.observableArrayList(rr);
+        sortedList = beheerderLijstMetTrefwoord.sorted(sortOrder);
+        
+        return sortedList;
+        
+        
     }
 }
