@@ -42,7 +42,7 @@ public class ReservatieBeheer {
     public SortedList<Reservatie> getSortedList() {
 
       //Wrap the FilteredList in a SortedList
-      sortedList = reservatieLijst.sorted(sortOrder);
+      //sortedList = reservatieLijst.sorted(sortOrder);
        return sortedList; //SortedList is unmodifiable
   }
 
@@ -67,7 +67,7 @@ public class ReservatieBeheer {
     }
     
     public ObservableList<Reservatie> getReservatieLijst() {
-        return this.getSortedList();
+        return getSortedList();
     }
 
     public void setReservatieLijst(ObservableList<Reservatie> reservatieLijst) {
