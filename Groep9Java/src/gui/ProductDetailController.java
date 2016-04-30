@@ -19,6 +19,7 @@ import java.util.Observer;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -275,8 +276,8 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             txtNaam.setText(product.getNaam());
             txtOmschrijving.setText(product.getOmschrijving());
             txtPlaats.setText(product.getPlaats());
-            listLeergebieden.setItems(dc.geefStringsToegevoegdeLeergebieden());
-            listDoelgroepen.setItems(dc.geefStringsToegevoegdeLeergebieden());
+            listLeergebieden.setItems(dc.getVoorlopigeLeergebieden());
+            listDoelgroepen.setItems(dc.getVoorlopigeDoelgroepen());
             //alles terug enablen als er iets geselcteerd wordt
             btnVerwijderen.setDisable(false);
             btnAnnuleer.setDisable(false);
@@ -314,13 +315,13 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
         txtArtikelnummer.setText("");
         txtEmailFirma.setText("");
         txtFirma.setText("");
-        //txtLeergebieden.setText("");
+
         txtNaam.setText("");
         txtOmschrijving.setText("");
         txtPlaats.setText("");
         txtPrijs.setText("");
         imgViewFoto.setImage(null);
-        dc.setGeselecteerdProduct(null);
+        //dc.setGeselecteerdProduct(null);
         listLeergebieden.setItems(null);
         listDoelgroepen.setItems(null);
         btnWijzigen.setDisable(true);
@@ -552,7 +553,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
         stage.addEventHandler(WindowEvent.WINDOW_HIDING,
                 event1 -> {
                     ProductDetailController.this.setDisable(false);
-                    listLeergebieden.setItems(dc.geefStringsToegevoegdeLeergebieden());
+                    listLeergebieden.setItems(dc.getVoorlopigeLeergebieden());
                     overZichtStage.removeEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, handler);
                 });
 
@@ -629,7 +630,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
 //            leergebieden.add(leergebied);
 //            leergebieden.add(leergebied2);
 
-            dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getDoelgroepen(), dc.getToegevoegdeLeergebieden());
+            dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma);
             //inputChanged = false;
 
             lblError.setText(""); // errortekst clearen
