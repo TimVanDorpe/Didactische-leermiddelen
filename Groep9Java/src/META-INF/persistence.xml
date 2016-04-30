@@ -7,6 +7,7 @@
     <class>domein.Firma</class>
     <class>domein.Product</class>
     <class>domein.Beheerder</class>
+    <class>domein.Reservatie</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/Groep09"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

@@ -10,7 +10,10 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Observable;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TableColumn;
+import javafx.util.Callback;
 
 /**
  *
@@ -20,6 +23,14 @@ public class ReservatieController extends Observable {
 
     private ReservatieBeheer rb;
     private Reservatie huidigeReservatie;
+
+    public Reservatie getHuidigeReservatie() {
+        return huidigeReservatie;
+    }
+
+    public void setHuidigeReservatie(Reservatie huidigeReservatie) {
+        this.huidigeReservatie = huidigeReservatie;
+    }
     private boolean selectionModelEmpty;
 
     public ReservatieController() {
@@ -54,7 +65,7 @@ public class ReservatieController extends Observable {
 //
 //    }
 
-    public void wijzigReservatie(Product product, int aantal, String student, LocalDate startDatum, LocalDate eindDatum) {
+    public void wijzigReservatie(Product product, int aantal, String student, LocalDate startDatum, LocalDate eindDatum, int opTeHalen, int teruggebracht) {
 
 //        GregorianCalendar start = new GregorianCalendar(Integer.parseInt(startDatum.substring(0, 4)),
 //                Integer.parseInt(startDatum.substring(5, 7)), Integer.parseInt(startDatum.substring(8, 10),
@@ -64,7 +75,7 @@ public class ReservatieController extends Observable {
 //                Integer.parseInt(eindDatum.substring(11, 13))));
 
 
-        Reservatie nieuweReservatie = new Reservatie(startDatum, eindDatum, student, product, aantal);
+        Reservatie nieuweReservatie = new Reservatie(startDatum, eindDatum, student, product, aantal, opTeHalen, teruggebracht);
         rb.wijzigReservatie(nieuweReservatie, huidigeReservatie);
         setChanged();
         notifyObservers();
@@ -92,6 +103,8 @@ public class ReservatieController extends Observable {
     {
         return rb.zoekOpMateriaalNaam(productNaam);
     }
+
+   
 
         
     

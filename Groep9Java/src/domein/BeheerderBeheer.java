@@ -26,7 +26,7 @@ public class BeheerderBeheer {
     private final Comparator<Beheerder> sortOrder = byBeheerderNaam;
 
     public BeheerderBeheer() {
-        gdj = new GenericDaoJpa(Product.class);
+        gdj = new GenericDaoJpa(Beheerder.class);
         BeheerderData data = new BeheerderData(this);
         sortedList = beheerderLijst.sorted(sortOrder);
         data.genereerData();

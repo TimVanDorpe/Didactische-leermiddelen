@@ -50,6 +50,18 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
     private TableColumn<Reservatie, String> clmAantal;
     @FXML
     private TableColumn<Reservatie, String> clmEindDatum;
+    @FXML
+    private Button btnZoeken1;
+    @FXML
+    private TableColumn<Reservatie, String> clmOpTeHalen;
+    @FXML
+    private TableColumn<Reservatie, String> clmTeruggebracht;
+    @FXML
+    private TableColumn<Reservatie, String> clmStatus;
+    @FXML
+    private Button btnWijzigen;
+    @FXML
+    private Button btnToevoegen;
 
     public OverzichtReservatiesController(ReservatieController rc, ProductController pc) {
         this.rc = rc;
@@ -77,6 +89,12 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
         clmEindDatum.setCellValueFactory(
                 cellData -> cellData.getValue().eindDatumProperty());
 
+        clmOpTeHalen.setCellValueFactory(
+                cellData -> cellData.getValue().opTeHalenProperty());
+        clmTeruggebracht.setCellValueFactory(
+                cellData -> cellData.getValue().teruggebrachtProperty());
+        clmStatus.setCellValueFactory (
+                cellData -> cellData.getValue().berekenStatus());
         tblReservaties.getSelectionModel().selectedItemProperty().addListener((ObservableValue, oldValue, newValue) -> {
             if (newValue != null) {
                 rc.setGeselecteerdeReservatie(newValue);
@@ -111,6 +129,18 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
         
         
         
+    }
+
+    @FXML
+    private void geefAllesWeer(ActionEvent event) {
+    }
+
+    @FXML
+    private void wijzigReservatie(ActionEvent event) {
+    }
+
+    @FXML
+    private void voegReservatieToe(ActionEvent event) {
     }
     
     

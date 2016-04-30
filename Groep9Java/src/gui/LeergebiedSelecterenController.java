@@ -73,7 +73,7 @@ class LeergebiedSelecterenController extends GridPane {
         
 
         alleLeergebieden.setItems(listnieuw);
-        toegevoegdeLeergebieden.setItems(dc.geefStringsToegevoegdeLeergebieden());
+        toegevoegdeLeergebieden.setItems(dc.getVoorlopigeLeergebieden());
         toegevoegdeLeergebieden.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
     }
@@ -81,7 +81,7 @@ class LeergebiedSelecterenController extends GridPane {
     @FXML
     private void sendRight(ActionEvent event) {
         String naam = alleLeergebieden.getSelectionModel().getSelectedItem();
-        dc.voegLeergebiedToeBijHuidigProduct(naam);
+        dc.voegVoorlopigLeergebiedToe(naam);
         if (naam != null) {
 
             alleLeergebieden.getSelectionModel().clearSelection();
@@ -97,7 +97,7 @@ class LeergebiedSelecterenController extends GridPane {
     private void sendLeft(ActionEvent event) {
 
         String naam = toegevoegdeLeergebieden.getSelectionModel().getSelectedItem();
-        dc.verwijderLeergebiedHuidigProduct(naam);
+        dc.verwijderVoorlopigLeergebied(naam);
 
         if (naam != null) {
             toegevoegdeLeergebieden.getSelectionModel().clearSelection();
@@ -128,9 +128,9 @@ class LeergebiedSelecterenController extends GridPane {
     private void klaarMetToevoegen(ActionEvent event) {
         Stage stage = (Stage) btnKlaar.getScene().getWindow();
         // do what you have to do
-
-        alleLeergebieden.getItems().clear();
-        toegevoegdeLeergebieden.getItems().clear();
+//
+//        alleLeergebieden.getItems().clear();
+//        toegevoegdeLeergebieden.getItems().clear();
         stage.close();
     }
 
