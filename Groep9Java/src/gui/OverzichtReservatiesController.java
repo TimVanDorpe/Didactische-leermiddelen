@@ -113,11 +113,11 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
         tblReservaties.setItems(reservatieLijst);
         if (tblReservaties.getSelectionModel().isEmpty()) {
             rc.setSelectionModelEmpty(true);
-            //btnVerwijder.setDisable(true);
+            //btnVerwijder.setDisable(true);a   
         } else {
             rc.setSelectionModelEmpty(false);
         }
-         ObservableList<String> statusLijst = FXCollections.observableArrayList(reservatieLijst.stream().filter(r->r.isNogWeergeven()).map(Reservatie-> Reservatie.getStatus()).distinct().collect(Collectors.toList()));
+         ObservableList<String> statusLijst = FXCollections.observableArrayList(reservatieLijst.stream().map(Reservatie-> Reservatie.getStatus()).collect(Collectors.toList()));
         cmbStatus.setItems(statusLijst);
     }
 
