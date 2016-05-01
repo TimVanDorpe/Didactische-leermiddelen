@@ -39,6 +39,7 @@ public class Reservatie implements Serializable {
 
     private boolean nogWeergeven = true;
     private String status;
+
   
     public Reservatie() {
     }
@@ -204,12 +205,20 @@ public class Reservatie implements Serializable {
         } 
         
         
+        setStatus(status);
+    }
+      public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
         this.status = status;
     }
+  
     public SimpleStringProperty getStatusProperty() {
 
         SimpleStringProperty status = new SimpleStringProperty();
-        status.set(this.status);
+        status.set(getStatus());
         return status;
         
     }

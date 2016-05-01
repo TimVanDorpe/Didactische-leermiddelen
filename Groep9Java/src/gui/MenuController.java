@@ -66,8 +66,10 @@ public class MenuController extends VBox {
         paneProducten.getChildren().add(catalogus);
         
          ReservatiesFrameController reservaties = new ReservatiesFrameController(rc, pc);
+         BeheerdersFrameController beheerders = new BeheerdersFrameController(beheerderController);
         
         paneReservaties.getChildren().add(reservaties);
+        paneBeheerders.getChildren().add(beheerders);
         lblHuidigeGebruiker.setText(beheerderController.getAangemeldeBeheerder().getEmail());
     }
 

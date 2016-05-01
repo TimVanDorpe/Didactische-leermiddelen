@@ -5,9 +5,7 @@
  */
 package gui;
 
-import domein.Doelgroep;
 import domein.Firma;
-import domein.Leergebied;
 import domein.Product;
 import domein.ProductController;
 import util.Helper;
@@ -16,23 +14,17 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Optional;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.util.stream.Collectors;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -48,6 +40,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javax.imageio.ImageIO;
 
 public class ProductDetailController extends Pane implements Observer/*, Initializable*/ {
@@ -283,8 +276,8 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             txtNaam.setText(product.getNaam());
             txtOmschrijving.setText(product.getOmschrijving());
             txtPlaats.setText(product.getPlaats());
-            listLeergebieden.setItems(dc.geefStringsToegevoegdeLeergebieden());
-            listDoelgroepen.setItems(dc.geefStringsToegevoegdeLeergebieden());
+            listLeergebieden.setItems(dc.getVoorlopigeLeergebieden());
+            listDoelgroepen.setItems(dc.getVoorlopigeDoelgroepen());
             //alles terug enablen als er iets geselcteerd wordt
             btnVerwijderen.setDisable(false);
             btnAnnuleer.setDisable(false);
@@ -322,13 +315,13 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
         txtArtikelnummer.setText("");
         txtEmailFirma.setText("");
         txtFirma.setText("");
-        //txtLeergebieden.setText("");
+
         txtNaam.setText("");
         txtOmschrijving.setText("");
         txtPlaats.setText("");
         txtPrijs.setText("");
         imgViewFoto.setImage(null);
-        dc.setGeselecteerdProduct(null);
+        //dc.setGeselecteerdProduct(null);
         listLeergebieden.setItems(null);
         listDoelgroepen.setItems(null);
         btnWijzigen.setDisable(true);
@@ -539,16 +532,34 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
 
     @FXML
     private void selecteerLeergebieden(ActionEvent event) {
-
-        Stage stage = new Stage();
+  Stage stage = new Stage();
         stage.setTitle("Leergebied Selecteren");
 
         Scene scene = new Scene(new LeergebiedSelecterenController(dc));
         stage.setScene(scene);
 
-        //this.setDisable(true);
-        stage.show();
+        this.setDisable(true);
+        
+         Stage overZichtStage = (Stage) btnSelecteerLeergebied.getScene().getWindow();
+        EventHandler handler = event1 -> event1.consume();
+        overZichtStage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, handler);
 
+        //het subvenster mag niet gesloten  worden
+        //----------------------------------------        
+        stage.setOnCloseRequest(handler);
+
+        //luisteraar indien het subscherm gesloten wordt. 
+        //---------------------------------------------
+        stage.addEventHandler(WindowEvent.WINDOW_HIDING,
+                event1 -> {
+                    ProductDetailController.this.setDisable(false);
+                    listLeergebieden.setItems(dc.getVoorlopigeLeergebieden());
+                    overZichtStage.removeEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, handler);
+                });
+
+      
+
+        stage.show();
     }
 
     @FXML
@@ -600,7 +611,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
         btnWijzigen.setVisible(false);
         btnVerwijderen.setVisible(false);
         Product newProduct = new Product();
-        txtNaam.setPromptText("Naam van het nieuw product");
+        txtNaam.setPromptText("Naam van het nieuwe materiaal");
         lblTitelDetail.setText("Materiaal toevoegen");
 
     }
@@ -613,14 +624,14 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
 
             Firma firma = new Firma(txtFirma.getText(), txtEmailFirma.getText());
 
-            Leergebied leergebied = new Leergebied("test");
-            Leergebied leergebied2 = new Leergebied("test");
-            List<Leergebied> leergebieden = new ArrayList<>();
-            leergebieden.add(leergebied);
-            leergebieden.add(leergebied2);
+//            Leergebied leergebied = new Leergebied("test");
+//            Leergebied leergebied2 = new Leergebied("test");
+//            List<Leergebied> leergebieden = new ArrayList<>();
+//            leergebieden.add(leergebied);
+//            leergebieden.add(leergebied2);
 
-            dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getDoelgroepen(), dc.getToegevoegdeLeergebieden());
-            inputChanged = false;
+            dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma);
+            //inputChanged = false;
 
             lblError.setText(""); // errortekst clearen
             btnVoegProductToe.setVisible(false);

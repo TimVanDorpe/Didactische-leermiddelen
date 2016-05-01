@@ -1,10 +1,10 @@
 package domein;
 
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
@@ -14,6 +14,12 @@ public class ProductController extends Observable {
     private Product huidigProduct;
     private ProductBeheer pb;
     private boolean selectionModelEmpty;
+    private  ObservableList<String> voorlopigeLeergebieden = FXCollections.observableArrayList();
+    private  ObservableList<String> voorlopigeDoelgroepen = FXCollections.observableArrayList();
+
+    public ObservableList<String> getVoorlopigeDoelgroepen() {
+        return voorlopigeDoelgroepen;
+    }
 
     public ProductController() {
 
@@ -29,9 +35,18 @@ public class ProductController extends Observable {
         return pb;
     }
 
-    public void voegProductToe(URL foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma, List<Doelgroep> doelgroep, List<Leergebied> leergebied) {
+    public void voegProductToe(URL foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma) {
         //isNaamUniek(naam);
-        Product nieuwProduct = new Product(leergebied, doelgroep, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats);
+        List<Leergebied> leergebieden = new ArrayList<>();
+        for(String l : getVoorlopigeLeergebieden()){
+            leergebieden.add(pb.haalLeergebiedUitLijst(naam));
+        }
+        
+        List<Doelgroep> doelgroepen = new ArrayList<>();
+        for(String l : getVoorlopigeDoelgroepen()){
+            doelgroepen.add(pb.haalDoelgroepUitLijst(naam));
+        }
+        Product nieuwProduct = new Product(leergebieden, doelgroepen, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats);
         pb.voegProductToe(nieuwProduct);
     }
 
@@ -47,14 +62,21 @@ public class ProductController extends Observable {
         if (!naam.toLowerCase().equals(huidigProduct.getNaam().toLowerCase())) {
             //isNaamUniek(naam);
         }
-        pb.wijzigProduct(new Product(huidigProduct.getLeergebieden(), huidigProduct.getDoelgroepen(), firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats), huidigProduct);
-  
+        List<Leergebied> leergebieden = new ArrayList<>();
+        for(String l : getVoorlopigeLeergebieden()){
+            leergebieden.add(pb.haalLeergebiedUitLijst(naam));
+        }
+        
+        List<Doelgroep> doelgroepen = new ArrayList<>();
+        for(String l : getVoorlopigeDoelgroepen()){
+            doelgroepen.add(pb.haalDoelgroepUitLijst(naam));
+        }
+        pb.wijzigProduct(new Product(leergebieden, doelgroepen, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats), huidigProduct);
+
         setChanged();
         notifyObservers("maakAllesLeegNaWijziging");
-        
+
         //geefAlleProductenWeer();
-        
-        
     }
 
     public void verwijderProduct() {
@@ -63,10 +85,13 @@ public class ProductController extends Observable {
 
     public SortedList<Product> getProductSortedList() {
         //Wrap the FilteredList in a SortedList
+        
         return pb.getSortedList(); //SortedList is unmodifiable
     }
 
     public void setGeselecteerdProduct(Product product) {
+        this.voorlopigeDoelgroepen =  FXCollections.observableArrayList(product.getDoelgroepen().stream().map(Doelgroep::getNaam).collect(Collectors.toList()));
+        this.voorlopigeLeergebieden = FXCollections.observableArrayList(product.getLeergebieden().stream().map(Leergebied::getNaam).collect(Collectors.toList()));
         this.huidigProduct = product;
         setChanged();
         notifyObservers(product);
@@ -82,12 +107,7 @@ public class ProductController extends Observable {
         notifyObservers();
     }
 
-    public void geefAlleProductenWeer() {
-        pb.geefAlleProducten();
-        //setChanged();
-        //notifyObservers();
-
-    }
+    
 
     public void setSelectionModelEmpty(boolean b) {
         selectionModelEmpty = b;
@@ -114,45 +134,47 @@ public class ProductController extends Observable {
 //
     public List<Leergebied> getLeergebieden() {
         List<Leergebied> productLijst = pb.getLeergebieden();
-        for (Leergebied l : huidigProduct.getLeergebieden()) {
-            productLijst.remove(l);
+        if (huidigProduct != null) {
+            for (String l : getVoorlopigeLeergebieden()) {
+                productLijst.remove(pb.haalLeergebiedUitLijst(l));
+            }
         }
         return productLijst;
     }
 //
 
     public List<Leergebied> getToegevoegdeLeergebieden() {
-        return huidigProduct.getLeergebieden();
+        if (huidigProduct != null) {
+            return huidigProduct.getLeergebieden();
+        }
+        return null;
     }
 //
 
-    public void voegLeergebiedToeBijHuidigProduct(String naam) {
-        Leergebied nieuwLeergebied = pb.haalLeergebiedUitLijst(naam);
-        List<Leergebied> nieuweLijstLeergebieden = huidigProduct.getLeergebieden();
-        nieuweLijstLeergebieden.add(nieuwLeergebied);
-        huidigProduct.setLeergebieden(nieuweLijstLeergebieden);
+    
+    public void voegVoorlopigLeergebiedToe(String naam) {
+//        Leergebied nieuwLeergebied = pb.haalLeergebiedUitLijst(naam);
+//        List<Leergebied> nieuweLijstLeergebieden = huidigProduct.getLeergebieden();
+//        nieuweLijstLeergebieden.add(nieuwLeergebied);
+        voorlopigeLeergebieden.add(naam);
+        //huidigProduct.setLeergebieden(nieuweLijstLeergebieden);
 
     }
 
-    public void verwijderLeergebiedHuidigProduct(String naam) {
-        Leergebied verwijderLeergebied = pb.haalLeergebiedUitLijst(naam);
-        List<Leergebied> nieuweLijstLeergebieden = huidigProduct.getLeergebieden();
-        nieuweLijstLeergebieden.remove(verwijderLeergebied);
-        huidigProduct.setLeergebieden(nieuweLijstLeergebieden);
+    public void verwijderVoorlopigLeergebied(String naam) {
+        voorlopigeLeergebieden.remove(naam);
+//        Leergebied verwijderLeergebied = pb.haalLeergebiedUitLijst(naam);
+//        List<Leergebied> nieuweLijstLeergebieden = huidigProduct.getLeergebieden();
+//        nieuweLijstLeergebieden.remove(verwijderLeergebied);
+//        huidigProduct.setLeergebieden(nieuweLijstLeergebieden);
 
+    }
+
+    public ObservableList<String> getVoorlopigeLeergebieden() {
+        return voorlopigeLeergebieden;
     }
     
-    public ObservableList<String> geefStringsToegevoegdeLeergebieden(){
-        ObservableList<String> listtoegevoegd =  FXCollections.observableArrayList();
-          getToegevoegdeLeergebieden().stream().map((l) -> l.getNaam()).forEach((naam) -> {
-              listtoegevoegd.add(naam);
-        });
-          return listtoegevoegd;
-    }
-//    public List<Leergebied> getListToegevoegdeLeergebieden() {
-//        return pb.getListToegevoegdeLeergebieden();
-//    }
-//
+
 
     public void nieuwLeergebiedToevoegen(String naam) {
         Leergebied leergebied = new Leergebied(naam);
@@ -161,109 +183,30 @@ public class ProductController extends Observable {
         huidigProduct.setLeergebieden(nieuweLijstLeergebieden);
         pb.voegLeergebiedToe(leergebied);
     }
-//
-//    public void verwijderLeergebied(Leergebied selectedItem) {
-//        pb.verwijderLeergebied(selectedItem);
-//    }
 
-//    //String methoden
-//    public ObservableList<String> getStringLeergebieden() {
-//        return pb.getStringLeergebieden();
-//    }
-//
-//    public ObservableList<String> getStringLeergebiedenToegevoegd() {
-//        return pb.getStringLeergebiedenToegevoegd();
-//    }
-//
-//    public void voegLeergebiedToeString(String naam) {
-//        pb.voegLeergebiedToeString(naam);
-//    }
-//
-//    public void verwijderLeergebiedString(String naam) {
-//        pb.verwijderLeergebiedString(naam);
-//    }
-//
-//    public Leergebied getLeergebiedFromString(String naam) {
-//        return pb.getLeergebiedFromString(naam);
-//    }
-//
-//    public Leergebied getLeergebiedToegevoegdFromString(String naam) {
-//        return pb.getLeergebiedToegevoegdFromString(naam);
-//    }
-//
-//    public void voegNieuwToeAanLeergebieden(Leergebied leergebied) {
-//        pb.voegNieuwToeAanLeergebieden(leergebied);
-//    }
-//
-//    //EINDE LEERGEBIED
-//    //DOELGROEPEN
-//    public ObservableList<Doelgroep> getDoelgroepen() {
-//        return pb.getDoelgroepen();
-//    }
-//
-//    public ObservableList<Doelgroep> getToegevoegdeDoelgroepen() {
-//        return pb.getToegevoegdeDoelgroepen();
-//    }
-//
-//    public List<Doelgroep> getListToegevoegdeDoelgroepen() {
-//        return pb.getListToegevoegdeDoelgroepen();
-//    }
-//
-//    public void voegDoelgroepToe(Doelgroep doelgroep) {
-//        pb.voegDoelgroepToe(doelgroep);
-//    }
-//
-//    public void verwijderDoelgroep(Doelgroep doelgroep) {
-//        pb.verwijderDoelgroep(doelgroep);
-//    }
-//
-//    //String methoden 
-//    public ObservableList<String> getStringDoelgroepen() {
-//        return pb.getStringDoelgroepen();
-//    }
-//
-//    public ObservableList<String> getStringToegevoegdeDoelgroepen() {
-//        return pb.getStringToegevoegdeDoelgroepen();
-//    }
-//
-//      public void voegDoelgroepToeString(String naam) {
-//        pb.voegDoelgroepToeString(naam);
-//    }
-//      
-//    public void verwijderDoelgroepString(String selectedItem) {
-//        pb.verwijderDoelgroepString(selectedItem);
-//    }
-//
-//  
-//
-//    public Doelgroep getDoelgroepFromString(String naam) {
-//        return pb.getDoelgroepFromString(naam);
-//    }
-//
-//    public Doelgroep getDoelgroepToegevoegdFromString(String selectedItem) {
-//        return pb.getDoelgroepToegevoegdFromString(selectedItem);
-//    }
-//
-//    //EINDE DOELGROEPEN
     public List<Doelgroep> getDoelgroepen() {
         List<Doelgroep> productLijst = pb.getDoelgroepen();
-        for (Doelgroep d : huidigProduct.getDoelgroepen()) {
-            productLijst.remove(d);
+        if (huidigProduct != null) {
+            for (Doelgroep d : huidigProduct.getDoelgroepen()) {
+                productLijst.remove(d);
+            }
         }
         return productLijst;
     }
 //
 
     public List<Doelgroep> getToegevoegdeDoelgroepen() {
-        return huidigProduct.getDoelgroepen();
+        if (huidigProduct != null) {
+            return huidigProduct.getDoelgroepen();
+        }
+        return null;
     }
 //
 
- //    public List<Leergebied> getListToegevoegdeLeergebieden() {
+    //    public List<Leergebied> getListToegevoegdeLeergebieden() {
 //        return pb.getListToegevoegdeLeergebieden();
 //    }
 //
-
     public void voegDoelgroepenToeBijHuidigProduct(String naam) {
         Leergebied nieuwLeergebied = pb.haalLeergebiedUitLijst(naam);
         List<Leergebied> nieuweLijstLeergebieden = huidigProduct.getLeergebieden();
@@ -276,5 +219,9 @@ public class ProductController extends Observable {
         List<Leergebied> nieuweLijstLeergebieden = huidigProduct.getLeergebieden();
         nieuweLijstLeergebieden.remove(verwijderLeergebied);
         huidigProduct.setLeergebieden(nieuweLijstLeergebieden);
+    }
+
+    public Product getProductByNaam(String text) {
+       return pb.getProductByNaam(text);
     }
 }

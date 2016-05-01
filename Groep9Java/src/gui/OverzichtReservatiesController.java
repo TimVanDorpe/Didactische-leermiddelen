@@ -117,7 +117,7 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
         } else {
             rc.setSelectionModelEmpty(false);
         }
-         ObservableList<String> statusLijst = FXCollections.observableArrayList(reservatieLijst.stream().filter(r->r.isNogWeergeven()).map(Reservatie-> Reservatie.berekenStatus()).distinct().collect(Collectors.toList()));
+         ObservableList<String> statusLijst = FXCollections.observableArrayList(reservatieLijst.stream().filter(r->r.isNogWeergeven()).map(Reservatie-> Reservatie.getStatus()).distinct().collect(Collectors.toList()));
         cmbStatus.setItems(statusLijst);
     }
 

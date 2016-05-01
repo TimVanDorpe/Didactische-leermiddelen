@@ -36,7 +36,9 @@ public class ProductBeheer {
     // alle comparators in de juiste volgorde, de volgorde waarop wordt gesorteerd.
     private final Comparator<Product> sortOrder = byNaam;
 
-    private GenericDaoJpa gdj;
+    private GenericDaoJpa gdjProduct;
+    private GenericDaoJpa gdjLeergebied;
+    private GenericDaoJpa gdjDoelgroep;
 
     private List<Leergebied> leergebiedenLijst = new ArrayList<Leergebied>();
 
@@ -59,7 +61,9 @@ public class ProductBeheer {
 //    }
     public ProductBeheer() {
 
-        gdj = new GenericDaoJpa(Product.class);
+        gdjProduct = new GenericDaoJpa(Product.class);
+        gdjLeergebied = new GenericDaoJpa(Leergebied.class);
+        gdjDoelgroep = new GenericDaoJpa(Doelgroep.class);
 
         ProductData data = new ProductData(this);
         try {
@@ -75,25 +79,28 @@ public class ProductBeheer {
 //
 //        doelgroepen = FXCollections.observableArrayList(Arrays.asList(doelgroepenArray));
 //        
-        leergebiedenLijst.add(new Leergebied("Mens"));
-        leergebiedenLijst.add(new Leergebied("Maatschappij"));
-        leergebiedenLijst.add(new Leergebied("Geschiedenis"));
-
-        doelgroepenLijst.add(new Doelgroep("Kleuters"));
-        doelgroepenLijst.add(new Doelgroep("Lagere school"));
-        doelgroepenLijst.add(new Doelgroep("Hoger onderwijs"));
+//        leergebiedenLijst.add(new Leergebied("Mens"));
+//        leergebiedenLijst.add(new Leergebied("Maatschappij"));
+//        leergebiedenLijst.add(new Leergebied("Geschiedenis"));
+//
+//        leergebiedenLijst = gdjProduct.findAll();
+//        doelgroepenLijst = gdjProduct.findAll();
+//        
+//        doelgroepenLijst.add(new Doelgroep("Kleuters"));
+//        doelgroepenLijst.add(new Doelgroep("Lagere school"));
+//        doelgroepenLijst.add(new Doelgroep("Hoger onderwijs"));
     }
 
     public ObservableList<Product> getProductenLijst() {
         return productenLijst;
     }
 
-    public void setGdj(GenericDaoJpa gdj) {
-        this.gdj = gdj;
+    public void setGdjProduct(GenericDaoJpa gdjProduct) {
+        this.gdjProduct = gdjProduct;
     }
 
     public SortedList<Product> getSortedList() {
-
+        sortedList = productenLijst.sorted(sortOrder);
         //Wrap the FilteredList in a SortedList
         return sortedList; //SortedList is unmodifiable
     }
@@ -103,10 +110,10 @@ public class ProductBeheer {
     }
 
     public void voegProductToe(Product product) {
-        gdj.startTransaction();
+        gdjProduct.startTransaction();
         productenLijst.add(product);
-        gdj.insert(product);
-        gdj.commitTransaction();
+        gdjProduct.insert(product);
+        gdjProduct.commitTransaction();
 
     }
 
@@ -115,9 +122,11 @@ public class ProductBeheer {
     }
 
     public void wijzigProduct(Product p, Product huidigProduct) {
-        gdj.startTransaction();
+        gdjProduct.startTransaction();
         productenLijst.remove(huidigProduct);
         productenLijst.add(p);
+//        gdjProduct.delete(huidigProduct);
+//        gdjProduct.insert(p);
         //Collections.replaceAll(productenLijst, huidigProduct, p);
         //id mag niet vervangen worden.
         huidigProduct.setAantal(p.getAantal());
@@ -129,16 +138,19 @@ public class ProductBeheer {
         huidigProduct.setPlaats(p.getPlaats());
         huidigProduct.setPrijs(p.getPrijs());
         huidigProduct.setNaam(p.getNaam());
-        gdj.update(huidigProduct);
-        gdj.commitTransaction();
-        geefAlleProducten();
+        huidigProduct.setFoto(p.getFoto());
+        huidigProduct.setLeergebieden(p.getLeergebieden());
+        huidigProduct.setDoelgroepen(p.getDoelgroepen());
+        gdjProduct.update(huidigProduct);
+        gdjProduct.commitTransaction();
+       
     }
 
     public void verwijderProduct(Product p) {
-        gdj.startTransaction();
+        gdjProduct.startTransaction();
         productenLijst.remove(p);
-        gdj.delete(p);
-        gdj.commitTransaction();
+        gdjProduct.delete(p);
+        gdjProduct.commitTransaction();
     }
 
     public ObservableList<Product> zoekOpTrefwoord(String trefwoord) {
@@ -190,20 +202,15 @@ public class ProductBeheer {
 
     }
 
-    public void geefAlleProducten() {
-
-        productenLijst = FXCollections.observableArrayList(gdj.findAll());
-
-        sortedList = productenLijst.sorted(sortOrder);
-    }
+    
 
     //LEERGEBIEDEN--------------------------------------------
     public List<Leergebied> getLeergebieden() {//returnt linkse list
-        return leergebiedenLijst;
+        return  gdjLeergebied.findAll();
     }
 
     public Leergebied haalLeergebiedUitLijst(String naam) {
-        for (Leergebied l : leergebiedenLijst) {
+        for (Leergebied l : getLeergebieden()) {
             if (l.getNaam().equalsIgnoreCase(naam)) {
                 return l;
             }
@@ -217,11 +224,11 @@ public class ProductBeheer {
 
     //LEERGEBIEDEN--------------------------------------------
     public List<Doelgroep> getDoelgroepen() {//returnt linkse list
-        return doelgroepenLijst;
+        return gdjDoelgroep.findAll();
     }
 
     public Doelgroep haalDoelgroepUitLijst(String naam) {
-        for (Doelgroep d : doelgroepenLijst) {
+        for (Doelgroep d : getDoelgroepen()) {
             if (d.getNaam().equalsIgnoreCase(naam)) {
                 return d;
             }
@@ -392,4 +399,14 @@ public class ProductBeheer {
 //    }
 //
 //    //EINDEDOELGROEPEN--------------------------------------------------------
+
+    Product getProductByNaam(String text) {
+        for (Product p : productenLijst)
+        {
+        if(p.getNaam().equalsIgnoreCase(text))
+        {return p;}
+        }
+       return null;
+     
+    }
 }

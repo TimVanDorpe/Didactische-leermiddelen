@@ -10,15 +10,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="751.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="1000.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <TableView fx:id="tblReservaties" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#enableSelectionModel" BorderPane.alignment="CENTER">
+      <TableView fx:id="tblReservaties" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="550.0" prefWidth="751.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="clmProduct" prefWidth="200.0" text="Materiaal" />
-          <TableColumn fx:id="clmStudent" prefWidth="310.0" text="Student" />
-            <TableColumn fx:id="clmAantal" minWidth="0.0" prefWidth="110.0" text="Aantal" />
             <TableColumn fx:id="clmStartDatum" minWidth="0.0" prefWidth="129.0" text="Startdatum" />
             <TableColumn fx:id="clmEindDatum" minWidth="0.0" prefWidth="129.0" text="Einddatum" />
+          <TableColumn fx:id="clmProduct" prefWidth="200.0" text="Materiaal" />
+          <TableColumn fx:id="clmStudent" prefWidth="310.0" text="Gebruiker" />
+            <TableColumn fx:id="clmOpTeHalen" prefWidth="75.0" text="Op te halen" />
+            <TableColumn fx:id="clmTeruggebracht" prefWidth="75.0" text="Teruggebracht" />
+            <TableColumn fx:id="clmAantal" minWidth="0.0" prefWidth="110.0" text="Totaal aantal" />
+            <TableColumn fx:id="clmStatus" prefWidth="75.0" text="Status" />
         </columns>
          <BorderPane.margin>
             <Insets />
@@ -32,41 +35,45 @@
       </TableView>
    </center>
    <top>
-      <GridPane prefHeight="109.0" prefWidth="751.0" BorderPane.alignment="CENTER">
+      <GridPane prefHeight="121.0" prefWidth="982.0" BorderPane.alignment="CENTER">
+          
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="291.0" minWidth="10.0" prefWidth="291.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="495.0" minWidth="10.0" prefWidth="277.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="445.0" minWidth="0.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="445.0" minWidth="10.0" prefWidth="162.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="445.0" minWidth="10.0" prefWidth="234.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="83.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="40.0" prefWidth="266.0" text="Overzicht Reservaties" GridPane.columnSpan="2" GridPane.rowIndex="1">
+            <Label prefHeight="40.0" prefWidth="266.0" text="Overzicht Reservaties" GridPane.columnSpan="2">
                <font>
-                  <Font size="28.0" />
+                  <Font size="23.0" />
                </font>
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="txtZoeken" prefHeight="31.0" prefWidth="65.0" GridPane.rowIndex="5">
+            <TextField fx:id="txtZoeken" prefHeight="25.0" prefWidth="147.0" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets left="10.0" right="10.0" />
+                  <Insets left="100.0" right="10.0" />
                </GridPane.margin>
             </TextField>
-            <Button fx:id="btnZoeken" mnemonicParsing="false" onAction="#ZoekenOpNaam" prefHeight="31.0" prefWidth="117.0" text="Zoeken" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <Button fx:id="btnZoeken" mnemonicParsing="false" onAction="#ZoekenOpNaam" prefHeight="25.0" prefWidth="100.0" text="Zoeken" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" right="10.0" />
                </GridPane.margin>
             </Button>
+            <Button fx:id="btnAllesWeergeven" mnemonicParsing="false" onAction="#geefAllesWeer" prefHeight="25.0" prefWidth="132.0" text="Alles weergeven" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" right="10.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="btnWijzigen" mnemonicParsing="false" onAction="#wijzigReservatie" text="Reservatie wijzigen" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Button fx:id="btnToevoegen" mnemonicParsing="false" onAction="#voegReservatieToe" text="Reservatie toevoegen" GridPane.columnIndex="4" GridPane.rowIndex="1" />
          </children>
          <padding>
             <Insets bottom="10.0" />

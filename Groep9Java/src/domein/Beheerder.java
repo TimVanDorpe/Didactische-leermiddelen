@@ -3,15 +3,18 @@ package domein;
 import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.beans.property.SimpleStringProperty;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity(name = "Beheerder")
-public class Beheerder implements Serializable{
+public class Beheerder implements Serializable {
+
     private String email, wachtwoord, naam;
     private String telefoonnummer;
+    private boolean hoofdAdmin;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -21,18 +24,23 @@ public class Beheerder implements Serializable{
         this.wachtwoord = wachtwoord;
     }
 
-    public Beheerder(String email, String wachtwoord, String naam, String telefoonnummer) {
+    public Beheerder(String email, String wachtwoord, String naam, Boolean hoofdAdmin , String telefoonnummer) {
         setEmail(email);
         setNaam(naam);
         setTelefoonnummer(telefoonnummer);
         setWachtwoord(wachtwoord);
+        setHoofdAdmin(hoofdAdmin);
     }
 
     public Beheerder() {
     }
-    
-    
-    
+
+    public Beheerder(String naam, String email, String wachtwoord , Boolean hoofdAdmin) {
+        setEmail(email);
+        setNaam(naam);
+        setWachtwoord(wachtwoord);
+        setHoofdAdmin(hoofdAdmin);
+    }
 
 //    String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 //    Pattern pattern = Pattern.compile(regex);
@@ -40,13 +48,23 @@ public class Beheerder implements Serializable{
 //         Matcher matcher = pattern.matcher(email);
 //    if( matcher.matches()){
         this.email = email;
-   // }
+        // }
     }
 
     public void setWachtwoord(String wachtwoord) {
         this.wachtwoord = wachtwoord;
     }
 
+    public boolean isHoofdAdmin() {
+        return hoofdAdmin;
+    }
+
+    public void setHoofdAdmin(boolean hoofdAdmin) {
+        this.hoofdAdmin = hoofdAdmin;
+    }
+    
+    
+    
     public void setNaam(String naam) {
         this.naam = naam;
     }
@@ -78,8 +96,17 @@ public class Beheerder implements Serializable{
     public void setId(int id) {
         this.id = id;
     }
-    
-    
-    
-    
+
+    public SimpleStringProperty naamProperty() {
+        SimpleStringProperty beheerderSimple = new SimpleStringProperty();
+        beheerderSimple.set(getNaam());
+        return beheerderSimple;
+    }
+
+    public SimpleStringProperty emailProperty() {
+        SimpleStringProperty beheerderSimple = new SimpleStringProperty();
+        beheerderSimple.set(getEmail());
+        return beheerderSimple;
+    }
+
 }

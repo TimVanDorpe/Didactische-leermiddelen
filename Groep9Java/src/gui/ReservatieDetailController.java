@@ -11,6 +11,8 @@ import domein.Reservatie;
 import domein.ReservatieController;
 import util.Helper;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Optional;
@@ -20,6 +22,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -48,11 +51,8 @@ public class ReservatieDetailController extends Pane implements Observer {
     @FXML
     private TextField txtProduct;
     @FXML
-    private TextField txtEindDatum;
-    @FXML
     private TextField txtAantal;
-    @FXML
-    private TextField txtStartDatum;
+    
     @FXML
     private Label lblProduct;
     @FXML
@@ -65,9 +65,12 @@ public class ReservatieDetailController extends Pane implements Observer {
     private Button btnAnnuleer;
     @FXML
     private Button btnLeegmaken;
+    @FXML
+    private DatePicker dpStartdatum, dpEindDatum;
 
-    private String product, student, startDatum, eindDatum;
+    private String product, student;
     private int aantal;
+    private LocalDate startDate, eindDate;
 
     public ReservatieDetailController(ReservatieController rc, ProductController pc) {
         // TODO
@@ -87,8 +90,8 @@ public class ReservatieDetailController extends Pane implements Observer {
         if (rc.getSelectionModelEmpty()) {
             btnAnnuleer.setDisable(true);
             txtAantal.setDisable(true);
-            txtEindDatum.setDisable(true);
-            txtStartDatum.setDisable(true);
+          dpEindDatum.setDisable(true);
+            dpStartdatum.setDisable(true);
             txtProduct.setDisable(true);
             txtStudent.setDisable(true);
             btnWijzigen.setDisable(true);
@@ -123,14 +126,15 @@ public class ReservatieDetailController extends Pane implements Observer {
             }
 
             this.aantal = Integer.parseInt(txtAantal.getText());
+            this.student = txtStudent.getText();
 
             lblError.setText("");
 
-            //Product prod = pc.getProductenLijst().stream().filter(p -> p.getNaam().equalsIgnoreCase(product)).findAny().get();
+            Product prod = pc.getProductenLijst().stream().filter(p -> p.getNaam().equalsIgnoreCase(txtProduct.getText())).findAny().get();
             
             // dit uit comment na demo
-            //rc.wijzigReservatie(prod, aantal, student, startDatum, eindDatum);
-            
+            rc.wijzigReservatie(prod, aantal, student, startDate, eindDate, 3 , 8);
+
             //demo
             rc.wijzigAantal(Integer.parseInt(txtAantal.getText()));
 
@@ -169,21 +173,19 @@ public class ReservatieDetailController extends Pane implements Observer {
 
             txtStudent.setText(res.getGebruiker());
 
-            txtStartDatum.setText(Helper.format(res.getStartDatum()));
-
-            txtEindDatum.setText(Helper.format(res.getEindDatum()));
-
             
-            
+            dpStartdatum.setValue(res.getStartDatum());
+           
+            dpEindDatum.setValue(res.getEindDatum());
+
             //alles terug enablen als er iets geselcteerd wordt
-            
             btnAnnuleer.setDisable(false);
-            txtEindDatum.setDisable(false);
-            txtStartDatum.setDisable(false);
+            
             txtProduct.setDisable(false);
             txtStudent.setDisable(false);
             btnLeegmaken.setDisable(false);
-             
+            dpStartdatum.setDisable(false);
+            dpEindDatum.setDisable(false);
             txtAantal.setDisable(false);
             btnWijzigen.setDisable(false);
             btnVerwijderen.setDisable(false);
@@ -195,8 +197,8 @@ public class ReservatieDetailController extends Pane implements Observer {
     private void resetWaarden(ActionEvent event) {
 
         txtAantal.setText("");
-        txtEindDatum.setText("");
-        txtStartDatum.setText("");
+        dpEindDatum.setValue(LocalDate.now());
+        dpStartdatum.setValue(LocalDate.now());
         txtProduct.setText("");
         txtStudent.setText("");
 
@@ -209,6 +211,25 @@ public class ReservatieDetailController extends Pane implements Observer {
     private void annuleerWijziging(ActionEvent event) {
         rc.updateDetailvenster();
     }
+
+    @FXML
+    private void geefStartDatum(ActionEvent event) {
+        startDate = dpStartdatum.getValue();
+
+    }
+
+    @FXML
+    private void geefEindDatum(ActionEvent event) {
+        eindDate = dpEindDatum.getValue();
+    }
+    
+    @FXML
+    private void addReservatie(ActionEvent event)
+    {
+        Reservatie r = new Reservatie(startDate, eindDate, txtStudent.getText(), pc.getProductByNaam(txtProduct.getText()), aantal ,  8, 2);
+        rc.addReservatie(r);
+    }
+    
 
     @FXML
     private void verwijderReservatie(ActionEvent event) {
@@ -235,6 +256,10 @@ public class ReservatieDetailController extends Pane implements Observer {
         stage.close();
     }
 
+   
+ 
+
+    
     /*
     private void valideerVelden(boolean isWijziging) {
 
