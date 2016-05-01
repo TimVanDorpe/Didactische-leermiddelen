@@ -11,6 +11,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Observable;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.util.Callback;
@@ -38,7 +39,12 @@ public class ReservatieController extends Observable {
     }
 
     public ObservableList<Reservatie> getReservatieLijst() {
-        return rb.getReservatieLijst();
+        ObservableList<Reservatie> reservatieLijst = FXCollections.observableArrayList();
+        for (Reservatie r: rb.getReservatieLijst()){
+                    if (r.isNogWeergeven())
+                        reservatieLijst.add(r);
+            }
+        return reservatieLijst;
     }
 
     public void setReservatieLijst(ObservableList<Reservatie> reservatieLijst) {
@@ -104,6 +110,9 @@ public class ReservatieController extends Observable {
         return rb.zoekOpMateriaalNaam(productNaam);
     }
 
+    public ObservableList<String> getStudentenLijst() {
+       return rb.getStudentenLijst();
+    }
    
 
         
