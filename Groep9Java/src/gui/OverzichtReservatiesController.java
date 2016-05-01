@@ -104,6 +104,10 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
             }
         });
         
+        
+        
+        
+        
         ObservableList<Reservatie> reservatieLijst = FXCollections.observableArrayList();
         for (Reservatie r: rc.getReservatieLijst()){
                     if (r.isNogWeergeven())

@@ -92,6 +92,8 @@ public class ReservatieDetailController extends Pane implements Observer {
          btnToevoegen.setVisible(false);
          cbMateriaal.setVisible(false);
          cbStudent.setVisible(false);
+         cbMateriaal.setItems(pc.getStringNaamProducten());
+         cbStudent.setItems(rc.getStudentenLijst());
 
         if (rc.getSelectionModelEmpty()) {
             btnAnnuleer.setDisable(true);
@@ -101,7 +103,7 @@ public class ReservatieDetailController extends Pane implements Observer {
             txtProduct.setDisable(true);
             txtStudent.setDisable(true);
             btnWijzigen.setDisable(true);
-            btnLeegmaken.setDisable(true);
+           
             btnVerwijderen.setDisable(true);
            
 
@@ -200,6 +202,8 @@ public class ReservatieDetailController extends Pane implements Observer {
         dpStartdatum.setValue(LocalDate.now());
         txtProduct.setText("");
         txtStudent.setText("");
+        cbMateriaal.setItems(null);
+        cbStudent.setItems(null);
 
         rc.setGeselecteerdeReservatie(null);
         btnWijzigen.setDisable(true);
@@ -234,6 +238,12 @@ public class ReservatieDetailController extends Pane implements Observer {
          cbStudent.setVisible(true);
          txtProduct.setVisible(false);
          txtStudent.setVisible(false);
+         txtAantal.setDisable(false);
+         dpEindDatum.setDisable(false);
+         dpStartdatum.setDisable(false);
+         txtAantal.setText("");
+         dpEindDatum.setAccessibleText("");
+         dpStartdatum.setAccessibleText("");
         
         
     }
@@ -255,8 +265,10 @@ public class ReservatieDetailController extends Pane implements Observer {
     @FXML
     private void reservatieToevoegen(ActionEvent event)
     {
-   // Reservatie r = new Reservatie(startDate, eindDate, cbStudent.getSelectionModel().getSelectedItem().toString(), cbMateriaal.getSelectionModel().getSelectedItem(), aantal );
-     //rc.addReservatie(r);
+    Reservatie r = new Reservatie(startDate, eindDate, cbStudent.getSelectionModel().getSelectedItem().toString(), pc.getProductByNaam(cbMateriaal.getSelectionModel().getSelectedItem().toString()), aantal );
+     rc.addReservatie(r);
+     
+     
     
     }
     
