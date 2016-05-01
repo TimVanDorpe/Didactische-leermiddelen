@@ -104,6 +104,10 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
             }
         });
         
+        
+        
+        
+        
         ObservableList<Reservatie> reservatieLijst = FXCollections.observableArrayList();
         for (Reservatie r: rc.getReservatieLijst()){
                     if (r.isNogWeergeven())
@@ -118,7 +122,7 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
             rc.setSelectionModelEmpty(false);
         }
          ObservableList<String> statusLijst = FXCollections.observableArrayList(reservatieLijst.stream().filter(r->r.isNogWeergeven()).map(Reservatie-> Reservatie.getStatus()).distinct().collect(Collectors.toList()));
-        cmbStatus.setItems(statusLijst);
+        //cmbStatus.setItems(statusLijst);
     }
 
     @Override

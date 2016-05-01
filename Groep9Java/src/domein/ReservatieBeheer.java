@@ -6,10 +6,15 @@
 package domein;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
+import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import util.GenericDaoJpa;
@@ -110,6 +115,18 @@ public class ReservatieBeheer {
         Reservatie nieuweReservatie = huidigeReservatie;
         nieuweReservatie.setGereserveerdAantal(aantal);
         Collections.replaceAll(reservatieLijst, huidigeReservatie, nieuweReservatie);
+    }
+
+    ObservableList<String> getStudentenLijst() {
+         ObservableList<String> studenten = FXCollections.observableArrayList(); 
+       for(Reservatie r : reservatieLijst)
+       {
+           if(!(studenten.contains(r.getGebruiker())))
+           {
+           studenten.add(r.getGebruiker());
+           }
+       }
+       return studenten;
     }
     
 }

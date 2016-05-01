@@ -104,6 +104,10 @@ public class ReservatieController extends Observable {
         return rb.zoekOpMateriaalNaam(productNaam);
     }
 
+    public ObservableList<String> getStudentenLijst() {
+       return rb.getStudentenLijst();
+    }
+
    
 
         

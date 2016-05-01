@@ -224,4 +224,16 @@ public class ProductController extends Observable {
     public Product getProductByNaam(String text) {
        return pb.getProductByNaam(text);
     }
+     public ObservableList<String> getStringNaamProducten() {
+       return StringNaamProducten();
+    }
+      private ObservableList<String> StringNaamProducten() {
+         ObservableList<String> productNamen = FXCollections.observableArrayList(); 
+       for(Product p : getProductenLijst())
+       {
+          productNamen.add(p.getNaam());
+       }
+       return productNamen;
+    }
+    
 }
