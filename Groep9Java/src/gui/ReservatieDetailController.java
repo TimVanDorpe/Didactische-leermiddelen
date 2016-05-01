@@ -22,6 +22,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -52,7 +53,8 @@ public class ReservatieDetailController extends Pane implements Observer {
     private TextField txtProduct;
     @FXML
     private TextField txtAantal;
-    
+    @FXML
+    private ComboBox cbMateriaal , cbStudent;
     @FXML
     private Label lblProduct;
     @FXML
@@ -62,7 +64,7 @@ public class ReservatieDetailController extends Pane implements Observer {
     @FXML
     private ImageView imgViewFoto;
     @FXML
-    private Button btnAnnuleer;
+    private Button btnAnnuleer , btnToevoegen , btnAnnuleerToevoegen;
     @FXML
     private Button btnLeegmaken;
     @FXML
@@ -86,6 +88,10 @@ public class ReservatieDetailController extends Pane implements Observer {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
+         btnAnnuleerToevoegen.setVisible(false);
+         btnToevoegen.setVisible(false);
+         cbMateriaal.setVisible(false);
+         cbStudent.setVisible(false);
 
         if (rc.getSelectionModelEmpty()) {
             btnAnnuleer.setDisable(true);
@@ -97,6 +103,7 @@ public class ReservatieDetailController extends Pane implements Observer {
             btnWijzigen.setDisable(true);
             btnLeegmaken.setDisable(true);
             btnVerwijderen.setDisable(true);
+           
 
         }
     }
@@ -105,15 +112,7 @@ public class ReservatieDetailController extends Pane implements Observer {
     private void wijzigReservatie(ActionEvent event) {
 
         try {
-            //valideerVelden(true);
-
-            /* NA DEMO UIT COMMENTAAR
-             this.product = txtProduct.getText();
-              this.student = txtStudent.getText();
-            this.startDatum = txtStartDatum.getText();
-            this.eindDatum = txtEindDatum.getText();
-             */
-            //DEZE OOK TIJDELIJK VOOR DEMO
+          
             if (txtAantal.getText().equals("") || !Helper.isInteger(txtAantal.getText())) {
                 throw new IllegalArgumentException("Aantal moet een getal zijn");
             }
@@ -127,16 +126,16 @@ public class ReservatieDetailController extends Pane implements Observer {
 
             this.aantal = Integer.parseInt(txtAantal.getText());
             this.student = txtStudent.getText();
-
-            lblError.setText("");
-
-            Product prod = pc.getProductenLijst().stream().filter(p -> p.getNaam().equalsIgnoreCase(txtProduct.getText())).findAny().get();
-            
-            // dit uit comment na demo
+//
+//            lblError.setText("");
+//
+           Product prod = pc.getProductenLijst().stream().filter(p -> p.getNaam().equalsIgnoreCase(txtProduct.getText())).findAny().get();
+//            
+//            // dit uit comment na demo
             rc.wijzigReservatie(prod, aantal, student, startDate, eindDate, 3 , 8);
-
-            //demo
-            rc.wijzigAantal(Integer.parseInt(txtAantal.getText()));
+//
+//            //demo
+           rc.wijzigAantal(Integer.parseInt(txtAantal.getText()));
 
             //TIJDELIJK VOOR DEMO
             lblAantal.setText("Aantal");
@@ -181,8 +180,8 @@ public class ReservatieDetailController extends Pane implements Observer {
             //alles terug enablen als er iets geselcteerd wordt
             btnAnnuleer.setDisable(false);
             
-            txtProduct.setDisable(false);
-            txtStudent.setDisable(false);
+//            txtProduct.setDisable(false);
+//            txtStudent.setDisable(false);
             btnLeegmaken.setDisable(false);
             dpStartdatum.setDisable(false);
             dpEindDatum.setDisable(false);
@@ -226,9 +225,42 @@ public class ReservatieDetailController extends Pane implements Observer {
     @FXML
     private void addReservatie(ActionEvent event)
     {
-        Reservatie r = new Reservatie(startDate, eindDate, txtStudent.getText(), pc.getProductByNaam(txtProduct.getText()), aantal ,  8, 2);
-        rc.addReservatie(r);
+        btnAnnuleerToevoegen.setVisible(true);
+        btnToevoegen.setVisible(true);
+        btnAnnuleer.setVisible(false);
+        btnVerwijderen.setVisible(false);
+        btnWijzigen.setVisible(false);
+        cbMateriaal.setVisible(true);
+         cbStudent.setVisible(true);
+         txtProduct.setVisible(false);
+         txtStudent.setVisible(false);
+        
+        
     }
+    @FXML
+    private void AnnuleerToevoegen(ActionEvent event)
+    {
+        btnAnnuleerToevoegen.setVisible(false);
+        btnToevoegen.setVisible(false);
+        btnAnnuleer.setVisible(true);
+        btnVerwijderen.setVisible(true);
+        btnWijzigen.setVisible(true);
+         cbMateriaal.setVisible(false);
+         cbStudent.setVisible(false);
+          txtProduct.setVisible(true);
+         txtStudent.setVisible(true);
+    }
+    
+    
+    @FXML
+    private void reservatieToevoegen(ActionEvent event)
+    {
+   // Reservatie r = new Reservatie(startDate, eindDate, cbStudent.getSelectionModel().getSelectedItem().toString(), cbMateriaal.getSelectionModel().getSelectedItem(), aantal );
+     //rc.addReservatie(r);
+    
+    }
+    
+    
     
 
     @FXML
@@ -256,167 +288,4 @@ public class ReservatieDetailController extends Pane implements Observer {
         stage.close();
     }
 
-   
- 
-
-    
-    /*
-    private void valideerVelden(boolean isWijziging) {
-
-        maakLabelsTerugNormaal();
-
-        isInputValid(isWijziging);
-
-        //alster meer dan 2 fout zijn algemene message
-        if (!isInputValid(isWijziging) && aantalVerkeerd >= 2) {
-            throw new IllegalArgumentException("Een aantal velden zijn niet correct ingevuld");
-        }
-
-        //specifieke message
-        if (!isInputValid(isWijziging)) {
-            throw new IllegalArgumentException(error);
-        } else {
-
-            this.naam = txtNaam.getText();
-
-            this.omschrijving = txtOmschrijving.getText();
-
-            //dit moet ook nog anders
-            this.artikelnummer = 0;
-
-            if (!txtArtikelnummer.getText().equals("")) {
-
-                this.artikelnummer = Integer.parseInt(txtArtikelnummer.getText());
-            }
-            this.prijs = 0.0;
-            if (!txtPrijs.getText().equals("")) {
-                this.prijs = Double.parseDouble(txtPrijs.getText());
-            }
-
-            this.aantal = Integer.parseInt(txtAantal.getText());
-
-            this.plaats = txtPlaats.getText();
-
-            if (txtFirma.getText() == null) {
-                txtFirma.setText("");
-            }
-            if (txtEmailFirma.getText() == null) {
-                txtEmailFirma.setText("");
-            }
-
-            if (txtDoelgroepen.getText() == null) {
-                txtDoelgroepen.setText("");
-            }
-            Firma firma = new Firma(firmaNaam, firmaEmail);
-            //Dit moet zeker weg!!!!
-//            Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
-//            Leergebied leergebied = new Leergebied("test");
-//            Leergebied leergebied2 = new Leergebied("test");
-//            List<Leergebied> leergebieden = new ArrayList<>();
-//            leergebieden.add(leergebied);
-//            leergebieden.add(leergebied2);
-//
-
-        }
-    }
-
-    private void maakLabelsTerugNormaal() {
-
-        lblNaam.setText("Naam*");
-        lblNaam.setTextFill(Color.web("#000000"));
-        lblArtikelnummer.setText("Artikelnummer vd firma");
-        lblArtikelnummer.setTextFill(Color.web("#000000"));
-        lblPrijs.setText("Prijs");
-        lblPrijs.setTextFill(Color.web("#000000"));
-        lblAantal.setText("Aantal*");
-        lblAantal.setTextFill(Color.web("#000000"));
-    }
-
-    private boolean isInputValid(boolean isWijziging) {
-
-        String message = "";
-        boolean c = true;
-        int teller = 0;
-
-        if (txtNaam.getText().equals("")) {
-            lblNaam.setText("Naam*");
-            lblNaam.setTextFill(Color.web("#F20000"));
-            teller++;
-            c = false;
-            message += "Naam is verplicht\n";
-        }
-
-        if (!dc.isNaamUniek(txtNaam.getText(), isWijziging)) {
-            lblNaam.setText("Naam*");
-            lblNaam.setTextFill(Color.web("#F20000"));
-            teller++;
-            c = false;
-            message += "Naam moet uniek zijn\n";
-        }
-
-        if (txtAantal.getText().equals("")) {
-            lblAantal.setText("Aantal*");
-            lblAantal.setTextFill(Color.web("#F20000"));
-            teller++;
-            c = false;
-            message += "Aantal is verplicht\n";
-        }
-
-        if (Helper.isInteger(txtAantal.getText())) {
-            if (Integer.parseInt(txtAantal.getText()) < 0) {
-                lblAantal.setText("Aantal*");
-                lblAantal.setTextFill(Color.web("#F20000"));
-                teller++;
-                c = false;
-                message += "Aantal moet groter zijn dan nul\n";
-            }
-        } else {
-
-            lblAantal.setText("Aantal*");
-            lblAantal.setTextFill(Color.web("#F20000"));
-            teller++;
-            c = false;
-            message += "Aantal moet een getal zijn\n";
-
-        }
-
-        if (!txtArtikelnummer.getText().equals("")) {
-
-            if (!Helper.isInteger(txtArtikelnummer.getText())) {
-                lblArtikelnummer.setText("Artikelnummer vd firma*");
-                lblArtikelnummer.setTextFill(Color.web("#F20000"));
-                teller++;
-                c = false;
-                message += "Artikelnummer moet een getal zijn\n";
-            } else if (Integer.parseInt(txtArtikelnummer.getText()) < 0) {
-                lblArtikelnummer.setText("Artikelnummer vd firma*");
-                lblArtikelnummer.setTextFill(Color.web("#F20000"));
-                teller++;
-                c = false;
-                message += "Artikelnummer moet groter zijn dan nul\n";
-            }
-        }
-
-        if (!txtPrijs.getText().equals("")) {
-            if (!Helper.isDouble(txtPrijs.getText())) {
-                lblPrijs.setText("Prijs*");
-                lblPrijs.setTextFill(Color.web("#F20000"));
-                teller++;
-                c = false;
-                message += "Prijs moet een getal zijn\n";
-            } else if (Double.parseDouble(txtPrijs.getText()) < 0.0) {
-                lblPrijs.setText("Prijs*");
-                lblPrijs.setTextFill(Color.web("#F20000"));
-                teller++;
-                c = false;
-                message += "Prijs moet groter zijn dan nul\n";
-            }
-        }
-
-        aantalVerkeerd = teller;
-        error = message;
-        return c;
-
-    }
-     */
 }

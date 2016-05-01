@@ -50,6 +50,16 @@ public class Reservatie implements Serializable {
         setOpTeHalen(opTeHalen);
         setTeruggebracht(teruggebracht);
     }
+
+    public Reservatie(LocalDate startDatum, LocalDate eindDatum, String gebruiker, Product gereserveerdProduct, int gereserveerdAantal) {
+        setStartDatum(startDatum);
+        setEindDatum(eindDatum);
+        setGebruiker(gebruiker);
+        setGereserveerdProduct(gereserveerdProduct);
+        setGereserveerdAantal(gereserveerdAantal);
+    }
+
+    
     
     
 
