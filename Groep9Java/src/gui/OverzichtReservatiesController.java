@@ -11,17 +11,18 @@ import domein.ReservatieController;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.stream.Collectors;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -50,6 +51,20 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
     private TableColumn<Reservatie, String> clmAantal;
     @FXML
     private TableColumn<Reservatie, String> clmEindDatum;
+    @FXML
+    private TableColumn<Reservatie, String> clmOpTeHalen;
+    @FXML
+    private TableColumn<Reservatie, String> clmTeruggebracht;
+    @FXML
+    private TableColumn<Reservatie, String> clmStatus;
+    @FXML
+    private Button btnWijzigen;
+    @FXML
+    private Button btnToevoegen;
+    @FXML
+    private Button btnAllesWeergeven;
+    @FXML
+    private ComboBox<String> cmbStatus;
 
     public OverzichtReservatiesController(ReservatieController rc, ProductController pc) {
         this.rc = rc;
@@ -77,31 +92,48 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
         clmEindDatum.setCellValueFactory(
                 cellData -> cellData.getValue().eindDatumProperty());
 
+        clmOpTeHalen.setCellValueFactory(
+                cellData -> cellData.getValue().opTeHalenProperty());
+        clmTeruggebracht.setCellValueFactory(
+                cellData -> cellData.getValue().teruggebrachtProperty());
+        clmStatus.setCellValueFactory (
+                cellData -> cellData.getValue().getStatusProperty());
         tblReservaties.getSelectionModel().selectedItemProperty().addListener((ObservableValue, oldValue, newValue) -> {
             if (newValue != null) {
                 rc.setGeselecteerdeReservatie(newValue);
             }
         });
-
-        tblReservaties.setItems(rc.getReservatieLijst());
+        
+        ObservableList<Reservatie> reservatieLijst = FXCollections.observableArrayList();
+        for (Reservatie r: rc.getReservatieLijst()){
+                    if (r.isNogWeergeven())
+                        reservatieLijst.add(r);
+            }
+       
+        tblReservaties.setItems(reservatieLijst);
         if (tblReservaties.getSelectionModel().isEmpty()) {
             rc.setSelectionModelEmpty(true);
             //btnVerwijder.setDisable(true);
         } else {
             rc.setSelectionModelEmpty(false);
         }
+         ObservableList<String> statusLijst = FXCollections.observableArrayList(reservatieLijst.stream().filter(r->r.isNogWeergeven()).map(Reservatie-> Reservatie.berekenStatus()).distinct().collect(Collectors.toList()));
+        cmbStatus.setItems(statusLijst);
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        tblReservaties.setItems(rc.getReservatieLijst());
+        ObservableList<Reservatie> reservatieLijst = FXCollections.observableArrayList();
+        for (Reservatie r: rc.getReservatieLijst()){
+                    if (r.isNogWeergeven())
+                        reservatieLijst.add(r);
+            }
+        
+        tblReservaties.setItems(reservatieLijst);
         // btnVerwijder.setDisable(false);
     }
 
-    @FXML
-    private void enableSelectionModel(MouseEvent event) {
-        rc.setSelectionModelEmpty(false);
-    }
+   
     
      @FXML
     private void ZoekenOpNaam(ActionEvent event) {
@@ -109,6 +141,29 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
         
         
         
+    }
+
+    @FXML
+    private void geefAllesWeer(ActionEvent event) {
+    }
+
+    @FXML
+    private void wijzigReservatie(ActionEvent event) {
+    }
+
+    @FXML
+    private void voegReservatieToe(ActionEvent event) {
+    }
+
+    @FXML
+    private void filterStatus(ActionEvent event) {
+        ObservableList<Reservatie> reservatieLijst = FXCollections.observableArrayList();
+        for (Reservatie r: rc.getReservatieLijst()){
+                    if (r.isNogWeergeven())
+                        reservatieLijst.add(r);
+            }
+        
+        tblReservaties.setItems(reservatieLijst);
     }
     
     

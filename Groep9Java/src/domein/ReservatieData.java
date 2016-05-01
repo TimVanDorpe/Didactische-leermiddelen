@@ -35,8 +35,8 @@ public class ReservatieData {
         
         maakProducten();
         
-        GregorianCalendar startDatum1 = new GregorianCalendar(2016, 5, 6, 8, 0, 0);
-        GregorianCalendar eindDatum1 = new GregorianCalendar(2016, 5, 10, 17, 0, 0);
+        GregorianCalendar startDatum1 = new GregorianCalendar(2016, 4, 6, 8, 0, 0);
+        GregorianCalendar eindDatum1 = new GregorianCalendar(2016, 4, 10, 17, 0, 0);
         
         GregorianCalendar startDatum2 = new GregorianCalendar(2016, 5, 13, 8, 0, 0);
         GregorianCalendar eindDatum2 = new GregorianCalendar(2016, 5, 17, 17, 0,0);
@@ -47,13 +47,14 @@ public class ReservatieData {
         Product p1 = plijst.get(0);
         Product p2 = plijst.get(1);
         Product p3 = plijst.get(2);
+        Product p4 = plijst.get(3);
         
         
         
-        rb.addReservatie(new Reservatie(startDatum1, eindDatum1, gebruiker1, p3, 3));
-        rb.addReservatie(new Reservatie(startDatum1, eindDatum1, gebruiker2, p3, 2));
-        rb.addReservatie(new Reservatie(startDatum2, eindDatum2, gebruiker1, p2, 1));
-        rb.addReservatie(new Reservatie(startDatum2, eindDatum2, gebruiker1, p1, 2));
+        rb.addReservatie(new Reservatie(startDatum1.toZonedDateTime().toLocalDate() , eindDatum1.toZonedDateTime().toLocalDate(), gebruiker1, p4, 5, 2, 3));
+        rb.addReservatie(new Reservatie(startDatum1.toZonedDateTime().toLocalDate(), eindDatum1.toZonedDateTime().toLocalDate(), gebruiker2, p3, 6 ,0 ,6));
+        rb.addReservatie(new Reservatie(startDatum2.toZonedDateTime().toLocalDate(), eindDatum2.toZonedDateTime().toLocalDate(), gebruiker1, p2, 12 ,12 ,0));
+        rb.addReservatie(new Reservatie(startDatum2.toZonedDateTime().toLocalDate(), eindDatum2.toZonedDateTime().toLocalDate(), gebruiker1, p1, 10 , 5 ,4));
         
         
         
