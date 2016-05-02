@@ -27,33 +27,31 @@
       <GridPane layoutX="54.0" layoutY="144.0" prefHeight="452.0" prefWidth="400.0">
          <children>
             <Label fx:id="lblOmschrijving" text="Omschrijving" GridPane.rowIndex="1" />
-            <Label fx:id="lblArtikelnummer" text="Artikelnummer vd firma" GridPane.rowIndex="7" />
+            <Label fx:id="lblArtikelnummer" text="Artikelnummer vd firma" GridPane.rowIndex="6" />
             <Label fx:id="lblPrijs" text="Prijs" GridPane.rowIndex="3" />
             <Label fx:id="lblAantal" text="Aantal*" GridPane.rowIndex="4" />
-            <Label GridPane.rowIndex="5" />
-            <Label fx:id="lblFirma" text="Firma" GridPane.rowIndex="6" />
-            <Label fx:id="lblEmail" text="E-mail firma" GridPane.rowIndex="8" />
-            <Label fx:id="lblDoelgroepen" text="Doelgroepen" GridPane.rowIndex="9" />
-            <Label fx:id="lblLeergebieden" text="Leergebieden" GridPane.rowIndex="10" />
+            <Label fx:id="lblFirma" text="Firma" GridPane.rowIndex="5" />
+            <Label fx:id="lblEmail" text="E-mail firma" GridPane.rowIndex="7" />
+            <Label fx:id="lblDoelgroepen" text="Doelgroepen" GridPane.rowIndex="8" />
+            <Label fx:id="lblLeergebieden" text="Leergebieden" GridPane.rowIndex="9" />
             <TextField fx:id="txtNaam" layoutY="-50.0" maxHeight="25.0" prefHeight="25.0" GridPane.columnIndex="1" />
             <TextArea fx:id="txtOmschrijving" layoutY="-50.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="txtArtikelnummer" layoutY="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="txtArtikelnummer" layoutY="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="txtPrijs" layoutY="-50.0" prefHeight="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="txtAantal" layoutY="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="txtFirma" layoutY="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="txtEmailFirma" layoutY="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="txtFirma" layoutY="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="txtEmailFirma" layoutY="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Label fx:id="lblNaam" prefHeight="21.0" prefWidth="106.0" text="Naam*" />
-            <CheckBox fx:id="uitleenbaarheid" mnemonicParsing="false" text="Uitleenbaarheid" GridPane.rowIndex="5" />
-            <ListView fx:id="listLeergebieden" prefHeight="101.0" prefWidth="192.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <ListView fx:id="listLeergebieden" prefHeight="101.0" prefWidth="192.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
             <Label fx:id="lblPlaats" text="Plaats" GridPane.rowIndex="2" />
             <TextField fx:id="txtPlaats" prefHeight="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button fx:id="btnSelecteerLeergebied" mnemonicParsing="false" onAction="#selecteerLeergebieden" text="Selecteer" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
+            <Button fx:id="btnSelecteerLeergebied" mnemonicParsing="false" onAction="#selecteerLeergebieden" text="Selecteer" GridPane.halignment="RIGHT" GridPane.rowIndex="9">
                <GridPane.margin>
                   <Insets right="5.0" />
                </GridPane.margin>
             </Button>
-            <ListView fx:id="listDoelgroepen" prefHeight="64.0" prefWidth="196.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <Button fx:id="btnSelecteerDoelgroep" mnemonicParsing="false" onAction="#selecteerDoelgroepen" text="Selecteer" GridPane.halignment="RIGHT" GridPane.rowIndex="9">
+            <ListView fx:id="listDoelgroepen" prefHeight="64.0" prefWidth="196.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Button fx:id="btnSelecteerDoelgroep" mnemonicParsing="false" onAction="#selecteerDoelgroepen" text="Selecteer" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
                <GridPane.margin>
                   <Insets right="5.0" />
                </GridPane.margin>
@@ -69,7 +67,6 @@
             <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="26.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="73.0" minHeight="10.0" prefHeight="13.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="98.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="101.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />

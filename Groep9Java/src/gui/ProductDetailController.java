@@ -100,8 +100,6 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
 
     final FileChooser fileChooser = new FileChooser();
     @FXML
-    private CheckBox uitleenbaarheid;
-    @FXML
     private Button btnLeegmaken, btnSelecteerLeergebied, btnSelecteerDoelgroep;
     @FXML
     private Button btnWijzigen, btnToevoegenAnnuleren;
@@ -280,7 +278,9 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             txtArtikelnummer.setText(Integer.toString(product.getArtikelnummer()));
             txtFirma.setText(product.getFirma().getNaam());
             txtEmailFirma.setText(product.getFirma().getEmailContactPersoon());
-            txtPrijs.setText(Double.toString(product.getPrijs()));
+      
+            String format = String.format("€%,.2f", product.getPrijs());
+            txtPrijs.setText(format);
             txtNaam.setText(product.getNaam());
             txtOmschrijving.setText(product.getOmschrijving());
             txtPlaats.setText(product.getPlaats());
