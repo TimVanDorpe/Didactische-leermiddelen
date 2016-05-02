@@ -7,8 +7,6 @@ package domein;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
@@ -39,6 +37,7 @@ public class ProductBeheer {
     private GenericDaoJpa gdjProduct;
     private GenericDaoJpa gdjLeergebied;
     private GenericDaoJpa gdjDoelgroep;
+    private GenericDaoJpa gdjReservatie ;
 
     private List<Leergebied> leergebiedenLijst = new ArrayList<Leergebied>();
 
@@ -64,6 +63,7 @@ public class ProductBeheer {
         gdjProduct = new GenericDaoJpa(Product.class);
         gdjLeergebied = new GenericDaoJpa(Leergebied.class);
         gdjDoelgroep = new GenericDaoJpa(Doelgroep.class);
+        gdjReservatie = new GenericDaoJpa(Reservatie.class);
 
         ProductData data = new ProductData(this);
         try {
@@ -146,7 +146,17 @@ public class ProductBeheer {
        
     }
 
+    
     public void verwijderProduct(Product p) {
+        gdjReservatie.startTransaction();
+        List<Reservatie> reservaties = gdjReservatie.findAll();
+        for(Reservatie r : reservaties){
+            if(r.getGereserveerdProduct().getId() == p.getId()){
+                 gdjReservatie.delete(r);
+            }
+        }
+       gdjProduct.commitTransaction();
+      //  Product product = getProductById(p.getId());
         gdjProduct.startTransaction();
         productenLijst.remove(p);
         gdjProduct.delete(p);
@@ -409,4 +419,25 @@ public class ProductBeheer {
        return null;
      
     }
+    
+     Product getProductById(int id) {
+        List<Product> alleProducten =  gdjProduct.findAll();
+        for (Product p : alleProducten)
+        {
+        if(p.getId() == id)
+        {return p;}
+        }
+       return null;
+     
+    }
+
+    void alleProductenOphalen() {
+        setProductenLijst(null);
+         setProductenLijst(FXCollections.observableArrayList(gdjProduct.findAll()));
+    }
+
+    public void setProductenLijst(ObservableList<Product> productenLijst) {
+        this.productenLijst = productenLijst;
+    }
+    
 }

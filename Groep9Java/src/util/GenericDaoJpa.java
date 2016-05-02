@@ -68,6 +68,7 @@ public class GenericDaoJpa<T> implements GenericDao<T>{
         em.remove(em.merge(object));
 
     }
+    
 
     @Override
     public void insert(T object) {

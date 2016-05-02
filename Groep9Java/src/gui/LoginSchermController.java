@@ -83,7 +83,8 @@ public class LoginSchermController extends Pane {
 
         Scene scene = new Scene(new MenuController(beheerderController));
         stage.setScene(scene);
-
+        
+stage.setResizable(false);
         //this.setDisable(true);
         stage.show();
         

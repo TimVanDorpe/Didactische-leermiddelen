@@ -114,6 +114,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
     private Button btnVerwijderen;
 
     private boolean inputChanged;
+    private Product huidigProduct;
 
     public ProductDetailController(ProductController dc) {
         // TODO
@@ -169,24 +170,15 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
              ook weer dubbele code bij toevoegen/wijzigen te vermijden (jens)
              */
             Firma firma = new Firma(firmaNaam, firmaEmail);
-//
-//            String naamDoelgroep = txtDoelgroepen.getText();
-//            if (naamDoelgroep == null) {
-//                naamDoelgroep = "";
-//            }
-//            Doelgroep doelgroep = new Doelgroep(naamDoelgroep);
+
             lblError.setText(""); // errorlabel clear
 
-//            if (imgViewFoto.getImage() == null) {
-//                dc.wijzigProductZonderFoto(naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
-//            } else {
-//                dc.wijzigProduct(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, dc.getListToegevoegdeDoelgroepen(), dc.getListToegevoegdeLeergebieden());
-//
-//            }
+      
             dc.wijzigProduct(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma);
             //dc.geefAlleProductenWeer();
 
-            inputChanged = false;
+            
+        inputChanged = false;
 
         } catch (IllegalArgumentException ex) {
 
@@ -216,25 +208,58 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
 
     }
 
-//    private ObservableList<String> zetLeergebiedenOmNaarString(List<Leergebied> leergebiedenVanProduct) {
-//        ObservableList<String> Stringsleergebieden = FXCollections.observableArrayList();
-//        leergebiedenVanProduct.stream().map((l) -> l.getNaam()).forEach((naam) -> {
-//            Stringsleergebieden.add(naam);
-//        });
-//        return Stringsleergebieden;
-//    }
-//
-//    private ObservableList<String> zetDoelgroepenOmNaarString(List<Doelgroep> doelgroepenVanProduct) {
-//        ObservableList<String> Stringsleergebieden = FXCollections.observableArrayList();
-//        doelgroepenVanProduct.stream().map((l) -> l.getNaam()).forEach((naam) -> {
-//            Stringsleergebieden.add(naam);
-//        });
-//        return Stringsleergebieden;
-//    }
     //steekt alle gegevens in de textfields
     @Override
     public void update(Observable o, Object arg) {
-
+        //binnenkomend product
+        Product product = (Product) arg;
+        
+        // we gaan in deze klasse een huidigProduct moeten maken
+        //eerst controlleren of deze null is, zo ja dan wordt het product dat binnen komt het huidigProduct
+         //als deze niet nul is (we hebben dus al een product geselecteerd en klikken nu op een ander)
+         // dan controlleren we of de attributen (alles wat in de tekstvelden staat) van ons huidigproduct anders zijn dan de attributen van dat product die opgeslaan zijn in de database
+        if(this.huidigProduct== null){
+             this.huidigProduct = product;
+        
+//        }else{
+//            Product opgeslagenProduct = dc.getProductById(huidigProduct.getId());
+//         if(
+//                  opgeslagenProduct.getAantal() != txtAantal.getText()
+//                ||  opgeslagenProduct.getArtikelnummer()!= txtA
+//                ||  opgeslagenProduct.getDoelgroepen()!= huidigProduct.getDoelgroepen()
+//                ||  opgeslagenProduct.getFirma()!= huidigProduct.getFirma()
+//                ||  opgeslagenProduct.getFoto()!= huidigProduct.getFoto()
+//                ||  opgeslagenProduct.getLeergebieden()!= huidigProduct.getLeergebieden()
+//                ||   !opgeslagenProduct.getNaam().equals(huidigProduct.getNaam())
+//                ||   !opgeslagenProduct.getOmschrijving().equals(huidigProduct.getOmschrijving())
+//                ||  !opgeslagenProduct.getPlaats().equals(huidigProduct.getPlaats())
+//                ||  opgeslagenProduct.getPrijs()!= huidigProduct.getPrijs()
+//                ){
+//            
+//        Stage stage = new Stage();
+//
+//        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//        alert.setTitle("Confirmatie");
+//        alert.setHeaderText("Niet opgeslagen wijzigingen gevonden");
+//        alert.setContentText("Er zijn niet opgeslagen wijzigingen gevonden. Wilt u deze annuleren?");
+//
+//        Optional<ButtonType> result = alert.showAndWait();
+//        if (result.get() == ButtonType.OK) {
+//            // OK
+//
+//            stage.close();
+//
+//            
+//        } else {
+//            // Niet OK
+//
+//            throw new IllegalArgumentException("Gelieve uw wijzigingen te bevestigen of te annuleren");
+//
+//        }
+//
+//        stage.close();
+//        }
+        }
         if (arg == "maakAllesLeegNaWijziging") {
             resetWaardenprivate();
             btnWijzigen.setDisable(true);
@@ -242,32 +267,15 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             btnVerwijderen.setDisable(true);
             btnVoegProductToe.setVisible(false);
             btnToevoegenAnnuleren.setVisible(false);
-        } else /*
-        if ((Product) arg != dc.getHuidigProduct()) {
-            txtNaam.textProperty().addListener(new ChangeListener<String>() {
-                @Override
-                public void changed(ObservableValue<? extends String> observableValue, String oud, String nieuw) {
-                    inputChanged = true;
-                }
-            });
-
-        }
-         */ //if (!inputChanged) {
+        } else 
+      
         if (arg != null) {
 
             lblError.setText("");
             maakLabelsTerugNormaal();
 
-            Product product = (Product) arg;
+           // Product product = (Product) arg;
 
-//            if (!(product.getNaam().equals(txtNaam.getText())
-//                    || String.format("%d", product.getAantal()).equals(txtAantal.getText())
-//                    || String.format("%d", product.getArtikelnummer()).equals(txtArtikelnummer.getText())
-//                    || String.format("%f", product.getPrijs()).equals(txtPrijs.getText())
-//                    || product.getOmschrijving().equals(txtOmschrijving.getText())
-//                    || product.getPlaats().equals(txtPlaats.getText()))) {
-//                
-//            }
             txtAantal.setText(Integer.toString(product.getAantal()));
             txtArtikelnummer.setText(Integer.toString(product.getArtikelnummer()));
             txtFirma.setText(product.getFirma().getNaam());
@@ -389,18 +397,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
                     Logger.getLogger(ProductDetailController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-//            if (txtDoelgroepen.getText() == null) {
-//                txtDoelgroepen.setText("");
-//            }
-            // Firma firma = new Firma(firmaNaam, firmaEmail);
-            //Dit moet zeker weg!!!!
-//            Doelgroep doelgroep = new Doelgroep(txtDoelgroepen.getText());
-//            Leergebied leergebied = new Leergebied("test");
-//            Leergebied leergebied2 = new Leergebied("test");
-//            List<Leergebied> leergebieden = new ArrayList<>();
-//            leergebieden.add(leergebied);
-//            leergebieden.add(leergebied2);
-//
+
 
         }
     }
@@ -623,12 +620,6 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             valideerVelden(false);
 
             Firma firma = new Firma(txtFirma.getText(), txtEmailFirma.getText());
-
-//            Leergebied leergebied = new Leergebied("test");
-//            Leergebied leergebied2 = new Leergebied("test");
-//            List<Leergebied> leergebieden = new ArrayList<>();
-//            leergebieden.add(leergebied);
-//            leergebieden.add(leergebied2);
 
             dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma);
             //inputChanged = false;

@@ -8,18 +8,14 @@ package domein;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.GregorianCalendar;
 import javafx.beans.property.SimpleStringProperty;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import static org.eclipse.persistence.expressions.ExpressionOperator.Today;
-import util.Helper;
 
 /**
  *
@@ -30,7 +26,8 @@ public class Reservatie implements Serializable {
 
     private LocalDate startDatum, eindDatum;
     private String gebruiker;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "product_id")
     private Product gereserveerdProduct;
     private int gereserveerdAantal, opTeHalen, teruggebracht;
     @Id
