@@ -96,6 +96,8 @@ public class ReservatieDetailController extends Pane {
         this.huidigeReservatie = rc.getHuidigeReservatie();
 
         if (isWijziging) {
+            lblProduct.setVisible(false);
+            txtProduct.setVisible(false);
             btnToevoegen.setVisible(false);
             cbMateriaal.setVisible(false);
             cbStudent.setVisible(false);
