@@ -26,19 +26,19 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Naam" />
-            <Label text="Email" GridPane.rowIndex="1" />
-            <Label text="Wachtwoord" GridPane.rowIndex="2" />
+            <Label fx:id="lblNaam" text="Naam" />
+            <Label fx:id="lblEmail" text="Email" GridPane.rowIndex="1" />
+            <Label fx:id="lblWachtwoord" text="Wachtwoord" GridPane.rowIndex="2" />
             <TextField fx:id="txtNaam" prefHeight="31.0" prefWidth="88.0" GridPane.columnIndex="1" />
             <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="txtWachtwoord" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <Button fx:id="btnNieuweBeheerder" layoutX="30.0" layoutY="75.0" mnemonicParsing="false" onAction="#nieuweBeheerderToevoegen" prefHeight="31.0" prefWidth="221.0" text="Nieuwe beheerder toevoegen" />
-      <Label fx:id="lblError" layoutX="57.0" layoutY="535.0" prefHeight="25.0" prefWidth="385.0" />
       <Button fx:id="btnSelectieVerwijderen" layoutX="61.0" layoutY="661.0" mnemonicParsing="false" onAction="#resetWaarden" prefWidth="190.0" text="Selectie verwijderen" />
       <Button fx:id="btnBeheerderVerwijderen" layoutX="270.0" layoutY="630.0" mnemonicParsing="false" onAction="#verwijderBeheerder" prefWidth="190.0" text="Beheerder verwijderen" />
       <Button fx:id="btnToevoegen" layoutX="270.0" layoutY="630.0" mnemonicParsing="false" onAction="#toevoegenBeheerder" prefWidth="190.0" text="Toevoegen" />
       <Button fx:id="btnAnnuleren" layoutX="61.0" layoutY="630.0" mnemonicParsing="false" onAction="#toevoegenAnnuleren" prefWidth="190.0" text="Annuleren" />
+      <Label fx:id="lblError" layoutX="63.0" layoutY="541.0" prefHeight="81.0" prefWidth="373.0" />
    </children>
 </fx:root>
