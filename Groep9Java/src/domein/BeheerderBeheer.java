@@ -52,9 +52,9 @@ public class BeheerderBeheer {
 
     public boolean geldigeLogin(Beheerder beheerder) {
         if (!beheerderLijst.stream().anyMatch(b -> b.getEmail().equals(beheerder.getEmail()))) {
-            throw new IllegalArgumentException("Gebruiker bestaat niet");
+            throw new IllegalArgumentException("Gebruikersnaam of wachtwoord is onjuist");
         } else if (!beheerderLijst.stream().anyMatch(b -> b.getWachtwoord().equals(beheerder.getWachtwoord()))) {
-            throw new IllegalArgumentException("Wachtwoord is onjuist");
+            throw new IllegalArgumentException("Gebruikersnaam of wachtwoord is onjuist");
         }
 
         return true;
@@ -64,7 +64,7 @@ public class BeheerderBeheer {
         return sortedList;
     }
 
-    void wijzigReservatie(Beheerder nieuweBeheerder, Beheerder huidigeBeheerder) {
+    void wijzigBeheerder(Beheerder nieuweBeheerder, Beheerder huidigeBeheerder) {
         huidigeBeheerder.setNaam(nieuweBeheerder.getNaam());
         huidigeBeheerder.setEmail(nieuweBeheerder.getEmail());
         huidigeBeheerder.setWachtwoord(nieuweBeheerder.getWachtwoord());

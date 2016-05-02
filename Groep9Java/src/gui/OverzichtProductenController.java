@@ -83,6 +83,7 @@ public class OverzichtProductenController extends BorderPane implements Observer
                 domeinController.setGeselecteerdProduct(newValue);
             }
         });
+        
 
         tblProducten.setItems(domeinController.getProductSortedList());
         if (tblProducten.getSelectionModel().isEmpty()) {
