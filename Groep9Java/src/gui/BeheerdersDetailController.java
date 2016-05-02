@@ -66,7 +66,7 @@ public class BeheerdersDetailController extends Pane implements Observer {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-
+        hoofdAdmin();
         btnSelectieVerwijderen.setVisible(false);
         btnToevoegen.setVisible(false);
         btnAnnuleren.setVisible(false);
@@ -78,10 +78,44 @@ public class BeheerdersDetailController extends Pane implements Observer {
             txtNaam.setDisable(true);
             txtWachtwoord.setDisable(true);
             btnAnnuleren.setVisible(false);
+            
 
         }
+        
     }
 
+    public void hoofdAdmin(){
+       
+        if(bc.getAangemeldeBeheerder().getEmail().equalsIgnoreCase("hoofdbeheerder")){//isHoofdbeheerder is altijd false???
+            btnSelectieVerwijderen.setVisible(true);
+            btnBeheerderVerwijderen.setVisible(true);
+            txtEmail.setVisible(true);
+            txtNaam.setVisible(true);
+            txtWachtwoord.setVisible(true);
+            btnAnnuleren.setVisible(true);
+            lblWachtwoord.setVisible(true);
+            lblNaam.setVisible(true);
+            lblEmail.setVisible(true);
+            btnNieuweBeheerder.setVisible(true);
+            btnToevoegen.setVisible(true);
+            btnAnnuleren.setVisible(true);
+        }else{
+            
+            btnSelectieVerwijderen.setVisible(false);
+            btnBeheerderVerwijderen.setVisible(false);
+            txtEmail.setVisible(false);
+            txtNaam.setVisible(false);
+            txtWachtwoord.setVisible(false);
+            btnAnnuleren.setVisible(false);
+            lblWachtwoord.setVisible(false);
+            lblNaam.setVisible(false);
+            lblEmail.setVisible(false);
+            btnNieuweBeheerder.setVisible(false);
+            btnToevoegen.setVisible(false);
+            btnAnnuleren.setVisible(false);
+        }
+    }
+    
     @Override
     public void update(Observable o, Object arg) {
         if (arg != null) {
@@ -103,6 +137,7 @@ public class BeheerdersDetailController extends Pane implements Observer {
             txtWachtwoord.setDisable(true);
             btnAnnuleren.setVisible(true);
             btnToevoegen.setVisible(false);
+            hoofdAdmin();
 
         }
     }

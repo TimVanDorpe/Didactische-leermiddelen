@@ -41,6 +41,7 @@ public class BeheerderController extends Observable {
         this.aangemeldeBeheerder = null;
     }
 
+
     public ObservableList<Beheerder> getBeheerderslijst() {
         return bb.getBeheerderslijst();
     }
@@ -61,7 +62,7 @@ public class BeheerderController extends Observable {
 
     public void wijzigBeheerder(String naam, String email, String wachtwoord) {
         Beheerder nieuweBeheerder = new Beheerder(naam, email, wachtwoord , false);
-        bb.wijzigReservatie(nieuweBeheerder, huidigeBeheerder);
+        bb.wijzigBeheerder(nieuweBeheerder, huidigeBeheerder);
         setChanged();
         notifyObservers();
     }
