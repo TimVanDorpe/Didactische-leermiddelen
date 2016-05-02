@@ -42,13 +42,12 @@ public class BeheerdersDetailController extends Pane implements Observer {
 
     @FXML
     private Button btnAnnuleren;
-    @FXML
-    private Button btnSelectieVerwijderen;
+ 
     @FXML
     private Button btnBeheerderVerwijderen;
 
     @FXML
-    private Label lblError, lblNaam, lblEmail, lblWachtwoord;
+    private Label lblError, lblNaam, lblEmail, lblWachtwoord,lblDetailsBeheerder;
 
     private BeheerderController bc;
     @FXML
@@ -67,12 +66,10 @@ public class BeheerdersDetailController extends Pane implements Observer {
             throw new RuntimeException(ex);
         }
         hoofdAdmin();
-        btnSelectieVerwijderen.setVisible(false);
         btnToevoegen.setVisible(false);
         btnAnnuleren.setVisible(false);
         if (bc.getSelectionModelEmpty()) {
 
-            btnSelectieVerwijderen.setVisible(false);
             btnBeheerderVerwijderen.setVisible(false);
             txtEmail.setDisable(true);
             txtNaam.setDisable(true);
@@ -87,21 +84,18 @@ public class BeheerdersDetailController extends Pane implements Observer {
     public void hoofdAdmin(){
        
         if(bc.getAangemeldeBeheerder().getEmail().equalsIgnoreCase("hoofdbeheerder")){//isHoofdbeheerder is altijd false???
-            btnSelectieVerwijderen.setVisible(true);
             btnBeheerderVerwijderen.setVisible(true);
             txtEmail.setVisible(true);
             txtNaam.setVisible(true);
             txtWachtwoord.setVisible(true);
-            btnAnnuleren.setVisible(true);
             lblWachtwoord.setVisible(true);
             lblNaam.setVisible(true);
             lblEmail.setVisible(true);
             btnNieuweBeheerder.setVisible(true);
-            btnToevoegen.setVisible(true);
-            btnAnnuleren.setVisible(true);
+            
+            lblDetailsBeheerder.setVisible(true);
         }else{
             
-            btnSelectieVerwijderen.setVisible(false);
             btnBeheerderVerwijderen.setVisible(false);
             txtEmail.setVisible(false);
             txtNaam.setVisible(false);
@@ -113,6 +107,7 @@ public class BeheerdersDetailController extends Pane implements Observer {
             btnNieuweBeheerder.setVisible(false);
             btnToevoegen.setVisible(false);
             btnAnnuleren.setVisible(false);
+            lblDetailsBeheerder.setVisible(false);
         }
     }
     
@@ -123,19 +118,18 @@ public class BeheerdersDetailController extends Pane implements Observer {
             lblError.setText("");
             //maakLabelsTerugNormaal();
 
-            //DEMO TIJDELIJK
+           
             Beheerder beh = (Beheerder) arg;
             txtNaam.setText(beh.getNaam());
             txtEmail.setText(beh.getEmail());
             txtWachtwoord.setText(beh.getWachtwoord());
 
             //alles terug enablen als er iets geselcteerd wordt
-            btnSelectieVerwijderen.setVisible(true);
             btnBeheerderVerwijderen.setVisible(true);
             txtEmail.setDisable(true);
             txtNaam.setDisable(true);
             txtWachtwoord.setDisable(true);
-            btnAnnuleren.setVisible(true);
+            btnAnnuleren.setVisible(false);
             btnToevoegen.setVisible(false);
             hoofdAdmin();
 
@@ -148,7 +142,6 @@ public class BeheerdersDetailController extends Pane implements Observer {
         btnToevoegen.setVisible(true);
 
         btnAnnuleren.setVisible(true);
-        btnSelectieVerwijderen.setVisible(false);
 
         Beheerder beh = new Beheerder();
         txtNaam.setPromptText("Naam van de nieuwe beheerder");
@@ -173,7 +166,6 @@ public class BeheerdersDetailController extends Pane implements Observer {
             btnToevoegen.setVisible(false);
             btnAnnuleren.setVisible(false);
             btnBeheerderVerwijderen.setVisible(true);
-            btnSelectieVerwijderen.setVisible(false);//inputChanged = false;
             txtEmail.setDisable(true);
             txtNaam.setDisable(true);
             txtWachtwoord.setDisable(true);
@@ -236,8 +228,7 @@ public class BeheerdersDetailController extends Pane implements Observer {
         btnToevoegen.setVisible(false);
         btnAnnuleren.setVisible(false);
         btnBeheerderVerwijderen.setVisible(true);
-
-        btnSelectieVerwijderen.setVisible(true);
+        
 
         resetWaarden();
     }
@@ -282,7 +273,6 @@ public class BeheerdersDetailController extends Pane implements Observer {
         txtWachtwoord.setText("");
         txtNaam.setPromptText("");
         bc.setGeselecteerdeBeheerder(null);
-        btnSelectieVerwijderen.setVisible(false);
         btnBeheerderVerwijderen.setVisible(false);
 
     }
