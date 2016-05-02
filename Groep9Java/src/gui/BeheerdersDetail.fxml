@@ -10,7 +10,8 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="514.0" type="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="lblDetailsBeheerder" layoutX="30.0" layoutY="15.0" prefHeight="40.0" prefWidth="240.0" text="Details Beheerder">
+      <Region layoutX="20.0" layoutY="83.0" prefHeight="616.0" prefWidth="478.0" style="-fx-background-color: #FAFAFA;" />
+      <Label fx:id="lblDetailsBeheerder" layoutX="30.0" layoutY="90.0" prefHeight="40.0" prefWidth="240.0" text="Details Beheerder">
          <font>
             <Font size="23.0" />
          </font>
@@ -35,7 +36,7 @@
             <TextField fx:id="txtWachtwoord" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button fx:id="btnNieuweBeheerder" layoutX="30.0" layoutY="75.0" mnemonicParsing="false" onAction="#nieuweBeheerderToevoegen" prefHeight="25.0" prefWidth="208.0" style="-fx-background-color: #286090;" text="Nieuwe beheerder toevoegen" textFill="WHITE" />
+      <Button fx:id="btnNieuweBeheerder" layoutX="30.0" layoutY="33.0" mnemonicParsing="false" onAction="#nieuweBeheerderToevoegen" prefHeight="25.0" prefWidth="208.0" style="-fx-background-color: #286090;" text="Nieuwe beheerder toevoegen" textFill="WHITE" />
       <Button fx:id="btnBeheerderVerwijderen" layoutX="270.0" layoutY="630.0" mnemonicParsing="false" onAction="#verwijderBeheerder" prefWidth="190.0" style="-fx-background-color: #d9534f;" text="Beheerder verwijderen" textFill="WHITE" />
       <Button fx:id="btnToevoegen" layoutX="270.0" layoutY="630.0" mnemonicParsing="false" onAction="#toevoegenBeheerder" prefWidth="190.0" style="-fx-background-color: #449d44;" text="Beheerder toevoegen" textFill="WHITE" />
       <Button fx:id="btnAnnuleren" layoutX="61.0" layoutY="630.0" mnemonicParsing="false" onAction="#toevoegenAnnuleren" prefWidth="190.0" text="Annuleren" />

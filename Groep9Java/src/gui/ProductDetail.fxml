@@ -80,7 +80,7 @@
       <ImageView fx:id="imgViewFoto" fitHeight="130.0" fitWidth="201.0" layoutX="264.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="btnAnnuleer" layoutX="264.0" layoutY="631.0" mnemonicParsing="false" onAction="#annuleerWijziging" prefHeight="25.0" prefWidth="190.0" text="Wijzigingen annuleren" />
       <Button fx:id="btnToevoegen" layoutX="39.0" layoutY="14.0" mnemonicParsing="false" onAction="#zetProductklaarvoortoevoegen" prefHeight="25.0" prefWidth="208.0" style="-fx-background-color: #286090;" text="Nieuw materiaal toevoegen" textFill="WHITE" />
-      <Button fx:id="btnVerwijderen" layoutX="48.0" layoutY="661.0" mnemonicParsing="false" onAction="#verwijderProduct" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: #d9534f; -fx-font: #fff;" text="Materiaal verwijderen" textFill="WHITE" />
+      <Button fx:id="btnVerwijderen" layoutX="48.0" layoutY="661.0" mnemonicParsing="false" onAction="#verwijderProduct" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: #d9534f;" text="Materiaal verwijderen" textFill="WHITE" />
       <Button fx:id="btnVoegProductToe" layoutX="48.0" layoutY="630.0" mnemonicParsing="false" onAction="#voegProductToe" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: #449d44;" text="Materiaal toevoegen" textFill="WHITE" />
       <Button fx:id="btnToevoegenAnnuleren" layoutX="264.0" layoutY="630.0" mnemonicParsing="false" onAction="#toevoegenAnnuleren" prefHeight="25.0" prefWidth="190.0" text="Toevoegen annuleren" />
    </children>
