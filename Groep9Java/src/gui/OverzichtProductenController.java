@@ -120,14 +120,12 @@ public class OverzichtProductenController extends BorderPane implements Observer
 
     @FXML
     private void geefAllesWeer(ActionEvent event) {
-        geefAllesWeer();
-    }
-
-    private void geefAllesWeer() {
-       
+        dc.alleProductenOphalen();
         tblProducten.setItems(dc.getProductSortedList());
         tblProducten.getSelectionModel().clearSelection();
     }
+
+   
 
     @FXML
     private void enableSelectionModel(MouseEvent event) {

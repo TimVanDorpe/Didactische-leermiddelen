@@ -9,6 +9,7 @@ import domein.ProductController;
 import domein.Reservatie;
 import domein.ReservatieController;
 import java.io.IOException;
+import java.util.GregorianCalendar;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.stream.Collectors;
@@ -106,6 +107,25 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
         
         
         
+          
+        //maak data staat nu hier
+        GregorianCalendar startDatum1 = new GregorianCalendar(2016, 3, 6, 8, 0, 0);
+        GregorianCalendar eindDatum1 = new GregorianCalendar(2016, 3, 10, 17, 0, 0);
+        
+        GregorianCalendar startDatum2 = new GregorianCalendar(2016, 3, 13, 8, 0, 0);
+        GregorianCalendar eindDatum2 = new GregorianCalendar(2016, 3, 17, 17, 0,0);
+        
+        
+        String gebruiker1 = "student1@hogent.be";
+        String gebruiker2 = "student2@hogent.be";
+        
+     
+        
+        
+        rc.addReservatie(new Reservatie(startDatum1.toZonedDateTime().toLocalDate() , eindDatum1.toZonedDateTime().toLocalDate(), gebruiker1, pc.getProductById(1), 5, 2, 3));
+        rc.addReservatie(new Reservatie(startDatum1.toZonedDateTime().toLocalDate(), eindDatum1.toZonedDateTime().toLocalDate(), gebruiker2, pc.getProductById(2), 6 ,0 ,6));
+        rc.addReservatie(new Reservatie(startDatum2.toZonedDateTime().toLocalDate(), eindDatum2.toZonedDateTime().toLocalDate(), gebruiker1, pc.getProductById(3), 12 ,12 ,0));
+        rc.addReservatie(new Reservatie(startDatum2.toZonedDateTime().toLocalDate(), eindDatum2.toZonedDateTime().toLocalDate(), gebruiker1, pc.getProductById(4), 10 , 5 ,4));
         
         
         

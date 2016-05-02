@@ -208,5 +208,9 @@ public class Product implements Serializable {
      plaatsSimple.set(plaats);
         return plaatsSimple;
     }
+
+    public int getId() {
+        return id;
+    }
    
 }
