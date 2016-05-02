@@ -10,9 +10,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="1000.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="1300.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <TableView fx:id="tblReservaties" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="550.0" prefWidth="751.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tblReservaties" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="512.0" prefWidth="1008.0" BorderPane.alignment="CENTER">
         <columns>
             <TableColumn fx:id="clmStartDatum" minWidth="0.0" prefWidth="129.0" text="Startdatum" />
             <TableColumn fx:id="clmEindDatum" minWidth="0.0" prefWidth="129.0" text="Einddatum" />
@@ -35,7 +35,7 @@
       </TableView>
    </center>
    <top>
-      <GridPane prefHeight="121.0" prefWidth="982.0" BorderPane.alignment="CENTER">
+      <GridPane prefHeight="121.0" BorderPane.alignment="CENTER">
           
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="291.0" minWidth="10.0" prefWidth="291.0" />

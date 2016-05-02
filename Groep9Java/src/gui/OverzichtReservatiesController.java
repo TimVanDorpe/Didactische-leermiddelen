@@ -146,7 +146,7 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
     private void wijzigReservatie(ActionEvent event) {
         Stage stage = new Stage();
         stage.setTitle("Reservatie wijzigen");
-        Scene scene = new Scene(new ReservatieDetailController_1(rc, pc, true)); // isWijziging = true
+        Scene scene = new Scene(new ReservatieDetailController(rc, pc, true)); // isWijziging = true
         stage.setScene(scene);
         stage.show();
     }
@@ -155,7 +155,7 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
     private void voegReservatieToe(ActionEvent event) {
         Stage stage = new Stage();
         stage.setTitle("Reservatie toevoegen");
-        Scene scene = new Scene(new ReservatieDetailController_1(rc, pc, false)); // isWijziging = false
+        Scene scene = new Scene(new ReservatieDetailController(rc, pc, false)); // isWijziging = false
         stage.setScene(scene);
         stage.show();
     }
