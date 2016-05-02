@@ -37,8 +37,8 @@ public class ReservatieBeheer {
     
     public ReservatieBeheer() {
         gdj = new GenericDaoJpa(Reservatie.class);        
-        ReservatieData data = new ReservatieData(this);
-        data.maakReservaties();
+       // ReservatieData data = new ReservatieData(this);
+      //  data.maakReservaties();
         sortedList = reservatieLijst.sorted(sortOrder);
          
         

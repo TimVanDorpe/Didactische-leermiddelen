@@ -4,10 +4,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.stage.Stage;
 
 public class ProductController extends Observable {
 
@@ -73,6 +77,7 @@ public class ProductController extends Observable {
         }
         pb.wijzigProduct(new Product(leergebieden, doelgroepen, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats), huidigProduct);
 
+        
         setChanged();
         notifyObservers("maakAllesLeegNaWijziging");
 
@@ -92,6 +97,7 @@ public class ProductController extends Observable {
     public void setGeselecteerdProduct(Product product) {
         this.voorlopigeDoelgroepen =  FXCollections.observableArrayList(product.getDoelgroepen().stream().map(Doelgroep::getNaam).collect(Collectors.toList()));
         this.voorlopigeLeergebieden = FXCollections.observableArrayList(product.getLeergebieden().stream().map(Leergebied::getNaam).collect(Collectors.toList()));
+       
         this.huidigProduct = product;
         setChanged();
         notifyObservers(product);
@@ -224,9 +230,14 @@ public class ProductController extends Observable {
     public Product getProductByNaam(String text) {
        return pb.getProductByNaam(text);
     }
+    
+    public Product getProductById(int id) {
+       return pb.getProductById(id);
+    }
      public ObservableList<String> getStringNaamProducten() {
        return StringNaamProducten();
     }
+     
       private ObservableList<String> StringNaamProducten() {
          ObservableList<String> productNamen = FXCollections.observableArrayList(); 
        for(Product p : getProductenLijst())
@@ -234,6 +245,10 @@ public class ProductController extends Observable {
           productNamen.add(p.getNaam());
        }
        return productNamen;
+    }
+
+    public void alleProductenOphalen() {
+        pb.alleProductenOphalen();
     }
     
 }
