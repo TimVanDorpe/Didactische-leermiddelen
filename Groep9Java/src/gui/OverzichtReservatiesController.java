@@ -108,32 +108,24 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
         
         
         
-        ObservableList<Reservatie> reservatieLijst = FXCollections.observableArrayList();
-        for (Reservatie r: rc.getReservatieLijst()){
-                    if (r.isNogWeergeven())
-                        reservatieLijst.add(r);
-            }
+        
        
-        tblReservaties.setItems(reservatieLijst);
+        tblReservaties.setItems(rc.getReservatieLijst());
         if (tblReservaties.getSelectionModel().isEmpty()) {
             rc.setSelectionModelEmpty(true);
             //btnVerwijder.setDisable(true);a   
         } else {
             rc.setSelectionModelEmpty(false);
         }
-         ObservableList<String> statusLijst = FXCollections.observableArrayList(reservatieLijst.stream().map(Reservatie-> Reservatie.getStatus()).collect(Collectors.toList()));
+         ObservableList<String> statusLijst = FXCollections.observableArrayList(rc.getReservatieLijst().stream().map(Reservatie-> Reservatie.getStatus()).distinct().collect(Collectors.toList()));
         cmbStatus.setItems(statusLijst);
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        ObservableList<Reservatie> reservatieLijst = FXCollections.observableArrayList();
-        for (Reservatie r: rc.getReservatieLijst()){
-                    if (r.isNogWeergeven())
-                        reservatieLijst.add(r);
-            }
+     
         
-        tblReservaties.setItems(reservatieLijst);
+        tblReservaties.setItems(rc.getReservatieLijst());
         // btnVerwijder.setDisable(false);
     }
 

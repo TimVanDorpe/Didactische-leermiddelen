@@ -38,8 +38,8 @@ public class ReservatieData {
         GregorianCalendar startDatum1 = new GregorianCalendar(2016, 3, 6, 8, 0, 0);
         GregorianCalendar eindDatum1 = new GregorianCalendar(2016, 3, 10, 17, 0, 0);
         
-        GregorianCalendar startDatum2 = new GregorianCalendar(2016, 4, 13, 8, 0, 0);
-        GregorianCalendar eindDatum2 = new GregorianCalendar(2016, 4, 17, 17, 0,0);
+        GregorianCalendar startDatum2 = new GregorianCalendar(2016, 3, 13, 8, 0, 0);
+        GregorianCalendar eindDatum2 = new GregorianCalendar(2016, 3, 17, 17, 0,0);
         
         String gebruiker1 = "student1@hogent.be";
         String gebruiker2 = "student2@hogent.be";

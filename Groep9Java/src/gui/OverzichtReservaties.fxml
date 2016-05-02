@@ -40,9 +40,9 @@
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="291.0" minWidth="10.0" prefWidth="291.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="495.0" minWidth="10.0" prefWidth="277.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="445.0" minWidth="0.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="445.0" minWidth="10.0" prefWidth="162.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="445.0" minWidth="10.0" prefWidth="234.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="445.0" minWidth="0.0" prefWidth="16.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="445.0" minWidth="10.0" prefWidth="125.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="445.0" minWidth="10.0" prefWidth="300.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="83.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
@@ -74,6 +74,11 @@
             </Button>
             <Button fx:id="btnWijzigen" mnemonicParsing="false" onAction="#wijzigReservatie" text="Reservatie wijzigen" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Button fx:id="btnToevoegen" mnemonicParsing="false" onAction="#voegReservatieToe" text="Reservatie toevoegen" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <ComboBox fx:id="cmbStatus" onAction="#filterStatus" prefWidth="150.0" promptText="Filter status" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </ComboBox>
          </children>
          <padding>
             <Insets bottom="10.0" />
