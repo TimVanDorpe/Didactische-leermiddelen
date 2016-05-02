@@ -39,7 +39,7 @@ public class BeheerdersDetailController extends Pane implements Observer {
     private TextField txtWachtwoord;
     @FXML
     private Button btnNieuweBeheerder;
-    
+
     @FXML
     private Button btnAnnuleren;
     @FXML
@@ -48,13 +48,11 @@ public class BeheerdersDetailController extends Pane implements Observer {
     private Button btnBeheerderVerwijderen;
 
     @FXML
-    private Label lblError;
+    private Label lblError, lblNaam, lblEmail, lblWachtwoord;
 
     private BeheerderController bc;
     @FXML
     private Button btnToevoegen;
-    
-
 
     BeheerdersDetailController(BeheerderController bc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BeheerdersDetail.fxml"));
@@ -63,26 +61,23 @@ public class BeheerdersDetailController extends Pane implements Observer {
         loader.setRoot(this);
         loader.setController(this);
 
-        
         try {
             loader.load();
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-       
+
         btnSelectieVerwijderen.setVisible(false);
         btnToevoegen.setVisible(false);
         btnAnnuleren.setVisible(false);
         if (bc.getSelectionModelEmpty()) {
-            
-                       
+
             btnSelectieVerwijderen.setVisible(false);
             btnBeheerderVerwijderen.setVisible(false);
             txtEmail.setDisable(true);
             txtNaam.setDisable(true);
             txtWachtwoord.setDisable(true);
             btnAnnuleren.setVisible(false);
-      
 
         }
     }
@@ -101,7 +96,6 @@ public class BeheerdersDetailController extends Pane implements Observer {
             txtWachtwoord.setText(beh.getWachtwoord());
 
             //alles terug enablen als er iets geselcteerd wordt
-          
             btnSelectieVerwijderen.setVisible(true);
             btnBeheerderVerwijderen.setVisible(true);
             txtEmail.setDisable(true);
@@ -109,50 +103,96 @@ public class BeheerdersDetailController extends Pane implements Observer {
             txtWachtwoord.setDisable(true);
             btnAnnuleren.setVisible(true);
             btnToevoegen.setVisible(false);
-            
-             
+
         }
     }
+
     @FXML
     private void nieuweBeheerderToevoegen(ActionEvent event) {
-          resetWaarden();
+        resetWaarden();
         btnToevoegen.setVisible(true);
-       
+
         btnAnnuleren.setVisible(true);
         btnSelectieVerwijderen.setVisible(false);
-       
+
         Beheerder beh = new Beheerder();
         txtNaam.setPromptText("Naam van de nieuwe beheerder");
         txtEmail.setDisable(false);
-            txtNaam.setDisable(false);
-            txtWachtwoord.setDisable(false);
-        
+        txtNaam.setDisable(false);
+        txtWachtwoord.setDisable(false);
+
     }
-        @FXML
+
+    @FXML
     private void toevoegenBeheerder(ActionEvent event) {
-          try {
 
-           // valideerVelden(false);
-            String naam = txtNaam.getText();
-            String email = txtEmail.getText();
-            String wachtwoord = txtWachtwoord.getText();
-            bc.voegBeheerderToe(naam, email, wachtwoord);           //inputChanged = false;
+        // valideerVelden(false);
+        String naam = txtNaam.getText();
 
-            lblError.setText(""); // errortekst clearen
+        String email = txtEmail.getText();
+
+        String wachtwoord = txtWachtwoord.getText();
+
+        if (isInputValid()) {
+            bc.voegBeheerderToe(naam, email, wachtwoord);
             btnToevoegen.setVisible(false);
             btnAnnuleren.setVisible(false);
             btnBeheerderVerwijderen.setVisible(true);
-            btnSelectieVerwijderen.setVisible(false);
-            
-            
-
-        } catch (IllegalArgumentException ex) {
-
-            lblError.setText(ex.getMessage());
-            lblError.setTextFill(Color.web("#F20000"));
-
+            btnSelectieVerwijderen.setVisible(false);//inputChanged = false;
+            txtEmail.setDisable(true);
+            txtNaam.setDisable(true);
+            txtWachtwoord.setDisable(true);
+            maakLabelsTerugNormaal();
         }
 
+    }
+    
+    
+    private void maakLabelsTerugNormaal() {
+
+        lblNaam.setText("Naam");
+        lblNaam.setTextFill(Color.web("#000000"));
+        lblEmail.setText("Email");
+        lblEmail.setTextFill(Color.web("#000000"));
+        lblWachtwoord.setText("Wachtwoord");
+        lblWachtwoord.setTextFill(Color.web("#000000"));
+   
+    }
+
+    private boolean isInputValid() {
+        boolean validInput = true;
+        String naam = txtNaam.getText();
+        String message = "";
+        if (txtNaam.getText().equals("")) {
+
+            message += "Naam is verplicht\n";
+            lblNaam.setText("Naam*");
+            lblNaam.setTextFill(Color.web("#F20000"));
+            validInput = false;
+        }
+        String email = txtEmail.getText();
+
+        if (txtEmail.getText().equals("")) {
+            lblEmail.setText("Email*");
+            lblEmail.setTextFill(Color.web("#F20000"));
+            message += "Email is verplicht\n";
+            validInput = false;
+
+        }
+        String wachtwoord = txtWachtwoord.getText();
+
+        
+        if (txtWachtwoord.getText().equals("")) {
+              lblWachtwoord.setText("Wachtwoord*");
+            lblWachtwoord.setTextFill(Color.web("#F20000"));
+            message += "Wachtwoord is verplicht\n";
+            validInput = false;
+
+        }
+        lblError.setText(message);
+        lblError.setTextFill(Color.web("#F20000"));
+
+        return validInput;
     }
 
     @FXML
@@ -161,12 +201,11 @@ public class BeheerdersDetailController extends Pane implements Observer {
         btnToevoegen.setVisible(false);
         btnAnnuleren.setVisible(false);
         btnBeheerderVerwijderen.setVisible(true);
-        
+
         btnSelectieVerwijderen.setVisible(true);
-       
+
         resetWaarden();
     }
-    
 
 //    @FXML
 //    private void wijzigBeheerder(ActionEvent event) {
@@ -191,29 +230,25 @@ public class BeheerdersDetailController extends Pane implements Observer {
 //        }
 //        
 //    }
-
 //    @FXML
 //    private void annuleerWijziging(ActionEvent event) {
 //        bc.updateDetailVenster();
 //
 //    }
     @FXML
-    private void resetWaarden(ActionEvent event)
-    {
-    
-    resetWaarden();
+    private void resetWaarden(ActionEvent event) {
+
+        resetWaarden();
     }
 
-    
     private void resetWaarden() {
-        txtNaam.setText("");    
+        txtNaam.setText("");
         txtEmail.setText("");
         txtWachtwoord.setText("");
         txtNaam.setPromptText("");
         bc.setGeselecteerdeBeheerder(null);
         btnSelectieVerwijderen.setVisible(false);
         btnBeheerderVerwijderen.setVisible(false);
-        
 
     }
 
@@ -231,7 +266,6 @@ public class BeheerdersDetailController extends Pane implements Observer {
             // OK
 
             bc.removeBeheerder();
-
 
         } else {
             // Niet OK
@@ -287,6 +321,4 @@ public class BeheerdersDetailController extends Pane implements Observer {
 //
 //        }
 //    }
-
-
 }
