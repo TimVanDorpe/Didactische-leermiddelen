@@ -75,7 +75,11 @@ public class OverzichtProductenController extends BorderPane implements Observer
                 cellData -> cellData.getValue().plaatsProperty());
 
         tblProducten.getSelectionModel().selectedItemProperty().addListener((ObservableValue, oldValue, newValue) -> {
+            if (oldValue != null) {
+                domeinController.setOudProduct(oldValue);
+            }
             if (newValue != null) {
+
                 domeinController.setGeselecteerdProduct(newValue);
             }
         });
@@ -94,6 +98,7 @@ public class OverzichtProductenController extends BorderPane implements Observer
         if (arg == "maakAllesLeegNaWijziging") {
             tblProducten.getSelectionModel().clearSelection();
         }
+        
 
     }
 
@@ -125,12 +130,10 @@ public class OverzichtProductenController extends BorderPane implements Observer
         tblProducten.getSelectionModel().clearSelection();
     }
 
-   
-
     @FXML
     private void enableSelectionModel(MouseEvent event) {
         dc.setSelectionModelEmpty(false);
-        
+
         tblProducten.setItems(dc.getProductSortedList());
     }
 

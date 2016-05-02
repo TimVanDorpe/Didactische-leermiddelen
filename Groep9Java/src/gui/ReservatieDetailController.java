@@ -76,6 +76,7 @@ public class ReservatieDetailController extends Pane {
     private boolean isWijziging;
 
     private Reservatie huidigeReservatie;
+    private Product huidigProduct;
 
     public ReservatieDetailController(ReservatieController rc, ProductController pc, boolean isWijziging) {
         // TODO
@@ -120,13 +121,16 @@ public class ReservatieDetailController extends Pane {
 
             txtAantal.setText(Integer.toString(huidigeReservatie.getGereserveerdAantal()));
 
-            txtProduct.setText(huidigeReservatie.getGereserveerdProduct().getNaam());
-
             txtStudent.setText(huidigeReservatie.getGebruiker());
 
             dpStartdatum.setValue(huidigeReservatie.getStartDatum());
 
             dpEindDatum.setValue(huidigeReservatie.getEindDatum());
+            
+            
+            txtProduct.setText(huidigeReservatie.getGereserveerdProduct().getNaam());
+            this.huidigProduct = pc.getProductenLijst().stream().filter(p -> p.getNaam().equalsIgnoreCase(txtProduct.getText())).findAny().get();
+
         }
         /*
         if (rc.getSelectionModelEmpty()) {
@@ -162,10 +166,10 @@ public class ReservatieDetailController extends Pane {
 //
 //            lblError.setText("");
 //
-            Product prod = pc.getProductenLijst().stream().filter(p -> p.getNaam().equalsIgnoreCase(txtProduct.getText())).findAny().get();
+            //Product prod = pc.getProductenLijst().stream().filter(p -> p.getNaam().equalsIgnoreCase(txtProduct.getText())).findAny().get();
 //            
 //            // dit uit comment na demo
-            rc.wijzigReservatie(prod, aantal, student, startDate, eindDate, 3, 8);
+            rc.wijzigReservatie(huidigProduct, aantal, student, startDate, eindDate, 3, 8);
 //
 //            //demo
             rc.wijzigAantal(Integer.parseInt(txtAantal.getText()));

@@ -18,8 +18,20 @@ public class ProductController extends Observable {
     private Product huidigProduct;
     private ProductBeheer pb;
     private boolean selectionModelEmpty;
-    private  ObservableList<String> voorlopigeLeergebieden = FXCollections.observableArrayList();
-    private  ObservableList<String> voorlopigeDoelgroepen = FXCollections.observableArrayList();
+    private ObservableList<String> voorlopigeLeergebieden = FXCollections.observableArrayList();
+    private ObservableList<String> voorlopigeDoelgroepen = FXCollections.observableArrayList();
+
+    private Product oudProduct;
+
+    private boolean cancelled;
+
+    public Product getOudProduct() {
+        return oudProduct;
+    }
+
+    public void setOudProduct(Product oudProduct) {
+        this.oudProduct = oudProduct;
+    }
 
     public ObservableList<String> getVoorlopigeDoelgroepen() {
         return voorlopigeDoelgroepen;
@@ -42,12 +54,12 @@ public class ProductController extends Observable {
     public void voegProductToe(URL foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma) {
         //isNaamUniek(naam);
         List<Leergebied> leergebieden = new ArrayList<>();
-        for(String l : getVoorlopigeLeergebieden()){
+        for (String l : getVoorlopigeLeergebieden()) {
             leergebieden.add(pb.haalLeergebiedUitLijst(naam));
         }
-        
+
         List<Doelgroep> doelgroepen = new ArrayList<>();
-        for(String l : getVoorlopigeDoelgroepen()){
+        for (String l : getVoorlopigeDoelgroepen()) {
             doelgroepen.add(pb.haalDoelgroepUitLijst(naam));
         }
         Product nieuwProduct = new Product(leergebieden, doelgroepen, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats);
@@ -67,17 +79,16 @@ public class ProductController extends Observable {
             //isNaamUniek(naam);
         }
         List<Leergebied> leergebieden = new ArrayList<>();
-        for(String l : getVoorlopigeLeergebieden()){
+        for (String l : getVoorlopigeLeergebieden()) {
             leergebieden.add(pb.haalLeergebiedUitLijst(naam));
         }
-        
+
         List<Doelgroep> doelgroepen = new ArrayList<>();
-        for(String l : getVoorlopigeDoelgroepen()){
+        for (String l : getVoorlopigeDoelgroepen()) {
             doelgroepen.add(pb.haalDoelgroepUitLijst(naam));
         }
         pb.wijzigProduct(new Product(leergebieden, doelgroepen, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats), huidigProduct);
 
-        
         setChanged();
         notifyObservers("maakAllesLeegNaWijziging");
 
@@ -90,14 +101,14 @@ public class ProductController extends Observable {
 
     public SortedList<Product> getProductSortedList() {
         //Wrap the FilteredList in a SortedList
-        
+
         return pb.getSortedList(); //SortedList is unmodifiable
     }
 
     public void setGeselecteerdProduct(Product product) {
-        this.voorlopigeDoelgroepen =  FXCollections.observableArrayList(product.getDoelgroepen().stream().map(Doelgroep::getNaam).collect(Collectors.toList()));
+        this.voorlopigeDoelgroepen = FXCollections.observableArrayList(product.getDoelgroepen().stream().map(Doelgroep::getNaam).collect(Collectors.toList()));
         this.voorlopigeLeergebieden = FXCollections.observableArrayList(product.getLeergebieden().stream().map(Leergebied::getNaam).collect(Collectors.toList()));
-       
+
         this.huidigProduct = product;
         setChanged();
         notifyObservers(product);
@@ -112,8 +123,6 @@ public class ProductController extends Observable {
         setChanged();
         notifyObservers();
     }
-
-    
 
     public void setSelectionModelEmpty(boolean b) {
         selectionModelEmpty = b;
@@ -157,7 +166,6 @@ public class ProductController extends Observable {
     }
 //
 
-    
     public void voegVoorlopigLeergebiedToe(String naam) {
 //        Leergebied nieuwLeergebied = pb.haalLeergebiedUitLijst(naam);
 //        List<Leergebied> nieuweLijstLeergebieden = huidigProduct.getLeergebieden();
@@ -179,8 +187,6 @@ public class ProductController extends Observable {
     public ObservableList<String> getVoorlopigeLeergebieden() {
         return voorlopigeLeergebieden;
     }
-    
-
 
     public void nieuwLeergebiedToevoegen(String naam) {
         Leergebied leergebied = new Leergebied(naam);
@@ -228,27 +234,35 @@ public class ProductController extends Observable {
     }
 
     public Product getProductByNaam(String text) {
-       return pb.getProductByNaam(text);
+        return pb.getProductByNaam(text);
     }
-    
+
     public Product getProductById(int id) {
-       return pb.getProductById(id);
+        return pb.getProductById(id);
     }
-     public ObservableList<String> getStringNaamProducten() {
-       return StringNaamProducten();
+
+    public ObservableList<String> getStringNaamProducten() {
+        return StringNaamProducten();
     }
-     
-      private ObservableList<String> StringNaamProducten() {
-         ObservableList<String> productNamen = FXCollections.observableArrayList(); 
-       for(Product p : getProductenLijst())
-       {
-          productNamen.add(p.getNaam());
-       }
-       return productNamen;
+
+    private ObservableList<String> StringNaamProducten() {
+        ObservableList<String> productNamen = FXCollections.observableArrayList();
+        for (Product p : getProductenLijst()) {
+            productNamen.add(p.getNaam());
+        }
+        return productNamen;
     }
 
     public void alleProductenOphalen() {
         pb.alleProductenOphalen();
     }
-    
+
+    public void setCancelled(boolean b) {
+        cancelled = b;
+    }
+
+    public boolean getCancelled() {
+        return cancelled;
+    }
+
 }

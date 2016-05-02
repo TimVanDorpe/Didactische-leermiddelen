@@ -115,6 +115,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
 
     private boolean inputChanged;
     private Product huidigProduct;
+    private Product oudProduct;
 
     public ProductDetailController(ProductController dc) {
         // TODO
@@ -173,12 +174,10 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
 
             lblError.setText(""); // errorlabel clear
 
-      
             dc.wijzigProduct(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma);
             //dc.geefAlleProductenWeer();
 
-            
-        inputChanged = false;
+            inputChanged = false;
 
         } catch (IllegalArgumentException ex) {
 
@@ -212,53 +211,59 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
     @Override
     public void update(Observable o, Object arg) {
         //binnenkomend product
+        dc.setCancelled(false);
+        
         Product product = (Product) arg;
-        
+
         // we gaan in deze klasse een huidigProduct moeten maken
-        //eerst controlleren of deze null is, zo ja dan wordt het product dat binnen komt het huidigProduct
-         //als deze niet nul is (we hebben dus al een product geselecteerd en klikken nu op een ander)
-         // dan controlleren we of de attributen (alles wat in de tekstvelden staat) van ons huidigproduct anders zijn dan de attributen van dat product die opgeslaan zijn in de database
-        if(this.huidigProduct== null){
-             this.huidigProduct = product;
-        
-//        }else{
-//            Product opgeslagenProduct = dc.getProductById(huidigProduct.getId());
-//         if(
-//                  opgeslagenProduct.getAantal() != txtAantal.getText()
-//                ||  opgeslagenProduct.getArtikelnummer()!= txtA
-//                ||  opgeslagenProduct.getDoelgroepen()!= huidigProduct.getDoelgroepen()
-//                ||  opgeslagenProduct.getFirma()!= huidigProduct.getFirma()
-//                ||  opgeslagenProduct.getFoto()!= huidigProduct.getFoto()
-//                ||  opgeslagenProduct.getLeergebieden()!= huidigProduct.getLeergebieden()
-//                ||   !opgeslagenProduct.getNaam().equals(huidigProduct.getNaam())
-//                ||   !opgeslagenProduct.getOmschrijving().equals(huidigProduct.getOmschrijving())
-//                ||  !opgeslagenProduct.getPlaats().equals(huidigProduct.getPlaats())
-//                ||  opgeslagenProduct.getPrijs()!= huidigProduct.getPrijs()
-//                ){
-//            
-//        Stage stage = new Stage();
-//
-//        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-//        alert.setTitle("Confirmatie");
-//        alert.setHeaderText("Niet opgeslagen wijzigingen gevonden");
-//        alert.setContentText("Er zijn niet opgeslagen wijzigingen gevonden. Wilt u deze annuleren?");
-//
-//        Optional<ButtonType> result = alert.showAndWait();
-//        if (result.get() == ButtonType.OK) {
-//            // OK
-//
-//            stage.close();
-//
-//            
+        //eerst controleren of deze null is, zo ja dan wordt het product dat binnen komt het huidigProduct
+        //als deze niet nul is (we hebben dus al een product geselecteerd en klikken nu op een ander)
+        // dan controleren we of de attributen (alles wat in de tekstvelden staat) van ons huidigproduct anders zijn 
+        //dan de attributen van dat product die opgeslaan zijn in de database
+        //if (this.huidigProduct == null) {
+        this.huidigProduct = product;
+        if (dc.getOudProduct() != null) {
+            oudProduct = dc.getOudProduct();
+        }
 //        } else {
-//            // Niet OK
-//
-//            throw new IllegalArgumentException("Gelieve uw wijzigingen te bevestigen of te annuleren");
-//
-//        }
-//
-//        stage.close();
-//        }
+        //Product opgeslagenProduct = dc.getProductById(product.getId());
+        if (oudProduct != null) {
+            if (!String.format("%s", oudProduct.getAantal()).equals(txtAantal.getText())
+                    || !String.format("%s", oudProduct.getArtikelnummer()).equals(txtArtikelnummer.getText())
+                    //||  opgeslagenProduct.getDoelgroepen()!= opgeslagenProduct.getDoelgroepen()
+                    || !oudProduct.getFirma().getNaam().equalsIgnoreCase(txtFirma.getText())
+                    //|| opgeslagenProduct.getFoto() != foto
+                    //||  opgeslagenProduct.getLeergebieden()!= huidigProduct.getLeergebieden()
+                    || !oudProduct.getNaam().equalsIgnoreCase(txtNaam.getText())
+                    || !oudProduct.getOmschrijving().equalsIgnoreCase(txtOmschrijving.getText())
+                    || !oudProduct.getPlaats().equalsIgnoreCase(txtPlaats.getText())
+                    || !String.format("%.1f", oudProduct.getPrijs()).replace(",", ".").equals(txtPrijs.getText())) {
+
+                Stage stage = new Stage();
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmatie");
+                alert.setHeaderText("Niet opgeslagen wijzigingen gevonden");
+                alert.setContentText("OK om ze te vergeten, Cancel om ze aan te passen");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    // OK wijzigingen verwerpen
+
+                    stage.close();
+
+                } else {
+                    // Niet OK
+
+                    dc.setCancelled(true);
+                    throw new IllegalArgumentException("Gelieve uw wijzigingen te bevestigen of te annuleren");
+
+                }
+
+                stage.close();
+            }
+
+            //}
         }
         if (arg == "maakAllesLeegNaWijziging") {
             resetWaardenprivate();
@@ -267,15 +272,12 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             btnVerwijderen.setDisable(true);
             btnVoegProductToe.setVisible(false);
             btnToevoegenAnnuleren.setVisible(false);
-        } else 
-      
-        if (arg != null) {
+        } else if (arg != null) {
 
             lblError.setText("");
             maakLabelsTerugNormaal();
 
-           // Product product = (Product) arg;
-
+            // Product product = (Product) arg;
             txtAantal.setText(Integer.toString(product.getAantal()));
             txtArtikelnummer.setText(Integer.toString(product.getArtikelnummer()));
             txtFirma.setText(product.getFirma().getNaam());
@@ -306,7 +308,8 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             btnSelecteerDoelgroep.setDisable(false);
             listDoelgroepen.setDisable(false);
 
-        } /*} else {
+        }
+        /*} else {
             ongewijzigdProductBevestiging();
         }*/
 
@@ -397,7 +400,6 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
                     Logger.getLogger(ProductDetailController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
 
         }
     }
@@ -529,15 +531,15 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
 
     @FXML
     private void selecteerLeergebieden(ActionEvent event) {
-  Stage stage = new Stage();
+        Stage stage = new Stage();
         stage.setTitle("Leergebied Selecteren");
 
         Scene scene = new Scene(new LeergebiedSelecterenController(dc));
         stage.setScene(scene);
 
         this.setDisable(true);
-        
-         Stage overZichtStage = (Stage) btnSelecteerLeergebied.getScene().getWindow();
+
+        Stage overZichtStage = (Stage) btnSelecteerLeergebied.getScene().getWindow();
         EventHandler handler = event1 -> event1.consume();
         overZichtStage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, handler);
 
@@ -553,8 +555,6 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
                     listLeergebieden.setItems(dc.getVoorlopigeLeergebieden());
                     overZichtStage.removeEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, handler);
                 });
-
-      
 
         stage.show();
     }
