@@ -64,6 +64,7 @@ public class ProductController extends Observable {
         }
         Product nieuwProduct = new Product(leergebieden, doelgroepen, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats);
         pb.voegProductToe(nieuwProduct);
+        alleProductenOphalen();
     }
 
     public Product getHuidigProduct() {
@@ -75,9 +76,9 @@ public class ProductController extends Observable {
     }
 
     public void wijzigProduct(URL foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma) {
-        //if (!naam.toLowerCase().equals(huidigProduct.getNaam().toLowerCase())) {
+        if (!naam.toLowerCase().equals(huidigProduct.getNaam().toLowerCase())) {
             //isNaamUniek(naam);
-        //}
+        }
         List<Leergebied> leergebieden = new ArrayList<>();
         for (String l : getVoorlopigeLeergebieden()) {
             leergebieden.add(pb.haalLeergebiedUitLijst(naam));
@@ -88,7 +89,7 @@ public class ProductController extends Observable {
             doelgroepen.add(pb.haalDoelgroepUitLijst(naam));
         }
         pb.wijzigProduct(new Product(leergebieden, doelgroepen, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats), huidigProduct);
-
+        alleProductenOphalen();
         setChanged();
         notifyObservers("maakAllesLeegNaWijziging");
 

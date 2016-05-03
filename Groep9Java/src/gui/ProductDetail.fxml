@@ -24,7 +24,7 @@
       <Button fx:id="btnLeegmaken" layoutX="264.0" layoutY="661.0" mnemonicParsing="false" onAction="#resetWaarden" prefHeight="25.0" prefWidth="190.0" text="Selectie verwijderen" />
       <Button fx:id="btnFoto" layoutX="39.0" layoutY="100.0" mnemonicParsing="false" onAction="#fotoToevoegen" prefHeight="25.0" prefWidth="208.0" text="Foto toevoegen..." />
       <Button fx:id="btnWijzigen" layoutX="48.0" layoutY="630.0" mnemonicParsing="false" onAction="#wijzigProduct" prefHeight="25.0" prefWidth="190.0" text="Wijzigingen opslaan" />
-      <GridPane layoutX="54.0" layoutY="144.0" prefHeight="452.0" prefWidth="400.0">
+      <GridPane fx:id="grid" layoutX="54.0" layoutY="144.0" prefHeight="452.0" prefWidth="400.0">
          <children>
             <Label fx:id="lblOmschrijving" text="Omschrijving" GridPane.rowIndex="1" />
             <Label fx:id="lblArtikelnummer" text="Artikelnummer vd firma" GridPane.rowIndex="6" />
