@@ -431,7 +431,7 @@ public class ProductBeheer {
      
     }
 
-    void alleProductenOphalen() {
+    public void alleProductenOphalen() {
         setProductenLijst(null);
          setProductenLijst(FXCollections.observableArrayList(gdjProduct.findAll()));
     }

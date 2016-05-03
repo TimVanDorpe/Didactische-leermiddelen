@@ -16,7 +16,8 @@ public class ProductenFrameController extends HBox {
         
        detailPanelController = new ProductDetailController(domeinController);
         domeinController.addObserver(detailPanelController);
-        domeinController.addObserver(overzichtPanel);
+        //overzichtpanneel is geen observer meer anders past die de lijst van producten niet automatisch aan!
+       //   domeinController.addObserver(overzichtPanel);
         getChildren().addAll(overzichtPanel,detailPanelController);
         
     }

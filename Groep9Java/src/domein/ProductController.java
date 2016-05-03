@@ -54,14 +54,16 @@ public class ProductController extends Observable {
     public void voegProductToe(URL foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma) {
         //isNaamUniek(naam);
         List<Leergebied> leergebieden = new ArrayList<>();
-        for (String l : getVoorlopigeLeergebieden()) {
-            leergebieden.add(pb.haalLeergebiedUitLijst(naam));
-        }
+//        for (String l : gea   atVoorlopigeLeergebieden()) {
+//            leergebieden.add(pb.haalLeergebiedUitLijst(naam));
+//        }
+         leergebieden.add(new Leergebied("Biologie"));
 
         List<Doelgroep> doelgroepen = new ArrayList<>();
-        for (String l : getVoorlopigeDoelgroepen()) {
-            doelgroepen.add(pb.haalDoelgroepUitLijst(naam));
-        }
+//        for (String l : getVoorlopigeDoelgroepen()) {
+//            doelgroepen.add(pb.haalDoelgroepUitLijst(naam));
+//        }
+        doelgroepen.add(new Doelgroep("Kleuters"));
         Product nieuwProduct = new Product(leergebieden, doelgroepen, firma, foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats);
         pb.voegProductToe(nieuwProduct);
         alleProductenOphalen();
@@ -98,6 +100,7 @@ public class ProductController extends Observable {
 
     public void verwijderProduct() {
         pb.verwijderProduct(huidigProduct);
+        alleProductenOphalen();
     }
 
     public SortedList<Product> getProductSortedList() {

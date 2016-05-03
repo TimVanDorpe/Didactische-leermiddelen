@@ -370,7 +370,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
         listDoelgroepen.setItems(null);
         btnWijzigen.setDisable(true);
         btnVerwijderen.setDisable(true);
-
+        dc.setNieuwHuidigProduct(null);
     }
 
     @FXML
@@ -683,7 +683,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
         btnToevoegenAnnuleren.setVisible(false);
         btnWijzigen.setVisible(false);
         btnLeegmaken.setVisible(false);
-
+        dc.setNieuwHuidigProduct(null);
     }
 
 }
