@@ -75,9 +75,9 @@ public class ProductController extends Observable {
     }
 
     public void wijzigProduct(URL foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma) {
-        //if (!naam.toLowerCase().equals(huidigProduct.getNaam().toLowerCase())) {
+        if (!naam.toLowerCase().equals(huidigProduct.getNaam().toLowerCase())) {
             //isNaamUniek(naam);
-        //}
+        }
         List<Leergebied> leergebieden = new ArrayList<>();
         for (String l : getVoorlopigeLeergebieden()) {
             leergebieden.add(pb.haalLeergebiedUitLijst(naam));
