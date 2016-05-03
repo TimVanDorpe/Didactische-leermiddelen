@@ -6,6 +6,7 @@
 package domein;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -53,10 +54,14 @@ public class ReservatieController extends Observable {
 
     public void addReservatie(Reservatie r) {
         rb.addReservatie(r);
+         setChanged();
+        notifyObservers();
     }
 
     public void removeReservatie() {
         rb.removeReservatie(huidigeReservatie);
+         setChanged();
+        notifyObservers();
     }
 
     public void setGeselecteerdeReservatie(Reservatie res) {
@@ -107,7 +112,17 @@ public class ReservatieController extends Observable {
     }
     public ObservableList<Reservatie> zoekOpMateriaalNaam(String productNaam)
     {
-        return rb.zoekOpMateriaalNaam(productNaam);
+         ObservableList<Reservatie> reservatieLijstMetTrefwoord = FXCollections.observableArrayList();
+        List<Reservatie> rr = new ArrayList<>();
+
+        for (Reservatie r : getReservatieLijst()) {
+            if (r.getGereserveerdProduct().getNaam().toLowerCase().contains(productNaam.toLowerCase()) || r.getGereserveerdProduct().getOmschrijving().toLowerCase().contains(productNaam.toLowerCase())) {
+                rr.add(r);
+            }
+        }
+        reservatieLijstMetTrefwoord = FXCollections.observableArrayList(rr);
+
+        return reservatieLijstMetTrefwoord;
     }
 
     public ObservableList<String> getStudentenLijst() {
