@@ -54,22 +54,22 @@ public class ReservatieBeheer {
     public void setSortedList(SortedList<Reservatie> sortedList) {
         this.sortedList = sortedList;
    }
-
-    public ObservableList<Reservatie> zoekOpMateriaalNaam(String productNaam)
-    {
-    ObservableList<Reservatie> reservatieLijstMetTrefwoord = FXCollections.observableArrayList();
-        List<Reservatie> rr = new ArrayList<>();
-
-        for (Reservatie r : reservatieLijst) {
-            if (r.getGereserveerdProduct().getNaam().toLowerCase().contains(productNaam.toLowerCase()) || r.getGereserveerdProduct().getOmschrijving().toLowerCase().contains(productNaam.toLowerCase())) {
-                rr.add(r);
-            }
-        }
-        reservatieLijstMetTrefwoord = FXCollections.observableArrayList(rr);
-        sortedList = reservatieLijstMetTrefwoord.sorted(sortOrder);
-        return sortedList;
-    
-    }
+//
+//    public ObservableList<Reservatie> zoekOpMateriaalNaam(String productNaam)
+//    {
+//    ObservableList<Reservatie> reservatieLijstMetTrefwoord = FXCollections.observableArrayList();
+//        List<Reservatie> rr = new ArrayList<>();
+//
+//        for (Reservatie r : reservatieLijst) {
+//            if (r.getGereserveerdProduct().getNaam().toLowerCase().contains(productNaam.toLowerCase()) || r.getGereserveerdProduct().getOmschrijving().toLowerCase().contains(productNaam.toLowerCase())) {
+//                rr.add(r);
+//            }
+//        }
+//        reservatieLijstMetTrefwoord = FXCollections.observableArrayList(rr);
+//        sortedList = reservatieLijstMetTrefwoord.sorted(sortOrder);
+//        return sortedList;
+//    
+//    }
     
     public ObservableList<Reservatie> getReservatieLijst() {
         return getSortedList();
