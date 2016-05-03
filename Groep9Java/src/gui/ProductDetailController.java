@@ -19,7 +19,6 @@ import java.util.Observer;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -29,14 +28,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -96,6 +96,10 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
     @FXML
     private Label lblPlaats;
 
+    @FXML
+    private GridPane grid;
+    @FXML
+    private Region region;
     private ProductController dc;
 
     final FileChooser fileChooser = new FileChooser();
@@ -149,6 +153,15 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             btnVerwijderen.setDisable(true);
             btnVoegProductToe.setVisible(false);
             btnToevoegenAnnuleren.setVisible(false);
+
+            grid.setVisible(false);
+            lblTitelDetail.setVisible(false);
+            btnFoto.setVisible(false);
+            btnAnnuleer.setVisible(false);
+            btnVerwijderen.setVisible(false);
+            btnToevoegenAnnuleren.setVisible(false);
+            btnWijzigen.setVisible(false);
+            btnLeegmaken.setVisible(false);
 
             //btnSelecteerLeergebied.setDisable(true);
             //listLeergebieden.setDisable(true);
@@ -204,6 +217,16 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
     //steekt alle gegevens in de textfields
     @Override
     public void update(Observable o, Object arg) {
+
+        grid.setVisible(true);
+        lblTitelDetail.setVisible(true);
+        btnFoto.setVisible(true);
+        btnAnnuleer.setVisible(true);
+        btnVerwijderen.setVisible(true);
+        btnToevoegenAnnuleren.setVisible(false);
+        btnWijzigen.setVisible(true);
+        btnLeegmaken.setVisible(true);
+
         //binnenkomend product
         dc.setCancelled(false);
         Product product = (Product) arg;
@@ -575,6 +598,15 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
     @FXML
     private void zetProductklaarvoortoevoegen(ActionEvent event) {
 
+        grid.setVisible(true);
+        lblTitelDetail.setVisible(true);
+        btnFoto.setVisible(true);
+        btnAnnuleer.setVisible(true);
+        btnVerwijderen.setVisible(true);
+        btnToevoegenAnnuleren.setVisible(true);
+        btnWijzigen.setVisible(true);
+        btnLeegmaken.setVisible(true);
+
         resetWaardenprivate();
         btnVoegProductToe.setVisible(true);
         btnToevoegenAnnuleren.setVisible(true);
@@ -620,6 +652,8 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
     @FXML
     private void toevoegenAnnuleren(ActionEvent event) {
 
+        
+
         btnVoegProductToe.setVisible(false);
         btnToevoegenAnnuleren.setVisible(false);
         btnAnnuleer.setVisible(true);
@@ -628,6 +662,16 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
         btnVerwijderen.setVisible(true);
         lblTitelDetail.setText("Details Materiaal");
         resetWaardenprivate();
+        
+        
+        grid.setVisible(false);
+        lblTitelDetail.setVisible(false);
+        btnFoto.setVisible(false);
+        btnAnnuleer.setVisible(false);
+        btnVerwijderen.setVisible(false);
+        btnToevoegenAnnuleren.setVisible(false);
+        btnWijzigen.setVisible(false);
+        btnLeegmaken.setVisible(false);
 
     }
 
