@@ -96,9 +96,20 @@ public class OverzichtProductenController extends BorderPane implements Observer
 
     @Override
     public void update(Observable o, Object arg) {
+        dc.alleProductenOphalen();
         if (arg.equals("maakAllesLeegNaWijziging")) {
             tblProducten.getSelectionModel().clearSelection();
         }
+//        tblProducten.getSelectionModel().selectedItemProperty().addListener((ObservableValue, oldValue, newValue) -> {
+//            if (oldValue != null) {
+//                dc.setOudProduct(oldValue);
+//            }
+//            if (newValue != null) {
+//
+//                dc.setGeselecteerdProduct(newValue);
+//            }
+//        });
+       // tblProducten.setItems(dc.getProductSortedList());
         
 
     }

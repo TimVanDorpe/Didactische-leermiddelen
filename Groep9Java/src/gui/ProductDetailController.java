@@ -112,6 +112,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
     private Button btnVerwijderen;
 
     private boolean cancelled;
+    private boolean wijziging = false;
     private Product huidigProduct;
     private Product oudProduct;
 
@@ -169,7 +170,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             Firma firma = new Firma(firmaNaam, firmaEmail);
 
             lblError.setText(""); // errorlabel clear
-
+            this.wijziging = true;
             dc.wijzigProduct(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma);
             //dc.geefAlleProductenWeer();
 
@@ -204,71 +205,71 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
     //steekt alle gegevens in de textfields
     @Override
     public void update(Observable o, Object arg) {
-        //binnenkomend product
-        dc.setCancelled(false);
-        Product product = (Product) arg;
+        try {
+            if (this.wijziging) {
+                resetWaardenprivate();
+                btnWijzigen.setDisable(true);
+                btnLeegmaken.setDisable(true);
+                btnVerwijderen.setDisable(true);
+                btnVoegProductToe.setVisible(false);
+                btnToevoegenAnnuleren.setVisible(false);
+                dc.setNieuwHuidigProduct(null);
+            } else {
+                //binnenkomend product
+                dc.setCancelled(false);
+                Product product = (Product) arg;
 
-        // we gaan in deze klasse een huidigProduct moeten maken
-        //eerst controleren of deze null is, zo ja dan wordt het product dat binnen komt het huidigProduct
-        //als deze niet nul is (we hebben dus al een product geselecteerd en klikken nu op een ander)
-        // dan controleren we of de attributen (alles wat in de tekstvelden staat) van ons huidigproduct anders zijn 
-        //dan de attributen van dat product die opgeslaan zijn in de database
-        //if (this.huidigProduct == null) {
-        this.huidigProduct = product;
-        if (dc.getOudProduct() != null) {
-            oudProduct = dc.getOudProduct();
-        }
-//        } else {
-        //Product opgeslagenProduct = dc.getProductById(product.getId());
-        if (oudProduct != null) {
-            if (!String.format("%s", oudProduct.getAantal()).equals(txtAantal.getText())
-                    || !String.format("%s", oudProduct.getArtikelnummer()).equals(txtArtikelnummer.getText())
-                    //||  opgeslagenProduct.getDoelgroepen()!= opgeslagenProduct.getDoelgroepen()
-                    || !oudProduct.getFirma().getNaam().equalsIgnoreCase(txtFirma.getText())
-                    //|| opgeslagenProduct.getFoto() != foto
-                    //||  opgeslagenProduct.getLeergebieden()!= huidigProduct.getLeergebieden()
-                    || !oudProduct.getNaam().equalsIgnoreCase(txtNaam.getText())
-                    || !oudProduct.getOmschrijving().equalsIgnoreCase(txtOmschrijving.getText())
-                    || !oudProduct.getPlaats().equalsIgnoreCase(txtPlaats.getText())
-                    || !String.format("%.2f", oudProduct.getPrijs()).replace(",", ".").equals(txtPrijs.getText())) {;
+                // we gaan in deze klasse een huidigProduct moeten maken
+                //eerst controleren of deze null is, zo ja dan wordt het product dat binnen komt het huidigProduct
+                //als deze niet nul is (we hebben dus al een product geselecteerd en klikken nu op een ander)
+                // dan controleren we of de attributen (alles wat in de tekstvelden staat) van ons huidigproduct anders zijn 
+                //dan de attributen van dat product die opgeslaan zijn in de database
 
-                Stage stage = new Stage();
+                if (dc.getHuidigProduct() != null) {
+                    oudProduct = dc.getProductById(dc.getHuidigProduct().getId());
 
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirmatie");
-                alert.setHeaderText("Niet opgeslagen wijzigingen gevonden");
-                alert.setContentText("OK om ze te verwerpen, Cancel om ze aan te passen");
+                    if (!String.format("%s", oudProduct.getAantal()).equals(txtAantal.getText())
+                            || !String.format("%s", oudProduct.getArtikelnummer()).equals(txtArtikelnummer.getText())
+                            //||  opgeslagenProduct.getDoelgroepen()!= opgeslagenProduct.getDoelgroepen()
+                            || !oudProduct.getFirma().getNaam().equalsIgnoreCase(txtFirma.getText())
+                            //|| opgeslagenProduct.getFoto() != foto
+                            //||  opgeslagenProduct.getLeergebieden()!= huidigProduct.getLeergebieden()
+                            || !oudProduct.getNaam().equalsIgnoreCase(txtNaam.getText())
+                            || !oudProduct.getOmschrijving().equalsIgnoreCase(txtOmschrijving.getText())
+                            || !oudProduct.getPlaats().equalsIgnoreCase(txtPlaats.getText())
+                            || !String.format("%.2f", oudProduct.getPrijs()).replace(",", ".").equals(txtPrijs.getText())) {;
 
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK) {
-                    // OK wijzigingen verwerpen
+                        Stage stage = new Stage();
 
-                    dc.setCancelled(false);
-                    dc.setNieuwHuidigProduct(product);
-                    stage.close();
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("Confirmatie");
+                        alert.setHeaderText("Niet opgeslagen wijzigingen gevonden");
+                        alert.setContentText("OK om ze te verwerpen, Cancel om ze aan te passen");
 
-                } else {
-                    // Niet OK
-                    dc.setCancelled(true);
-                    dc.setNieuwHuidigProduct(oudProduct);
-                    throw new IllegalArgumentException("Gelieve uw wijzigingen te bevestigen of te annuleren");
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if (result.get() == ButtonType.OK) {
+                            // OK wijzigingen verwerpen
 
+                            dc.setCancelled(false);
+                            dc.setNieuwHuidigProduct(product);
+
+                            // stage.close();
+                        } else {
+                            // Niet OK
+                            dc.setCancelled(true);
+                            // dc.setNieuwHuidigProduct(oudProduct);
+                            throw new IllegalArgumentException("Gelieve uw wijzigingen te bevestigen of te annuleren");
+
+                        }
+
+                        stage.close();
+
+                    }
                 }
 
-                stage.close();
-
-            }
-
-            //}
-            if (!dc.getCancelled()) {
-                if (arg == "maakAllesLeegNaWijziging") {
-                    resetWaardenprivate();
-                    btnWijzigen.setDisable(true);
-                    btnLeegmaken.setDisable(true);
-                    btnVerwijderen.setDisable(true);
-                    btnVoegProductToe.setVisible(false);
-                    btnToevoegenAnnuleren.setVisible(false);
-                } else if (arg != null) {
+                //}
+                if (!dc.getCancelled() || dc.getHuidigProduct() == null) {
+                    dc.setNieuwHuidigProduct(product);
 
                     lblError.setText("");
                     maakLabelsTerugNormaal();
@@ -306,15 +307,16 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
                     btnSelecteerDoelgroep.setDisable(false);
                     listDoelgroepen.setDisable(false);
 
-                }
-                /*} else {
+                    /*} else {
             ongewijzigdProductBevestiging();
         }*/
-
+                }
             }
             dc.setCancelled(false);
+            this.wijziging = false;
+        } catch (IllegalArgumentException e) {
+            lblError.setText(e.getMessage());
         }
-
     }
 
     @FXML
