@@ -5,109 +5,92 @@
  */
 package domein;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import junit.framework.Assert;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import org.junit.Assert;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.Before;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import static org.mockito.Mockito.when;
+
 /**
  *
  * @author Jens
  */
-
-
-/*
 public class ProductBeheerTest {
-    
+
+    private final ObservableList<Product> producten = FXCollections.observableArrayList();
+
     private ProductBeheer pb;
-    private EntityManager em;
-    private EntityManagerFactory emf;
-    private final String PERSISTENCE_UNIT_NAME = "Groep09";
-    
-    @Mock
-    private IProductMapper pmdummy;
-    
+
     @Before
-    public void before()
-    {
-        MockitoAnnotations.initMocks(this); 
-        PersistentieController persistentieController = new PersistentieController();
-        
-        emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-        em = emf.createEntityManager();
-        
-        
-        
-        
-        
-        //persistentieController.setProductMapper(pmdummy);
-        ProductBeheer pb = new ProductBeheer(em, emf, persistentieController);
-    }
+    public void before() throws Exception {
+        pb = new ProductBeheer();
 
-    
-    @Test
-    public void testMethod1(){
-        
-        
-        
-    }
-    
-    
-    
-    
-    /*
-    @Test
-    public void berekeningLandStatistiek()
-    {
-        Mockito.when(landMapperDummy.findLand(CODE))
-                .thenReturn(new Land(CODE, 10));
+        producten.add(new Product("test", 5));
+        producten.add(new Product("test4", 5));
+        producten.add(new Product("test6", 5));
 
-        Mockito.when(landMapperDummy.findOppervlakteAlleLanden())
-                .thenReturn(100);
-        
-        LandStatistiek landStatistiek = landService.geefLandStatistiek(CODE);
-        
-        Land land = landStatistiek.getLand();
-        Assert.assertEquals(CODE, land.getCode());
-        Assert.assertEquals(10, land.getOppervlakte());
-        Assert.assertEquals(0.1, landStatistiek.getVerhouding(), 0.09);
-        
-        //Verifieert dat de methode één keer opgeroepen is geweest (in dit geval door de LandStatistiek)
-        Mockito.verify(landMapperDummy).findLand(CODE);
-        Mockito.verify(landMapperDummy).findOppervlakteAlleLanden();
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void legeCode()
-    {
-        landService.geefLandStatistiek("");
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void nullCode()
-    {
-        landService.geefLandStatistiek(null);
     }
 
     @Test
-    public void landBestaatNiet()
-    {
-        Mockito.when(landMapperDummy.findLand(CODE)).thenReturn(null);
-        
-        Mockito.when(landMapperDummy.findOppervlakteAlleLanden()).thenReturn(100);
-        
-        Assert.assertNull(landService.geefLandStatistiek(CODE));
-        
-        Mockito.verify(landMapperDummy).findLand(CODE);
+    public void isNaamUniekTest() {
+        String naam = "naam1";
+        String naam2 = "naam2";
+        String naam3 = "naam2";
+
+        pb.isNaamUniek(naam, naam3, true);
+
+        Assert.assertTrue(pb.isNaamUniek(naam, naam3, true));
+
+    }
+
+//    @Test
+//    public void getProductOpNaam() {
+//
+//      //  Product prodvolgensmethode= pb.getProductByNaam("naam");
+//
+//      //  Assert.assertEquals(prod, prodvolgensmethode );
+//
+//    }
+    @Test
+    public void zoekenOpTrefwoordTest() {
+        //  create mock
+        ProductBeheer test = Mockito.mock(ProductBeheer.class);
+        Product prodtest = new Product("test", 5);
+        ObservableList<Product> expectedResult = FXCollections.observableArrayList();
+        expectedResult.add(prodtest);
+
+        ObservableList<Product> actualResult = FXCollections.observableArrayList();
+
+        // define return value for method zoekenOpTrefwoord()
+        when(test.zoekOpTrefwoord("test")).thenReturn(expectedResult);
+
+        actualResult.add(prodtest);
+
+        Assert.assertEquals(test.zoekOpTrefwoord("test"), actualResult);
+
+    }
+
+    @Test
+    public void zoekenOpNaam() {
+        ProductBeheer test = Mockito.mock(ProductBeheer.class);
+
+        Product prodtest = new Product("test", 5);
+
+
+        // define return value for method zoekenOpTrefwoord()
+        when(test.getProductByNaam("test")).thenReturn(prodtest);
+
+
+        Assert.assertEquals(test.getProductByNaam("test"), prodtest);
+
     }
     
     
+
+    
+    
+    
+
 }
-
-*/
