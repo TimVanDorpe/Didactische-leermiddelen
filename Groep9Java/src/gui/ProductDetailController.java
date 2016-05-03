@@ -226,7 +226,11 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
         btnToevoegenAnnuleren.setVisible(false);
         btnWijzigen.setVisible(true);
         btnLeegmaken.setVisible(true);
+        btnVoegProductToe.setVisible(false);
 
+        
+        
+        
         //binnenkomend product
         dc.setCancelled(false);
         Product product = (Product) arg;
@@ -639,6 +643,9 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             btnWijzigen.setVisible(true);
             btnVerwijderen.setVisible(true);
             lblTitelDetail.setText("Details Materiaal");
+            
+            dc.setNieuwHuidigProduct(null);
+            dc.setOudProduct(null);
 
         } catch (IllegalArgumentException ex) {
 
