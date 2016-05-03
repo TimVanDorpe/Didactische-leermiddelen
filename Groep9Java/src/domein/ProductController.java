@@ -75,9 +75,9 @@ public class ProductController extends Observable {
     }
 
     public void wijzigProduct(URL foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, Firma firma) {
-        if (!naam.toLowerCase().equals(huidigProduct.getNaam().toLowerCase())) {
+        //if (!naam.toLowerCase().equals(huidigProduct.getNaam().toLowerCase())) {
             //isNaamUniek(naam);
-        }
+        //}
         List<Leergebied> leergebieden = new ArrayList<>();
         for (String l : getVoorlopigeLeergebieden()) {
             leergebieden.add(pb.haalLeergebiedUitLijst(naam));
@@ -109,7 +109,7 @@ public class ProductController extends Observable {
         this.voorlopigeDoelgroepen = FXCollections.observableArrayList(product.getDoelgroepen().stream().map(Doelgroep::getNaam).collect(Collectors.toList()));
         this.voorlopigeLeergebieden = FXCollections.observableArrayList(product.getLeergebieden().stream().map(Leergebied::getNaam).collect(Collectors.toList()));
 
-        this.huidigProduct = product;
+        //this.huidigProduct = product;
         setChanged();
         notifyObservers(product);
     }
@@ -263,6 +263,12 @@ public class ProductController extends Observable {
 
     public boolean getCancelled() {
         return cancelled;
+    }
+
+    public void setNieuwHuidigProduct(Product product) {
+       
+        this.huidigProduct = product;
+
     }
 
 }

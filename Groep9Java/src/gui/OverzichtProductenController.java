@@ -96,7 +96,7 @@ public class OverzichtProductenController extends BorderPane implements Observer
 
     @Override
     public void update(Observable o, Object arg) {
-        if (arg == "maakAllesLeegNaWijziging") {
+        if (arg.equals("maakAllesLeegNaWijziging")) {
             tblProducten.getSelectionModel().clearSelection();
         }
         

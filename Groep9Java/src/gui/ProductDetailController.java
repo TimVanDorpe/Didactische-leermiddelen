@@ -111,7 +111,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
     @FXML
     private Button btnVerwijderen;
 
-    private boolean inputChanged;
+    private boolean cancelled;
     private Product huidigProduct;
     private Product oudProduct;
 
@@ -122,8 +122,6 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
         this.dc = dc;
         loader.setRoot(this);
         loader.setController(this);
-
-        inputChanged = false;
 
         try {
             loader.load();
@@ -175,8 +173,6 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             dc.wijzigProduct(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma);
             //dc.geefAlleProductenWeer();
 
-            inputChanged = false;
-
         } catch (IllegalArgumentException ex) {
 
             lblError.setText(ex.getMessage());
@@ -210,7 +206,6 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
     public void update(Observable o, Object arg) {
         //binnenkomend product
         dc.setCancelled(false);
-        
         Product product = (Product) arg;
 
         // we gaan in deze klasse een huidigProduct moeten maken
@@ -235,83 +230,90 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
                     || !oudProduct.getNaam().equalsIgnoreCase(txtNaam.getText())
                     || !oudProduct.getOmschrijving().equalsIgnoreCase(txtOmschrijving.getText())
                     || !oudProduct.getPlaats().equalsIgnoreCase(txtPlaats.getText())
-                    || !String.format("%.1f", oudProduct.getPrijs()).replace(",", ".").equals(txtPrijs.getText())) {
+                    || !String.format("%.2f", oudProduct.getPrijs()).replace(",", ".").equals(txtPrijs.getText())) {;
 
                 Stage stage = new Stage();
 
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Confirmatie");
                 alert.setHeaderText("Niet opgeslagen wijzigingen gevonden");
-                alert.setContentText("OK om ze te vergeten, Cancel om ze aan te passen");
+                alert.setContentText("OK om ze te verwerpen, Cancel om ze aan te passen");
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
                     // OK wijzigingen verwerpen
 
+                    dc.setCancelled(false);
+                    dc.setNieuwHuidigProduct(product);
                     stage.close();
 
                 } else {
                     // Niet OK
-
                     dc.setCancelled(true);
+                    dc.setNieuwHuidigProduct(oudProduct);
                     throw new IllegalArgumentException("Gelieve uw wijzigingen te bevestigen of te annuleren");
 
                 }
 
                 stage.close();
+
             }
 
             //}
-        }
-        if (arg == "maakAllesLeegNaWijziging") {
-            resetWaardenprivate();
-            btnWijzigen.setDisable(true);
-            btnLeegmaken.setDisable(true);
-            btnVerwijderen.setDisable(true);
-            btnVoegProductToe.setVisible(false);
-            btnToevoegenAnnuleren.setVisible(false);
-        } else if (arg != null) {
+            if (!dc.getCancelled()) {
+                if (arg == "maakAllesLeegNaWijziging") {
+                    resetWaardenprivate();
+                    btnWijzigen.setDisable(true);
+                    btnLeegmaken.setDisable(true);
+                    btnVerwijderen.setDisable(true);
+                    btnVoegProductToe.setVisible(false);
+                    btnToevoegenAnnuleren.setVisible(false);
+                } else if (arg != null) {
 
-            lblError.setText("");
-            maakLabelsTerugNormaal();
+                    lblError.setText("");
+                    maakLabelsTerugNormaal();
 
-            // Product product = (Product) arg;
-            txtAantal.setText(Integer.toString(product.getAantal()));
-            txtArtikelnummer.setText(Integer.toString(product.getArtikelnummer()));
-            txtFirma.setText(product.getFirma().getNaam());
-            txtEmailFirma.setText(product.getFirma().getEmailContactPersoon());
-      
-            String format = String.format("€%,.2f", product.getPrijs());
-            txtPrijs.setText(format);
-            txtNaam.setText(product.getNaam());
-            txtOmschrijving.setText(product.getOmschrijving());
-            txtPlaats.setText(product.getPlaats());
-            listLeergebieden.setItems(dc.getVoorlopigeLeergebieden());
-            listDoelgroepen.setItems(dc.getVoorlopigeDoelgroepen());
-            //alles terug enablen als er iets geselcteerd wordt
-            btnVerwijderen.setDisable(false);
-            btnAnnuleer.setDisable(false);
-            btnWijzigen.setDisable(false);
-            btnLeegmaken.setDisable(false);
+                    // Product product = (Product) arg;
+                    txtAantal.setText(Integer.toString(product.getAantal()));
+                    txtArtikelnummer.setText(Integer.toString(product.getArtikelnummer()));
+                    txtFirma.setText(product.getFirma().getNaam());
+                    txtEmailFirma.setText(product.getFirma().getEmailContactPersoon());
 
-            if (product.getFoto() != null) {
-                try {
-                    BufferedImage img = ImageIO.read(product.getFoto());
-                    Image image = SwingFXUtils.toFXImage(img, null);
-                    imgViewFoto.setImage(image);
-                } catch (IOException ex) {
-                    Logger.getLogger(ProductDetailController.class.getName()).log(Level.SEVERE, null, ex);
+                    //String format = String.format("%.2f", product.getPrijs());
+                    txtPrijs.setText(String.format("%.2f", product.getPrijs()).replace(",", "."));
+                    txtNaam.setText(product.getNaam());
+                    txtOmschrijving.setText(product.getOmschrijving());
+                    txtPlaats.setText(product.getPlaats());
+                    listLeergebieden.setItems(dc.getVoorlopigeLeergebieden());
+                    listDoelgroepen.setItems(dc.getVoorlopigeDoelgroepen());
+                    //alles terug enablen als er iets geselcteerd wordt
+                    btnVerwijderen.setDisable(false);
+                    btnAnnuleer.setDisable(false);
+                    btnWijzigen.setDisable(false);
+                    btnLeegmaken.setDisable(false);
+
+                    if (product.getFoto() != null) {
+                        try {
+                            BufferedImage img = ImageIO.read(product.getFoto());
+                            Image image = SwingFXUtils.toFXImage(img, null);
+                            imgViewFoto.setImage(image);
+                        } catch (IOException ex) {
+                            Logger.getLogger(ProductDetailController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else {
+                        imgViewFoto.setImage(null);
+                    }
+                    btnSelecteerDoelgroep.setDisable(false);
+                    listDoelgroepen.setDisable(false);
+
                 }
-            } else {
-                imgViewFoto.setImage(null);
-            }
-            btnSelecteerDoelgroep.setDisable(false);
-            listDoelgroepen.setDisable(false);
-
-        }
-        /*} else {
+                /*} else {
             ongewijzigdProductBevestiging();
         }*/
+
+            }
+            dc.setCancelled(false);
+        }
 
     }
 
@@ -337,14 +339,12 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
         listDoelgroepen.setItems(null);
         btnWijzigen.setDisable(true);
         btnVerwijderen.setDisable(true);
-        inputChanged = false;
 
     }
 
     @FXML
     private void annuleerWijziging(ActionEvent event) {
         dc.updateDetailvenster();
-        inputChanged = false;
     }
 
     private void valideerVelden(boolean isWijziging) {
@@ -517,7 +517,6 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             // OK
 
             dc.verwijderProduct();
-            inputChanged = false;
 
         } else {
             // Niet OK
@@ -573,30 +572,6 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
 
     }
 
-    private void ongewijzigdProductBevestiging() {
-        Stage stage = new Stage();
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmatie");
-        alert.setHeaderText("Niet opgeslagen wijzigingen gevonden");
-        alert.setContentText("Er zijn niet opgeslagen wijzigingen gevonden. Wilt u deze annuleren?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            // OK
-
-            stage.close();
-
-        } else {
-            // Niet OK
-
-            throw new IllegalArgumentException("Gelieve uw wijzigingen te bevestigen of te annuleren");
-
-        }
-
-        stage.close();
-    }
-
     @FXML
     private void zetProductklaarvoortoevoegen(ActionEvent event) {
 
@@ -644,8 +619,6 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
 
     @FXML
     private void toevoegenAnnuleren(ActionEvent event) {
-
-        inputChanged = false;
 
         btnVoegProductToe.setVisible(false);
         btnToevoegenAnnuleren.setVisible(false);
