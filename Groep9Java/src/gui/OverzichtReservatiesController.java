@@ -29,6 +29,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -173,6 +174,9 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
         Stage stage = new Stage();
         stage.setTitle("Reservatie wijzigen");
         Scene scene = new Scene(new ReservatieDetailController(rc, pc, true)); // isWijziging = true
+        
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }

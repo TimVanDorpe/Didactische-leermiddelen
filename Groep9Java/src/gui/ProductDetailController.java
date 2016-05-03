@@ -648,8 +648,8 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             btnVerwijderen.setVisible(true);
             lblTitelDetail.setText("Details Materiaal");
             
-            dc.setNieuwHuidigProduct(null);
-            dc.setOudProduct(null);
+            //dc.setNieuwHuidigProduct(null);
+            //dc.setOudProduct(null);
 
         } catch (IllegalArgumentException ex) {
 

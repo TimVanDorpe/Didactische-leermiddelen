@@ -31,6 +31,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class ReservatieDetailController extends Pane {
 
@@ -77,6 +78,8 @@ public class ReservatieDetailController extends Pane {
 
     private Reservatie huidigeReservatie;
     private Product huidigProduct;
+
+    private Stage stage;
 
     public ReservatieDetailController(ReservatieController rc, ProductController pc, boolean isWijziging) {
         // TODO
@@ -146,7 +149,7 @@ public class ReservatieDetailController extends Pane {
 
     @FXML
     private void wijzigReservatie(ActionEvent event) {
-
+        
         try {
 
             if (txtAantal.getText().equals("") || !Helper.isInteger(txtAantal.getText())) {
@@ -171,7 +174,7 @@ public class ReservatieDetailController extends Pane {
             rc.wijzigReservatie(huidigProduct, aantal, student, startDate, eindDate, 3, 8);
 //
 //            //demo
-            rc.wijzigAantal(Integer.parseInt(txtAantal.getText()));
+            //rc.wijzigAantal(Integer.parseInt(txtAantal.getText()));
 
             //TIJDELIJK VOOR DEMO
             lblAantal.setText("Aantal");
@@ -187,6 +190,7 @@ public class ReservatieDetailController extends Pane {
             lblError.setTextFill(Color.web("#F20000"));
 
         }
+        stage.close();
     }
 
     //steekt alle gegevens in de textfields
@@ -286,7 +290,7 @@ public class ReservatieDetailController extends Pane {
 
     @FXML
     private void reservatieToevoegen(ActionEvent event) {
-        Stage stage = (Stage) btnAnnuleer.getScene().getWindow();
+
         try {
 
             if (txtAantal.getText().equals("") || !Helper.isInteger(txtAantal.getText())) {
