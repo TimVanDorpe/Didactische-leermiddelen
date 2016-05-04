@@ -17,6 +17,8 @@ import java.util.GregorianCalendar;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Optional;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -70,6 +72,9 @@ public class ReservatieDetailController extends Pane {
     @FXML
     private DatePicker dpStartdatum, dpEindDatum;
 
+    @FXML
+    private Label lblMax;
+
     private String product, student;
     private int aantal;
     private LocalDate startDate, eindDate;
@@ -111,6 +116,14 @@ public class ReservatieDetailController extends Pane {
             lblTitel.setText("Reservatie toevoegen");
             cbMateriaal.setItems(pc.getStringNaamProducten());
             cbStudent.setItems(rc.getStudentenLijst());
+
+            cbMateriaal.valueProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> ov, String t, String t1) {
+                    lblMax.setText(String.format("beschikbaar: %d", pc.getProductByNaam(cbMateriaal.getSelectionModel().getSelectedItem().toString()).getAantalBeschikbaar()));
+                }
+            });
+
         }
 
         if (huidigeReservatie != null && isWijziging) {
@@ -133,6 +146,9 @@ public class ReservatieDetailController extends Pane {
             txtProduct.setText(huidigeReservatie.getGereserveerdProduct().getNaam());
             this.huidigProduct = pc.getProductenLijst().stream().filter(p -> p.getNaam().equalsIgnoreCase(txtProduct.getText())).findAny().get();
 
+            // hier juiste aantal nog instellen (aantalBeschikbaar in de geselecteerde week)
+            lblMax.setText(String.format("beschikbaar: %d", huidigProduct.getAantalBeschikbaar()));
+
         }
         /*
         if (rc.getSelectionModelEmpty()) {
@@ -149,7 +165,7 @@ public class ReservatieDetailController extends Pane {
 
     @FXML
     private void wijzigReservatie(ActionEvent event) {
-        
+
         try {
 
             if (txtAantal.getText().equals("") || !Helper.isInteger(txtAantal.getText())) {

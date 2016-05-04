@@ -37,7 +37,10 @@ public class Product implements Serializable {
     
     private int artikelnummer;
     private double prijs;
-    private int aantal ;
+    private int aantal ; // totaal aantal
+    private int aantalBeschikbaar; // totaal - uitgeleend - onbeschikbaar
+    private int aantalUitgeleend; 
+    private int aantalOnbeschikbaar; // kapotte
     private String plaats ;
 
     public Product(List<Leergebied> leergebied, List<Doelgroep> doelgroep, Firma firma, URL foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
@@ -51,11 +54,17 @@ public class Product implements Serializable {
         setPrijs(prijs);
         setAantal(aantal);
         setPlaats(plaats);
+        setAantalBeschikbaar(aantal);
+        setAantalOnbeschikbaar(0);
+        setAantalUitgeleend(0);
     }
     public Product(String naam, int aantal)
     {
         setNaam(naam);
         setAantal(aantal);
+        setAantalBeschikbaar(aantal);
+        setAantalOnbeschikbaar(0);
+        setAantalUitgeleend(0);
     }
     
     
@@ -69,6 +78,33 @@ public class Product implements Serializable {
         setPrijs(prijs);
         setAantal(aantal);
         setPlaats(plaats);
+        setAantalBeschikbaar(aantal);
+        setAantalOnbeschikbaar(0);
+        setAantalUitgeleend(0);
+    }
+
+    public int getAantalBeschikbaar() {
+        return aantalBeschikbaar;
+    }
+
+    public void setAantalBeschikbaar(int aantalBeschikbaar) {
+        this.aantalBeschikbaar = aantalBeschikbaar;
+    }
+
+    public int getAantalUitgeleend() {
+        return aantalUitgeleend;
+    }
+
+    public void setAantalUitgeleend(int aantalUitgeleend) {
+        this.aantalUitgeleend = aantalUitgeleend;
+    }
+
+    public int getAantalOnbeschikbaar() {
+        return aantalOnbeschikbaar;
+    }
+
+    public void setAantalOnbeschikbaar(int aantalOnbeschikbaar) {
+        this.aantalOnbeschikbaar = aantalOnbeschikbaar;
     }
     
     
@@ -195,6 +231,16 @@ public class Product implements Serializable {
         return aantalSimple;
     }
 
+    public SimpleStringProperty aantalBeschikbaarProperty() {
+        SimpleStringProperty aantalBeschikbaarSimple = new SimpleStringProperty();
+        StringBuilder sb = new StringBuilder();
+        sb.append("");
+        sb.append(aantalBeschikbaar);
+        String aantalBuild = sb.toString();
+        aantalBeschikbaarSimple.set(aantalBuild);
+        return aantalBeschikbaarSimple;
+    }
+    
     public String getPlaats() {
         return plaats;
     }

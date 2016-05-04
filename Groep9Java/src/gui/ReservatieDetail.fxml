@@ -9,22 +9,25 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root fx:id="detailPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="751.0" prefWidth="514.0" type="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="detailPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="751.0" prefWidth="573.0" type="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="lblError" layoutX="64.0" layoutY="561.0" prefHeight="25.0" prefWidth="400.0" />
+      <Label fx:id="lblError" layoutX="64.0" layoutY="502.0" prefHeight="25.0" prefWidth="400.0" />
       <Label fx:id="lblTitel" layoutX="30.0" layoutY="15.0" prefHeight="40.0" prefWidth="240.0" text="Details Reservatie">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
       <Button fx:id="btnWijzigen" layoutX="274.0" layoutY="549.0" mnemonicParsing="false" onAction="#wijzigReservatie" prefHeight="25.0" prefWidth="190.0" text="Aantal/Datum wijzigen" />
-      <GridPane layoutX="54.0" layoutY="85.0" prefHeight="417.0" prefWidth="400.0">
+      <GridPane layoutX="54.0" layoutY="85.0" prefHeight="417.0" prefWidth="366.0">
          <children>
             <Label fx:id="lblEindDatum" text="Einddatum" GridPane.rowIndex="4" />
             <Label fx:id="lblAantal" text="Aantal" GridPane.rowIndex="2" />
             <Label fx:id="lblStartDatum" text="Startdatum" GridPane.rowIndex="3" />
             <TextField fx:id="txtProduct" layoutY="-50.0" GridPane.columnIndex="1" />
-            <TextField fx:id="txtAantal" layoutY="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtAantal" layoutY="-50.0" prefHeight="25.0" prefWidth="76.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets right="120.0" />
+               </GridPane.margin></TextField>
             <Label fx:id="lblProduct" prefHeight="21.0" prefWidth="106.0" text="Materiaal" />
             <Label fx:id="lblStudent" text="Student" GridPane.rowIndex="1" />
             <TextField fx:id="txtStudent" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -36,6 +39,11 @@
             <DatePicker fx:id="dpEindDatum" onAction="#geefEindDatum" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <ComboBox fx:id="cbMateriaal" prefHeight="31.0" prefWidth="219.0" GridPane.columnIndex="1" />
             <ComboBox fx:id="cbStudent" prefHeight="31.0" prefWidth="224.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="lblMax" prefHeight="24.0" prefWidth="104.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="90.0" />
+               </GridPane.margin>
+            </Label>
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="236.0" />

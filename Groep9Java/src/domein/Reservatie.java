@@ -37,7 +37,6 @@ public class Reservatie implements Serializable {
     private boolean nogWeergeven = true;
     private String status;
 
-  
     public Reservatie() {
     }
 
@@ -60,14 +59,13 @@ public class Reservatie implements Serializable {
         setGereserveerdAantal(gereserveerdAantal);
     }
 
-    
-    
     public int getOpTeHalen() {
         return opTeHalen;
     }
 
     public void setOpTeHalen(int opTeHalen) {
         this.opTeHalen = opTeHalen;
+
     }
 
     public int getTeruggebracht() {
@@ -76,6 +74,7 @@ public class Reservatie implements Serializable {
 
     public void setTeruggebracht(int teruggebracht) {
         this.teruggebracht = teruggebracht;
+        gereserveerdProduct.setAantalBeschikbaar(gereserveerdProduct.getAantalBeschikbaar() + teruggebracht);
     }
 
     public LocalDate getStartDatum() {
@@ -118,6 +117,12 @@ public class Reservatie implements Serializable {
         if (opTeHalen + teruggebracht > gereserveerdAantal) {
             throw new IllegalArgumentException("het aantal op te halen met het aantal teruggebracht kan niet groter zijn dan het totaal aantal");
         }
+
+        // aantallen in product steken
+        // moet nog uitgebreid worden naar per week
+        gereserveerdProduct.setAantalUitgeleend(gereserveerdAantal);
+        gereserveerdProduct.setAantalBeschikbaar(gereserveerdProduct.getAantalBeschikbaar() - gereserveerdAantal);
+        gereserveerdProduct.setAantalUitgeleend(gereserveerdAantal);
         this.gereserveerdAantal = gereserveerdAantal;
     }
 
@@ -183,30 +188,28 @@ public class Reservatie implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-    
-    public void berekenStatus(){
+
+    public void berekenStatus() {
         String status = "";
         // bereken of de einddatum kleiner is dan vandaag
         if (eindDatum.isBefore(LocalDate.now())) {
-        
-        
-        
+
             // bereken of het aantal optehalen + teruggebracht = totaal aantal
             // zo wel dan "voltooid" (voltooide reservaties zullen niet meer getoond worden)
             if (opTeHalen + teruggebracht == gereserveerdAantal) {
-        
+
                 setNogWeergeven(false);
                 // zo niet dan moet met iets teruggeven zoals "te laat"
             } else if( teruggebracht < gereserveerdAantal - opTeHalen) {
                 status ="Niet alles teruggebracht";
             }
 
-             // als de startdatum  kleiner is dan vandaag en einddatum groter dan vandaag {
-        } else if(startDatum.isBefore(LocalDate.now()) && eindDatum.isAfter(LocalDate.now())) {
+            // als de startdatum  kleiner is dan vandaag en einddatum groter dan vandaag {
+        } else if (startDatum.isBefore(LocalDate.now()) && eindDatum.isAfter(LocalDate.now())) {
             if (opTeHalen == gereserveerdAantal) {
-            status ="Klaar om op te halen";
-            }else{
-                status= "Uitgeleend";
+                status = "Klaar om op te halen";
+            } else {
+                status = "Uitgeleend";
             }
             
         } else if(startDatum.isAfter(LocalDate.now())){
@@ -218,30 +221,29 @@ public class Reservatie implements Serializable {
         
         setStatus(status);
     }
-      public String getStatus() {
+
+    public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
     }
-  
+
     public SimpleStringProperty getStatusProperty() {
 
         SimpleStringProperty status = new SimpleStringProperty();
         status.set(getStatus());
         return status;
-        
+
     }
-    
+
     public boolean isNogWeergeven() {
         return nogWeergeven;
     }
-    
+
     public void setNogWeergeven(boolean nogWeergeven) {
         this.nogWeergeven = nogWeergeven;
     }
-
-    
 
 }
