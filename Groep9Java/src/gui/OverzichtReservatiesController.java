@@ -189,6 +189,8 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
         Stage stage = new Stage();
         stage.setTitle("Reservatie toevoegen");
         Scene scene = new Scene(new ReservatieDetailController(rc, pc, false)); // isWijziging = false
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }
