@@ -200,8 +200,8 @@ public class Reservatie implements Serializable {
 
                 setNogWeergeven(false);
                 // zo niet dan moet met iets teruggeven zoals "te laat"
-            } else if (teruggebracht < gereserveerdAantal - opTeHalen) {
-                status = "Niet alles teruggebracht!";
+            } else if( teruggebracht < gereserveerdAantal - opTeHalen) {
+                status ="Niet alles teruggebracht";
             }
 
             // als de startdatum  kleiner is dan vandaag en einddatum groter dan vandaag {
@@ -211,9 +211,14 @@ public class Reservatie implements Serializable {
             } else {
                 status = "Uitgeleend";
             }
-
+            
+        } else if(startDatum.isAfter(LocalDate.now())){
+            if(LocalDate.now().getDayOfYear() - startDatum.getDayOfYear() <= 7 ){
+                 status ="Klaar te leggen";
+            }
         }
-
+        
+        
         setStatus(status);
     }
 

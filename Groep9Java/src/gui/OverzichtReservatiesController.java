@@ -24,12 +24,16 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -63,7 +67,7 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
     @FXML
     private TableColumn<Reservatie, String> clmTeruggebracht;
     @FXML
-    private TableColumn<Reservatie, String> clmStatus;
+    private TableColumn clmStatus;
     @FXML
     private Button btnWijzigen;
     @FXML
@@ -105,42 +109,89 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
                 cellData -> cellData.getValue().opTeHalenProperty());
         clmTeruggebracht.setCellValueFactory(
                 cellData -> cellData.getValue().teruggebrachtProperty());
-        clmStatus.setCellValueFactory(
-                cellData -> cellData.getValue().getStatusProperty());
+//        clmStatus.setCellValueFactory(
+//                cellData -> if(cellData.getValue().)
+//                        cellData.getValue().getStatusProperty());
+//        
+        clmStatus.setCellValueFactory(new PropertyValueFactory<Reservatie, String>("status"));
+
+        // ** The TableCell class has the method setTextFill(Paint p) that you 
+        // ** need to override the text color
+        //   To obtain the TableCell we need to replace the Default CellFactory 
+        //   with one that returns a new TableCell instance, 
+        //   and @Override the updateItem(String item, boolean empty) method.
+        //
+        clmStatus.setCellFactory(new Callback<TableColumn, TableCell>() {
+
+            public TableCell call(TableColumn param) {
+                return new TableCell<Reservatie, String>() {
+
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+
+                        super.updateItem(item, empty);
+                        if (!isEmpty()) {
+                          
+                            // Get fancy and change color based on data
+                            if (item.contains("Uitgeleend")) {
+                                setStyle("-fx-background-color:#BFBFBF;-fx-color:#000;");
+                            }
+                            if (item.contains("Klaar te leggen")) {
+
+                                setStyle("-fx-background-color:#FFE945;-fx-color:#000;");
+
+                            }
+                            if (item.contains("Niet alles teruggebracht")) {
+
+                                setStyle("-fx-background-color:#FF5F3B;-fx-color:#000;");
+
+                            }
+                            if (item.contains("Klaar om op te halen")) {
+
+                                setStyle("-fx-background-color:#BFBFBF;-fx-color:#000;");
+
+                            }
+                            setText(item);
+                            
+                        }else{
+                            setText("");
+                            setStyle("");
+                        }
+                    }
+                };
+            }
+        });
+
         tblReservaties.getSelectionModel().selectedItemProperty().addListener((ObservableValue, oldValue, newValue) -> {
             if (newValue != null) {
                 rc.setGeselecteerdeReservatie(newValue);
             }
         });
-        
-        
-        
-          
+
         //maak data staat nu hier
         GregorianCalendar startDatum1 = new GregorianCalendar(2016, 3, 6, 8, 0, 0);
         GregorianCalendar eindDatum1 = new GregorianCalendar(2016, 3, 10, 17, 0, 0);
-        
+
         GregorianCalendar startDatum2 = new GregorianCalendar(2016, 3, 13, 8, 0, 0);
-        GregorianCalendar eindDatum2 = new GregorianCalendar(2016, 3, 17, 17, 0,0);
-        
+        GregorianCalendar eindDatum2 = new GregorianCalendar(2016, 3, 17, 17, 0, 0);
+
         GregorianCalendar startDatum3 = new GregorianCalendar(2016, 3, 13, 8, 0, 0);
-        GregorianCalendar eindDatum3 = new GregorianCalendar(2016, 5, 17, 17, 0,0);
+        GregorianCalendar eindDatum3 = new GregorianCalendar(2016, 5, 17, 17, 0, 0);
         
+        GregorianCalendar startDatum4 = new GregorianCalendar(2016, 4, 9, 8, 0, 0);
+        GregorianCalendar eindDatum4 = new GregorianCalendar(2016, 4, 13, 17, 0, 0);
+
         String gebruiker1 = "student1@hogent.be";
         String gebruiker2 = "student2@hogent.be";
-        
-     
-        
-        
-        rc.addReservatie(new Reservatie(startDatum1.toZonedDateTime().toLocalDate() , eindDatum1.toZonedDateTime().toLocalDate(), gebruiker1, pc.getProductById(1), 5, 2, 3));
-        rc.addReservatie(new Reservatie(startDatum1.toZonedDateTime().toLocalDate(), eindDatum1.toZonedDateTime().toLocalDate(), gebruiker2, pc.getProductById(2), 6 ,0 ,6));
-        rc.addReservatie(new Reservatie(startDatum2.toZonedDateTime().toLocalDate(), eindDatum2.toZonedDateTime().toLocalDate(), gebruiker1, pc.getProductById(3), 12 ,12 ,0));
-        rc.addReservatie(new Reservatie(startDatum2.toZonedDateTime().toLocalDate(), eindDatum2.toZonedDateTime().toLocalDate(), gebruiker1, pc.getProductById(4), 10 , 5 ,4));
-        rc.addReservatie(new Reservatie(startDatum3.toZonedDateTime().toLocalDate(), eindDatum3.toZonedDateTime().toLocalDate(), gebruiker2,  pc.getProductById(1), 5 , 0 ,0));
-        rc.addReservatie(new Reservatie(startDatum3.toZonedDateTime().toLocalDate(), eindDatum3.toZonedDateTime().toLocalDate(), gebruiker2,  pc.getProductById(1), 5 , 5 ,0));
-        
-        
-       
+
+        rc.addReservatie(new Reservatie(startDatum1.toZonedDateTime().toLocalDate(), eindDatum1.toZonedDateTime().toLocalDate(), gebruiker1, pc.getProductById(1), 5, 2, 3));
+        rc.addReservatie(new Reservatie(startDatum1.toZonedDateTime().toLocalDate(), eindDatum1.toZonedDateTime().toLocalDate(), gebruiker2, pc.getProductById(2), 6, 0, 6));
+        rc.addReservatie(new Reservatie(startDatum2.toZonedDateTime().toLocalDate(), eindDatum2.toZonedDateTime().toLocalDate(), gebruiker1, pc.getProductById(3), 12, 12, 0));
+        rc.addReservatie(new Reservatie(startDatum2.toZonedDateTime().toLocalDate(), eindDatum2.toZonedDateTime().toLocalDate(), gebruiker1, pc.getProductById(4), 10, 5, 4));
+        rc.addReservatie(new Reservatie(startDatum3.toZonedDateTime().toLocalDate(), eindDatum3.toZonedDateTime().toLocalDate(), gebruiker2, pc.getProductById(1), 5, 0, 0));
+        rc.addReservatie(new Reservatie(startDatum3.toZonedDateTime().toLocalDate(), eindDatum3.toZonedDateTime().toLocalDate(), gebruiker2, pc.getProductById(1), 5, 5, 0));
+        rc.addReservatie(new Reservatie(startDatum4.toZonedDateTime().toLocalDate(), eindDatum4.toZonedDateTime().toLocalDate(), gebruiker2, pc.getProductById(1), 5, 0, 0));
+
         tblReservaties.setItems(rc.getReservatieLijst());
         if (tblReservaties.getSelectionModel().isEmpty()) {
             rc.setSelectionModelEmpty(true);
@@ -177,7 +228,7 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
         Stage stage = new Stage();
         stage.setTitle("Reservatie wijzigen");
         Scene scene = new Scene(new ReservatieDetailController(rc, pc, true)); // isWijziging = true
-        
+
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setResizable(false);
         stage.setScene(scene);
@@ -203,7 +254,7 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
                 reservatieLijst.add(r);
             }
         }
-
+       
         tblReservaties.setItems(reservatieLijst);
     }
 
