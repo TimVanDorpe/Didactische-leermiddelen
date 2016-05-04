@@ -29,9 +29,9 @@ public class ReservatieBeheer {
     private ObservableList<Reservatie> reservatieLijst = FXCollections.observableArrayList();
     private SortedList<Reservatie> sortedList;
  
-    private final Comparator<Reservatie> byProdcutNaam = (r1, r2) -> r1.getGereserveerdProduct().getNaam().compareToIgnoreCase(r2.getGereserveerdProduct().getNaam());
+    private final Comparator<Reservatie> byStartDatum = (r1, r2) -> r1.getStartDatum().compareTo(r2.getStartDatum());
  
-    private final Comparator<Reservatie> sortOrder = byProdcutNaam;
+    private final Comparator<Reservatie> sortOrder = byStartDatum;
     
     private GenericDaoJpa gdj;
     
