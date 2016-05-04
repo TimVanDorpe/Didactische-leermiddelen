@@ -123,6 +123,8 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
         GregorianCalendar startDatum2 = new GregorianCalendar(2016, 3, 13, 8, 0, 0);
         GregorianCalendar eindDatum2 = new GregorianCalendar(2016, 3, 17, 17, 0,0);
         
+        GregorianCalendar startDatum3 = new GregorianCalendar(2016, 3, 13, 8, 0, 0);
+        GregorianCalendar eindDatum3 = new GregorianCalendar(2016, 5, 17, 17, 0,0);
         
         String gebruiker1 = "student1@hogent.be";
         String gebruiker2 = "student2@hogent.be";
@@ -134,7 +136,8 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
         rc.addReservatie(new Reservatie(startDatum1.toZonedDateTime().toLocalDate(), eindDatum1.toZonedDateTime().toLocalDate(), gebruiker2, pc.getProductById(2), 6 ,0 ,6));
         rc.addReservatie(new Reservatie(startDatum2.toZonedDateTime().toLocalDate(), eindDatum2.toZonedDateTime().toLocalDate(), gebruiker1, pc.getProductById(3), 12 ,12 ,0));
         rc.addReservatie(new Reservatie(startDatum2.toZonedDateTime().toLocalDate(), eindDatum2.toZonedDateTime().toLocalDate(), gebruiker1, pc.getProductById(4), 10 , 5 ,4));
-        
+        rc.addReservatie(new Reservatie(startDatum3.toZonedDateTime().toLocalDate(), eindDatum3.toZonedDateTime().toLocalDate(), gebruiker2,  pc.getProductById(1), 5 , 0 ,0));
+        rc.addReservatie(new Reservatie(startDatum3.toZonedDateTime().toLocalDate(), eindDatum3.toZonedDateTime().toLocalDate(), gebruiker2,  pc.getProductById(1), 5 , 5 ,0));
         
         
        
@@ -194,7 +197,7 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
     private void filterStatus(ActionEvent event) {
         ObservableList<Reservatie> reservatieLijst = FXCollections.observableArrayList();
         for (Reservatie r : rc.getReservatieLijst()) {
-            if (r.isNogWeergeven()) {
+            if (r.getStatus().equals(cmbStatus.getSelectionModel().getSelectedItem().toString())) {
                 reservatieLijst.add(r);
             }
         }
