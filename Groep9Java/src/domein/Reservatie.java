@@ -57,6 +57,9 @@ public class Reservatie implements Serializable {
         setGebruiker(gebruiker);
         setGereserveerdProduct(gereserveerdProduct);
         setGereserveerdAantal(gereserveerdAantal);
+        setOpTeHalen(0);
+        setTeruggebracht(0);
+        berekenStatus();
     }
 
     public int getOpTeHalen() {

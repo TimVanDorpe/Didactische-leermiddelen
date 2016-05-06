@@ -128,5 +128,10 @@ public class ReservatieBeheer {
        }
        return studenten;
     }
+
+    public void haalAlleReservatiesOp() {
+        setReservatieLijst(FXCollections.observableArrayList(gdj.findAll())); 
+        setSortedList(reservatieLijst.sorted(sortOrder));
+    }
     
 }

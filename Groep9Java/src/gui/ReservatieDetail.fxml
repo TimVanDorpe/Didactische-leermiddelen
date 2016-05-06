@@ -44,6 +44,18 @@
                   <Insets left="90.0" />
                </GridPane.margin>
             </Label>
+            <Label fx:id="lblOpTeHalen" text="Op te halen" GridPane.rowIndex="5" />
+            <Label fx:id="lblTeruggebracht" text="Teruggebracht" GridPane.rowIndex="6" />
+            <TextField fx:id="txtOpTeHalen" prefHeight="25.0" prefWidth="82.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets right="120.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="txtTeruggebracht" prefHeight="25.0" prefWidth="76.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets right="120.0" />
+               </GridPane.margin>
+            </TextField>
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="236.0" />
@@ -54,6 +66,7 @@
             <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="26.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="98.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="101.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="101.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="101.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>

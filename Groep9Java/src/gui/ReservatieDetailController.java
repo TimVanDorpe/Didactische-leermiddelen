@@ -85,6 +85,16 @@ public class ReservatieDetailController extends Pane {
     private Product huidigProduct;
 
     private Stage stage;
+    @FXML
+    private Pane detailPane;
+    @FXML
+    private TextField txtOpTeHalen;
+    @FXML
+    private TextField txtTeruggebracht;
+    @FXML
+    private Label lblOpTeHalen;
+    @FXML
+    private Label lblTeruggebracht;
 
     public ReservatieDetailController(ReservatieController rc, ProductController pc, boolean isWijziging) {
         // TODO
@@ -111,12 +121,23 @@ public class ReservatieDetailController extends Pane {
             btnToevoegen.setVisible(false);
             cbMateriaal.setVisible(false);
             cbStudent.setVisible(false);
+             lblTeruggebracht.setVisible(true);
+            txtTeruggebracht.setVisible(true);
+            lblOpTeHalen.setVisible(true);
+            txtOpTeHalen.setVisible(true);
+            
+           
+        
             lblTitel.setText("Reservatie wijzigen");
         } else if (!isWijziging) {
             lblTitel.setText("Reservatie toevoegen");
             cbMateriaal.setItems(pc.getStringNaamProducten());
             cbStudent.setItems(rc.getStudentenLijst());
 
+             lblTeruggebracht.setVisible(false);
+            txtTeruggebracht.setVisible(false);
+            lblOpTeHalen.setVisible(false);
+            txtOpTeHalen.setVisible(false);
             cbMateriaal.valueProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue<? extends String> ov, String t, String t1) {
@@ -138,13 +159,15 @@ public class ReservatieDetailController extends Pane {
             txtAantal.setText(Integer.toString(huidigeReservatie.getGereserveerdAantal()));
 
             txtStudent.setText(huidigeReservatie.getGebruiker());
+            txtOpTeHalen.setText(Integer.toString(huidigeReservatie.getOpTeHalen()));
+            txtTeruggebracht.setText(Integer.toString(huidigeReservatie.getTeruggebracht()));
 
             dpStartdatum.setValue(huidigeReservatie.getStartDatum());
 
             dpEindDatum.setValue(huidigeReservatie.getEindDatum());
 
             txtProduct.setText(huidigeReservatie.getGereserveerdProduct().getNaam());
-            this.huidigProduct = pc.getProductenLijst().stream().filter(p -> p.getNaam().equalsIgnoreCase(txtProduct.getText())).findAny().get();
+            this.huidigProduct = huidigeReservatie.getGereserveerdProduct();
 
             // hier juiste aantal nog instellen (aantalBeschikbaar in de geselecteerde week)
             lblMax.setText(String.format("beschikbaar: %d", huidigProduct.getAantalBeschikbaar()));
@@ -165,29 +188,44 @@ public class ReservatieDetailController extends Pane {
 
     @FXML
     private void wijzigReservatie(ActionEvent event) {
-
+        
         try {
 
             if (txtAantal.getText().equals("") || !Helper.isInteger(txtAantal.getText())) {
                 throw new IllegalArgumentException("Aantal moet een getal zijn");
             }
+            if (txtOpTeHalen.getText().equals("") || !Helper.isInteger(txtOpTeHalen.getText())) {
+                throw new IllegalArgumentException("Op te halen moet een getal zijn");
+            }
+            if (txtTeruggebracht.getText().equals("") || !Helper.isInteger(txtTeruggebracht.getText())) {
+                throw new IllegalArgumentException("Teruggebracht moet een getal zijn");
+            }
 
             if (Helper.isInteger(txtAantal.getText()) && (Integer.parseInt(txtAantal.getText()) <= 0)) {
-                throw new IllegalArgumentException("Aantal moet positief zijn");
+                throw new IllegalArgumentException("Aantal moet groter dan nul zijn");
             }
-            if (Helper.isInteger(txtAantal.getText()) && (Integer.parseInt(txtAantal.getText()) > 20)) {
+              if (Helper.isInteger(txtOpTeHalen.getText()) && (Integer.parseInt(txtOpTeHalen.getText()) < 0)) {
+                throw new IllegalArgumentException("Op te halen moet positief zijn");
+            }
+                 if (Helper.isInteger(txtTeruggebracht.getText()) && (Integer.parseInt(txtTeruggebracht.getText()) < 0)) {
+                throw new IllegalArgumentException("Teruggebracht moet positief zijn");
+            }
+            if (Helper.isInteger(txtAantal.getText()) && (Integer.parseInt(txtAantal.getText()) >  huidigProduct.getAantalBeschikbaar())) {
                 throw new IllegalArgumentException("Aantal kan niet groter zijn dan het totaal beschikbare aantal");
+            }
+            if (Helper.isInteger(txtOpTeHalen.getText()) && (Integer.parseInt(txtOpTeHalen.getText()) > rc.getHuidigeReservatie().getGereserveerdAantal())) {
+                throw new IllegalArgumentException("Op te halen kan niet groter zijn dan het gereserveerd aantal");
             }
 
             this.aantal = Integer.parseInt(txtAantal.getText());
-            this.student = txtStudent.getText();
+            this.student = txtStudent.getText();       
 //
 //            lblError.setText("");
 //
             //Product prod = pc.getProductenLijst().stream().filter(p -> p.getNaam().equalsIgnoreCase(txtProduct.getText())).findAny().get();
 //            
 //            // dit uit comment na demo
-            rc.wijzigReservatie(huidigProduct, aantal, student, startDate, eindDate, 3, 8);
+            rc.wijzigReservatie(huidigProduct, aantal, student, startDate, eindDate, Integer.parseInt(txtOpTeHalen.getText()), Integer.parseInt(txtTeruggebracht.getText()));
 //
 //            //demo
             //rc.wijzigAantal(Integer.parseInt(txtAantal.getText()));
@@ -306,6 +344,8 @@ public class ReservatieDetailController extends Pane {
 
     @FXML
     private void reservatieToevoegen(ActionEvent event) {
+        
+          this.huidigProduct = pc.getProductByNaam(cbMateriaal.getSelectionModel().getSelectedItem().toString());
 
         try {
 
@@ -316,13 +356,13 @@ public class ReservatieDetailController extends Pane {
             if (Helper.isInteger(txtAantal.getText()) && (Integer.parseInt(txtAantal.getText()) <= 0)) {
                 throw new IllegalArgumentException("Aantal moet positief zijn");
             }
-            if (Helper.isInteger(txtAantal.getText()) && (Integer.parseInt(txtAantal.getText()) > 20)) {
+            if (Helper.isInteger(txtAantal.getText()) && (Integer.parseInt(txtAantal.getText()) > huidigProduct.getAantalBeschikbaar())) {
                 throw new IllegalArgumentException("Aantal kan niet groter zijn dan het totaal beschikbare aantal");
             }
 
             this.aantal = Integer.parseInt(txtAantal.getText());
 
-            Reservatie r = new Reservatie(startDate, eindDate, cbStudent.getSelectionModel().getSelectedItem().toString(), pc.getProductByNaam(cbMateriaal.getSelectionModel().getSelectedItem().toString()), aantal);
+            Reservatie r = new Reservatie(startDate, eindDate, cbStudent.getSelectionModel().getSelectedItem().toString(),huidigProduct, aantal);
             rc.addReservatie(r);
 
         } catch (IllegalArgumentException ex) {
@@ -331,6 +371,7 @@ public class ReservatieDetailController extends Pane {
             lblError.setTextFill(Color.web("#F20000"));
 
         }
+         Stage stage = (Stage) btnAnnuleer.getScene().getWindow();
         stage.close();
     }
 

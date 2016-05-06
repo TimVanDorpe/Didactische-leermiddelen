@@ -5,6 +5,7 @@
  */
 package domein;
 
+import java.time.LocalDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.junit.Assert;
@@ -16,29 +17,30 @@ import org.mockito.Mockito;
  *
  * @author Jens
  */
-public class ProductBeheerTest {
+public class ReservatieBeheerTest {
 
-    private final ObservableList<Product> producten = FXCollections.observableArrayList();
+   // private final ObservableList<Product> producten = FXCollections.observableArrayList();
 
-    private ProductBeheer pb;
+    private ReservatieBeheer rb;
 
     @Before
     public void before() throws Exception {
-        pb = new ProductBeheer();
+        rb = new ReservatieBeheer();
 
-        producten.add(new Product("test", 5));
-        producten.add(new Product("test4", 5));
-        producten.add(new Product("test6", 5));
-
+        Product product1 = new Product("test1", 5);
+        Product product2 = new Product("test2", 5);
+        Product product3 = new Product("test3", 5);
+       
+       // Reservatie reservatie = new Reservatie(LocalDate.MAX, LocalDate.MIN, gebruiker, product3, 0, 0, 0)
+        
+        
     }
 
     @Test
-    public void isNaamUniekTest() {
-        String naam = "naam1";
-        String naam2 = "naam2";
-        String naam3 = "naam2";
+    public void reservatieToevoegenTest() {
+       
 
-        pb.isNaamUniek(naam, naam3, true);
+        rb.addReservatie();
 
         Assert.assertTrue(pb.isNaamUniek(naam, naam3, true));
 
@@ -88,7 +90,6 @@ public class ProductBeheerTest {
     
     
 
-    
     
     
     

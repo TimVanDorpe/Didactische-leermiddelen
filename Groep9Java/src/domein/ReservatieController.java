@@ -41,6 +41,7 @@ public class ReservatieController extends Observable {
 
     public ObservableList<Reservatie> getReservatieLijst() {
         ObservableList<Reservatie> reservatieLijst = FXCollections.observableArrayList();
+        rb.haalAlleReservatiesOp();
         for (Reservatie r: rb.getReservatieLijst()){
                     if (r.isNogWeergeven())
                         reservatieLijst.add(r);
