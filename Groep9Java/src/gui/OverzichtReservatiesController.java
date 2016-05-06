@@ -206,8 +206,10 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
 
     @Override
     public void update(Observable o, Object arg) {
-
-      //  tblReservaties.setItems(rc.getReservatieLijst());
+        tblReservaties.getColumns().get(0).setVisible(false);
+        tblReservaties.getColumns().get(0).setVisible(true);
+        //tblReservaties.removeAll(rc.getReservatieLijst());
+        //tblReservaties.setItems(rc.getReservatieLijst());
         btnVerwijder.setDisable(false);
         btnWijzigen.setDisable(false);
     }
@@ -272,7 +274,7 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
             // OK
 
             rc.removeReservatie();
-            tblReservaties.setItems(rc.getReservatieLijst());
+      //      tblReservaties.setItems(rc.getReservatieLijst());
 
         } else {
             // Niet OK
