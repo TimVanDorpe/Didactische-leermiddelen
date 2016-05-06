@@ -6,7 +6,10 @@
 package util;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  *
@@ -37,6 +40,14 @@ public class Helper {
         fmt.setCalendar(calendar);
         String dateFormatted = fmt.format(calendar.getTime());
         return dateFormatted;
+    }
+    
+    public static List<LocalDate> geefDagenTussen(LocalDate start, LocalDate eind){
+        List<LocalDate> tussen = new ArrayList<>();
+        for (LocalDate date = start; !date.isAfter(eind); date = date.plusDays(1)) {
+            tussen.add(date);
+        }
+        return tussen;
     }
 
 }

@@ -8,6 +8,8 @@ package domein;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -49,6 +51,7 @@ public class Reservatie implements Serializable {
         setOpTeHalen(opTeHalen);
         setTeruggebracht(teruggebracht);
         berekenStatus();
+        gereserveerdProduct.getReservaties().add(this);
     }
 
     public Reservatie(LocalDate startDatum, LocalDate eindDatum, String gebruiker, Product gereserveerdProduct, int gereserveerdAantal) {
@@ -60,6 +63,7 @@ public class Reservatie implements Serializable {
         setOpTeHalen(0);
         setTeruggebracht(0);
         berekenStatus();
+        gereserveerdProduct.getReservaties().add(this);
     }
 
     public int getOpTeHalen() {
@@ -77,7 +81,7 @@ public class Reservatie implements Serializable {
 
     public void setTeruggebracht(int teruggebracht) {
         this.teruggebracht = teruggebracht;
-        gereserveerdProduct.setAantalBeschikbaar(gereserveerdProduct.getAantalBeschikbaar() + teruggebracht);
+//        gereserveerdProduct.setAantalBeschikbaar(gereserveerdProduct.getAantalBeschikbaar() + teruggebracht);
     }
 
     public LocalDate getStartDatum() {
@@ -123,9 +127,9 @@ public class Reservatie implements Serializable {
 
         // aantallen in product steken
         // moet nog uitgebreid worden naar per week
-        gereserveerdProduct.setAantalUitgeleend(gereserveerdAantal);
-        gereserveerdProduct.setAantalBeschikbaar(gereserveerdProduct.getAantalBeschikbaar() - gereserveerdAantal);
-        gereserveerdProduct.setAantalUitgeleend(gereserveerdAantal);
+//        gereserveerdProduct.setAantalUitgeleend(gereserveerdAantal);
+//        gereserveerdProduct.setAantalBeschikbaar(gereserveerdProduct.getAantalBeschikbaar() - gereserveerdAantal);
+//        gereserveerdProduct.setAantalUitgeleend(gereserveerdAantal);
         this.gereserveerdAantal = gereserveerdAantal;
     }
 
@@ -203,8 +207,8 @@ public class Reservatie implements Serializable {
 
                 setNogWeergeven(false);
                 // zo niet dan moet met iets teruggeven zoals "te laat"
-            } else if( teruggebracht < gereserveerdAantal - opTeHalen) {
-                status ="Niet alles teruggebracht";
+            } else if (teruggebracht < gereserveerdAantal - opTeHalen) {
+                status = "Niet alles teruggebracht";
             }
 
             // als de startdatum  kleiner is dan vandaag en einddatum groter dan vandaag {
@@ -214,14 +218,13 @@ public class Reservatie implements Serializable {
             } else {
                 status = "Uitgeleend";
             }
-            
-        } else if(startDatum.isAfter(LocalDate.now())){
-            if(LocalDate.now().getDayOfYear() - startDatum.getDayOfYear() <= 7 ){
-                 status ="Klaar te leggen";
+
+        } else if (startDatum.isAfter(LocalDate.now())) {
+            if (LocalDate.now().getDayOfYear() - startDatum.getDayOfYear() <= 7) {
+                status = "Klaar te leggen";
             }
         }
-        
-        
+
         setStatus(status);
     }
 
@@ -247,6 +250,14 @@ public class Reservatie implements Serializable {
 
     public void setNogWeergeven(boolean nogWeergeven) {
         this.nogWeergeven = nogWeergeven;
+    }
+
+    public List<LocalDate> getReservatieDagen() {
+        List<LocalDate> tussen = new ArrayList<>();
+        for (LocalDate date = startDatum; !date.isAfter(eindDatum); date = date.plusDays(1)) {
+            tussen.add(date);
+        }
+        return tussen;
     }
 
 }

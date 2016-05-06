@@ -21,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -49,6 +50,9 @@ public class OverzichtProductenController extends BorderPane implements Observer
     private Button btnGeavanceerdZoeken;
     @FXML
     private TextField txtTrefwoord;
+
+    @FXML
+    private Button btnBeschikbaarheid;
 
 //        @FXML
 //    private Button btnVerwijder;
@@ -83,12 +87,11 @@ public class OverzichtProductenController extends BorderPane implements Observer
                 domeinController.setGeselecteerdProduct(newValue);
             }
         });
-        
 
         tblProducten.setItems(domeinController.getProductSortedList());
         if (tblProducten.getSelectionModel().isEmpty()) {
             dc.setSelectionModelEmpty(true);
-            //btnVerwijder.setDisable(true);
+            btnBeschikbaarheid.setDisable(true);
         } else {
             dc.setSelectionModelEmpty(false);
         }
@@ -109,8 +112,7 @@ public class OverzichtProductenController extends BorderPane implements Observer
 //                dc.setGeselecteerdProduct(newValue);
 //            }
 //        });
-       // tblProducten.setItems(dc.getProductSortedList());
-        
+        // tblProducten.setItems(dc.getProductSortedList());
 
     }
 
@@ -145,8 +147,22 @@ public class OverzichtProductenController extends BorderPane implements Observer
     @FXML
     private void enableSelectionModel(MouseEvent event) {
         dc.setSelectionModelEmpty(false);
-
+        btnBeschikbaarheid.setDisable(false);
         tblProducten.setItems(dc.getProductSortedList());
+    }
+
+    @FXML
+    private void checkBeschikbaarheid(ActionEvent event) {
+
+        Product p = tblProducten.getSelectionModel().getSelectedItem();
+        
+        Stage stage = new Stage();
+        stage.setTitle("Controleer beschikbaarheid");
+        Scene scene = new Scene(new CheckBeschikbaarheidController(dc, p));
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.show();
+
     }
 
 }
