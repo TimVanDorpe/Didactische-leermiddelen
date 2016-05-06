@@ -3,6 +3,7 @@ package domein;
 import java.io.Serializable;
 import java.net.URL;
 import java.sql.Blob;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,6 +22,7 @@ import javax.persistence.OneToMany;
 
 @Entity(name = "Product")
 public class Product implements Serializable {
+
     @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Leergebied> leergebieden;
     @ManyToMany(cascade = CascadeType.PERSIST)
@@ -29,19 +31,21 @@ public class Product implements Serializable {
     private Firma firma;
     private URL foto;
     //@Column(unique=true)
-    private String naam ;
+    private String naam;
     private String omschrijving;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
-    
+
     private int artikelnummer;
     private double prijs;
-    private int aantal ; // totaal aantal
-    private int aantalBeschikbaar; // totaal - uitgeleend - onbeschikbaar
-    private int aantalUitgeleend; 
-    private int aantalOnbeschikbaar; // kapotte
-    private String plaats ;
+    private int aantal; // totaal aantal
+//    private int aantalBeschikbaar; 
+//    private int aantalUitgeleend;
+    private int aantalOnbeschikbaar; 
+    private String plaats;
+
+    private List<Reservatie> reservaties;
 
     public Product(List<Leergebied> leergebied, List<Doelgroep> doelgroep, Firma firma, URL foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
         setLeergebieden(leergebied);
@@ -54,21 +58,22 @@ public class Product implements Serializable {
         setPrijs(prijs);
         setAantal(aantal);
         setPlaats(plaats);
-        setAantalBeschikbaar(aantal);
+//        setAantalBeschikbaar(aantal);
         setAantalOnbeschikbaar(0);
-        setAantalUitgeleend(0);
+//        setAantalUitgeleend(0);
+        reservaties = new ArrayList<>();
     }
-    public Product(String naam, int aantal)
-    {
+
+    public Product(String naam, int aantal) {
         setNaam(naam);
         setAantal(aantal);
-        setAantalBeschikbaar(aantal);
+//        setAantalBeschikbaar(aantal);
         setAantalOnbeschikbaar(0);
-        setAantalUitgeleend(0);
+//        setAantalUitgeleend(0);
+        reservaties = new ArrayList<>();
     }
-    
-    
-     public Product(List<Leergebied> leergebied, List<Doelgroep> doelgroep, Firma firma,String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
+
+    public Product(List<Leergebied> leergebied, List<Doelgroep> doelgroep, Firma firma, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
         setLeergebieden(leergebied);
         setDoelgroepen(doelgroep);
         setFirma(firma);
@@ -78,40 +83,48 @@ public class Product implements Serializable {
         setPrijs(prijs);
         setAantal(aantal);
         setPlaats(plaats);
-        setAantalBeschikbaar(aantal);
+//        setAantalBeschikbaar(aantal);
         setAantalOnbeschikbaar(0);
-        setAantalUitgeleend(0);
+//        setAantalUitgeleend(0);
+        reservaties = new ArrayList<>();
     }
 
-    public int getAantalBeschikbaar() {
-        return aantalBeschikbaar;
+    public List<Reservatie> getReservaties() {
+        return reservaties;
     }
 
-    public void setAantalBeschikbaar(int aantalBeschikbaar) {
-        this.aantalBeschikbaar = aantalBeschikbaar;
+    public void setReservaties(List<Reservatie> reservaties) {
+        this.reservaties = reservaties;
     }
 
-    public int getAantalUitgeleend() {
-        return aantalUitgeleend;
-    }
-
-    public void setAantalUitgeleend(int aantalUitgeleend) {
-        this.aantalUitgeleend = aantalUitgeleend;
-    }
-
+//    public int getAantalBeschikbaar() {
+//        return aantalBeschikbaar;
+//    }
+//
+//    public void setAantalBeschikbaar(int aantalBeschikbaar) {
+//        this.aantalBeschikbaar = aantalBeschikbaar;
+//    }
+//
+//    public int getAantalUitgeleend() {
+//        return aantalUitgeleend;
+//    }
+//
+//    public void setAantalUitgeleend(int aantalUitgeleend) {
+//        this.aantalUitgeleend = aantalUitgeleend;
+//    }
+//
     public int getAantalOnbeschikbaar() {
         return aantalOnbeschikbaar;
     }
 
     public void setAantalOnbeschikbaar(int aantalOnbeschikbaar) {
         this.aantalOnbeschikbaar = aantalOnbeschikbaar;
-    }
-    
-    
-    
-    public Product(){
         
     }
+    public Product() {
+
+    }
+
     public List<Leergebied> getLeergebieden() {
         return leergebieden;
     }
@@ -147,8 +160,6 @@ public class Product implements Serializable {
     public String getNaam() {
         return naam;
     }
-    
-    
 
     /**
      *
@@ -170,7 +181,7 @@ public class Product implements Serializable {
     }
 
     public SimpleStringProperty naamProperty() {
-         SimpleStringProperty naamSimple = new SimpleStringProperty();
+        SimpleStringProperty naamSimple = new SimpleStringProperty();
         naamSimple.set(naam);
         return naamSimple;
     }
@@ -184,8 +195,8 @@ public class Product implements Serializable {
     }
 
     public SimpleStringProperty omschrijvingProperty() {
-     SimpleStringProperty omschrijvingSimple = new SimpleStringProperty();
-     omschrijvingSimple.set(omschrijving);
+        SimpleStringProperty omschrijvingSimple = new SimpleStringProperty();
+        omschrijvingSimple.set(omschrijving);
         return omschrijvingSimple;
     }
 
@@ -205,13 +216,14 @@ public class Product implements Serializable {
     }
 
     public void setPrijs(double prijs) {
-        if(prijs<0.0)
+        if (prijs < 0.0) {
             throw new IllegalArgumentException("Prijs moet positief zijn");
+        }
         this.prijs = prijs;
     }
 
     public int getAantal() {
-        return aantal;   
+        return aantal;
     }
 
     public void setAantal(int aantal) {
@@ -231,16 +243,16 @@ public class Product implements Serializable {
         return aantalSimple;
     }
 
-    public SimpleStringProperty aantalBeschikbaarProperty() {
+    public SimpleStringProperty aantalBeschikbaarProperty(LocalDate date) {
         SimpleStringProperty aantalBeschikbaarSimple = new SimpleStringProperty();
         StringBuilder sb = new StringBuilder();
         sb.append("");
-        sb.append(aantalBeschikbaar);
+        sb.append(berekenAantalBeschikbaar(date));
         String aantalBuild = sb.toString();
         aantalBeschikbaarSimple.set(aantalBuild);
         return aantalBeschikbaarSimple;
     }
-    
+
     public String getPlaats() {
         return plaats;
     }
@@ -250,13 +262,44 @@ public class Product implements Serializable {
     }
 
     public SimpleStringProperty plaatsProperty() {
-       SimpleStringProperty plaatsSimple = new SimpleStringProperty();
-     plaatsSimple.set(plaats);
+        SimpleStringProperty plaatsSimple = new SimpleStringProperty();
+        plaatsSimple.set(plaats);
         return plaatsSimple;
     }
 
     public int getId() {
         return id;
     }
-   
+
+    public int berekenAantalBeschikbaar(LocalDate date) {
+
+        int aantalBeschikbaar = aantal-aantalOnbeschikbaar;
+        for (Reservatie r : reservaties) {
+            if (r.getReservatieDagen().contains(date)) {
+                aantalBeschikbaar -= r.getGereserveerdAantal();
+            }
+        }
+        return aantalBeschikbaar;
+    }
+
+//    public int berekenAantalOnBeschikbaar(LocalDate date) {
+//
+//        int aantalOnBeschikbaar = aantal;
+//        for(Reservatie r : reservaties){
+//            if(r.getReservatieDagen().contains(date)){
+//                aantalOnBeschikbaar-=r.getGereserveerdAantal();
+//            }
+//        }
+//        return aantalBeschikbaar;
+//    }
+    public int berekenAantalUitgeleend(LocalDate date) {
+        int aantalUitgeleend= 0;
+        for (Reservatie r : reservaties) {
+            if (r.getReservatieDagen().contains(date)) {
+                aantalUitgeleend += r.getGereserveerdAantal();
+            }
+        }
+        return aantalUitgeleend;
+    }
+
 }

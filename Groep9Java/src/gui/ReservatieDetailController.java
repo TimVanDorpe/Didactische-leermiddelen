@@ -112,6 +112,7 @@ public class ReservatieDetailController extends Pane {
             cbMateriaal.setVisible(false);
             cbStudent.setVisible(false);
             lblTitel.setText("Reservatie wijzigen");
+
         } else if (!isWijziging) {
             lblTitel.setText("Reservatie toevoegen");
             cbMateriaal.setItems(pc.getStringNaamProducten());
@@ -120,8 +121,21 @@ public class ReservatieDetailController extends Pane {
             cbMateriaal.valueProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue<? extends String> ov, String t, String t1) {
-                    lblMax.setText(String.format("beschikbaar: %d", pc.getProductByNaam(cbMateriaal.getSelectionModel().getSelectedItem().toString()).getAantalBeschikbaar()));
+                    huidigProduct = pc.getProductenLijst().stream().filter(p -> p.getNaam().equalsIgnoreCase(t1)).findAny().get();
+                    if (dpStartdatum.getValue() != null) {
+                        lblMax.setText(String.format("beschikbaar: %d", pc.getProductByNaam(t1).berekenAantalBeschikbaar(startDate)));
+                    }
                 }
+            });
+            dpStartdatum.valueProperty().addListener(new ChangeListener<LocalDate>() {
+                @Override
+                public void changed(ObservableValue<? extends LocalDate> ov, LocalDate d1, LocalDate d2) {
+                    startDate = d2;
+                    if (huidigProduct != null) {
+                        lblMax.setText(String.format("beschikbaar: %d", huidigProduct.berekenAantalBeschikbaar(d2)));
+                    }
+                }
+
             });
 
         }
@@ -140,14 +154,29 @@ public class ReservatieDetailController extends Pane {
             txtStudent.setText(huidigeReservatie.getGebruiker());
 
             dpStartdatum.setValue(huidigeReservatie.getStartDatum());
+            startDate = huidigeReservatie.getStartDatum();
 
             dpEindDatum.setValue(huidigeReservatie.getEindDatum());
+            eindDate = huidigeReservatie.getEindDatum();
 
             txtProduct.setText(huidigeReservatie.getGereserveerdProduct().getNaam());
             this.huidigProduct = pc.getProductenLijst().stream().filter(p -> p.getNaam().equalsIgnoreCase(txtProduct.getText())).findAny().get();
 
-            // hier juiste aantal nog instellen (aantalBeschikbaar in de geselecteerde week)
-            lblMax.setText(String.format("beschikbaar: %d", huidigProduct.getAantalBeschikbaar()));
+            lblMax.setText(String.format("beschikbaar: %d", huidigProduct.berekenAantalBeschikbaar(startDate)));
+
+            dpStartdatum.valueProperty().addListener(new ChangeListener<LocalDate>() {
+                @Override
+                public void changed(ObservableValue<? extends LocalDate> ov, LocalDate d1, LocalDate d2) {
+                    lblMax.setText(String.format("beschikbaar: %d", huidigProduct.berekenAantalBeschikbaar(d2)));
+                }
+
+            });
+//            dpEindDatum.valueProperty().addListener(new ChangeListener<LocalDate>() {
+//                @Override
+//                public void changed(ObservableValue<? extends LocalDate> ov, LocalDate d1, LocalDate d2) {
+//                    lblMax.setText(String.format("beschikbaar: %d", huidigProduct.berekenAantalBeschikbaar(d2)));
+//                }
+//            });
 
         }
         /*
@@ -164,7 +193,8 @@ public class ReservatieDetailController extends Pane {
     }
 
     @FXML
-    private void wijzigReservatie(ActionEvent event) {
+    private void wijzigReservatie(ActionEvent event
+    ) {
 
         try {
 
@@ -245,7 +275,8 @@ public class ReservatieDetailController extends Pane {
     }
      */
     @FXML
-    private void resetWaarden(ActionEvent event) {
+    private void resetWaarden(ActionEvent event
+    ) {
 
         txtAantal.setText("");
         dpEindDatum.setValue(LocalDate.now());
@@ -260,13 +291,15 @@ public class ReservatieDetailController extends Pane {
     }
 
     @FXML
-    private void geefStartDatum(ActionEvent event) {
+    private void geefStartDatum(ActionEvent event
+    ) {
         startDate = dpStartdatum.getValue();
 
     }
 
     @FXML
-    private void geefEindDatum(ActionEvent event) {
+    private void geefEindDatum(ActionEvent event
+    ) {
         eindDate = dpEindDatum.getValue();
     }
 
@@ -290,7 +323,8 @@ public class ReservatieDetailController extends Pane {
     }
      */
     @FXML
-    private void annuleer(ActionEvent event) {
+    private void annuleer(ActionEvent event
+    ) {
 
 //        btnAnnuleerToevoegen.setVisible(false);
 //        btnToevoegen.setVisible(false);
@@ -305,7 +339,8 @@ public class ReservatieDetailController extends Pane {
     }
 
     @FXML
-    private void reservatieToevoegen(ActionEvent event) {
+    private void reservatieToevoegen(ActionEvent event
+    ) {
 
         try {
 
