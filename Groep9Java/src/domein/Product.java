@@ -19,6 +19,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import util.Helper;
 
 @Entity(name = "Product")
 public class Product implements Serializable {
@@ -42,7 +43,7 @@ public class Product implements Serializable {
     private int aantal; // totaal aantal
 //    private int aantalBeschikbaar; 
 //    private int aantalUitgeleend;
-    private int aantalOnbeschikbaar; 
+    private int aantalOnbeschikbaar;
     private String plaats;
 
     private List<Reservatie> reservaties;
@@ -119,8 +120,9 @@ public class Product implements Serializable {
 
     public void setAantalOnbeschikbaar(int aantalOnbeschikbaar) {
         this.aantalOnbeschikbaar = aantalOnbeschikbaar;
-        
+
     }
+
     public Product() {
 
     }
@@ -247,7 +249,7 @@ public class Product implements Serializable {
         SimpleStringProperty aantalBeschikbaarSimple = new SimpleStringProperty();
         StringBuilder sb = new StringBuilder();
         sb.append("");
-        sb.append(berekenAantalBeschikbaar(date));
+        sb.append(berekenAantalBeschikbaarOpDatum(date));
         String aantalBuild = sb.toString();
         aantalBeschikbaarSimple.set(aantalBuild);
         return aantalBeschikbaarSimple;
@@ -271,9 +273,9 @@ public class Product implements Serializable {
         return id;
     }
 
-    public int berekenAantalBeschikbaar(LocalDate date) {
+    public int berekenAantalBeschikbaarOpDatum(LocalDate date) {
 
-        int aantalBeschikbaar = aantal-aantalOnbeschikbaar;
+        int aantalBeschikbaar = aantal - aantalOnbeschikbaar;
         for (Reservatie r : reservaties) {
             if (r.getReservatieDagen().contains(date)) {
                 aantalBeschikbaar -= r.getGereserveerdAantal();
@@ -282,18 +284,29 @@ public class Product implements Serializable {
         return aantalBeschikbaar;
     }
 
-//    public int berekenAantalOnBeschikbaar(LocalDate date) {
-//
-//        int aantalOnBeschikbaar = aantal;
-//        for(Reservatie r : reservaties){
-//            if(r.getReservatieDagen().contains(date)){
-//                aantalOnBeschikbaar-=r.getGereserveerdAantal();
-//            }
-//        }
-//        return aantalBeschikbaar;
-//    }
+    public int berekenAantalBeschikbaarVoorPeriode(LocalDate startDate, LocalDate eindDate) {
+
+        int laagsteAantalBeschikbaar = aantal - aantalOnbeschikbaar;
+        for (LocalDate d : Helper.geefDagenTussen(startDate, eindDate)) {
+            if (laagsteAantalBeschikbaar > berekenAantalBeschikbaarOpDatum(d)) {
+                laagsteAantalBeschikbaar = berekenAantalBeschikbaarOpDatum(d);
+            }
+        }
+        return laagsteAantalBeschikbaar;
+    }
+    //    public int berekenAantalOnBeschikbaar(LocalDate date) {
+    //
+    //        int aantalOnBeschikbaar = aantal;
+    //        for(Reservatie r : reservaties){
+    //            if(r.getReservatieDagen().contains(date)){
+    //                aantalOnBeschikbaar-=r.getGereserveerdAantal();
+    //            }
+    //        }
+    //        return aantalBeschikbaar;
+    //    }
+
     public int berekenAantalUitgeleend(LocalDate date) {
-        int aantalUitgeleend= 0;
+        int aantalUitgeleend = 0;
         for (Reservatie r : reservaties) {
             if (r.getReservatieDagen().contains(date)) {
                 aantalUitgeleend += r.getGereserveerdAantal();

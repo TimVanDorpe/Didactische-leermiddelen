@@ -42,12 +42,12 @@ public class BeheerdersDetailController extends Pane implements Observer {
 
     @FXML
     private Button btnAnnuleren;
- 
+
     @FXML
     private Button btnBeheerderVerwijderen;
 
     @FXML
-    private Label lblError, lblNaam, lblEmail, lblWachtwoord,lblDetailsBeheerder;
+    private Label lblError, lblNaam, lblEmail, lblWachtwoord, lblDetailsBeheerder;
 
     private BeheerderController bc;
     @FXML
@@ -75,15 +75,14 @@ public class BeheerdersDetailController extends Pane implements Observer {
             txtNaam.setDisable(true);
             txtWachtwoord.setDisable(true);
             btnAnnuleren.setVisible(false);
-            
 
         }
-        
+
     }
 
-    public void hoofdAdmin(){
-       
-        if(bc.getAangemeldeBeheerder().getEmail().equalsIgnoreCase("hoofdbeheerder")){//isHoofdbeheerder is altijd false???
+    public void hoofdAdmin() {
+
+        if (bc.getAangemeldeBeheerder().getEmail().equalsIgnoreCase("hoofdbeheerder")) {//isHoofdbeheerder is altijd false???a
             btnBeheerderVerwijderen.setVisible(true);
             txtEmail.setVisible(true);
             txtNaam.setVisible(true);
@@ -92,10 +91,10 @@ public class BeheerdersDetailController extends Pane implements Observer {
             lblNaam.setVisible(true);
             lblEmail.setVisible(true);
             btnNieuweBeheerder.setVisible(true);
-            
+
             lblDetailsBeheerder.setVisible(true);
-        }else{
-            
+        } else {
+
             btnBeheerderVerwijderen.setVisible(false);
             txtEmail.setVisible(false);
             txtNaam.setVisible(false);
@@ -110,7 +109,7 @@ public class BeheerdersDetailController extends Pane implements Observer {
             lblDetailsBeheerder.setVisible(false);
         }
     }
-    
+
     @Override
     public void update(Observable o, Object arg) {
         if (arg != null) {
@@ -118,7 +117,6 @@ public class BeheerdersDetailController extends Pane implements Observer {
             lblError.setText("");
             //maakLabelsTerugNormaal();
 
-           
             Beheerder beh = (Beheerder) arg;
             txtNaam.setText(beh.getNaam());
             txtEmail.setText(beh.getEmail());
@@ -173,8 +171,7 @@ public class BeheerdersDetailController extends Pane implements Observer {
         }
 
     }
-    
-    
+
     private void maakLabelsTerugNormaal() {
 
         lblNaam.setText("Naam");
@@ -183,7 +180,7 @@ public class BeheerdersDetailController extends Pane implements Observer {
         lblEmail.setTextFill(Color.web("#000000"));
         lblWachtwoord.setText("Wachtwoord");
         lblWachtwoord.setTextFill(Color.web("#000000"));
-   
+
     }
 
     private boolean isInputValid() {
@@ -206,11 +203,19 @@ public class BeheerdersDetailController extends Pane implements Observer {
             validInput = false;
 
         }
+
+        if (!bc.isEmailUniek(txtEmail.getText())) {
+            lblEmail.setText("Email*");
+            lblEmail.setTextFill(Color.web("#F20000"));
+
+            message += "Email moet uniek zijn\n";
+            validInput = false;
+
+        }
         String wachtwoord = txtWachtwoord.getText();
 
-        
         if (txtWachtwoord.getText().equals("")) {
-              lblWachtwoord.setText("Wachtwoord*");
+            lblWachtwoord.setText("Wachtwoord*");
             lblWachtwoord.setTextFill(Color.web("#F20000"));
             message += "Wachtwoord is verplicht\n";
             validInput = false;
@@ -228,7 +233,6 @@ public class BeheerdersDetailController extends Pane implements Observer {
         btnToevoegen.setVisible(false);
         btnAnnuleren.setVisible(false);
         btnBeheerderVerwijderen.setVisible(true);
-        
 
         resetWaarden();
     }

@@ -17,14 +17,14 @@
       </Pane>
       <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab fx:id="tabCatalogus" onSelectionChanged="#toonCatalogus" text="Catalogus">
-               <content>
-                  <Pane fx:id="paneProducten" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
-               </content>
-          </Tab>
           <Tab fx:id="tabReservaties" onSelectionChanged="#toonReservaties" text="Reservaties">
                <content>
                   <Pane fx:id="paneReservaties" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+               </content>
+          </Tab>
+          <Tab fx:id="tabCatalogus" onSelectionChanged="#toonCatalogus" text="Catalogus">
+               <content>
+                  <Pane fx:id="paneProducten" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
                </content>
           </Tab>
             <Tab fx:id="tabBeheerders" onSelectionChanged="#toonBeheerders" text="Beheerders">

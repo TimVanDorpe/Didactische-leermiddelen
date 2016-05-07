@@ -32,22 +32,25 @@
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <DatePicker fx:id="dp" GridPane.columnIndex="1" />
-            <Label text="Kies datum:" />
-            <Label text="Totaal:" GridPane.rowIndex="1" />
-            <Label text="Beschikbaar:" GridPane.rowIndex="2" />
-            <Label text="Onbeschikbaar:" GridPane.rowIndex="3" />
-            <Label text="Uitgeleend:" GridPane.rowIndex="4" />
-            <Label fx:id="lblTotaal" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="lblBeschikbaar" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label fx:id="lblOnbeschikbaar" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label fx:id="lblUitgeleend" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <DatePicker fx:id="dpStart" GridPane.columnIndex="1" />
+            <Label text="Kies begindatum:" />
+            <Label text="Totaal:" GridPane.rowIndex="2" />
+            <Label text="Beschikbaar:" GridPane.rowIndex="3" />
+            <Label text="Onbeschikbaar:" GridPane.rowIndex="4" />
+            <Label text="Uitgeleend:" GridPane.rowIndex="5" />
+            <Label fx:id="lblTotaal" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="lblBeschikbaar" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="lblOnbeschikbaar" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="lblUitgeleend" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label text="Kies einddatum:" GridPane.rowIndex="1" />
+            <DatePicker fx:id="dpEind" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Button fx:id="btnSluitVenster" layoutX="209.0" layoutY="261.0" mnemonicParsing="false" onAction="#sluitVenster" text="Sluit venster" />

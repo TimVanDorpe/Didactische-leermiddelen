@@ -41,7 +41,9 @@ public class CheckBeschikbaarheidController extends Pane {
     @FXML
     private Button btnSluitVenster;
     @FXML
-    private DatePicker dp;
+    private DatePicker dpStart;
+    @FXML
+    private DatePicker dpEind;
 
     private Product geselecteerdProduct;
 
@@ -62,10 +64,10 @@ public class CheckBeschikbaarheidController extends Pane {
         lblTotaal.setText(String.format("%d", geselecteerdProduct.getAantal()));
         
         
-        dp.valueProperty().addListener(new ChangeListener<LocalDate>() {
+        dpStart.valueProperty().addListener(new ChangeListener<LocalDate>() {
             @Override
             public void changed(ObservableValue<? extends LocalDate> ov, LocalDate d1, LocalDate d2) {
-                lblBeschikbaar.setText(String.format("%d", geselecteerdProduct.berekenAantalBeschikbaar(d2)));
+                lblBeschikbaar.setText(String.format("%d", geselecteerdProduct.berekenAantalBeschikbaarOpDatum(d2)));
                 lblOnbeschikbaar.setText(String.format("%d", geselecteerdProduct.getAantalOnbeschikbaar()));
                 lblUitgeleend.setText(String.format("%d", geselecteerdProduct.berekenAantalUitgeleend(d2)));
             }
