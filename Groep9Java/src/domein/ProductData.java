@@ -59,7 +59,7 @@ public class ProductData {
        
        URL legeFoto = new URL("http://i.imgur.com/tsvNPVH.png");
        //new Product(leergebieden, kleuters, UGent, naam, omschrijving,artikelnummer , prijs, aantal, plaats)
-        pb.voegProductToe(new Product(leergebieden, doelgroepen, Hogent, legeFoto,"Klok", "Dit is een klok", 1, 1, 14, "B1002"));
+        pb.voegProductToe(new Product(leergebieden, doelgroepen, Hogent, legeFoto,"Klok", "Dit is een klok", 1, 1, 30, "B1002"));
         pb.voegProductToe(new Product(leergebieden3, doelgroepen, Hogent, legeFoto,"Wereldkaart" , "Een kaart van 50 cm op 30 cm" , 2 , 2 , 23 , "B1038"));
         pb.voegProductToe(new Product(leergebieden, doelgroepen, UGent,legeFoto, "Dobbelstenen met schatkist" , "Doos met spelletjes" , 6 , 10 , 20 , "B1038"));
         pb.voegProductToe(new Product(leergebieden, doelgroepen, UGent,legeFoto, "Blanco draaischijf" , "met verschillende blanco schijven in hard papier" , 7 , 25 , 25 , "B1038"));
