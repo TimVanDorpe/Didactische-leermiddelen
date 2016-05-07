@@ -63,7 +63,7 @@ public class ReservatieDetailController extends Pane {
     private Label lblStudent;
     @FXML
     private Label lblTitel;
-   
+
     @FXML
     private Button btnAnnuleer, btnToevoegen;
     @FXML
@@ -120,8 +120,8 @@ public class ReservatieDetailController extends Pane {
             txtProduct.setVisible(false);
             btnToevoegen.setVisible(false);
             cbMateriaal.setVisible(false);
-            
-             lblTeruggebracht.setVisible(true);
+
+            lblTeruggebracht.setVisible(true);
             txtTeruggebracht.setVisible(true);
             lblOpTeHalen.setVisible(true);
             txtOpTeHalen.setVisible(true);
@@ -131,7 +131,6 @@ public class ReservatieDetailController extends Pane {
         } else if (!isWijziging) {
             lblTitel.setText("Reservatie toevoegen");
             cbMateriaal.setItems(pc.getStringNaamProducten());
-            
 
             lblTeruggebracht.setVisible(false);
             txtTeruggebracht.setVisible(false);
@@ -149,9 +148,17 @@ public class ReservatieDetailController extends Pane {
             dpStartdatum.valueProperty().addListener(new ChangeListener<LocalDate>() {
                 @Override
                 public void changed(ObservableValue<? extends LocalDate> ov, LocalDate d1, LocalDate d2) {
-                    startDate = d2;
-                    if (huidigProduct != null && dpEindDatum.getValue() != null ) {
-                        lblMax.setText(String.format("beschikbaar: %d", huidigProduct.berekenAantalBeschikbaarVoorPeriode(startDate, eindDate)));
+                    try {
+                        startDate = d2;
+                        if (huidigProduct != null && dpEindDatum.getValue() != null) {
+                            lblMax.setText(String.format("beschikbaar: %d", huidigProduct.berekenAantalBeschikbaarVoorPeriode(startDate, eindDate)));
+                        }
+                        lblError.setText("");
+                    } catch (IllegalArgumentException ex) {
+
+                        lblError.setText(ex.getMessage());
+                        lblError.setTextFill(Color.web("#F20000"));
+
                     }
                 }
 
@@ -159,9 +166,17 @@ public class ReservatieDetailController extends Pane {
             dpEindDatum.valueProperty().addListener(new ChangeListener<LocalDate>() {
                 @Override
                 public void changed(ObservableValue<? extends LocalDate> ov, LocalDate d1, LocalDate d2) {
+                     try {
                     eindDate = d2;
-                    if (huidigProduct != null && dpStartdatum.getValue() != null ) {
+                    if (huidigProduct != null && dpStartdatum.getValue() != null) {
                         lblMax.setText(String.format("beschikbaar: %d", huidigProduct.berekenAantalBeschikbaarVoorPeriode(startDate, eindDate)));
+                    }
+                      lblError.setText("");
+                    } catch (IllegalArgumentException ex) {
+
+                        lblError.setText(ex.getMessage());
+                        lblError.setTextFill(Color.web("#F20000"));
+
                     }
                 }
 
@@ -179,7 +194,6 @@ public class ReservatieDetailController extends Pane {
 
             txtAantal.setText(Integer.toString(huidigeReservatie.getGereserveerdAantal()));
 
-            
             txtOpTeHalen.setText(Integer.toString(huidigeReservatie.getOpTeHalen()));
             txtTeruggebracht.setText(Integer.toString(huidigeReservatie.getTeruggebracht()));
 
@@ -334,7 +348,7 @@ public class ReservatieDetailController extends Pane {
         dpEindDatum.setValue(LocalDate.now());
         dpStartdatum.setValue(LocalDate.now());
         txtProduct.setText("");
-        
+
         cbMateriaal.setItems(null);
         cbStudent.setItems(null);
 
