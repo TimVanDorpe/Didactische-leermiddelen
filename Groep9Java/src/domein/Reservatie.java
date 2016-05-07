@@ -97,6 +97,9 @@ public class Reservatie implements Serializable {
     }
 
     public void setEindDatum(LocalDate eindDatum) {
+        if(eindDatum.isBefore(startDatum)){
+            throw new IllegalArgumentException("Einddatum moet na startdatum komen");
+        }
         this.eindDatum = eindDatum;
     }
 
@@ -212,7 +215,7 @@ public class Reservatie implements Serializable {
             }
 
             // als de startdatum  kleiner is dan vandaag en einddatum groter dan vandaag {
-        } else if (startDatum.isBefore(eindDatum) && eindDatum.isAfter(LocalDate.now())) {
+        } else if ( startDatum.isBefore(LocalDate.now()) && eindDatum.isAfter(LocalDate.now())) {
             if (opTeHalen == gereserveerdAantal ) {
                 status = "Klaar om op te halen";
             } else {

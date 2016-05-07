@@ -20,6 +20,7 @@ import util.GenericDaoJpa;
 public class BeheerderBeheer {
 
     private ObservableList<Beheerder> beheerderLijst = FXCollections.observableArrayList();
+
     private GenericDaoJpa gdj;
     private SortedList<Beheerder> sortedList;
     private final Comparator<Beheerder> byBeheerderNaam = (r1, r2) -> r1.getNaam().compareToIgnoreCase(r2.getNaam());
@@ -39,6 +40,10 @@ public class BeheerderBeheer {
 
     public void setGdj(GenericDaoJpa gdj) {
         this.gdj = gdj;
+    }
+
+    public void setBeheerderLijst(ObservableList<Beheerder> beheerderLijst) {
+        this.beheerderLijst = beheerderLijst;
     }
 
     public void registreerBeheerder(Beheerder beheerder) {
