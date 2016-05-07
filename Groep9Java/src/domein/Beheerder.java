@@ -51,6 +51,8 @@ public class Beheerder implements Serializable {
         // }
     }
 
+    
+  
     public void setWachtwoord(String wachtwoord) {
         this.wachtwoord = wachtwoord;
     }

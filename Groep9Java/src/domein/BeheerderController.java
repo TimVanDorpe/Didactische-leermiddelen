@@ -46,6 +46,14 @@ public class BeheerderController extends Observable {
         return bb.getBeheerderslijst();
     }
 
+    
+      public boolean isEmailUniek(String email) {
+
+        if (this.getAangemeldeBeheerder()!= null) {
+            return bb.isEmailUniek(email, this.getAangemeldeBeheerder().getNaam());
+        }
+        return bb.isEmailUniek(email, "");
+    }
     public void setGeselecteerdeBeheerder(Beheerder beh) {
         this.huidigeBeheerder = beh;
         setChanged();
