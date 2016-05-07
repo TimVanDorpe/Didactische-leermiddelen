@@ -40,9 +40,7 @@ public class ReservatieBeheerTest {
     public void reservatieToevoegenTest() {
        
 
-        rb.addReservatie();
 
-        Assert.assertTrue(pb.isNaamUniek(naam, naam3, true));
 
     }
 
