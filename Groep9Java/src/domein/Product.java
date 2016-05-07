@@ -260,7 +260,9 @@ public class Product implements Serializable {
     }
 
     public int berekenAantalBeschikbaarVoorPeriode(LocalDate startDate, LocalDate eindDate) {
-
+       if(eindDate.isBefore(startDate)){
+            throw new IllegalArgumentException("Einddatum moet na startdatum komen");
+        }
         int laagsteAantalBeschikbaar = aantal - aantalOnbeschikbaar;
         for (LocalDate d : Helper.geefDagenTussen(startDate, eindDate)) {
             if (laagsteAantalBeschikbaar > berekenAantalBeschikbaarOpDatum(d)) {

@@ -8,7 +8,6 @@ package gui;
 import domein.Beheerder;
 import domein.BeheerderController;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Optional;
@@ -21,6 +20,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -52,6 +52,9 @@ public class BeheerdersDetailController extends Pane implements Observer {
     private BeheerderController bc;
     @FXML
     private Button btnToevoegen;
+
+    @FXML
+    private Region region;
 
     BeheerdersDetailController(BeheerderController bc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BeheerdersDetail.fxml"));
@@ -91,6 +94,7 @@ public class BeheerdersDetailController extends Pane implements Observer {
             lblNaam.setVisible(true);
             lblEmail.setVisible(true);
             btnNieuweBeheerder.setVisible(true);
+            region.setVisible(true);
 
             lblDetailsBeheerder.setVisible(true);
         } else {
@@ -107,6 +111,8 @@ public class BeheerdersDetailController extends Pane implements Observer {
             btnToevoegen.setVisible(false);
             btnAnnuleren.setVisible(false);
             lblDetailsBeheerder.setVisible(false);
+            region.setVisible(true);
+
         }
     }
 
