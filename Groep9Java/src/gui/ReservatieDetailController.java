@@ -63,7 +63,7 @@ public class ReservatieDetailController extends Pane {
     private Label lblStudent;
     @FXML
     private Label lblTitel;
-   
+
     @FXML
     private Button btnAnnuleer, btnToevoegen;
     @FXML
@@ -114,14 +114,15 @@ public class ReservatieDetailController extends Pane {
 
         this.huidigeReservatie = rc.getHuidigeReservatie();
         cbStudent.setItems(rc.getStudentenLijst());
+        cbStudent.getSelectionModel().selectFirst();
 
         if (isWijziging) {
             lblProduct.setVisible(false);
             txtProduct.setVisible(false);
             btnToevoegen.setVisible(false);
             cbMateriaal.setVisible(false);
-            
-             lblTeruggebracht.setVisible(true);
+
+            lblTeruggebracht.setVisible(true);
             txtTeruggebracht.setVisible(true);
             lblOpTeHalen.setVisible(true);
             txtOpTeHalen.setVisible(true);
@@ -131,7 +132,6 @@ public class ReservatieDetailController extends Pane {
         } else if (!isWijziging) {
             lblTitel.setText("Reservatie toevoegen");
             cbMateriaal.setItems(pc.getStringNaamProducten());
-            
 
             lblTeruggebracht.setVisible(false);
             txtTeruggebracht.setVisible(false);
@@ -150,7 +150,7 @@ public class ReservatieDetailController extends Pane {
                 @Override
                 public void changed(ObservableValue<? extends LocalDate> ov, LocalDate d1, LocalDate d2) {
                     startDate = d2;
-                    if (huidigProduct != null && dpEindDatum.getValue() != null ) {
+                    if (huidigProduct != null && dpEindDatum.getValue() != null) {
                         lblMax.setText(String.format("beschikbaar: %d", huidigProduct.berekenAantalBeschikbaarVoorPeriode(startDate, eindDate)));
                     }
                 }
@@ -160,7 +160,7 @@ public class ReservatieDetailController extends Pane {
                 @Override
                 public void changed(ObservableValue<? extends LocalDate> ov, LocalDate d1, LocalDate d2) {
                     eindDate = d2;
-                    if (huidigProduct != null && dpStartdatum.getValue() != null ) {
+                    if (huidigProduct != null && dpStartdatum.getValue() != null) {
                         lblMax.setText(String.format("beschikbaar: %d", huidigProduct.berekenAantalBeschikbaarVoorPeriode(startDate, eindDate)));
                     }
                 }
@@ -178,8 +178,6 @@ public class ReservatieDetailController extends Pane {
             lblAantal.setTextFill(Color.web("#000000"));
 
             txtAantal.setText(Integer.toString(huidigeReservatie.getGereserveerdAantal()));
-
-            
             txtOpTeHalen.setText(Integer.toString(huidigeReservatie.getOpTeHalen()));
             txtTeruggebracht.setText(Integer.toString(huidigeReservatie.getTeruggebracht()));
 
@@ -208,25 +206,10 @@ public class ReservatieDetailController extends Pane {
                 }
 
             });
-//            dpEindDatum.valueProperty().addListener(new ChangeListener<LocalDate>() {
-//                @Override
-//                public void changed(ObservableValue<? extends LocalDate> ov, LocalDate d1, LocalDate d2) {
-//                    lblMax.setText(String.format("beschikbaar: %d", huidigProduct.berekenAantalBeschikbaar(d2)));
-//                }
-//            });
+
 
         }
-        /*
-        if (rc.getSelectionModelEmpty()) {
-            btnAnnuleer.setDisable(true);
-            txtAantal.setDisable(true);
-            dpEindDatum.setDisable(true);
-            dpStartdatum.setDisable(true);
-            txtProduct.setDisable(true);
-           
-            btnWijzigen.setDisable(true);
-        }
-         */
+     
     }
 
     @FXML
@@ -261,13 +244,17 @@ public class ReservatieDetailController extends Pane {
             }
 
             this.aantal = Integer.parseInt(txtAantal.getText());
+              
+           
             this.student = cbStudent.getSelectionModel().getSelectedItem().toString();
-//
+            
+//      
 //            lblError.setText("");
 //
             //Product prod = pc.getProductenLijst().stream().filter(p -> p.getNaam().equalsIgnoreCase(txtProduct.getText())).findAny().get();
 //            
 //            // dit uit comment na demo
+         
             rc.wijzigReservatie(huidigProduct, aantal, student, startDate, eindDate, Integer.parseInt(txtOpTeHalen.getText()), Integer.parseInt(txtTeruggebracht.getText()));
 //
 //            //demo
@@ -291,41 +278,7 @@ public class ReservatieDetailController extends Pane {
         stage.close();
     }
 
-    //steekt alle gegevens in de textfields
-    /*
-    @Override
-    public void update(Observable o, Object arg) {
-        if (arg != null) {
 
-            lblError.setText("");
-            //maakLabelsTerugNormaal();
-
-            //DEMO TIJDELIJK
-            lblAantal.setText("Aantal");
-            lblAantal.setTextFill(Color.web("#000000"));
-
-            Reservatie res = (Reservatie) arg;
-            txtAantal.setText(Integer.toString(res.getGereserveerdAantal()));
-
-            txtProduct.setText(res.getGereserveerdProduct().getNaam());
-
-            txtStudent.setText(res.getGebruiker());
-
-            dpStartdatum.setValue(res.getStartDatum());
-
-            dpEindDatum.setValue(res.getEindDatum());
-
-            //alles terug enablen als er iets geselcteerd wordt
-//            txtProduct.setDisable(false);
-//            txtStudent.setDisable(false);
-//            btnLeegmaken.setDisable(false);
-//            dpStartdatum.setDisable(false);
-//            dpEindDatum.setDisable(false);
-//            txtAantal.setDisable(false);
-//            btnWijzigen.setDisable(false);
-        }
-    }
-     */
     @FXML
     private void resetWaarden(ActionEvent event
     ) {
@@ -334,7 +287,7 @@ public class ReservatieDetailController extends Pane {
         dpEindDatum.setValue(LocalDate.now());
         dpStartdatum.setValue(LocalDate.now());
         txtProduct.setText("");
-        
+
         cbMateriaal.setItems(null);
         cbStudent.setItems(null);
 
@@ -355,37 +308,11 @@ public class ReservatieDetailController extends Pane {
         eindDate = dpEindDatum.getValue();
     }
 
-    /*
-    private void addReservatie(ActionEvent event) {
-        //btnAnnuleerToevoegen.setVisible(true);
-        btnToevoegen.setVisible(true);
-        btnAnnuleer.setVisible(true);
-        btnWijzigen.setVisible(false);
-        cbMateriaal.setVisible(true);
-        cbStudent.setVisible(true);
-        txtProduct.setVisible(false);
-        txtStudent.setVisible(false);
-        txtAantal.setDisable(false);
-        dpEindDatum.setDisable(false);
-        dpStartdatum.setDisable(false);
-        txtAantal.setText("");
-        dpEindDatum.setAccessibleText("");
-        dpStartdatum.setAccessibleText("");
-
-    }
-     */
+   
     @FXML
     private void annuleer(ActionEvent event
     ) {
 
-//        btnAnnuleerToevoegen.setVisible(false);
-//        btnToevoegen.setVisible(false);
-//        btnAnnuleer.setVisible(true);
-//        btnWijzigen.setVisible(true);
-//        cbMateriaal.setVisible(false);
-//        cbStudent.setVisible(false);
-//        txtProduct.setVisible(true);
-//        txtStudent.setVisible(true);
         Stage stage = (Stage) btnAnnuleer.getScene().getWindow();
         stage.close();
     }
