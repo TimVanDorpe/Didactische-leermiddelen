@@ -10,7 +10,7 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="514.0" type="Pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Region layoutX="20.0" layoutY="83.0" prefHeight="616.0" prefWidth="478.0" style="-fx-background-color: #FAFAFA;" />
+      <Region fx:id="region" layoutX="20.0" layoutY="83.0" prefHeight="616.0" prefWidth="478.0" style="-fx-background-color: #FAFAFA;" />
       <Label fx:id="lblDetailsBeheerder" layoutX="30.0" layoutY="90.0" prefHeight="40.0" prefWidth="240.0" text="Details Beheerder">
          <font>
             <Font size="23.0" />

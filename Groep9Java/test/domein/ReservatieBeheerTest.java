@@ -36,13 +36,7 @@ public class ReservatieBeheerTest {
         
     }
 
-    @Test
-    public void reservatieToevoegenTest() {
-       
 
-
-
-    }
 
 //    @Test
 //    public void getProductOpNaam() {
