@@ -208,7 +208,7 @@ public class BeheerdersDetailController extends Pane implements Observer {
             lblEmail.setText("Email*");
             lblEmail.setTextFill(Color.web("#F20000"));
 
-            message += "Naam moet uniek zijn\n";
+            message += "Email moet uniek zijn\n";
             validInput = false;
 
         }
