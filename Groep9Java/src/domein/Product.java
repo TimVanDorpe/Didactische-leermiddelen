@@ -294,18 +294,8 @@ public class Product implements Serializable {
         }
         return laagsteAantalBeschikbaar;
     }
-    //    public int berekenAantalOnBeschikbaar(LocalDate date) {
-    //
-    //        int aantalOnBeschikbaar = aantal;
-    //        for(Reservatie r : reservaties){
-    //            if(r.getReservatieDagen().contains(date)){
-    //                aantalOnBeschikbaar-=r.getGereserveerdAantal();
-    //            }
-    //        }
-    //        return aantalBeschikbaar;
-    //    }
 
-    public int berekenAantalUitgeleend(LocalDate date) {
+    public int berekenAantalUitgeleendOpDatum(LocalDate date) {
         int aantalUitgeleend = 0;
         for (Reservatie r : reservaties) {
             if (r.getReservatieDagen().contains(date)) {
@@ -315,4 +305,16 @@ public class Product implements Serializable {
         return aantalUitgeleend;
     }
 
+    public int berekenAantalUitgeleendVoorPeriode(LocalDate startDate, LocalDate eindDate) {
+
+        int hoogsteAantalUitgeleend = 0;
+        for (LocalDate d : Helper.geefDagenTussen(startDate, eindDate)) {
+            if (hoogsteAantalUitgeleend < berekenAantalUitgeleendOpDatum(d)) {
+                hoogsteAantalUitgeleend = berekenAantalUitgeleendOpDatum(d);
+            }
+        }
+        return hoogsteAantalUitgeleend;
+    }
+    
+    
 }

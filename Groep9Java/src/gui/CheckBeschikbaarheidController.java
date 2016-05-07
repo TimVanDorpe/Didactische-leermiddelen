@@ -45,6 +45,8 @@ public class CheckBeschikbaarheidController extends Pane {
     @FXML
     private DatePicker dpEind;
 
+    private LocalDate startDatum, eindDatum;
+
     private Product geselecteerdProduct;
 
     public CheckBeschikbaarheidController(ProductController dc, Product p) {
@@ -62,14 +64,36 @@ public class CheckBeschikbaarheidController extends Pane {
 
         lblMateriaal.setText(geselecteerdProduct.getNaam());
         lblTotaal.setText(String.format("%d", geselecteerdProduct.getAantal()));
-        
-        
+
         dpStart.valueProperty().addListener(new ChangeListener<LocalDate>() {
             @Override
             public void changed(ObservableValue<? extends LocalDate> ov, LocalDate d1, LocalDate d2) {
-                lblBeschikbaar.setText(String.format("%d", geselecteerdProduct.berekenAantalBeschikbaarOpDatum(d2)));
-                lblOnbeschikbaar.setText(String.format("%d", geselecteerdProduct.getAantalOnbeschikbaar()));
-                lblUitgeleend.setText(String.format("%d", geselecteerdProduct.berekenAantalUitgeleend(d2)));
+                startDatum = d2;
+                if (eindDatum == null) {
+                    lblBeschikbaar.setText(String.format("%d", geselecteerdProduct.berekenAantalBeschikbaarOpDatum(startDatum)));
+                    lblOnbeschikbaar.setText(String.format("%d", geselecteerdProduct.getAantalOnbeschikbaar()));
+                    lblUitgeleend.setText(String.format("%d", geselecteerdProduct.berekenAantalUitgeleendOpDatum(startDatum)));
+                } else {
+                    lblBeschikbaar.setText(String.format("%d", geselecteerdProduct.berekenAantalBeschikbaarVoorPeriode(startDatum, eindDatum)));
+                    lblOnbeschikbaar.setText(String.format("%d", geselecteerdProduct.getAantalOnbeschikbaar()));
+                    lblUitgeleend.setText(String.format("%d", geselecteerdProduct.berekenAantalUitgeleendVoorPeriode(startDatum, eindDatum)));
+                }
+
+            }
+        });
+        dpEind.valueProperty().addListener(new ChangeListener<LocalDate>() {
+            @Override
+            public void changed(ObservableValue<? extends LocalDate> ov, LocalDate d1, LocalDate d2) {
+                eindDatum = d2;
+                if (startDatum == null) {
+                    lblBeschikbaar.setText(String.format("%d", geselecteerdProduct.berekenAantalBeschikbaarOpDatum(eindDatum)));
+                    lblOnbeschikbaar.setText(String.format("%d", geselecteerdProduct.getAantalOnbeschikbaar()));
+                    lblUitgeleend.setText(String.format("%d", geselecteerdProduct.berekenAantalUitgeleendOpDatum(eindDatum)));
+                } else {
+                    lblBeschikbaar.setText(String.format("%d", geselecteerdProduct.berekenAantalBeschikbaarVoorPeriode(startDatum, eindDatum)));
+                    lblOnbeschikbaar.setText(String.format("%d", geselecteerdProduct.getAantalOnbeschikbaar()));
+                    lblUitgeleend.setText(String.format("%d", geselecteerdProduct.berekenAantalUitgeleendVoorPeriode(startDatum, eindDatum)));
+                }
             }
         });
     }

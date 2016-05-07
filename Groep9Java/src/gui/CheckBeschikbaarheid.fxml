@@ -39,7 +39,10 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <DatePicker fx:id="dpStart" GridPane.columnIndex="1" />
+            <DatePicker fx:id="dpStart" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="2.0" />
+               </GridPane.margin></DatePicker>
             <Label text="Kies begindatum:" />
             <Label text="Totaal:" GridPane.rowIndex="2" />
             <Label text="Beschikbaar:" GridPane.rowIndex="3" />
@@ -50,7 +53,10 @@
             <Label fx:id="lblOnbeschikbaar" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label fx:id="lblUitgeleend" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label text="Kies einddatum:" GridPane.rowIndex="1" />
-            <DatePicker fx:id="dpEind" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <DatePicker fx:id="dpEind" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets top="2.0" />
+               </GridPane.margin></DatePicker>
          </children>
       </GridPane>
       <Button fx:id="btnSluitVenster" layoutX="209.0" layoutY="261.0" mnemonicParsing="false" onAction="#sluitVenster" text="Sluit venster" />
