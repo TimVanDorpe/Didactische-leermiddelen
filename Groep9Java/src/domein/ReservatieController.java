@@ -77,20 +77,8 @@ public class ReservatieController extends Observable {
         notifyObservers(res);
     }
 
-//    public ObservableList<Reservatie> getReservatieSortedList() {
-//
-//        return rb.getSortedList(); //SortedList is unmodifiable
-//
-//    }
 
     public void wijzigReservatie(Product product, int aantal, String student, LocalDate startDatum, LocalDate eindDatum, int opTeHalen, int teruggebracht) {
-
-//        GregorianCalendar start = new GregorianCalendar(Integer.parseInt(startDatum.substring(0, 4)),
-//                Integer.parseInt(startDatum.substring(5, 7)), Integer.parseInt(startDatum.substring(8, 10),
-//                Integer.parseInt(startDatum.substring(11, 13))));
-//        GregorianCalendar eind = new GregorianCalendar(Integer.parseInt(eindDatum.substring(0, 4)),
-//                Integer.parseInt(eindDatum.substring(5, 7)), Integer.parseInt(eindDatum.substring(8, 10),
-//                Integer.parseInt(eindDatum.substring(11, 13))));
 
 
         Reservatie nieuweReservatie = new Reservatie(startDatum, eindDatum, student, product, aantal, opTeHalen, teruggebracht);
@@ -99,7 +87,7 @@ public class ReservatieController extends Observable {
         notifyObservers();
     }
     
-    public void wijzigAantal(int aantal){ // VOOR DEMO
+    public void wijzigAantal(int aantal){ 
         rb.wijzigAantal(huidigeReservatie, aantal);
         setChanged();
         notifyObservers();

@@ -212,14 +212,14 @@ public class Reservatie implements Serializable {
             }
 
             // als de startdatum  kleiner is dan vandaag en einddatum groter dan vandaag {
-        } else if (startDatum.isBefore(LocalDate.now()) && eindDatum.isAfter(LocalDate.now())) {
-            if (opTeHalen == gereserveerdAantal) {
+        } else if (startDatum.isBefore(eindDatum) && eindDatum.isAfter(LocalDate.now())) {
+            if (opTeHalen == gereserveerdAantal ) {
                 status = "Klaar om op te halen";
             } else {
                 status = "Uitgeleend";
             }
 
-        } else if (startDatum.isAfter(LocalDate.now())) {
+        } else if (startDatum.isAfter(LocalDate.now()) && opTeHalen == 0) {
             if (LocalDate.now().getDayOfYear() - startDatum.getDayOfYear() <= 7) {
                 status = "Klaar te leggen";
             }
