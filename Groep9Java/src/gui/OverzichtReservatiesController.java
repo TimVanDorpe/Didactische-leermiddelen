@@ -273,8 +273,9 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
         if (result.get() == ButtonType.OK) {
             // OK
 
+            
             rc.removeReservatie();
-      //      tblReservaties.setItems(rc.getReservatieLijst());
+            tblReservaties.setItems(rc.getReservatieLijst());
 
         } else {
             // Niet OK
