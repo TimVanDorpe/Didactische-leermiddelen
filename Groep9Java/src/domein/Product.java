@@ -41,14 +41,12 @@ public class Product implements Serializable {
     private int artikelnummer;
     private double prijs;
     private int aantal; // totaal aantal
-//    private int aantalBeschikbaar; 
-//    private int aantalUitgeleend;
     private int aantalOnbeschikbaar;
     private String plaats;
 
     private List<Reservatie> reservaties;
 
-    public Product(List<Leergebied> leergebied, List<Doelgroep> doelgroep, Firma firma, URL foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
+    public Product(List<Leergebied> leergebied, List<Doelgroep> doelgroep, Firma firma, URL foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, int aantalOnbeschikbaar) {
         setLeergebieden(leergebied);
         setDoelgroepen(doelgroep);
         setFirma(firma);
@@ -59,22 +57,17 @@ public class Product implements Serializable {
         setPrijs(prijs);
         setAantal(aantal);
         setPlaats(plaats);
-//        setAantalBeschikbaar(aantal);
-        setAantalOnbeschikbaar(0);
-//        setAantalUitgeleend(0);
+        setAantalOnbeschikbaar(aantalOnbeschikbaar);
         reservaties = new ArrayList<>();
     }
 
     public Product(String naam, int aantal) {
         setNaam(naam);
         setAantal(aantal);
-//        setAantalBeschikbaar(aantal);
-        setAantalOnbeschikbaar(0);
-//        setAantalUitgeleend(0);
         reservaties = new ArrayList<>();
     }
 
-    public Product(List<Leergebied> leergebied, List<Doelgroep> doelgroep, Firma firma, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats) {
+    public Product(List<Leergebied> leergebied, List<Doelgroep> doelgroep, Firma firma, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, int aantalOnbeschikbaar) {
         setLeergebieden(leergebied);
         setDoelgroepen(doelgroep);
         setFirma(firma);
@@ -84,9 +77,7 @@ public class Product implements Serializable {
         setPrijs(prijs);
         setAantal(aantal);
         setPlaats(plaats);
-//        setAantalBeschikbaar(aantal);
-        setAantalOnbeschikbaar(0);
-//        setAantalUitgeleend(0);
+        setAantalOnbeschikbaar(aantalOnbeschikbaar);
         reservaties = new ArrayList<>();
     }
 
@@ -98,29 +89,13 @@ public class Product implements Serializable {
         this.reservaties = reservaties;
     }
 
-//    public int getAantalBeschikbaar() {
-//        return aantalBeschikbaar;
-//    }
-//
-//    public void setAantalBeschikbaar(int aantalBeschikbaar) {
-//        this.aantalBeschikbaar = aantalBeschikbaar;
-//    }
-//
-//    public int getAantalUitgeleend() {
-//        return aantalUitgeleend;
-//    }
-//
-//    public void setAantalUitgeleend(int aantalUitgeleend) {
-//        this.aantalUitgeleend = aantalUitgeleend;
-//    }
-//
+
     public int getAantalOnbeschikbaar() {
         return aantalOnbeschikbaar;
     }
 
     public void setAantalOnbeschikbaar(int aantalOnbeschikbaar) {
         this.aantalOnbeschikbaar = aantalOnbeschikbaar;
-
     }
 
     public Product() {

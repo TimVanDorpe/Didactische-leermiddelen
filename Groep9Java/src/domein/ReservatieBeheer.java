@@ -96,7 +96,9 @@ public class ReservatieBeheer {
 
     void wijzigReservatie(Reservatie nieuweReservatie, Reservatie huidigeReservatie) {
         
-        gdj.startTransaction();        
+        gdj.startTransaction();       
+        reservatieLijst.remove(huidigeReservatie);
+       // reservatieLijst.add(nieuweReservatie);
         huidigeReservatie.setGereserveerdAantal(nieuweReservatie.getGereserveerdAantal());
         huidigeReservatie.setOpTeHalen(nieuweReservatie.getOpTeHalen());
         huidigeReservatie.setTeruggebracht(nieuweReservatie.getTeruggebracht());
@@ -104,6 +106,7 @@ public class ReservatieBeheer {
         huidigeReservatie.setGebruiker(nieuweReservatie.getGebruiker());
         huidigeReservatie.setStartDatum(nieuweReservatie.getStartDatum());
         huidigeReservatie.setEindDatum(nieuweReservatie.getEindDatum());
+        huidigeReservatie.setStatus(nieuweReservatie.getStatus());
         gdj.update(huidigeReservatie);
         gdj.commitTransaction();
         

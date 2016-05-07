@@ -137,6 +137,7 @@ public class ProductBeheer {
         huidigProduct.setOmschrijving(p.getOmschrijving());
         huidigProduct.setPlaats(p.getPlaats());
         huidigProduct.setPrijs(p.getPrijs());
+        huidigProduct.setAantalOnbeschikbaar(p.getAantalOnbeschikbaar());
         huidigProduct.setNaam(p.getNaam());
         huidigProduct.setFoto(p.getFoto());
         huidigProduct.setLeergebieden(p.getLeergebieden());
