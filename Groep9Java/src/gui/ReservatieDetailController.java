@@ -287,6 +287,7 @@ public class ReservatieDetailController extends Pane {
             lblError.setTextFill(Color.web("#F20000"));
 
         }
+        Stage stage = (Stage) btnAnnuleer.getScene().getWindow();
         stage.close();
     }
 
