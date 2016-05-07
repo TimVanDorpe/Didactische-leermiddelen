@@ -61,8 +61,9 @@ public class ReservatieController extends Observable {
 
     public void removeReservatie() {
         Product huidigProduct =  huidigeReservatie.getGereserveerdProduct();
-         for(Reservatie r : huidigProduct.getReservaties()){
-            if(r.getGereserveerdProduct().getId() == huidigeReservatie.getId()){
+        List<Reservatie> huidigProductReservaties =  huidigProduct.getReservaties();
+         for(Reservatie r : huidigProductReservaties){
+            if(r.getId() == huidigeReservatie.getId()){
                  huidigProduct.getReservaties().remove(r);
             }
         }
