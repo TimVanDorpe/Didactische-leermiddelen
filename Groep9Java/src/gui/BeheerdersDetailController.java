@@ -82,7 +82,7 @@ public class BeheerdersDetailController extends Pane implements Observer {
 
     public void hoofdAdmin() {
 
-        if (bc.getAangemeldeBeheerder().getEmail().equalsIgnoreCase("hoofdbeheerder")) {//isHoofdbeheerder is altijd false???
+        if (bc.getAangemeldeBeheerder().getEmail().equalsIgnoreCase("hoofdbeheerder")) {//isHoofdbeheerder is altijd false???a
             btnBeheerderVerwijderen.setVisible(true);
             txtEmail.setVisible(true);
             txtNaam.setVisible(true);

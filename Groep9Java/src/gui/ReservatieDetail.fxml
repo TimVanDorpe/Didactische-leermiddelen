@@ -20,26 +20,25 @@
       <Button fx:id="btnWijzigen" layoutX="274.0" layoutY="549.0" mnemonicParsing="false" onAction="#wijzigReservatie" prefHeight="25.0" prefWidth="190.0" text="Aantal/Datum wijzigen" />
       <GridPane layoutX="54.0" layoutY="85.0" prefHeight="417.0" prefWidth="366.0">
          <children>
-            <Label fx:id="lblEindDatum" text="Einddatum" GridPane.rowIndex="4" />
-            <Label fx:id="lblAantal" text="Aantal" GridPane.rowIndex="2" />
-            <Label fx:id="lblStartDatum" text="Startdatum" GridPane.rowIndex="3" />
+            <Label fx:id="lblEindDatum" text="Einddatum" GridPane.rowIndex="3" />
+            <Label fx:id="lblAantal" text="Aantal" GridPane.rowIndex="4" />
+            <Label fx:id="lblStartDatum" text="Startdatum" GridPane.rowIndex="2" />
             <TextField fx:id="txtProduct" layoutY="-50.0" GridPane.columnIndex="1" />
-            <TextField fx:id="txtAantal" layoutY="-50.0" prefHeight="25.0" prefWidth="76.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextField fx:id="txtAantal" layoutY="-50.0" prefHeight="25.0" prefWidth="76.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets right="120.0" />
                </GridPane.margin></TextField>
             <Label fx:id="lblProduct" prefHeight="21.0" prefWidth="106.0" text="Materiaal" />
             <Label fx:id="lblStudent" text="Student" GridPane.rowIndex="1" />
-            <TextField fx:id="txtStudent" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <DatePicker fx:id="dpStartdatum" layoutX="50.0" onAction="#geefStartDatum" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <DatePicker fx:id="dpStartdatum" layoutX="50.0" onAction="#geefStartDatum" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets bottom="5.0" top="5.0" />
                </GridPane.margin>
             </DatePicker>
-            <DatePicker fx:id="dpEindDatum" onAction="#geefEindDatum" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <DatePicker fx:id="dpEindDatum" onAction="#geefEindDatum" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <ComboBox fx:id="cbMateriaal" prefHeight="31.0" prefWidth="219.0" GridPane.columnIndex="1" />
             <ComboBox fx:id="cbStudent" prefHeight="31.0" prefWidth="224.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="lblMax" prefHeight="24.0" prefWidth="104.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Label fx:id="lblMax" prefHeight="24.0" prefWidth="104.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="90.0" />
                </GridPane.margin>

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.beans.property.SimpleStringProperty;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,9 +12,9 @@ import javax.persistence.Id;
 
 @Entity(name = "Beheerder")
 public class Beheerder implements Serializable {
-
-    private String email, wachtwoord, naam;
-    private String telefoonnummer;
+    @Column(unique=true)
+    private String email;
+    private String telefoonnummer, wachtwoord, naam;
     private boolean hoofdAdmin;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

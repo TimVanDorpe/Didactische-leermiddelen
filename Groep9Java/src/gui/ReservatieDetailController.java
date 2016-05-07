@@ -63,8 +63,7 @@ public class ReservatieDetailController extends Pane {
     private Label lblStudent;
     @FXML
     private Label lblTitel;
-    @FXML
-    private TextField txtStudent;
+   
     @FXML
     private Button btnAnnuleer, btnToevoegen;
     @FXML
@@ -114,13 +113,14 @@ public class ReservatieDetailController extends Pane {
         }
 
         this.huidigeReservatie = rc.getHuidigeReservatie();
+        cbStudent.setItems(rc.getStudentenLijst());
 
         if (isWijziging) {
             lblProduct.setVisible(false);
             txtProduct.setVisible(false);
             btnToevoegen.setVisible(false);
             cbMateriaal.setVisible(false);
-            cbStudent.setVisible(false);
+            
              lblTeruggebracht.setVisible(true);
             txtTeruggebracht.setVisible(true);
             lblOpTeHalen.setVisible(true);
@@ -133,7 +133,7 @@ public class ReservatieDetailController extends Pane {
         } else if (!isWijziging) {
             lblTitel.setText("Reservatie toevoegen");
             cbMateriaal.setItems(pc.getStringNaamProducten());
-            cbStudent.setItems(rc.getStudentenLijst());
+            
 
              lblTeruggebracht.setVisible(false);
             txtTeruggebracht.setVisible(false);
@@ -172,7 +172,7 @@ public class ReservatieDetailController extends Pane {
 
             txtAantal.setText(Integer.toString(huidigeReservatie.getGereserveerdAantal()));
 
-            txtStudent.setText(huidigeReservatie.getGebruiker());
+            
             txtOpTeHalen.setText(Integer.toString(huidigeReservatie.getOpTeHalen()));
             txtTeruggebracht.setText(Integer.toString(huidigeReservatie.getTeruggebracht()));
 
@@ -209,7 +209,7 @@ public class ReservatieDetailController extends Pane {
             dpEindDatum.setDisable(true);
             dpStartdatum.setDisable(true);
             txtProduct.setDisable(true);
-            txtStudent.setDisable(true);
+           
             btnWijzigen.setDisable(true);
         }
          */
@@ -247,7 +247,7 @@ public class ReservatieDetailController extends Pane {
             }
 
             this.aantal = Integer.parseInt(txtAantal.getText());
-            this.student = txtStudent.getText();       
+            this.student = cbStudent.getSelectionModel().getSelectedItem().toString();
 //
 //            lblError.setText("");
 //
@@ -319,7 +319,7 @@ public class ReservatieDetailController extends Pane {
         dpEindDatum.setValue(LocalDate.now());
         dpStartdatum.setValue(LocalDate.now());
         txtProduct.setText("");
-        txtStudent.setText("");
+        
         cbMateriaal.setItems(null);
         cbStudent.setItems(null);
 
