@@ -17,7 +17,7 @@
             <Font size="23.0" />
          </font>
       </Label>
-      <Button fx:id="btnWijzigen" layoutX="274.0" layoutY="549.0" mnemonicParsing="false" onAction="#wijzigReservatie" prefHeight="25.0" prefWidth="190.0" text="Aantal/Datum wijzigen" />
+      <Button fx:id="btnWijzigen" layoutX="274.0" layoutY="549.0" mnemonicParsing="false" onAction="#wijzigReservatie" prefHeight="25.0" prefWidth="190.0" text="Reservatie wijzigen" />
       <GridPane layoutX="54.0" layoutY="85.0" prefHeight="417.0" prefWidth="366.0">
          <children>
             <Label fx:id="lblEindDatum" text="Einddatum" GridPane.rowIndex="3" />
@@ -72,6 +72,6 @@
       </GridPane>
       <Button fx:id="btnAnnuleer" layoutX="64.0" layoutY="549.0" mnemonicParsing="false" onAction="#annuleer" prefHeight="25.0" prefWidth="190.0" text="Annuleer" />
       <Button fx:id="btnLeegmaken" layoutX="64.0" layoutY="586.0" mnemonicParsing="false" onAction="#resetWaarden" prefHeight="25.0" prefWidth="190.0" text="Selectie verwijderen" />
-      <Button fx:id="btnToevoegen" layoutX="274.0" layoutY="549.0" mnemonicParsing="false" onAction="#reservatieToevoegen" prefHeight="7.0" prefWidth="190.0" text="Toevoegen" />
+      <Button fx:id="btnToevoegen" layoutX="274.0" layoutY="549.0" mnemonicParsing="false" onAction="#reservatieToevoegen" prefHeight="7.0" prefWidth="190.0" text="Reservatie toevoegen" />
    </children>
 </fx:root>

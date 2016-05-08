@@ -7,15 +7,11 @@ package domein;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn;
-import javafx.util.Callback;
 
 /**
  *
@@ -62,9 +58,10 @@ public class ReservatieController extends Observable {
     public void removeReservatie() {
         Product huidigProduct =  huidigeReservatie.getGereserveerdProduct();
         List<Reservatie> huidigProductReservaties =  huidigProduct.getReservaties();
-         for(Reservatie r : huidigProductReservaties){
-            if(r.getId() == huidigeReservatie.getId()){
-                 huidigProduct.getReservaties().remove(r);
+         for(Iterator<Reservatie> iter  = huidigProductReservaties.iterator(); iter.hasNext();){
+            Reservatie  obj = iter.next();
+            if(obj.getId() == huidigeReservatie.getId()){
+                iter.remove();
             }
         }
         rb.removeReservatie(huidigeReservatie);
@@ -84,6 +81,7 @@ public class ReservatieController extends Observable {
 
         Reservatie nieuweReservatie = new Reservatie(startDatum, eindDatum, student, product, aantal, opTeHalen, teruggebracht);
         rb.wijzigReservatie(nieuweReservatie, huidigeReservatie);
+        removeReservatie();
         setChanged();
         notifyObservers();
     }

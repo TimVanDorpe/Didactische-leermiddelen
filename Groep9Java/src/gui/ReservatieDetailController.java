@@ -163,12 +163,12 @@ public class ReservatieDetailController extends Pane {
                     if (huidigProduct != null && dpStartdatum.getValue() != null) {
                         lblMax.setText(String.format("beschikbaar: %d", huidigProduct.berekenAantalBeschikbaarVoorPeriode(startDate, eindDate)));
                     }
-                   
-                        eindDate = d2;
-                        if (huidigProduct != null && dpStartdatum.getValue() != null) {
-                            lblMax.setText(String.format("beschikbaar: %d", huidigProduct.berekenAantalBeschikbaarVoorPeriode(startDate, eindDate)));
-                        }
-                    
+
+                    eindDate = d2;
+                    if (huidigProduct != null && dpStartdatum.getValue() != null) {
+                        lblMax.setText(String.format("beschikbaar: %d", huidigProduct.berekenAantalBeschikbaarVoorPeriode(startDate, eindDate)));
+                    }
+
                 }
 
             });
@@ -213,37 +213,37 @@ public class ReservatieDetailController extends Pane {
 
             });
 
-
         }
-     
+
     }
 
-    private void valideerVelden(){
-        
-            if (txtAantal.getText().equals("") || !Helper.isInteger(txtAantal.getText())) {
-                throw new IllegalArgumentException("Aantal moet een getal zijn");
-            }
-             if (Helper.isInteger(txtAantal.getText()) && (Integer.parseInt(txtAantal.getText()) <= 0)) {
-                throw new IllegalArgumentException("Aantal moet groter dan nul zijn");
-            }
-              if (Helper.isInteger(txtAantal.getText()) && (Integer.parseInt(txtAantal.getText()) > huidigProduct.berekenAantalBeschikbaarVoorPeriode(startDate, eindDate))) {
-                throw new IllegalArgumentException("Aantal kan niet groter zijn dan het totaal beschikbare aantal");
-            }
-              if(eindDate == null){
-                  throw new IllegalArgumentException("Gelieve een einddatum te selecteren");
-              }
-               if(startDate == null){
-                  throw new IllegalArgumentException("Gelieve een startDatum te selecteren");
-              }
-                if(cbStudent.getSelectionModel().getSelectedItem() == null){
-                  throw new IllegalArgumentException("Gelieve een student te selecteren");
-              }
-               
-                if (eindDate.isBefore(startDate)) {
-                throw new IllegalArgumentException("Einddatum moet na startdatum komen");
-            }
-                
+    private void valideerVelden() {
+
+        if (txtAantal.getText().equals("") || !Helper.isInteger(txtAantal.getText())) {
+            throw new IllegalArgumentException("Aantal moet een getal zijn");
+        }
+        if (Helper.isInteger(txtAantal.getText()) && (Integer.parseInt(txtAantal.getText()) <= 0)) {
+            throw new IllegalArgumentException("Aantal moet groter dan nul zijn");
+        }
+        if (Helper.isInteger(txtAantal.getText()) && (Integer.parseInt(txtAantal.getText()) > huidigProduct.berekenAantalBeschikbaarVoorPeriode(startDate, eindDate))) {
+            throw new IllegalArgumentException("Aantal kan niet groter zijn dan het totaal beschikbare aantal");
+        }
+        if (eindDate == null) {
+            throw new IllegalArgumentException("Gelieve een einddatum te selecteren");
+        }
+        if (startDate == null) {
+            throw new IllegalArgumentException("Gelieve een startDatum te selecteren");
+        }
+        if (cbStudent.getSelectionModel().getSelectedItem() == null) {
+            throw new IllegalArgumentException("Gelieve een student te selecteren");
+        }
+
+        if (eindDate.isBefore(startDate)) {
+            throw new IllegalArgumentException("Einddatum moet na startdatum komen");
+        }
+
     }
+
     @FXML
     private void wijzigReservatie(ActionEvent event) {
 
@@ -256,54 +256,50 @@ public class ReservatieDetailController extends Pane {
                 throw new IllegalArgumentException("Teruggebracht moet een getal zijn");
             }
 
-           
             if (Helper.isInteger(txtOpTeHalen.getText()) && (Integer.parseInt(txtOpTeHalen.getText()) < 0)) {
                 throw new IllegalArgumentException("Op te halen moet positief zijn");
             }
             if (Helper.isInteger(txtTeruggebracht.getText()) && (Integer.parseInt(txtTeruggebracht.getText()) < 0)) {
                 throw new IllegalArgumentException("Teruggebracht moet positief zijn");
             }
-           
+
             if (Helper.isInteger(txtOpTeHalen.getText()) && (Integer.parseInt(txtOpTeHalen.getText()) > rc.getHuidigeReservatie().getGereserveerdAantal())) {
                 throw new IllegalArgumentException("Op te halen kan niet groter zijn dan het gereserveerd aantal");
             }
-          
 
             this.aantal = Integer.parseInt(txtAantal.getText());
-              
-           
+
             this.student = cbStudent.getSelectionModel().getSelectedItem().toString();
-            
+
 //      
 //            lblError.setText("");
 //
             //Product prod = pc.getProductenLijst().stream().filter(p -> p.getNaam().equalsIgnoreCase(txtProduct.getText())).findAny().get();
 //            
 //            // dit uit comment na demo
-         
             rc.wijzigReservatie(huidigProduct, aantal, student, startDate, eindDate, Integer.parseInt(txtOpTeHalen.getText()), Integer.parseInt(txtTeruggebracht.getText()));
 //
 //            //demo
             //rc.wijzigAantal(Integer.parseInt(txtAantal.getText()));
 
-            //TIJDELIJK VOOR DEMO
-            lblAantal.setText("Aantal");
-            lblAantal.setTextFill(Color.web("#000000"));
+//            //TIJDELIJK VOOR DEMO
+//            lblAantal.setText("Aantal");
+//            lblAantal.setTextFill(Color.web("#000000"));
 
+            Stage stage = (Stage) btnAnnuleer.getScene().getWindow();
+            stage.close();
         } catch (IllegalArgumentException ex) {
 
             //TIJDELIJK VOOR DEMO
-            lblAantal.setText("Aantal*");
-            lblAantal.setTextFill(Color.web("#F20000"));
+//            lblAantal.setText("Aantal*");
+//            lblAantal.setTextFill(Color.web("#F20000"));
 
             lblError.setText(ex.getMessage());
             lblError.setTextFill(Color.web("#F20000"));
 
         }
-        Stage stage = (Stage) btnAnnuleer.getScene().getWindow();
-        stage.close();
-    }
 
+    }
 
     @FXML
     private void resetWaarden(ActionEvent event
@@ -334,7 +330,6 @@ public class ReservatieDetailController extends Pane {
         eindDate = dpEindDatum.getValue();
     }
 
-   
     @FXML
     private void annuleer(ActionEvent event
     ) {
@@ -346,18 +341,20 @@ public class ReservatieDetailController extends Pane {
     @FXML
     private void reservatieToevoegen(ActionEvent event) {
 
-        
         try {
             if (cbMateriaal.getSelectionModel().getSelectedItem() == null) {
                 throw new IllegalArgumentException("Gelieve een product te selecteren.");
             }
-this.huidigProduct = pc.getProductByNaam(cbMateriaal.getSelectionModel().getSelectedItem().toString());
+            this.huidigProduct = pc.getProductByNaam(cbMateriaal.getSelectionModel().getSelectedItem().toString());
 
-        valideerVelden();
+            valideerVelden();
             this.aantal = Integer.parseInt(txtAantal.getText());
 
             Reservatie r = new Reservatie(startDate, eindDate, cbStudent.getSelectionModel().getSelectedItem().toString(), huidigProduct, aantal);
             rc.addReservatie(r);
+
+            Stage stage = (Stage) btnAnnuleer.getScene().getWindow();
+            stage.close();
 
         } catch (IllegalArgumentException ex) {
 
@@ -365,8 +362,7 @@ this.huidigProduct = pc.getProductByNaam(cbMateriaal.getSelectionModel().getSele
             lblError.setTextFill(Color.web("#F20000"));
 
         }
-        Stage stage = (Stage) btnAnnuleer.getScene().getWindow();
-        stage.close();
+
     }
 
 }

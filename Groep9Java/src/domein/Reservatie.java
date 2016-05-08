@@ -97,7 +97,7 @@ public class Reservatie implements Serializable {
     }
 
     public void setEindDatum(LocalDate eindDatum) {
-        if(eindDatum.isBefore(startDatum)){
+        if (eindDatum.isBefore(startDatum)) {
             throw new IllegalArgumentException("Einddatum moet na startdatum komen");
         }
         this.eindDatum = eindDatum;
@@ -204,26 +204,25 @@ public class Reservatie implements Serializable {
         // bereken of de einddatum kleiner is dan vandaag
         if (eindDatum.isBefore(LocalDate.now())) {
 
-            // bereken of het aantal optehalen + teruggebracht = totaal aantal
-            // zo wel dan "voltooid" (voltooide reservaties zullen niet meer getoond worden)
-            if (opTeHalen + teruggebracht == gereserveerdAantal) {
+            if (teruggebracht < gereserveerdAantal - opTeHalen) {
+                status = "Niet alles teruggebracht";
+            } else {
 
                 setNogWeergeven(false);
-                // zo niet dan moet met iets teruggeven zoals "te laat"
-            } else if (teruggebracht < gereserveerdAantal - opTeHalen) {
-                status = "Niet alles teruggebracht";
             }
 
             // als de startdatum  kleiner is dan vandaag en einddatum groter dan vandaag {
-        } else if ( startDatum.isBefore(LocalDate.now()) && eindDatum.isAfter(LocalDate.now())) {
-            if (opTeHalen == gereserveerdAantal ) {
+        } else if (startDatum.isBefore(LocalDate.now()) && eindDatum.isAfter(LocalDate.now())) {
+            if (opTeHalen == gereserveerdAantal) {
                 status = "Klaar om op te halen";
+            } else if ((teruggebracht + opTeHalen) == gereserveerdAantal) {
+                setNogWeergeven(false);
             } else {
                 status = "Uitgeleend";
             }
 
-        } else if (startDatum.isAfter(LocalDate.now()) && opTeHalen == 0) {
-            if (LocalDate.now().getDayOfYear() - startDatum.getDayOfYear() <= 7) {
+        } else if (startDatum.isAfter(LocalDate.now()) ) {
+            if (LocalDate.now().getDayOfYear() - startDatum.getDayOfYear() <= 7 && opTeHalen < gereserveerdAantal) {
                 status = "Klaar te leggen";
             }
         }
