@@ -18,8 +18,6 @@ public class Firma implements Serializable {
     public Firma() {
     }
 
-    
-    
     public String getNaam() {
         return naam;
     }
@@ -52,9 +50,5 @@ public class Firma implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-  
-        
-        
-        
-        
+
 }

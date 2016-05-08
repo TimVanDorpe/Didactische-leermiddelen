@@ -34,13 +34,10 @@ public class BeheerdersDetailController extends Pane implements Observer {
     private TextField txtWachtwoord;
     @FXML
     private Button btnNieuweBeheerder;
-
     @FXML
     private Button btnAnnuleren;
-
     @FXML
     private Button btnBeheerderVerwijderen;
-
     @FXML
     private Label lblError, lblNaam, lblEmail, lblWachtwoord, lblDetailsBeheerder;
 
@@ -139,9 +136,9 @@ public class BeheerdersDetailController extends Pane implements Observer {
         resetWaarden();
         btnToevoegen.setVisible(true);
         btnAnnuleren.setVisible(true);
-        
+
         Beheerder beh = new Beheerder();
-        
+
         txtNaam.setPromptText("Naam van de nieuwe beheerder");
         txtEmail.setDisable(false);
         txtNaam.setDisable(false);
@@ -198,7 +195,6 @@ public class BeheerdersDetailController extends Pane implements Observer {
             lblEmail.setTextFill(Color.web("#F20000"));
             message += "Email is verplicht\n";
             validInput = false;
-
         }
 
         if (!bc.isEmailUniek(txtEmail.getText())) {
@@ -210,13 +206,11 @@ public class BeheerdersDetailController extends Pane implements Observer {
 
         }
         String wachtwoord = txtWachtwoord.getText();
-
         if (txtWachtwoord.getText().equals("")) {
             lblWachtwoord.setText("Wachtwoord*");
             lblWachtwoord.setTextFill(Color.web("#F20000"));
             message += "Wachtwoord is verplicht\n";
             validInput = false;
-
         }
         lblError.setText(message);
         lblError.setTextFill(Color.web("#F20000"));
@@ -234,34 +228,6 @@ public class BeheerdersDetailController extends Pane implements Observer {
         resetWaarden();
     }
 
-//    @FXML
-//    private void wijzigBeheerder(ActionEvent event) {
-//        try {
-//            String naam = txtNaam.getText();
-//            String email = txtEmail.getText();
-//            String wachtwoord = txtWachtwoord.getText();
-//
-//            lblError.setText("");
-//
-//            Beheerder beh = bc.getBeheerderslijst().stream().filter(p -> p.getNaam().equalsIgnoreCase(txtNaam.getText())).findAny().get();
-//
-//            // dit uit comment na demo
-//            bc.wijzigBeheerder(naam, email, wachtwoord);
-//
-//
-//        } catch (IllegalArgumentException ex) {
-//
-//            lblError.setText(ex.getMessage());
-//            lblError.setTextFill(Color.web("#F20000"));
-//
-//        }
-//        
-//    }
-//    @FXML
-//    private void annuleerWijziging(ActionEvent event) {
-//        bc.updateDetailVenster();
-//
-//    }
     @FXML
     private void resetWaarden(ActionEvent event) {
 
@@ -290,14 +256,10 @@ public class BeheerdersDetailController extends Pane implements Observer {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             // OK
-
             bc.removeBeheerder();
-
         } else {
             // Niet OK
-
             stage.close();
-
         }
 
         stage.close();

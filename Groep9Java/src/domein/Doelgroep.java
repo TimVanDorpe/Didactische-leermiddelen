@@ -14,9 +14,6 @@ public class Doelgroep implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    
-    
-    
     public String getNaam() {
         return naam;
     }

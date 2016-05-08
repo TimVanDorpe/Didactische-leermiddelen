@@ -11,7 +11,7 @@ import javax.persistence.Id;
 public class Leergebied implements Serializable {
 
     private String naam;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -19,8 +19,6 @@ public class Leergebied implements Serializable {
     public Leergebied() {
     }
 
-        
-        
     public String getNaam() {
         return naam;
     }
@@ -41,7 +39,4 @@ public class Leergebied implements Serializable {
         this.id = id;
     }
 
-        
-        
-        
 }

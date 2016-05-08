@@ -23,15 +23,11 @@ import javafx.stage.Stage;
 public class ProductZoekFilterController extends Pane{
 private ProductController domeinController;
     @FXML
-    private Button btnAnnuleer;
-    @FXML
-    private Button btnToevoegen;
+    private Button btnAnnuleer;    
     @FXML
     private TextField txtNaam;
     @FXML
-    private TextField txtArtikelnummer;
-    @FXML
-    private TextField txtAantal;
+    private TextField txtArtikelnummer;    
     @FXML
     private TextField txtFirma;
     @FXML
@@ -41,15 +37,12 @@ private ProductController domeinController;
     @FXML
     private TextField txtLeergebieden;
     @FXML
-    private CheckBox uitleenbaarheid;
-    @FXML
     private TextField txtPlaats;
     @FXML
     private TextField txfVanPrijs;
     @FXML
     private TextField txfTotPrijs;
-    @FXML
-    private Label lblError;
+  
 
   
 
@@ -66,21 +59,16 @@ private ProductController domeinController;
         }
     }
 
-    
-
-    
-   
-
     @FXML
     private void annuleer(ActionEvent event) {
          Stage stage = (Stage) btnAnnuleer.getScene().getWindow();
-        // do what you have to do
+        
         stage.close();
     }
 
     @FXML
     private void filterProducten(ActionEvent event) {
-//          try{
+
         String trefwoord = txtNaam.getText();
       
         
@@ -92,11 +80,8 @@ private ProductController domeinController;
                 }
 
                 artikelnummer = Integer.parseInt(txtArtikelnummer.getText());
-            }
-       
-//        if(txtPrijs.getText() != null || !txtPrijs.getText().equals("")){
-//            prijs = Double.parseDouble(txtPrijs.getText());
-//        }
+            }     
+
       
          double vanPrijs = -1;
          double totPrijs = -1;
@@ -115,12 +100,9 @@ private ProductController domeinController;
      
         domeinController.filterProductLijst(trefwoord, artikelnummer, vanPrijs, totPrijs, plaats, firma,email, doelgroep, leergebieden);
          Stage stage = (Stage) this.getScene().getWindow();
-        // do what you have to do
+        
         stage.close();
-//         }catch(Exception e){
-//             lblError.setText(e.toString());
-//             lblError.setTextFill(Color.web("#F20000"));
-//         }
+
     }
 
    

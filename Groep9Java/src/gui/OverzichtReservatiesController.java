@@ -30,25 +30,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
-/**
- * FXML Controller class
- *
- * @author Thomas
- */
 public class OverzichtReservatiesController extends BorderPane implements Observer {
 
     @FXML
     private TableView<Reservatie> tblReservaties;
-
     private ReservatieController rc;
-    @FXML
-    private Button btnZoeken;
-
     private ProductController pc;
     @FXML
     private TextField txtZoeken;
@@ -70,10 +59,6 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
     private TableColumn clmStatus;
     @FXML
     private Button btnWijzigen;
-    @FXML
-    private Button btnToevoegen;
-    @FXML
-    private Button btnAllesWeergeven;
     @FXML
     private Button btnVerwijder;
     @FXML
@@ -109,18 +94,9 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
                 cellData -> cellData.getValue().opTeHalenProperty());
         clmTeruggebracht.setCellValueFactory(
                 cellData -> cellData.getValue().teruggebrachtProperty());
-//        clmStatus.setCellValueFactory(
-//                cellData -> if(cellData.getValue().)
-//                        cellData.getValue().getStatusProperty());
-//        
+
         clmStatus.setCellValueFactory(new PropertyValueFactory<Reservatie, String>("status"));
 
-        // ** The TableCell class has the method setTextFill(Paint p) that you 
-        // ** need to override the text color
-        //   To obtain the TableCell we need to replace the Default CellFactory 
-        //   with one that returns a new TableCell instance, 
-        //   and @Override the updateItem(String item, boolean empty) method.
-        //
         clmStatus.setCellFactory(new Callback<TableColumn, TableCell>() {
 
             public TableCell call(TableColumn param) {
@@ -131,7 +107,7 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
 
                         super.updateItem(item, empty);
                         if (!isEmpty()) {
-                          
+
                             // Get fancy and change color based on data
                             if (item.contains("Uitgeleend")) {
                                 setStyle("-fx-background-color:#BFBFBF;-fx-color:#000;");
@@ -152,8 +128,8 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
 
                             }
                             setText(item);
-                            
-                        }else{
+
+                        } else {
                             setText("");
                             setStyle("");
                         }
@@ -177,7 +153,7 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
 
         GregorianCalendar startDatum3 = new GregorianCalendar(2016, 3, 13, 8, 0, 0);
         GregorianCalendar eindDatum3 = new GregorianCalendar(2016, 5, 17, 17, 0, 0);
-        
+
         GregorianCalendar startDatum4 = new GregorianCalendar(2016, 4, 9, 8, 0, 0);
         GregorianCalendar eindDatum4 = new GregorianCalendar(2016, 4, 13, 17, 0, 0);
 
@@ -208,8 +184,6 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
     public void update(Observable o, Object arg) {
         tblReservaties.getColumns().get(0).setVisible(false);
         tblReservaties.getColumns().get(0).setVisible(true);
-        //tblReservaties.removeAll(rc.getReservatieLijst());
-        //tblReservaties.setItems(rc.getReservatieLijst());
         btnVerwijder.setDisable(false);
         btnWijzigen.setDisable(false);
     }
@@ -254,7 +228,6 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
                 reservatieLijst.add(r);
             }
         }
-       
         tblReservaties.setItems(reservatieLijst);
     }
 
@@ -269,19 +242,14 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            // OK
-
-            
+            // OK            
             rc.removeReservatie();
             tblReservaties.setItems(rc.getReservatieLijst());
 
         } else {
             // Niet OK
-
             stage.close();
-
         }
-
         stage.close();
     }
 

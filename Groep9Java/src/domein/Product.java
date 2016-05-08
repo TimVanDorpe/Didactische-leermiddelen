@@ -31,7 +31,7 @@ public class Product implements Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Firma firma;
     private URL foto;
-    //@Column(unique=true)
+    @Column(unique=true)
     private String naam;
     private String omschrijving;
     @Id
@@ -74,7 +74,6 @@ public class Product implements Serializable {
     public void setReservaties(List<Reservatie> reservaties) {
         this.reservaties = reservaties;
     }
-
 
     public int getAantalOnbeschikbaar() {
         return aantalOnbeschikbaar;
@@ -246,7 +245,7 @@ public class Product implements Serializable {
     }
 
     public int berekenAantalBeschikbaarVoorPeriode(LocalDate startDate, LocalDate eindDate) {
-       if(eindDate.isBefore(startDate)){
+        if (eindDate.isBefore(startDate)) {
             throw new IllegalArgumentException("Einddatum moet na startdatum komen");
         }
         int laagsteAantalBeschikbaar = aantal - aantalOnbeschikbaar;
@@ -278,6 +277,5 @@ public class Product implements Serializable {
         }
         return hoogsteAantalUitgeleend;
     }
-    
-    
+
 }

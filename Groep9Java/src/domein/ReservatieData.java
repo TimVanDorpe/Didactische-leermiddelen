@@ -55,19 +55,13 @@ public class ReservatieData {
         rb.addReservatie(new Reservatie(startDatum2.toZonedDateTime().toLocalDate(), eindDatum2.toZonedDateTime().toLocalDate(), gebruiker1, p1, 10 , 5 ,4));
         rb.addReservatie(new Reservatie(startDatum3.toZonedDateTime().toLocalDate(), eindDatum3.toZonedDateTime().toLocalDate(), gebruiker2, p1, 5 , 0 ,0));
         rb.addReservatie(new Reservatie(startDatum3.toZonedDateTime().toLocalDate(), eindDatum3.toZonedDateTime().toLocalDate(), gebruiker2, p1, 5 , 5 ,0));
-        
-        
-        
-        
-        
+               
     }
     
-    
-    //TIJDELIJJKK
-    
+       
      private void maakProducten()
     {
-        //leergebieden, kleuters, Hogent, "foto1", "klok", "Dit is een klok", 1, 1, 1, "B1002"
+      
         List<Leergebied> leergebieden = new ArrayList();
         List<Leergebied> leergebieden2 = new ArrayList();
                 List<Doelgroep> doelgroepen = new ArrayList();
@@ -79,8 +73,7 @@ public class ReservatieData {
         leergebieden.add(tellen);
         leergebieden.add(knutselen);
         leergebieden2.add(tellen);
-      // Image foto = new image()
-        Doelgroep kleuters = new Doelgroep("");
+       Doelgroep kleuters = new Doelgroep("");
        Doelgroep lager = new Doelgroep("");
        doelgroepen.add(kleuters);
        doelgroepen.add(lager);
@@ -94,7 +87,6 @@ public class ReservatieData {
         } catch (MalformedURLException ex) {
             Logger.getLogger(ReservatieData.class.getName()).log(Level.SEVERE, null, ex);
         }
-       //new Product(leergebieden, kleuters, UGent, naam, omschrijving,artikelnummer , prijs, aantal, plaats)
         plijst.add(new Product(leergebieden, doelgroepen, Hogent, legeFoto,"Klok", "Dit is een klok", 1, 1, 1, "B1002", 0));
         plijst.add(new Product(leergebieden, doelgroepen, Hogent, legeFoto,"Wereldkaart" , "Een kaart van 50 cm op 30 cm" , 2 , 2 , 2 , "B1038", 0));
         plijst.add(new Product(leergebieden, doelgroepen, UGent,legeFoto, "Dobbelstenen met schatkist" , "Doos met spelletjes" , 6 , 10 , 5 , "B1038", 0));

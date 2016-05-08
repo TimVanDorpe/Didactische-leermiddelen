@@ -33,10 +33,11 @@ public class ReservatieController extends Observable {
     public ObservableList<Reservatie> getReservatieLijst() {
         ObservableList<Reservatie> reservatieLijst = FXCollections.observableArrayList();
         rb.haalAlleReservatiesOp();
-        for (Reservatie r: rb.getReservatieLijst()){
-                    if (r.isNogWeergeven())
-                        reservatieLijst.add(r);
+        for (Reservatie r : rb.getReservatieLijst()) {
+            if (r.isNogWeergeven()) {
+                reservatieLijst.add(r);
             }
+        }
         return reservatieLijst;
     }
 
@@ -46,21 +47,21 @@ public class ReservatieController extends Observable {
 
     public void addReservatie(Reservatie r) {
         rb.addReservatie(r);
-         setChanged();
+        setChanged();
         notifyObservers();
     }
 
     public void removeReservatie() {
-        Product huidigProduct =  huidigeReservatie.getGereserveerdProduct();
-        List<Reservatie> huidigProductReservaties =  huidigProduct.getReservaties();
-         for(Iterator<Reservatie> iter  = huidigProductReservaties.iterator(); iter.hasNext();){
-            Reservatie  obj = iter.next();
-            if(obj.getId() == huidigeReservatie.getId()){
+        Product huidigProduct = huidigeReservatie.getGereserveerdProduct();
+        List<Reservatie> huidigProductReservaties = huidigProduct.getReservaties();
+        for (Iterator<Reservatie> iter = huidigProductReservaties.iterator(); iter.hasNext();) {
+            Reservatie obj = iter.next();
+            if (obj.getId() == huidigeReservatie.getId()) {
                 iter.remove();
             }
         }
         rb.removeReservatie(huidigeReservatie);
-         setChanged();
+        setChanged();
         notifyObservers();
     }
 
@@ -70,9 +71,7 @@ public class ReservatieController extends Observable {
         notifyObservers(res);
     }
 
-
     public void wijzigReservatie(Product product, int aantal, String student, LocalDate startDatum, LocalDate eindDatum, int opTeHalen, int teruggebracht) {
-
 
         Reservatie nieuweReservatie = new Reservatie(startDatum, eindDatum, student, product, aantal, opTeHalen, teruggebracht);
         rb.wijzigReservatie(nieuweReservatie, huidigeReservatie);
@@ -80,8 +79,8 @@ public class ReservatieController extends Observable {
         setChanged();
         notifyObservers();
     }
-    
-    public void wijzigAantal(int aantal){ 
+
+    public void wijzigAantal(int aantal) {
         rb.wijzigAantal(huidigeReservatie, aantal);
         setChanged();
         notifyObservers();
@@ -99,9 +98,9 @@ public class ReservatieController extends Observable {
     public boolean getSelectionModelEmpty() {
         return selectionModelEmpty;
     }
-    public ObservableList<Reservatie> zoekOpMateriaalNaam(String productNaam)
-    {
-         ObservableList<Reservatie> reservatieLijstMetTrefwoord = FXCollections.observableArrayList();
+
+    public ObservableList<Reservatie> zoekOpMateriaalNaam(String productNaam) {
+        ObservableList<Reservatie> reservatieLijstMetTrefwoord = FXCollections.observableArrayList();
         List<Reservatie> rr = new ArrayList<>();
 
         for (Reservatie r : getReservatieLijst()) {
@@ -115,10 +114,7 @@ public class ReservatieController extends Observable {
     }
 
     public ObservableList<String> getStudentenLijst() {
-       return rb.getStudentenLijst();
+        return rb.getStudentenLijst();
     }
-   
 
-        
-    
 }

@@ -26,13 +26,7 @@ public class MenuController extends VBox {
     @FXML
     private Button btnUitloggen;
     @FXML
-    private Label lblHuidigeGebruiker;
-    @FXML
-    private Tab tabCatalogus;
-    @FXML
-    private Tab tabReservaties;
-    @FXML
-    private Tab tabBeheerders;
+    private Label lblHuidigeGebruiker; 
     @FXML
     private Pane paneProducten;
     @FXML
@@ -70,17 +64,14 @@ public class MenuController extends VBox {
 
     @FXML
     public void toonCatalogus() {
-
     }
 
     @FXML
-    public void toonReservaties() {
-       
+    public void toonReservaties() {       
     }
 
     @FXML
     public void toonBeheerders() {
-
     }
 
     @FXML
@@ -89,8 +80,7 @@ public class MenuController extends VBox {
         Stage stage = (Stage) btnUitloggen.getScene().getWindow();
         Scene scene = new Scene(new LoginSchermController(beheerderController));
         stage.setScene(scene);
-        stage.setTitle("Didactische leermiddelen :  Login");
-        // The stage will not get smaller than its preferred (initial) size.
+        stage.setTitle("Didactische leermiddelen :  Login");        
         stage.setOnShown((WindowEvent t) -> {
             stage.setMinWidth(stage.getWidth());
             stage.setMinHeight(stage.getHeight());

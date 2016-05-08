@@ -8,10 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import util.GenericDaoJpa;
 
-/**
- *
- * @author Thomas
- */
 public class BeheerderBeheer {
 
     private ObservableList<Beheerder> beheerderLijst = FXCollections.observableArrayList();
@@ -79,15 +75,7 @@ public class BeheerderBeheer {
     }
 
     public boolean isEmailUniek(String email, String naamGeselecteerdeBeheerder) {
-//        if (isWijziging) {
-//            if (!naamGeselecteerdeBeheerder.equals(email)) { // als het een wijziging is controleer dan niet op de huidig geselecteerde naam
-//                if (beheerderLijst.stream().anyMatch(p -> p.getEmail().toLowerCase().equals(email.toLowerCase()))) {
-//                    return false;
-//                    //throw new IllegalArgumentException("Naam moet uniek zijn");
-//                }
-//            }
-//
-//        } else 
+
         if (beheerderLijst.stream().anyMatch(p -> p.getEmail().toLowerCase().equals(email.toLowerCase()))) {
             return false;
         }

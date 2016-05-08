@@ -22,32 +22,29 @@ public class ReservatieBeheer {
 
     private ObservableList<Reservatie> reservatieLijst = FXCollections.observableArrayList();
     private SortedList<Reservatie> sortedList;
- 
+
     private final Comparator<Reservatie> byStartDatum = (r1, r2) -> r1.getStartDatum().compareTo(r2.getStartDatum());
- 
+
     private final Comparator<Reservatie> sortOrder = byStartDatum;
-    
+
     private GenericDaoJpa gdj;
-    
+
     public ReservatieBeheer() {
-        gdj = new GenericDaoJpa(Reservatie.class);        
-       // ReservatieData data = new ReservatieData(this);
-      //  data.maakReservaties();
+        gdj = new GenericDaoJpa(Reservatie.class);
         sortedList = reservatieLijst.sorted(sortOrder);
-         
-        
+
     }
 
     public SortedList<Reservatie> getSortedList() {
 
-      //Wrap the FilteredList in a SortedList
-      //sortedList = reservatieLijst.sorted(sortOrder);
-       return sortedList; //SortedList is unmodifiable
-  }
+        //Wrap the FilteredList in a SortedList
+        //sortedList = reservatieLijst.sorted(sortOrder);
+        return sortedList; //SortedList is unmodifiable
+    }
 
     public void setSortedList(SortedList<Reservatie> sortedList) {
         this.sortedList = sortedList;
-   }
+    }
 //
 //    public ObservableList<Reservatie> zoekOpMateriaalNaam(String productNaam)
 //    {
@@ -64,7 +61,7 @@ public class ReservatieBeheer {
 //        return sortedList;
 //    
 //    }
-    
+
     public ObservableList<Reservatie> getReservatieLijst() {
         return getSortedList();
     }
@@ -87,12 +84,9 @@ public class ReservatieBeheer {
         gdj.commitTransaction();
     }
 
-
     void wijzigReservatie(Reservatie nieuweReservatie, Reservatie huidigeReservatie) {
-        
-        gdj.startTransaction();       
-       
-       // reservatieLijst.add(nieuweReservatie);
+
+        gdj.startTransaction();
         huidigeReservatie.setGereserveerdAantal(nieuweReservatie.getGereserveerdAantal());
         huidigeReservatie.setOpTeHalen(nieuweReservatie.getOpTeHalen());
         huidigeReservatie.setTeruggebracht(nieuweReservatie.getTeruggebracht());
@@ -103,33 +97,28 @@ public class ReservatieBeheer {
         huidigeReservatie.setStatus(nieuweReservatie.getStatus());
         gdj.update(huidigeReservatie);
         gdj.commitTransaction();
-        
-        
-     
+
     }
 
-    
-    public void wijzigAantal(Reservatie huidigeReservatie, int aantal){
+    public void wijzigAantal(Reservatie huidigeReservatie, int aantal) {
         Reservatie nieuweReservatie = huidigeReservatie;
         nieuweReservatie.setGereserveerdAantal(aantal);
         Collections.replaceAll(reservatieLijst, huidigeReservatie, nieuweReservatie);
     }
 
     ObservableList<String> getStudentenLijst() {
-         ObservableList<String> studenten = FXCollections.observableArrayList(); 
-       for(Reservatie r : reservatieLijst)
-       {
-           if(!(studenten.contains(r.getGebruiker())))
-           {
-           studenten.add(r.getGebruiker());
-           }
-       }
-       return studenten;
+        ObservableList<String> studenten = FXCollections.observableArrayList();
+        for (Reservatie r : reservatieLijst) {
+            if (!(studenten.contains(r.getGebruiker()))) {
+                studenten.add(r.getGebruiker());
+            }
+        }
+        return studenten;
     }
 
     public void haalAlleReservatiesOp() {
-        setReservatieLijst(FXCollections.observableArrayList(gdj.findAll())); 
+        setReservatieLijst(FXCollections.observableArrayList(gdj.findAll()));
         setSortedList(reservatieLijst.sorted(sortOrder));
     }
-    
+
 }

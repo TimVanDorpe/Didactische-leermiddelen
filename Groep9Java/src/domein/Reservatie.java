@@ -209,7 +209,7 @@ public class Reservatie implements Serializable {
                 status = "Uitgeleend";
             }
 
-        } else if (startDatum.isAfter(LocalDate.now()) ) {
+        } else if (startDatum.isAfter(LocalDate.now())) {
             if (LocalDate.now().getDayOfYear() - startDatum.getDayOfYear() <= 7 && opTeHalen < gereserveerdAantal) {
                 status = "Klaar te leggen";
             }

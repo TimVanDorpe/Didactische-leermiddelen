@@ -41,7 +41,6 @@ class LeergebiedSelecterenController extends GridPane {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-
         //leergebied strings
         updateView();
 
@@ -55,18 +54,16 @@ class LeergebiedSelecterenController extends GridPane {
     }
 
     private void updateView() {
-        
-        ObservableList<String> listnieuw =  FXCollections.observableArrayList();
+
+        ObservableList<String> listnieuw = FXCollections.observableArrayList();
         dc.getLeergebieden().stream().map((l) -> l.getNaam()).forEach((naam) -> {
             listnieuw.add(naam);
         });
-        
+
 //          ObservableList<String> listtoegevoegd =  FXCollections.observableArrayList();
 //          dc.getToegevoegdeLeergebieden().stream().map((l) -> l.getNaam()).forEach((naam) -> {
 //              listtoegevoegd.add(naam);
 //        });
-        
-
         alleLeergebieden.setItems(listnieuw);
         toegevoegdeLeergebieden.setItems(dc.getVoorlopigeLeergebieden());
         toegevoegdeLeergebieden.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -86,7 +83,6 @@ class LeergebiedSelecterenController extends GridPane {
 
     }
 
-
     //string to leergebied 
     @FXML
     private void sendLeft(ActionEvent event) {
@@ -96,7 +92,7 @@ class LeergebiedSelecterenController extends GridPane {
 
         if (naam != null) {
             toegevoegdeLeergebieden.getSelectionModel().clearSelection();
-          
+
         }
         updateView();
 
@@ -143,7 +139,7 @@ class LeergebiedSelecterenController extends GridPane {
     @FXML
     private void toevoegenNieuwLeergebied(ActionEvent event) {
         String nieuwleergebied = txtNieuwLeergebied.getText();
-        
+
         dc.nieuwLeergebiedToevoegen(nieuwleergebied);
         txtNieuwLeergebied.clear();
         alleLeergebieden.getItems().clear();

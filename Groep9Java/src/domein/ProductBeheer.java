@@ -40,10 +40,7 @@ public class ProductBeheer {
 //    private ObservableList<Leergebied> leergebieden;
 //    
 //    private ObservableList<Doelgroep> doelgroepen;
-//    public ProductBeheer(EntityManager em, EntityManagerFactory emf) {
-//        this(em, emf, new PersistentieController());
-//
-//    }
+
     public ProductBeheer() {
 
         gdjProduct = new GenericDaoJpa(Product.class);
@@ -61,8 +58,6 @@ public class ProductBeheer {
         sortedList = productenLijst.sorted(sortOrder);
 
 //        leergebieden = FXCollections.observableArrayList(Arrays.asList(leergebiedenArray));
-//      
-//
 //        doelgroepen = FXCollections.observableArrayList(Arrays.asList(doelgroepenArray));
 //        
 //        leergebiedenLijst.add(new Leergebied("Mens"));
@@ -111,10 +106,6 @@ public class ProductBeheer {
         gdjProduct.startTransaction();
         productenLijst.remove(huidigProduct);
         productenLijst.add(p);
-//      gdjProduct.delete(huidigProduct);
-//      gdjProduct.insert(p);
-//      Collections.replaceAll(productenLijst, huidigProduct, p);
-        // id mag niet vervangen worden.
         huidigProduct.setAantal(p.getAantal());
         huidigProduct.setArtikelnummer(p.getArtikelnummer());
 //      huidigProduct.setDoelgroepen(p.getDoelgroepen());
@@ -193,7 +184,6 @@ public class ProductBeheer {
 //
 //            gefilterdeProductenLijst.removeIf(p -> p.getDoelgroep() != null && !p.getDoelgroep().getNaam().toLowerCase().contains(doelgroep.toLowerCase()));
 //        }
-
         sortedList = gefilterdeProductenLijst.sorted(sortOrder);
 
     }

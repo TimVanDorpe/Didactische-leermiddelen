@@ -354,14 +354,12 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
         txtArtikelnummer.setText("");
         txtEmailFirma.setText("");
         txtFirma.setText("");
-
         txtNaam.setText("");
         txtOmschrijving.setText("");
         txtPlaats.setText("");
         txtPrijs.setText("");
         imgViewFoto.setImage(null);
-        //dc.setGeselecteerdProduct(null);
-        listLeergebieden.setItems(null);
+         listLeergebieden.setItems(null);
         listDoelgroepen.setItems(null);
         btnWijzigen.setDisable(true);
         btnVerwijderen.setDisable(true);
@@ -655,8 +653,6 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             Firma firma = new Firma(txtFirma.getText(), txtEmailFirma.getText());
 
             dc.voegProductToe(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma);
-            //inputChanged = false;
-
             lblError.setText(""); // errortekst clearen
             btnVoegProductToe.setVisible(false);
             btnToevoegenAnnuleren.setVisible(false);
@@ -666,8 +662,6 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             btnVerwijderen.setVisible(true);
             lblTitelDetail.setText("Details Materiaal");
 
-            //dc.setNieuwHuidigProduct(null);
-            //dc.setOudProduct(null);
         } catch (IllegalArgumentException ex) {
 
             lblError.setText(ex.getMessage());

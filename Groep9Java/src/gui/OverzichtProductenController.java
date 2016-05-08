@@ -16,13 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-/**
- * FXML Controller class
- *
- * @author Thomas
- */
 public class OverzichtProductenController extends BorderPane implements Observer {
 
     @FXML
@@ -35,22 +29,12 @@ public class OverzichtProductenController extends BorderPane implements Observer
     private TableColumn<Product, String> clmAantal;
     @FXML
     private TableColumn<Product, String> clmPlaats;
-
     private ProductController dc;
     @FXML
-    private Button btnToevoegen;
-    @FXML
-    private Button btnTrefwoordZoeken;
-    @FXML
-    private Button btnGeavanceerdZoeken;
-    @FXML
     private TextField txtTrefwoord;
-
     @FXML
     private Button btnBeschikbaarheid;
 
-//        @FXML
-//    private Button btnVerwijder;
     public OverzichtProductenController(ProductController domeinController) {
         this.dc = domeinController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtProducten.fxml"));
@@ -78,12 +62,10 @@ public class OverzichtProductenController extends BorderPane implements Observer
                 dc.setOudProduct(oldValue);
             }
             if (newValue != null) {
-
                 dc.setGeselecteerdProduct(newValue);
-
             }
 
-            if (newValue != dc.getHuidigProduct() && newValue != null && oldValue != null) { // na wijziging??
+            if (newValue != dc.getHuidigProduct() && newValue != null && oldValue != null) { 
                 clearSelection();
                 dc.setGeselecteerdProduct(null);
             }
@@ -105,17 +87,6 @@ public class OverzichtProductenController extends BorderPane implements Observer
         if (arg.equals("maakAllesLeegNaWijziging")) {
             clearSelection();
         }
-//        tblProducten.getSelectionModel().selectedItemProperty().addListener((ObservableValue, oldValue, newValue) -> {
-//            if (oldValue != null) {
-//                dc.setOudProduct(oldValue);
-//            }
-//            if (newValue != null) {
-//
-//                dc.setGeselecteerdProduct(newValue);
-//            }
-//        });
-        //tblProducten.setItems(dc.getProductSortedList());
-
     }
 
     private void clearSelection() {
@@ -135,11 +106,8 @@ public class OverzichtProductenController extends BorderPane implements Observer
     private void geavanceerdZoeken(ActionEvent event) {
         Stage stage = new Stage();
         stage.setTitle("Geavanceerd zoeken");
-
         Scene scene = new Scene(new ProductZoekFilterController(dc));
         stage.setScene(scene);
-
-        //this.setDisable(true);
         stage.show();
 
     }
@@ -150,6 +118,7 @@ public class OverzichtProductenController extends BorderPane implements Observer
     }
 
     private void geefAllesWeer() {
+        
         dc.alleProductenOphalen();
         tblProducten.setItems(dc.getProductSortedList());
         clearSelection();
@@ -157,6 +126,7 @@ public class OverzichtProductenController extends BorderPane implements Observer
 
     @FXML
     private void enableSelectionModel(MouseEvent event) {
+        
         dc.setSelectionModelEmpty(false);
         btnBeschikbaarheid.setDisable(false);
         tblProducten.setItems(dc.getProductSortedList());
@@ -164,9 +134,8 @@ public class OverzichtProductenController extends BorderPane implements Observer
 
     @FXML
     private void checkBeschikbaarheid(ActionEvent event) {
-
+        
         Product p = tblProducten.getSelectionModel().getSelectedItem();
-
         Stage stage = new Stage();
         stage.setTitle("Controleer beschikbaarheid");
         Scene scene = new Scene(new CheckBeschikbaarheidController(dc, p));

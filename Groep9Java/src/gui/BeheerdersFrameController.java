@@ -12,7 +12,6 @@ import javafx.scene.layout.HBox;
 public class BeheerdersFrameController extends HBox {
     private OverzichtBeheerdersController overzichtPanel;
     private BeheerdersDetailController detailPanelController;
-
     private BeheerderController bc;
 
     public BeheerdersFrameController(BeheerderController bc) {

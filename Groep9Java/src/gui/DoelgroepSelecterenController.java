@@ -1,28 +1,18 @@
 package gui;
 
-import domein.Doelgroep;
-import domein.Leergebied;
+
 import domein.ProductController;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-
-/**
- * FXML Controller class
- *
- * @author Jarne
- */
 public class DoelgroepSelecterenController extends GridPane {
 
     @FXML
