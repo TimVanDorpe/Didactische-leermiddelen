@@ -3,6 +3,7 @@ package domein;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,6 +51,7 @@ public class ProductBeheer {
 
         ProductData data = new ProductData(this);
         try {
+           
             data.maakProducten();
         } catch (MalformedURLException ex) {
             Logger.getLogger(ProductBeheer.class.getName()).log(Level.SEVERE, null, ex);
@@ -125,18 +127,23 @@ public class ProductBeheer {
     }
 
     public void verwijderProduct(Product p) {
-        gdjReservatie.startTransaction();
-        List<Reservatie> reservaties = gdjReservatie.findAll();
-        for (Reservatie r : reservaties) {
-            if (r.getGereserveerdProduct().getId() == p.getId()) {
-                gdjReservatie.delete(r);
-            }
-        }
-        gdjProduct.commitTransaction();
+          
+        
         gdjProduct.startTransaction();
         productenLijst.remove(p);
         gdjProduct.delete(p);
         gdjProduct.commitTransaction();
+        gdjReservatie.startTransaction();
+        List<Reservatie> reservaties = gdjReservatie.findAll();
+       
+         for (Iterator<Reservatie> iter = reservaties.iterator(); iter.hasNext();) {
+            Reservatie obj = iter.next();
+            if (obj.getGereserveerdProduct().getId() == p.getId()) {
+                iter.remove();
+                gdjReservatie.delete(obj); 
+            }
+        }
+        gdjReservatie.commitTransaction();   
     }
 
     public ObservableList<Product> zoekOpTrefwoord(String trefwoord) {
@@ -412,6 +419,13 @@ public class ProductBeheer {
 
     public void setProductenLijst(ObservableList<Product> productenLijst) {
         this.productenLijst = productenLijst;
+    }
+
+    void deleteAlleProducten() {
+        for(Product p : productenLijst)
+        {
+            verwijderProduct(p);
+        }
     }
 
 }

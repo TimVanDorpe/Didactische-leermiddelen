@@ -44,6 +44,7 @@ public class Product implements Serializable {
     private int aantalOnbeschikbaar;
     private String plaats;
 
+    @ManyToMany(cascade = CascadeType.REMOVE)
     private List<Reservatie> reservaties;
 
     public Product(List<Leergebied> leergebied, List<Doelgroep> doelgroep, Firma firma, URL foto, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, int aantalOnbeschikbaar) {
