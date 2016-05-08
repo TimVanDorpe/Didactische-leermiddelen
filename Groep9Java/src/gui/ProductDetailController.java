@@ -147,7 +147,6 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             btnWijzigen.setVisible(false);
             btnLeegmaken.setVisible(false);
 
-            
         }
     }
 
@@ -195,8 +194,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
     @Override
     public void update(Observable o, Object arg) {
 
-        
-        if(arg.equals("maakAllesLeegNaWijziging")){
+        if (arg.equals("maakAllesLeegNaWijziging")) {
             grid.setVisible(false);
             lblTitelDetail.setVisible(false);
             btnFoto.setVisible(false);
@@ -209,9 +207,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             lblOnbeschikbaar.setVisible(false);
             txtOnbeschikbaar.setVisible(false);
         }
-        
-        
-        
+
         if (!arg.equals("maakAllesLeegNaWijziging")) {
 
             grid.setVisible(true);
@@ -398,7 +394,9 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
 
             this.omschrijving = txtOmschrijving.getText();
 
-            this.aantalOnbeschikbaar = Integer.parseInt(txtOnbeschikbaar.getText());
+            if (Helper.isInteger(txtOnbeschikbaar.getText())) {
+                this.aantalOnbeschikbaar = Integer.parseInt(txtOnbeschikbaar.getText());
+            }
 
             this.artikelnummer = 0;
 
