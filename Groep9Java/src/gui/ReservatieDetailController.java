@@ -22,7 +22,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-
 public class ReservatieDetailController extends Pane {
 
     private ReservatieController rc;
@@ -30,15 +29,15 @@ public class ReservatieDetailController extends Pane {
     @FXML
     private Button btnWijzigen;
     @FXML
-    private Label lblError;    
+    private Label lblError;
     @FXML
-    private Label lblAantal;    
+    private Label lblAantal;
     @FXML
     private TextField txtProduct;
     @FXML
     private TextField txtAantal;
     @FXML
-    private ComboBox cbMateriaal, cbStudent;
+    private ComboBox cbMateriaal, cbStudent, cbStudent2;
     @FXML
     private Label lblProduct;
     @FXML
@@ -49,7 +48,7 @@ public class ReservatieDetailController extends Pane {
     private DatePicker dpStartdatum, dpEindDatum;
     @FXML
     private Label lblMax;
-    private String  student;
+    private String student;
     private int aantal;
     private LocalDate startDate, eindDate;
     private boolean isWijziging;
@@ -83,13 +82,17 @@ public class ReservatieDetailController extends Pane {
 
         this.huidigeReservatie = rc.getHuidigeReservatie();
         cbStudent.setItems(rc.getStudentenLijst());
+        cbStudent2.setItems(rc.getStudentenLijst());
         cbStudent.getSelectionModel().selectFirst();
+        cbStudent2.getSelectionModel().clearSelection();
 
         if (isWijziging) {
             lblProduct.setVisible(false);
             txtProduct.setVisible(false);
             btnToevoegen.setVisible(false);
             cbMateriaal.setVisible(false);
+            cbStudent.setVisible(true);
+            cbStudent2.setVisible(false);
             lblTeruggebracht.setVisible(true);
             txtTeruggebracht.setVisible(true);
             lblOpTeHalen.setVisible(true);
@@ -103,6 +106,8 @@ public class ReservatieDetailController extends Pane {
             txtTeruggebracht.setVisible(false);
             lblOpTeHalen.setVisible(false);
             txtOpTeHalen.setVisible(false);
+            cbStudent.setVisible(false);
+            cbStudent2.setVisible(true);
             cbMateriaal.valueProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue<? extends String> ov, String t, String t1) {
@@ -196,9 +201,7 @@ public class ReservatieDetailController extends Pane {
         if (startDate == null) {
             throw new IllegalArgumentException("Gelieve een startDatum te selecteren");
         }
-        if (cbStudent.getSelectionModel().getSelectedItem() == null) {
-            throw new IllegalArgumentException("Gelieve een student te selecteren");
-        }
+
         if (eindDate.isBefore(startDate)) {
             throw new IllegalArgumentException("Einddatum moet na startdatum komen");
         }
@@ -210,6 +213,9 @@ public class ReservatieDetailController extends Pane {
 
         try {
             valideerVelden();
+            if (cbStudent.getSelectionModel().getSelectedItem() == null) {
+                throw new IllegalArgumentException("Gelieve een student te selecteren");
+            }
             if (txtOpTeHalen.getText().equals("") || !Helper.isInteger(txtOpTeHalen.getText())) {
                 throw new IllegalArgumentException("Op te halen moet een getal zijn");
             }
@@ -253,8 +259,8 @@ public class ReservatieDetailController extends Pane {
         dpEindDatum.setValue(LocalDate.now());
         dpStartdatum.setValue(LocalDate.now());
         txtProduct.setText("");
-        cbMateriaal.setItems(null);
-        cbStudent.setItems(null);
+        cbMateriaal.getSelectionModel().clearSelection();
+        cbStudent.getSelectionModel().clearSelection();
         rc.setGeselecteerdeReservatie(null);
         btnWijzigen.setDisable(true);
     }
@@ -284,6 +290,10 @@ public class ReservatieDetailController extends Pane {
     private void reservatieToevoegen(ActionEvent event) {
 
         try {
+            if (cbStudent2.getSelectionModel().getSelectedItem() == null) {
+                throw new IllegalArgumentException("Gelieve een student te selecteren");
+            }
+
             if (cbMateriaal.getSelectionModel().getSelectedItem() == null) {
                 throw new IllegalArgumentException("Gelieve een product te selecteren.");
             }
@@ -292,7 +302,7 @@ public class ReservatieDetailController extends Pane {
             valideerVelden();
             this.aantal = Integer.parseInt(txtAantal.getText());
 
-            Reservatie r = new Reservatie(startDate, eindDate, cbStudent.getSelectionModel().getSelectedItem().toString(), huidigProduct, aantal);
+            Reservatie r = new Reservatie(startDate, eindDate, cbStudent2.getSelectionModel().getSelectedItem().toString(), huidigProduct, aantal);
             rc.addReservatie(r);
 
             Stage stage = (Stage) btnAnnuleer.getScene().getWindow();

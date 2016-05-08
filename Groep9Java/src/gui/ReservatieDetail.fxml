@@ -55,6 +55,7 @@
                   <Insets right="120.0" />
                </GridPane.margin>
             </TextField>
+            <ComboBox fx:id="cbStudent2" prefHeight="31.0" prefWidth="224.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="236.0" />
