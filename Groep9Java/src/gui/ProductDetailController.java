@@ -132,8 +132,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
         }
 
         if (dc.getSelectionModelEmpty()) {
-            btnWijzigen.setDisable(true);
-            btnLeegmaken.setDisable(true);
+            btnWijzigen.setDisable(true);           
             btnVerwijderen.setDisable(true);
             btnVoegProductToe.setVisible(false);
             btnToevoegenAnnuleren.setVisible(false);
@@ -217,7 +216,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             btnVerwijderen.setVisible(true);
             btnToevoegenAnnuleren.setVisible(false);
             btnWijzigen.setVisible(true);
-            btnLeegmaken.setVisible(true);
+            btnLeegmaken.setVisible(false);
             btnVoegProductToe.setVisible(false);
             lblOnbeschikbaar.setVisible(true);
             txtOnbeschikbaar.setVisible(true);
@@ -228,7 +227,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
                 if (this.wijziging) {
                     resetWaardenprivate();
                     btnWijzigen.setDisable(true);
-                    btnLeegmaken.setDisable(true);
+                   
                     btnVerwijderen.setDisable(true);
                     btnVoegProductToe.setVisible(false);
                     btnToevoegenAnnuleren.setVisible(false);
@@ -314,7 +313,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
                         btnVerwijderen.setDisable(false);
                         btnAnnuleer.setDisable(false);
                         btnWijzigen.setDisable(false);
-                        btnLeegmaken.setDisable(false);
+                      btnLeegmaken.setVisible(false);
 
                         if (product.getFoto() != null) {
                             try {
@@ -634,8 +633,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
         resetWaardenprivate();
         btnVoegProductToe.setVisible(true);
         btnToevoegenAnnuleren.setVisible(true);
-        btnAnnuleer.setVisible(false);
-        btnLeegmaken.setVisible(false);
+        btnAnnuleer.setVisible(false);       
         btnWijzigen.setVisible(false);
         btnVerwijderen.setVisible(false);
         Product newProduct = new Product();

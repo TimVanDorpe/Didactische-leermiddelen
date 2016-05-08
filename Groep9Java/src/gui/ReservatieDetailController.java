@@ -256,8 +256,8 @@ public class ReservatieDetailController extends Pane {
     ) {
 
         txtAantal.setText("");
-        dpEindDatum.setValue(LocalDate.now());
-        dpStartdatum.setValue(LocalDate.now());
+        dpEindDatum.setValue(null);        
+        dpStartdatum.setValue(null);
         txtProduct.setText("");
         cbMateriaal.getSelectionModel().clearSelection();
         cbStudent.getSelectionModel().clearSelection();
