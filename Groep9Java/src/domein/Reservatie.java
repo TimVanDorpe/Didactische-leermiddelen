@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package domein;
 
 import java.io.Serializable;
@@ -81,7 +76,6 @@ public class Reservatie implements Serializable {
 
     public void setTeruggebracht(int teruggebracht) {
         this.teruggebracht = teruggebracht;
-//        gereserveerdProduct.setAantalBeschikbaar(gereserveerdProduct.getAantalBeschikbaar() + teruggebracht);
     }
 
     public LocalDate getStartDatum() {
@@ -127,12 +121,6 @@ public class Reservatie implements Serializable {
         if (opTeHalen + teruggebracht > gereserveerdAantal) {
             throw new IllegalArgumentException("het aantal op te halen met het aantal teruggebracht kan niet groter zijn dan het totaal aantal");
         }
-
-        // aantallen in product steken
-        // moet nog uitgebreid worden naar per week
-//        gereserveerdProduct.setAantalUitgeleend(gereserveerdAantal);
-//        gereserveerdProduct.setAantalBeschikbaar(gereserveerdProduct.getAantalBeschikbaar() - gereserveerdAantal);
-//        gereserveerdProduct.setAantalUitgeleend(gereserveerdAantal);
         this.gereserveerdAantal = gereserveerdAantal;
     }
 

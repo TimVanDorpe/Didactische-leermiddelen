@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package domein;
 
 import java.net.MalformedURLException;
@@ -25,7 +20,6 @@ public class ProductData {
     
     public void maakProducten() throws MalformedURLException 
     {
-        //leergebieden, kleuters, Hogent, "foto1", "klok", "Dit is een klok", 1, 1, 1, "B1002"
         List<Leergebied> leergebieden = new ArrayList();
         List<Leergebied> leergebieden2 = new ArrayList();
         List<Leergebied> leergebieden3 = new ArrayList();

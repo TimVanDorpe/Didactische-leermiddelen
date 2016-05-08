@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import domein.Product;
@@ -271,28 +266,14 @@ public class ReservatieDetailController extends Pane {
 
             this.student = cbStudent.getSelectionModel().getSelectedItem().toString();
 
-//      
-//            lblError.setText("");
-//
-            //Product prod = pc.getProductenLijst().stream().filter(p -> p.getNaam().equalsIgnoreCase(txtProduct.getText())).findAny().get();
-//            
-//            // dit uit comment na demo
             rc.wijzigReservatie(huidigProduct, aantal, student, startDate, eindDate, Integer.parseInt(txtOpTeHalen.getText()), Integer.parseInt(txtTeruggebracht.getText()));
-//
-//            //demo
-            //rc.wijzigAantal(Integer.parseInt(txtAantal.getText()));
 
-//            //TIJDELIJK VOOR DEMO
-//            lblAantal.setText("Aantal");
-//            lblAantal.setTextFill(Color.web("#000000"));
 
             Stage stage = (Stage) btnAnnuleer.getScene().getWindow();
             stage.close();
         } catch (IllegalArgumentException ex) {
 
-            //TIJDELIJK VOOR DEMO
-//            lblAantal.setText("Aantal*");
-//            lblAantal.setTextFill(Color.web("#F20000"));
+
 
             lblError.setText(ex.getMessage());
             lblError.setTextFill(Color.web("#F20000"));

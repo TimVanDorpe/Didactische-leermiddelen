@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import domein.Beheerder;
@@ -97,13 +92,4 @@ public class LoginSchermController extends Pane {
        
     }
 
-    @FXML
-    private void registreer(ActionEvent event) {
-    }
-
-    //wachtwoord vergeten
-    @FXML
-    private void wachtWoordVersturenNaarGebruiker(ActionEvent event) {
-    }
-    
 }

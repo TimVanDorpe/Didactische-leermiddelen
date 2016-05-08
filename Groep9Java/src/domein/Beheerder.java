@@ -1,8 +1,6 @@
 package domein;
 
 import java.io.Serializable;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javafx.beans.property.SimpleStringProperty;
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import domein.Beheerder;
@@ -121,14 +116,13 @@ public class BeheerdersDetailController extends Pane implements Observer {
         if (arg != null) {
 
             lblError.setText("");
-            //maakLabelsTerugNormaal();
 
             Beheerder beh = (Beheerder) arg;
             txtNaam.setText(beh.getNaam());
             txtEmail.setText(beh.getEmail());
             txtWachtwoord.setText(beh.getWachtwoord());
 
-            //alles terug enablen als er iets geselcteerd wordt
+            //alles terug enablen als er iets geselecteerd wordt
             btnBeheerderVerwijderen.setVisible(true);
             txtEmail.setDisable(true);
             txtNaam.setDisable(true);
@@ -144,10 +138,10 @@ public class BeheerdersDetailController extends Pane implements Observer {
     private void nieuweBeheerderToevoegen(ActionEvent event) {
         resetWaarden();
         btnToevoegen.setVisible(true);
-
         btnAnnuleren.setVisible(true);
-
+        
         Beheerder beh = new Beheerder();
+        
         txtNaam.setPromptText("Naam van de nieuwe beheerder");
         txtEmail.setDisable(false);
         txtNaam.setDisable(false);
@@ -158,11 +152,8 @@ public class BeheerdersDetailController extends Pane implements Observer {
     @FXML
     private void toevoegenBeheerder(ActionEvent event) {
 
-        // valideerVelden(false);
         String naam = txtNaam.getText();
-
         String email = txtEmail.getText();
-
         String wachtwoord = txtWachtwoord.getText();
 
         if (isInputValid()) {

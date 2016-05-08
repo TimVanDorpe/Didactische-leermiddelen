@@ -110,6 +110,8 @@ public class ProductController extends Observable {
     }
 
     public void setGeselecteerdProduct(Product product) {
+        
+        
         this.voorlopigeDoelgroepen = FXCollections.observableArrayList(product.getDoelgroepen().stream().map(Doelgroep::getNaam).collect(Collectors.toList()));
         this.voorlopigeLeergebieden = FXCollections.observableArrayList(product.getLeergebieden().stream().map(Leergebied::getNaam).collect(Collectors.toList()));
 

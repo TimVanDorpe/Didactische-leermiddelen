@@ -67,20 +67,6 @@ public class Product implements Serializable {
         reservaties = new ArrayList<>();
     }
 
-    public Product(List<Leergebied> leergebied, List<Doelgroep> doelgroep, Firma firma, String naam, String omschrijving, int artikelnummer, double prijs, int aantal, String plaats, int aantalOnbeschikbaar) {
-        setLeergebieden(leergebied);
-        setDoelgroepen(doelgroep);
-        setFirma(firma);
-        setNaam(naam);
-        setOmschrijving(omschrijving);
-        setArtikelnummer(artikelnummer);
-        setPrijs(prijs);
-        setAantal(aantal);
-        setPlaats(plaats);
-        setAantalOnbeschikbaar(aantalOnbeschikbaar);
-        reservaties = new ArrayList<>();
-    }
-
     public List<Reservatie> getReservaties() {
         return reservaties;
     }

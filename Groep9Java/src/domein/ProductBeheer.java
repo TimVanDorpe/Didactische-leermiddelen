@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package domein;
 
 import java.net.MalformedURLException;
@@ -23,7 +18,6 @@ import util.GenericDaoJpa;
 public class ProductBeheer {
 
     private ObservableList<Product> productenLijst = FXCollections.observableArrayList();
-    //private Product product;
 
     private SortedList<Product> sortedList;
 
@@ -37,7 +31,7 @@ public class ProductBeheer {
     private GenericDaoJpa gdjProduct;
     private GenericDaoJpa gdjLeergebied;
     private GenericDaoJpa gdjDoelgroep;
-    private GenericDaoJpa gdjReservatie ;
+    private GenericDaoJpa gdjReservatie;
 
     private List<Leergebied> leergebiedenLijst = new ArrayList<Leergebied>();
 
@@ -49,14 +43,6 @@ public class ProductBeheer {
 //    public ProductBeheer(EntityManager em, EntityManagerFactory emf) {
 //        this(em, emf, new PersistentieController());
 //
-//    }
-//    public ProductBeheer(EntityManager em, EntityManagerFactory emf, PersistentieController pc) {
-//        this.persistentieController = pc;
-//        InitData data = new InitData(this);
-//        data.maakProducten();
-//        producten = data.geefProducten();
-//        productenLijst = FXCollections.observableArrayList(producten);
-//        sortedList = productenLijst.sorted(sortOrder);
 //    }
     public ProductBeheer() {
 
@@ -125,15 +111,15 @@ public class ProductBeheer {
         gdjProduct.startTransaction();
         productenLijst.remove(huidigProduct);
         productenLijst.add(p);
-//        gdjProduct.delete(huidigProduct);
-//        gdjProduct.insert(p);
-        //Collections.replaceAll(productenLijst, huidigProduct, p);
-        //id mag niet vervangen worden.
+//      gdjProduct.delete(huidigProduct);
+//      gdjProduct.insert(p);
+//      Collections.replaceAll(productenLijst, huidigProduct, p);
+        // id mag niet vervangen worden.
         huidigProduct.setAantal(p.getAantal());
         huidigProduct.setArtikelnummer(p.getArtikelnummer());
-        //huidigProduct.setDoelgroepen(p.getDoelgroepen());
+//      huidigProduct.setDoelgroepen(p.getDoelgroepen());
         huidigProduct.setFirma(p.getFirma());
-       //huidigProduct.setLeergebieden(p.getLeergebieden());
+//      huidigProduct.setLeergebieden(p.getLeergebieden());
         huidigProduct.setOmschrijving(p.getOmschrijving());
         huidigProduct.setPlaats(p.getPlaats());
         huidigProduct.setPrijs(p.getPrijs());
@@ -144,20 +130,18 @@ public class ProductBeheer {
         huidigProduct.setDoelgroepen(p.getDoelgroepen());
         gdjProduct.update(huidigProduct);
         gdjProduct.commitTransaction();
-       
+
     }
 
-    
     public void verwijderProduct(Product p) {
         gdjReservatie.startTransaction();
         List<Reservatie> reservaties = gdjReservatie.findAll();
-        for(Reservatie r : reservaties){
-            if(r.getGereserveerdProduct().getId() == p.getId()){
-                 gdjReservatie.delete(r);
+        for (Reservatie r : reservaties) {
+            if (r.getGereserveerdProduct().getId() == p.getId()) {
+                gdjReservatie.delete(r);
             }
         }
-       gdjProduct.commitTransaction();
-      //  Product product = getProductById(p.getId());
+        gdjProduct.commitTransaction();
         gdjProduct.startTransaction();
         productenLijst.remove(p);
         gdjProduct.delete(p);
@@ -203,21 +187,20 @@ public class ProductBeheer {
         if (!email.equals("")) {
             gefilterdeProductenLijst.removeIf(p -> p.getFirma().getEmailContactPersoon() != null && !p.getFirma().getEmailContactPersoon().toLowerCase().contains(email.toLowerCase()));
         }
+        
+        //filter voor doelgroepen & leergebieden niet geïmplementeerd omdat deze niet werken
 //        if (!doelgroep.equals("")) {
 //
 //            gefilterdeProductenLijst.removeIf(p -> p.getDoelgroep() != null && !p.getDoelgroep().getNaam().toLowerCase().contains(doelgroep.toLowerCase()));
 //        }
-        //Leergebieden moeten nog gefilterd worden
 
         sortedList = gefilterdeProductenLijst.sorted(sortOrder);
 
     }
 
-    
-
     //LEERGEBIEDEN--------------------------------------------
     public List<Leergebied> getLeergebieden() {//returnt linkse list
-        return  gdjLeergebied.findAll();
+        return gdjLeergebied.findAll();
     }
 
     public Leergebied haalLeergebiedUitLijst(String naam) {
@@ -233,7 +216,7 @@ public class ProductBeheer {
         leergebiedenLijst.add(naam);
     }
 
-    //LEERGEBIEDEN--------------------------------------------
+    //DOELGROEPEN--------------------------------------------
     public List<Doelgroep> getDoelgroepen() {//returnt linkse list
         return gdjDoelgroep.findAll();
     }
@@ -248,7 +231,6 @@ public class ProductBeheer {
     }
 
 //
-
 //    public ObservableList<Leergebied> getToegevoegdeLeergebieden() {//returnt rechtse list
 //        return leergebiedenRechts;
 //    }
@@ -324,6 +306,8 @@ public class ProductBeheer {
 //    }
 //
 //    //EINDE LEERGEBIEDEN--------------------------------------------
+    
+    
     public boolean isNaamUniek(String naam, String naamGeselecteerdProduct, boolean isWijziging) {
         if (isWijziging) {
             if (!naamGeselecteerdProduct.equals(naam)) { // als het een wijziging is controleer dan niet op de huidig geselecteerde naam
@@ -410,35 +394,34 @@ public class ProductBeheer {
 //    }
 //
 //    //EINDEDOELGROEPEN--------------------------------------------------------
-
     Product getProductByNaam(String text) {
-        for (Product p : productenLijst)
-        {
-        if(p.getNaam().equalsIgnoreCase(text))
-        {return p;}
+        for (Product p : productenLijst) {
+            if (p.getNaam().equalsIgnoreCase(text)) {
+                return p;
+            }
         }
-       return null;
-     
+        return null;
+
     }
-    
-     Product getProductById(int id) {
-        List<Product> alleProducten =  gdjProduct.findAll();
-        for (Product p : alleProducten)
-        {
-        if(p.getId() == id)
-        {return p;}
+
+    Product getProductById(int id) {
+        List<Product> alleProducten = gdjProduct.findAll();
+        for (Product p : alleProducten) {
+            if (p.getId() == id) {
+                return p;
+            }
         }
-       return null;
-     
+        return null;
+
     }
 
     public void alleProductenOphalen() {
         setProductenLijst(null);
-         setProductenLijst(FXCollections.observableArrayList(gdjProduct.findAll()));
+        setProductenLijst(FXCollections.observableArrayList(gdjProduct.findAll()));
     }
 
     public void setProductenLijst(ObservableList<Product> productenLijst) {
         this.productenLijst = productenLijst;
     }
-    
+
 }

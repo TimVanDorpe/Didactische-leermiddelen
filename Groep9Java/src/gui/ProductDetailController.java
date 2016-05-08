@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import domein.Firma;
@@ -60,8 +55,6 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
     @FXML
     private TextField txtEmailFirma;
 
-    // @FXML
-    // private TextField txtLeergebieden;
     @FXML
     private ListView<String> listLeergebieden, listDoelgroepen;
     @FXML
@@ -139,20 +132,6 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
         }
 
         if (dc.getSelectionModelEmpty()) {
-            //btnToevoegen.setDisable(true);
-            //btnAnnuleer.setDisable(true);
-            //btnFoto.setDisable(true);
-            //uitleenbaarheid.setDisable(true);
-            //txtAantal.setDisable(true);
-            //txtArtikelnummer.setDisable(true);
-            //txtDoelgroepen.setDisable(true);
-            //txtEmailFirma.setDisable(true);
-            //txtFirma.setDisable(true);
-            //txtLeergebieden.setDisable(true);
-            //txtNaam.setDisable(true);
-            //txtOmschrijving.setDisable(true);
-            //txtPlaats.setDisable(true);
-            //txtPrijs.setDisable(true);
             btnWijzigen.setDisable(true);
             btnLeegmaken.setDisable(true);
             btnVerwijderen.setDisable(true);
@@ -168,8 +147,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             btnWijzigen.setVisible(false);
             btnLeegmaken.setVisible(false);
 
-            //btnSelecteerLeergebied.setDisable(true);
-            //listLeergebieden.setDisable(true);
+            
         }
     }
 
@@ -184,7 +162,6 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             lblError.setText(""); // errorlabel clear
             this.wijziging = true;
             dc.wijzigProduct(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, aantalOnbeschikbaar);
-            //dc.geefAlleProductenWeer();
 
         } catch (IllegalArgumentException ex) {
 
@@ -287,7 +264,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
 
                                 // stage.close();
                             } else {
-                                // Niet OKrgumentException("Gelieve uw wijzigingen te bevestigen of te annuleren");
+                                // Niet OK
 
                                 dc.setCancelled(true);
                                 // dc.setNieuwHuidigProduct(oudProduct);
