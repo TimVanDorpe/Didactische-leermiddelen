@@ -195,6 +195,23 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
     @Override
     public void update(Observable o, Object arg) {
 
+        
+        if(arg.equals("maakAllesLeegNaWijziging")){
+            grid.setVisible(false);
+            lblTitelDetail.setVisible(false);
+            btnFoto.setVisible(false);
+            btnAnnuleer.setVisible(false);
+            btnVerwijderen.setVisible(false);
+            btnToevoegenAnnuleren.setVisible(false);
+            btnWijzigen.setVisible(false);
+            btnLeegmaken.setVisible(false);
+            btnVoegProductToe.setVisible(false);
+            lblOnbeschikbaar.setVisible(false);
+            txtOnbeschikbaar.setVisible(false);
+        }
+        
+        
+        
         if (!arg.equals("maakAllesLeegNaWijziging")) {
 
             grid.setVisible(true);

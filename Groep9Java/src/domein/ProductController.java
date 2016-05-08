@@ -57,7 +57,7 @@ public class ProductController extends Observable {
 //        for (String l : gea   atVoorlopigeLeergebieden()) {
 //            leergebieden.add(pb.haalLeergebiedUitLijst(naam));
 //        }
-         leergebieden.add(new Leergebied("Biologie"));
+        leergebieden.add(new Leergebied("Biologie"));
 
         List<Doelgroep> doelgroepen = new ArrayList<>();
 //        for (String l : getVoorlopigeDoelgroepen()) {
@@ -110,14 +110,16 @@ public class ProductController extends Observable {
     }
 
     public void setGeselecteerdProduct(Product product) {
-        
-        
-        this.voorlopigeDoelgroepen = FXCollections.observableArrayList(product.getDoelgroepen().stream().map(Doelgroep::getNaam).collect(Collectors.toList()));
-        this.voorlopigeLeergebieden = FXCollections.observableArrayList(product.getLeergebieden().stream().map(Leergebied::getNaam).collect(Collectors.toList()));
 
-        //this.huidigProduct = product;
-        setChanged();
-        notifyObservers(product);
+        if (product != null) {
+            this.voorlopigeDoelgroepen = FXCollections.observableArrayList(product.getDoelgroepen().stream().map(Doelgroep::getNaam).collect(Collectors.toList()));
+            this.voorlopigeLeergebieden = FXCollections.observableArrayList(product.getLeergebieden().stream().map(Leergebied::getNaam).collect(Collectors.toList()));
+
+            //this.huidigProduct = product;
+            setChanged();
+            notifyObservers(product);
+        }
+
     }
 
     public ObservableList<Product> zoekOpTrefwoord(String trefwoord) {
@@ -132,6 +134,7 @@ public class ProductController extends Observable {
 
     public void setSelectionModelEmpty(boolean b) {
         selectionModelEmpty = b;
+        notifyObservers();
     }
 
     public boolean getSelectionModelEmpty() {
@@ -272,7 +275,7 @@ public class ProductController extends Observable {
     }
 
     public void setNieuwHuidigProduct(Product product) {
-       
+
         this.huidigProduct = product;
 
     }

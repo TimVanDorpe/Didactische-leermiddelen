@@ -75,12 +75,19 @@ public class OverzichtProductenController extends BorderPane implements Observer
 
         tblProducten.getSelectionModel().selectedItemProperty().addListener((ObservableValue, oldValue, newValue) -> {
             if (oldValue != null) {
-                domeinController.setOudProduct(oldValue);
+                dc.setOudProduct(oldValue);
             }
             if (newValue != null) {
 
-                domeinController.setGeselecteerdProduct(newValue);
+                dc.setGeselecteerdProduct(newValue);
+
             }
+
+            if (newValue != dc.getHuidigProduct() && newValue != null && oldValue != null) { // na wijziging??
+                clearSelection();
+                dc.setGeselecteerdProduct(null);
+            }
+
         });
 
         tblProducten.setItems(domeinController.getProductSortedList());
@@ -96,7 +103,7 @@ public class OverzichtProductenController extends BorderPane implements Observer
     public void update(Observable o, Object arg) {
         dc.alleProductenOphalen();
         if (arg.equals("maakAllesLeegNaWijziging")) {
-            tblProducten.getSelectionModel().clearSelection();
+            clearSelection();
         }
 //        tblProducten.getSelectionModel().selectedItemProperty().addListener((ObservableValue, oldValue, newValue) -> {
 //            if (oldValue != null) {
@@ -107,8 +114,13 @@ public class OverzichtProductenController extends BorderPane implements Observer
 //                dc.setGeselecteerdProduct(newValue);
 //            }
 //        });
-        // tblProducten.setItems(dc.getProductSortedList());
+        //tblProducten.setItems(dc.getProductSortedList());
 
+    }
+
+    private void clearSelection() {
+        tblProducten.getSelectionModel().clearSelection();
+        dc.setSelectionModelEmpty(true);
     }
 
     @FXML
@@ -134,9 +146,13 @@ public class OverzichtProductenController extends BorderPane implements Observer
 
     @FXML
     private void geefAllesWeer(ActionEvent event) {
+        geefAllesWeer();
+    }
+
+    private void geefAllesWeer() {
         dc.alleProductenOphalen();
         tblProducten.setItems(dc.getProductSortedList());
-        tblProducten.getSelectionModel().clearSelection();
+        clearSelection();
     }
 
     @FXML
@@ -150,7 +166,7 @@ public class OverzichtProductenController extends BorderPane implements Observer
     private void checkBeschikbaarheid(ActionEvent event) {
 
         Product p = tblProducten.getSelectionModel().getSelectedItem();
-        
+
         Stage stage = new Stage();
         stage.setTitle("Controleer beschikbaarheid");
         Scene scene = new Scene(new CheckBeschikbaarheidController(dc, p));
