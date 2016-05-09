@@ -127,6 +127,7 @@ public class BeheerdersDetailController extends Pane implements Observer {
             btnAnnuleren.setVisible(false);
             btnToevoegen.setVisible(false);
             hoofdAdmin();
+            maakLabelsTerugNormaal();
 
         }
     }
