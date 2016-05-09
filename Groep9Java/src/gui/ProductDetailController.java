@@ -193,6 +193,8 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
     @Override
     public void update(Observable o, Object arg) {
 
+        
+        if(arg!=null){
         if (arg.equals("maakAllesLeegNaWijziging")) {
             grid.setVisible(false);
             lblTitelDetail.setVisible(false);
@@ -283,6 +285,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
                                 throw new IllegalArgumentException("Gelieve uw wijzigingen te bevestigen of te annuleren");
 
                             }
+                        
 
                             stage.close();
 
@@ -339,6 +342,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             } catch (IllegalArgumentException e) {
                 lblError.setText(e.getMessage());
             }
+        }
         }
     }
 
