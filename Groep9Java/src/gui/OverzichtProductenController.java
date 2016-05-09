@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -38,7 +39,7 @@ public class OverzichtProductenController extends BorderPane implements Observer
     public OverzichtProductenController(ProductController domeinController) {
         this.dc = domeinController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtProducten.fxml"));
-
+        
         loader.setRoot(this);
         loader.setController(this);
         try {
@@ -46,7 +47,6 @@ public class OverzichtProductenController extends BorderPane implements Observer
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-
         clmNaam.setCellValueFactory(
                 cellData -> cellData.getValue().naamProperty());
         clmOmschrijving.setCellValueFactory(
@@ -79,6 +79,7 @@ public class OverzichtProductenController extends BorderPane implements Observer
         } else {
             dc.setSelectionModelEmpty(false);
         }
+        tblProducten.setPlaceholder(new Label("Er zijn geen materialen om weer te geven."));
     }
 
     @Override

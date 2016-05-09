@@ -8,6 +8,7 @@ import java.util.Observer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -47,6 +48,8 @@ public class OverzichtBeheerdersController extends BorderPane implements Observe
                 bc.setGeselecteerdeBeheerder(newValue);
             }
         });
+                tblBeheerders.setPlaceholder(new Label("Er zijn geen beheerders om weer te geven."));
+
 
         tblBeheerders.setItems(bc.getBeheerderslijst());
         if (tblBeheerders.getSelectionModel().isEmpty()) {

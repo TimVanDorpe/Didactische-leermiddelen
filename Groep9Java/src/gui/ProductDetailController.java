@@ -132,7 +132,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
         }
 
         if (dc.getSelectionModelEmpty()) {
-            btnWijzigen.setDisable(true);           
+            btnWijzigen.setDisable(true);
             btnVerwijderen.setDisable(true);
             btnVoegProductToe.setVisible(false);
             btnToevoegenAnnuleren.setVisible(false);
@@ -193,156 +193,184 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
     @Override
     public void update(Observable o, Object arg) {
 
-        
-        if(arg!=null){
-        if (arg.equals("maakAllesLeegNaWijziging")) {
-            grid.setVisible(false);
-            lblTitelDetail.setVisible(false);
-            btnFoto.setVisible(false);
-            btnAnnuleer.setVisible(false);
-            btnVerwijderen.setVisible(false);
-            btnToevoegenAnnuleren.setVisible(false);
-            btnWijzigen.setVisible(false);
-            btnLeegmaken.setVisible(false);
-            btnVoegProductToe.setVisible(false);
-            lblOnbeschikbaar.setVisible(false);
-            txtOnbeschikbaar.setVisible(false);
-        }
+        if (arg != null) {
+            if (arg.equals("maakAllesLeegNaWijziging")) {
+                grid.setVisible(false);
+                lblTitelDetail.setVisible(false);
+                btnFoto.setVisible(false);
+                btnAnnuleer.setVisible(false);
+                btnVerwijderen.setVisible(false);
+                btnToevoegenAnnuleren.setVisible(false);
+                btnWijzigen.setVisible(false);
+                btnLeegmaken.setVisible(false);
+                btnVoegProductToe.setVisible(false);
+                lblOnbeschikbaar.setVisible(false);
+                txtOnbeschikbaar.setVisible(false);
+            }
 
-        if (!arg.equals("maakAllesLeegNaWijziging")) {
+            if (!arg.equals("maakAllesLeegNaWijziging")) {
 
-            grid.setVisible(true);
-            lblTitelDetail.setVisible(true);
-            btnFoto.setVisible(true);
-            btnAnnuleer.setVisible(true);
-            btnVerwijderen.setVisible(true);
-            btnToevoegenAnnuleren.setVisible(false);
-            btnWijzigen.setVisible(true);
-            btnLeegmaken.setVisible(false);
-            btnVoegProductToe.setVisible(false);
-            lblOnbeschikbaar.setVisible(true);
-            txtOnbeschikbaar.setVisible(true);
+                boolean isToevoeging = false;
+                if (dc.getHuidigProduct() == null
+                        && (!txtAantal.getText().equalsIgnoreCase("")
+                        || !txtArtikelnummer.getText().equalsIgnoreCase("")
+                        || !txtEmailFirma.getText().equalsIgnoreCase("")
+                        || !txtFirma.getText().equalsIgnoreCase("")
+                        || !txtNaam.getText().equalsIgnoreCase("")
+                        || !txtOmschrijving.getText().equalsIgnoreCase("")
+                        || !txtPlaats.getText().equalsIgnoreCase("")
+                        || !txtPrijs.getText().equalsIgnoreCase(""))) {
+                    isToevoeging = true;
 
-            //binnenkomend product
-            dc.setCancelled(false);
-            try {
-                if (this.wijziging) {
-                    resetWaardenprivate();
-                    btnWijzigen.setDisable(true);
-                   
-                    btnVerwijderen.setDisable(true);
-                    btnVoegProductToe.setVisible(false);
+                } else {
+                    grid.setVisible(true);
+                    lblTitelDetail.setVisible(true);
+                    btnFoto.setVisible(true);
+                    btnAnnuleer.setVisible(true);
+                    btnVerwijderen.setVisible(true);
                     btnToevoegenAnnuleren.setVisible(false);
+                    btnWijzigen.setVisible(true);
+                    btnLeegmaken.setVisible(false);
+                    btnVoegProductToe.setVisible(false);
                     lblOnbeschikbaar.setVisible(true);
                     txtOnbeschikbaar.setVisible(true);
-                    dc.setNieuwHuidigProduct(null);
-                } else {
-                    //binnenkomend product
-                    dc.setCancelled(false);
+                }
 
-                    Product product = (Product) arg;
+                //binnenkomend product
+                dc.setCancelled(false);
 
-                    // we gaan in deze klasse een huidigProduct moeten maken
-                    //eerst controleren of deze null is, zo ja dan wordt het product dat binnen komt het huidigProduct
-                    //als deze niet nul is (we hebben dus al een product geselecteerd en klikken nu op een ander)
-                    // dan controleren we of de attributen (alles wat in de tekstvelden staat) van ons huidigproduct anders zijn 
-                    //dan de attributen van dat product die opgeslaan zijn in de database
-                    if (dc.getHuidigProduct() != null) {
-                        oudProduct = dc.getProductById(dc.getHuidigProduct().getId());
+                try {
+                    if (this.wijziging) {
+                        resetWaardenprivate();
+                        btnWijzigen.setDisable(true);
 
-                        if (!String.format("%s", oudProduct.getAantal()).equals(txtAantal.getText())
-                                || !String.format("%s", oudProduct.getArtikelnummer()).equals(txtArtikelnummer.getText())
-                                //||  opgeslagenProduct.getDoelgroepen()!= opgeslagenProduct.getDoelgroepen()
-                                || !oudProduct.getFirma().getNaam().equalsIgnoreCase(txtFirma.getText())
-                                //|| opgeslagenProduct.getFoto() != foto
-                                //||  opgeslagenProduct.getLeergebieden()!= huidigProduct.getLeergebieden()
-                                || !oudProduct.getNaam().equalsIgnoreCase(txtNaam.getText())
-                                || !oudProduct.getOmschrijving().equalsIgnoreCase(txtOmschrijving.getText())
-                                || !oudProduct.getPlaats().equalsIgnoreCase(txtPlaats.getText())
-                                || !String.format("%s", oudProduct.getAantalOnbeschikbaar()).equals(txtOnbeschikbaar.getText())
-                                || !String.format("%.2f", oudProduct.getPrijs()).replace(",", ".").equals(txtPrijs.getText())) {;
+                        btnVerwijderen.setDisable(true);
+                        btnVoegProductToe.setVisible(false);
+                        btnToevoegenAnnuleren.setVisible(false);
+                        lblOnbeschikbaar.setVisible(true);
+                        txtOnbeschikbaar.setVisible(true);
+                        dc.setNieuwHuidigProduct(null);
+                    } else {
+                        //binnenkomend product
+                        dc.setCancelled(false);
 
-                            Stage stage = new Stage();
+                        Product product = (Product) arg;
 
-                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                            alert.setTitle("Confirmatie");
-                            alert.setHeaderText("Niet opgeslagen wijzigingen gevonden");
-                            alert.setContentText("OK om ze te verwerpen, Cancel om ze aan te passen");
+                        // we gaan in deze klasse een huidigProduct moeten maken
+                        //eerst controleren of deze null is, zo ja dan wordt het product dat binnen komt het huidigProduct
+                        //als deze niet nul is (we hebben dus al een product geselecteerd en klikken nu op een ander)
+                        // dan controleren we of de attributen (alles wat in de tekstvelden staat) van ons huidigproduct anders zijn 
+                        //dan de attributen van dat product die opgeslaan zijn in de database
+                        if (dc.getHuidigProduct() != null || isToevoeging) {
+                            if (dc.getHuidigProduct() != null) {
+                                oudProduct = dc.getProductById(dc.getHuidigProduct().getId());
+                            }
 
-                            Optional<ButtonType> result = alert.showAndWait();
-                            if (result.get() == ButtonType.OK) {
-                                // OK wijzigingen verwerpen
+                            if (dc.getHuidigProduct() == null || (!String.format("%s", oudProduct.getAantal()).equals(txtAantal.getText())
+                                    || !String.format("%s", oudProduct.getArtikelnummer()).equals(txtArtikelnummer.getText())
+                                    //||  opgeslagenProduct.getDoelgroepen()!= opgeslagenProduct.getDoelgroepen()
+                                    || !oudProduct.getFirma().getNaam().equalsIgnoreCase(txtFirma.getText())
+                                    //|| opgeslagenProduct.getFoto() != foto
+                                    //||  opgeslagenProduct.getLeergebieden()!= huidigProduct.getLeergebieden()
+                                    || !oudProduct.getNaam().equalsIgnoreCase(txtNaam.getText())
+                                    || !oudProduct.getOmschrijving().equalsIgnoreCase(txtOmschrijving.getText())
+                                    || !oudProduct.getPlaats().equalsIgnoreCase(txtPlaats.getText())
+                                    || !String.format("%s", oudProduct.getAantalOnbeschikbaar()).equals(txtOnbeschikbaar.getText())
+                                    || !String.format("%.2f", oudProduct.getPrijs()).replace(",", ".").equals(txtPrijs.getText()))) {
 
-                                dc.setCancelled(false);
-                                dc.setNieuwHuidigProduct(product);
+                                Stage stage = new Stage();
 
-                                // stage.close();
+                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                                alert.setTitle("Confirmatie");
+                                alert.setHeaderText("Niet opgeslagen wijzigingen gevonden");
+                                alert.setContentText("OK om ze te verwerpen, Cancel om ze aan te passen");
+
+                                Optional<ButtonType> result = alert.showAndWait();
+                                if (result.get() == ButtonType.OK) {
+                                    // OK wijzigingen verwerpen
+
+                                    dc.setCancelled(false);
+                                    dc.setNieuwHuidigProduct(product);
+
+                                    grid.setVisible(true);
+                                    lblTitelDetail.setVisible(true);
+                                    btnFoto.setVisible(true);
+                                    btnAnnuleer.setVisible(true);
+                                    btnVerwijderen.setVisible(true);
+                                    btnToevoegenAnnuleren.setVisible(false);
+                                    btnWijzigen.setVisible(true);
+                                    btnLeegmaken.setVisible(false);
+                                    btnVoegProductToe.setVisible(false);
+                                    lblOnbeschikbaar.setVisible(true);
+                                    txtOnbeschikbaar.setVisible(true);
+
+                                    // stage.close();
+                                } else {
+                                    // Niet OK
+
+                                    dc.setCancelled(true);
+
+                                    // dc.setNieuwHuidigProduct(oudProduct);
+                                    throw new IllegalArgumentException("Gelieve uw wijzigingen te bevestigen of te annuleren");
+
+                                }
+
+                                stage.close();
+
+                            }
+                        }
+
+                        //}
+                        if (!dc.getCancelled() || dc.getHuidigProduct() == null) {
+                            dc.setNieuwHuidigProduct(product);
+
+                            lblError.setText("");
+                            maakLabelsTerugNormaal();
+
+                            // Product product = (Product) arg;
+                            txtAantal.setText(Integer.toString(product.getAantal()));
+                            txtArtikelnummer.setText(Integer.toString(product.getArtikelnummer()));
+                            txtFirma.setText(product.getFirma().getNaam());
+                            txtEmailFirma.setText(product.getFirma().getEmailContactPersoon());
+                            txtOnbeschikbaar.setText(Integer.toString(product.getAantalOnbeschikbaar()));
+                            //String format = String.format("%.2f", product.getPrijs());
+                            txtPrijs.setText(String.format("%.2f", product.getPrijs()).replace(",", "."));
+                            txtNaam.setText(product.getNaam());
+                            txtOmschrijving.setText(product.getOmschrijving());
+                            txtPlaats.setText(product.getPlaats());
+                            listLeergebieden.setItems(dc.getVoorlopigeLeergebieden());
+                            listDoelgroepen.setItems(dc.getVoorlopigeDoelgroepen());
+                            //alles terug enablen als er iets geselcteerd wordt
+                            btnVerwijderen.setDisable(false);
+                            btnAnnuleer.setDisable(false);
+                            btnWijzigen.setDisable(false);
+                            btnLeegmaken.setVisible(false);
+
+                            if (product.getFoto() != null) {
+                                try {
+                                    BufferedImage img = ImageIO.read(product.getFoto());
+                                    Image image = SwingFXUtils.toFXImage(img, null);
+                                    imgViewFoto.setImage(image);
+                                } catch (IOException ex) {
+                                    Logger.getLogger(ProductDetailController.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                             } else {
-                                // Niet OK
-
-                                dc.setCancelled(true);
-                                // dc.setNieuwHuidigProduct(oudProduct);
-                                throw new IllegalArgumentException("Gelieve uw wijzigingen te bevestigen of te annuleren");
-
+                                imgViewFoto.setImage(null);
                             }
-                        
+                            btnSelecteerDoelgroep.setDisable(false);
+                            listDoelgroepen.setDisable(false);
 
-                            stage.close();
-
-                        }
-                    }
-
-                    //}
-                    if (!dc.getCancelled() || dc.getHuidigProduct() == null) {
-                        dc.setNieuwHuidigProduct(product);
-
-                        lblError.setText("");
-                        maakLabelsTerugNormaal();
-
-                        // Product product = (Product) arg;
-                        txtAantal.setText(Integer.toString(product.getAantal()));
-                        txtArtikelnummer.setText(Integer.toString(product.getArtikelnummer()));
-                        txtFirma.setText(product.getFirma().getNaam());
-                        txtEmailFirma.setText(product.getFirma().getEmailContactPersoon());
-                        txtOnbeschikbaar.setText(Integer.toString(product.getAantalOnbeschikbaar()));
-                        //String format = String.format("%.2f", product.getPrijs());
-                        txtPrijs.setText(String.format("%.2f", product.getPrijs()).replace(",", "."));
-                        txtNaam.setText(product.getNaam());
-                        txtOmschrijving.setText(product.getOmschrijving());
-                        txtPlaats.setText(product.getPlaats());
-                        listLeergebieden.setItems(dc.getVoorlopigeLeergebieden());
-                        listDoelgroepen.setItems(dc.getVoorlopigeDoelgroepen());
-                        //alles terug enablen als er iets geselcteerd wordt
-                        btnVerwijderen.setDisable(false);
-                        btnAnnuleer.setDisable(false);
-                        btnWijzigen.setDisable(false);
-                      btnLeegmaken.setVisible(false);
-
-                        if (product.getFoto() != null) {
-                            try {
-                                BufferedImage img = ImageIO.read(product.getFoto());
-                                Image image = SwingFXUtils.toFXImage(img, null);
-                                imgViewFoto.setImage(image);
-                            } catch (IOException ex) {
-                                Logger.getLogger(ProductDetailController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        } else {
-                            imgViewFoto.setImage(null);
-                        }
-                        btnSelecteerDoelgroep.setDisable(false);
-                        listDoelgroepen.setDisable(false);
-
-                        /*} else {
+                            /*} else {
             ongewijzigdProductBevestiging();
         }*/
+                        }
                     }
+                    dc.setCancelled(false);
+                    this.wijziging = false;
+                } catch (IllegalArgumentException e) {
+                    lblError.setText(e.getMessage());
                 }
-                dc.setCancelled(false);
-                this.wijziging = false;
-            } catch (IllegalArgumentException e) {
-                lblError.setText(e.getMessage());
             }
-        }
         }
     }
 
@@ -362,7 +390,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
         txtPlaats.setText("");
         txtPrijs.setText("");
         imgViewFoto.setImage(null);
-         listLeergebieden.setItems(null);
+        listLeergebieden.setItems(null);
         listDoelgroepen.setItems(null);
         btnWijzigen.setDisable(true);
         btnVerwijderen.setDisable(true);
@@ -637,7 +665,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
         resetWaardenprivate();
         btnVoegProductToe.setVisible(true);
         btnToevoegenAnnuleren.setVisible(true);
-        btnAnnuleer.setVisible(false);       
+        btnAnnuleer.setVisible(false);
         btnWijzigen.setVisible(false);
         btnVerwijderen.setVisible(false);
         Product newProduct = new Product();
@@ -663,6 +691,9 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             btnWijzigen.setVisible(true);
             btnVerwijderen.setVisible(true);
             lblTitelDetail.setText("Details Materiaal");
+            resetWaardenprivate();
+
+            dc.setNieuwHuidigProduct(null);
 
         } catch (IllegalArgumentException ex) {
 

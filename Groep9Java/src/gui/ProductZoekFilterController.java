@@ -41,8 +41,13 @@ public class ProductZoekFilterController extends Pane {
     private TextField txfVanPrijs;
     @FXML
     private TextField txfTotPrijs;
+    @FXML
+            private Label lblDoelgroepen;
+    @FXML
+            private Label lblLeergebieden;
 
     ProductZoekFilterController(ProductController domeinController) {
+
         this.domeinController = domeinController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ProductZoekFilter.fxml"));
 
@@ -53,6 +58,10 @@ public class ProductZoekFilterController extends Pane {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
+        txtDoelgroepen.setVisible(false);
+        txtLeergebieden.setVisible(false);
+        lblDoelgroepen.setVisible(false);
+        lblLeergebieden.setVisible(false);
     }
 
     @FXML

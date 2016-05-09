@@ -24,6 +24,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -143,6 +144,9 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
                 rc.setGeselecteerdeReservatie(newValue);
             }
         });
+        
+                tblReservaties.setPlaceholder(new Label("Er zijn geen reservaties om weer te geven."));
+
 
         //maak data staat nu hier
         GregorianCalendar startDatum1 = new GregorianCalendar(2016, 3, 6, 8, 0, 0);
@@ -176,12 +180,16 @@ public class OverzichtReservatiesController extends BorderPane implements Observ
         } else {
             rc.setSelectionModelEmpty(false);
         }
-        ObservableList<String> statusLijst = FXCollections.observableArrayList(rc.getReservatieLijst().stream().map(Reservatie -> Reservatie.getStatus()).distinct().collect(Collectors.toList()));
+        String[] statussen = new String[]{"Niet alles teruggebracht","Klaar om op te halen","Uitgeleend","Klaar te leggen"};
+        ObservableList<String> statusLijst = FXCollections.observableArrayList(statussen);
         cmbStatus.setItems(statusLijst);
     }
 
     @Override
     public void update(Observable o, Object arg) {
+        
+//        ObservableList<String> statusLijst = FXCollections.observableArrayList(rc.getReservatieLijst().stream().map(Reservatie -> Reservatie.getStatus()).distinct().collect(Collectors.toList()));
+//        cmbStatus.setItems(statusLijst);
         tblReservaties.getColumns().get(0).setVisible(false);
         tblReservaties.getColumns().get(0).setVisible(true);
         btnVerwijder.setDisable(false);

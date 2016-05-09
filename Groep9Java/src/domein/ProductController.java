@@ -264,6 +264,7 @@ public class ProductController extends Observable {
 
     public void alleProductenOphalen() {
         pb.alleProductenOphalen();
+        //notifyObservers("maakAllesLeegNaWijziging");
     }
 
     public void setCancelled(boolean b) {
