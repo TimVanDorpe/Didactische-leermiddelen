@@ -1,5 +1,6 @@
 package domein;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -84,21 +85,22 @@ public class ReservatieBeheer {
         gdj.commitTransaction();
     }
 
-    void wijzigReservatie(Reservatie nieuweReservatie, Reservatie huidigeReservatie) {
+    void wijzigReservatie(Product product, int aantal, String student, LocalDate startDatum, LocalDate eindDatum, int opTeHalen, int teruggebracht, Reservatie huidigeReservatie) {
 
-        gdj.startTransaction();
-        reservatieLijst.remove(huidigeReservatie);
-        reservatieLijst.add(nieuweReservatie);
-        huidigeReservatie.setGereserveerdAantal(nieuweReservatie.getGereserveerdAantal());
-        huidigeReservatie.setOpTeHalen(nieuweReservatie.getOpTeHalen());
-        huidigeReservatie.setTeruggebracht(nieuweReservatie.getTeruggebracht());
-        huidigeReservatie.setGereserveerdProduct(nieuweReservatie.getGereserveerdProduct());
-        huidigeReservatie.setGebruiker(nieuweReservatie.getGebruiker());
-        huidigeReservatie.setStartDatum(nieuweReservatie.getStartDatum());
-        huidigeReservatie.setEindDatum(nieuweReservatie.getEindDatum());
-        huidigeReservatie.setStatus(nieuweReservatie.getStatus());
-        gdj.update(huidigeReservatie);
+        gdj.startTransaction();       
+        huidigeReservatie.setGereserveerdAantal(aantal);
+        huidigeReservatie.setOpTeHalen(opTeHalen);
+        huidigeReservatie.setTeruggebracht(teruggebracht);
+        huidigeReservatie.setGereserveerdProduct(product);
+        huidigeReservatie.setGebruiker(student);
+        huidigeReservatie.setStartDatum(startDatum);
+        huidigeReservatie.setEindDatum(eindDatum);       
+        gdj.update(huidigeReservatie); 
+        huidigeReservatie.berekenStatus();
+        gdj.update(huidigeReservatie);         
         gdj.commitTransaction();
+        
+       
 
     }
 

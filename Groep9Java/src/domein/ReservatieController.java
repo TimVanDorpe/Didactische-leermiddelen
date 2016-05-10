@@ -73,8 +73,9 @@ public class ReservatieController extends Observable {
 
     public void wijzigReservatie(Product product, int aantal, String student, LocalDate startDatum, LocalDate eindDatum, int opTeHalen, int teruggebracht) {
 
-        Reservatie nieuweReservatie = new Reservatie(startDatum, eindDatum, student, product, aantal, opTeHalen, teruggebracht);
-        rb.wijzigReservatie(nieuweReservatie, huidigeReservatie);       
+        //Reservatie nieuweReservatie = new Reservatie(startDatum, eindDatum, student, product, aantal, opTeHalen, teruggebracht);
+        rb.wijzigReservatie(product,  aantal, student, startDatum, eindDatum, opTeHalen, teruggebracht, huidigeReservatie);
+        //removeReservatie();
         setChanged();
         notifyObservers();
     }
