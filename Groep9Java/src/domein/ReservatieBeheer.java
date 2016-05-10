@@ -87,6 +87,8 @@ public class ReservatieBeheer {
     void wijzigReservatie(Reservatie nieuweReservatie, Reservatie huidigeReservatie) {
 
         gdj.startTransaction();
+        reservatieLijst.remove(huidigeReservatie);
+        reservatieLijst.add(nieuweReservatie);
         huidigeReservatie.setGereserveerdAantal(nieuweReservatie.getGereserveerdAantal());
         huidigeReservatie.setOpTeHalen(nieuweReservatie.getOpTeHalen());
         huidigeReservatie.setTeruggebracht(nieuweReservatie.getTeruggebracht());

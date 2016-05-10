@@ -7,13 +7,16 @@ import domein.ReservatieController;
 import util.Helper;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -248,6 +251,25 @@ public class ReservatieDetailController extends Pane {
             lblError.setTextFill(Color.web("#F20000"));
 
         }
+        
+         Stage stage = new Stage();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Informatie");
+        alert.setHeaderText("Reservatie wijzigen");
+        alert.setContentText("U hebt de reservatie gewijzigd.");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            // OK    
+             stage.close();
+
+        } else {
+            // Niet OK
+
+            stage.close();
+
+        }
 
     }
 
@@ -314,6 +336,27 @@ public class ReservatieDetailController extends Pane {
             lblError.setTextFill(Color.web("#F20000"));
 
         }
+        
+        Stage stage = new Stage();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Informatie");
+        alert.setHeaderText("Reservatie toevoegen");
+        alert.setContentText("U hebt een reservatie toegevoegd met startdatum " + startDate.toString() + " van het product '" + huidigProduct.getNaam() + "'.");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            // OK    
+             stage.close();
+
+        } else {
+            // Niet OK
+
+            stage.close();
+
+        }
+        
+        
 
     }
 

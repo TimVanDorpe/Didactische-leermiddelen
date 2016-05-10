@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class CheckBeschikbaarheidController extends Pane {
@@ -27,7 +28,7 @@ public class CheckBeschikbaarheidController extends Pane {
     @FXML
     private Label lblOnbeschikbaar;
     @FXML
-    private Label lblUitgeleend;
+    private Label lblUitgeleend, lblError;
     @FXML
     private Button btnSluitVenster;
     @FXML
@@ -68,13 +69,24 @@ public class CheckBeschikbaarheidController extends Pane {
                     lblOnbeschikbaar.setText(String.format("%d", geselecteerdProduct.getAantalOnbeschikbaar()));
                     lblUitgeleend.setText(String.format("%d", geselecteerdProduct.berekenAantalUitgeleendVoorPeriode(startDatum, eindDatum)));
                 }
+                if (eindDatum != null && startDatum != null) {
+                    if (eindDatum.isBefore(startDatum)) {
+                        lblError.setText("Startdatum moet voor einddatum liggen.");
+                        lblError.setTextFill(Color.web("#F20000"));
 
+                    } else {
+                        lblError.setText("");
+                        lblError.setTextFill(Color.web("#000000"));
+
+                    }
+                }
             }
         });
         dpEind.valueProperty().addListener(new ChangeListener<LocalDate>() {
             @Override
             public void changed(ObservableValue<? extends LocalDate> ov, LocalDate d1, LocalDate d2) {
                 eindDatum = d2;
+
                 if (startDatum == null) {
                     lblBeschikbaar.setText(String.format("%d", geselecteerdProduct.berekenAantalBeschikbaarOpDatum(eindDatum)));
                     lblOnbeschikbaar.setText(String.format("%d", geselecteerdProduct.getAantalOnbeschikbaar()));
@@ -84,8 +96,21 @@ public class CheckBeschikbaarheidController extends Pane {
                     lblOnbeschikbaar.setText(String.format("%d", geselecteerdProduct.getAantalOnbeschikbaar()));
                     lblUitgeleend.setText(String.format("%d", geselecteerdProduct.berekenAantalUitgeleendVoorPeriode(startDatum, eindDatum)));
                 }
+                if (eindDatum != null && startDatum != null) {
+                    if (eindDatum.isBefore(startDatum)) {
+                        lblError.setText("Startdatum moet voor einddatum liggen.");
+                        lblError.setTextFill(Color.web("#F20000"));
+
+                    } else {
+                        lblError.setText("");
+                        lblError.setTextFill(Color.web("#000000"));
+
+                    }
+                }
+
             }
         });
+
     }
 
     @FXML

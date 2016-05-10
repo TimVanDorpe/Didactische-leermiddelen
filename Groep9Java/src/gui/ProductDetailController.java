@@ -167,6 +167,30 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             lblError.setTextFill(Color.web("#F20000"));
 
         }
+        
+         Stage stage = new Stage();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Informatie");
+        alert.setHeaderText("Materiaal wijzigen");
+        alert.setContentText("U hebt het materiaal '" + naam + "' gewijzigd");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            // OK    
+             stage.close();
+
+        } else {
+            // Niet OK
+
+            stage.close();
+
+        }
+        
+        
+        
+        
+        
     }
 
     @FXML
@@ -701,6 +725,28 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             lblError.setTextFill(Color.web("#F20000"));
 
         }
+         Stage stage = new Stage();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Informatie");
+        alert.setHeaderText("Materiaal toevoegen");
+        alert.setContentText("U hebt een nieuw materiaal '" + naam + "' toegevoegd");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            // OK    
+             stage.close();
+
+        } else {
+            // Niet OK
+
+            stage.close();
+
+        }
+
+        stage.close();
+        
+        
 
     }
 
