@@ -319,7 +319,7 @@ public class ReservatieDetailController extends Pane {
             }
 
             if (cbMateriaal.getSelectionModel().getSelectedItem() == null) {
-                throw new IllegalArgumentException("Gelieve een product te selecteren.");
+                throw new IllegalArgumentException("Gelieve een materiaal te selecteren.");
             }
             this.huidigProduct = pc.getProductByNaam(cbMateriaal.getSelectionModel().getSelectedItem().toString());
 
@@ -337,7 +337,7 @@ public class ReservatieDetailController extends Pane {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Informatie");
         alert.setHeaderText("Reservatie toevoegen");
-        alert.setContentText("U hebt een reservatie toegevoegd met startdatum " + startDate.toString() + " van het product '" + huidigProduct.getNaam() + "'.");
+        alert.setContentText("U hebt een reservatie toegevoegd met startdatum " + startDate.toString() + " van het materiaal '" + huidigProduct.getNaam() + "'.");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
