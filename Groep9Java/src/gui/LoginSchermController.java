@@ -2,6 +2,8 @@ package gui;
 
 import domein.Beheerder;
 import domein.BeheerderController;
+import domein.ProductController;
+import domein.ReservatieController;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,11 +29,14 @@ public class LoginSchermController extends Pane {
     private BeheerderController beheerderController;
     @FXML
     private Label lblError;    
+    
+    private ProductController pc;
+    private ReservatieController rc;
 
-    public LoginSchermController(BeheerderController beheerderController) {
+    public LoginSchermController(BeheerderController beheerderController, ProductController pc, ReservatieController rc) {
         this.beheerderController = beheerderController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScherm.fxml"));
-
+        
         loader.setRoot(this);
         loader.setController(this);
         try {
@@ -39,7 +44,12 @@ public class LoginSchermController extends Pane {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
+        
+        this.pc = pc;
+        this.rc = rc;
+        
     }
+    
 
     @FXML
     private void meldAan(ActionEvent event) {
@@ -54,7 +64,7 @@ public class LoginSchermController extends Pane {
             st.hide();
             Stage stage = new Stage();
             stage.setTitle("Didactische leermiddelen");
-            Scene scene = new Scene(new MenuController(beheerderController));
+            Scene scene = new Scene(new MenuController(beheerderController , pc , rc));
             stage.setScene(scene);
             stage.setResizable(false);
             stage.show();

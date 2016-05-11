@@ -167,7 +167,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Informatie");
         alert.setHeaderText("Materiaal toevoegen");
-        alert.setContentText("U hebt een nieuw materiaal '" + naam + "' toegevoegd");
+        alert.setContentText("U hebt het materiaal '" + naam + "' gewijzigd");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {

@@ -2,8 +2,10 @@ package gui;
 
 import domein.BeheerderController;
 import domein.ProductController;
+import domein.Reservatie;
 import domein.ReservatieController;
 import java.io.IOException;
+import java.util.GregorianCalendar;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,7 +40,7 @@ public class MenuController extends VBox {
     private ReservatieController rc;
     private BeheerderController beheerderController;
 
-    public MenuController(BeheerderController beheerderController) {
+    public MenuController(BeheerderController beheerderController , ProductController pc , ReservatieController rc) {
         this.beheerderController = beheerderController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         loader.setRoot(this);
@@ -49,8 +51,10 @@ public class MenuController extends VBox {
             throw new RuntimeException(ex);
         }
 
-        pc = new ProductController();
-        rc = new ReservatieController();
+      this.pc = pc;
+      this.rc = rc;
+      
+      
         ProductenFrameController catalogus = new ProductenFrameController(pc);
         paneProducten.getChildren().add(catalogus);
         
@@ -78,7 +82,7 @@ public class MenuController extends VBox {
     private void logUit(ActionEvent event) {
         beheerderController.logUit();
         Stage stage = (Stage) btnUitloggen.getScene().getWindow();
-        Scene scene = new Scene(new LoginSchermController(beheerderController));
+        Scene scene = new Scene(new LoginSchermController(beheerderController , pc , rc));
         stage.setScene(scene);
         stage.setTitle("Didactische leermiddelen :  Login");        
         stage.setOnShown((WindowEvent t) -> {
