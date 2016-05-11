@@ -10,14 +10,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="751.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="818.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <TableView fx:id="tblProducten" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#enableSelectionModel" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="clmNaam" prefWidth="200.0" text="Naam" />
           <TableColumn fx:id="clmOmschrijving" prefWidth="310.0" text="Omschrijving" />
             <TableColumn fx:id="clmAantal" minWidth="0.0" prefWidth="110.0" text="Aantal" />
-            <TableColumn fx:id="clmPlaats" minWidth="0.0" prefWidth="129.0" text="Plaats" />
+            <TableColumn fx:id="clmPlaats" minWidth="0.0" prefWidth="130.0" text="Plaats" />
         </columns>
          <BorderPane.margin>
             <Insets />
@@ -65,7 +65,7 @@
                </GridPane.margin></Button>
             <TextField fx:id="txtTrefwoord" maxHeight="25.0" maxWidth="146.0" prefHeight="25.0" prefWidth="146.0" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets left="100.0" />
+                  <Insets left="150.0" />
                </GridPane.margin>
             </TextField>
             <Button mnemonicParsing="false" onAction="#geefAllesWeer" prefWidth="132.0" text="Alles weergeven" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">

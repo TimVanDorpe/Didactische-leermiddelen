@@ -245,14 +245,8 @@ public class ReservatieDetailController extends Pane {
 
             Stage stage = (Stage) btnAnnuleer.getScene().getWindow();
             stage.close();
-        } catch (IllegalArgumentException ex) {
-
-            lblError.setText(ex.getMessage());
-            lblError.setTextFill(Color.web("#F20000"));
-
-        }
-        
-         Stage stage = new Stage();
+            
+            Stage stage2 = new Stage();
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Informatie");
@@ -262,14 +256,22 @@ public class ReservatieDetailController extends Pane {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             // OK    
-             stage.close();
+             stage2.close();
 
         } else {
             // Niet OK
 
-            stage.close();
+            stage2.close();
 
         }
+        } catch (IllegalArgumentException ex) {
+
+            lblError.setText(ex.getMessage());
+            lblError.setTextFill(Color.web("#F20000"));
+
+        }
+        
+         
 
     }
 
@@ -329,15 +331,8 @@ public class ReservatieDetailController extends Pane {
 
             Stage stage = (Stage) btnAnnuleer.getScene().getWindow();
             stage.close();
-
-        } catch (IllegalArgumentException ex) {
-
-            lblError.setText(ex.getMessage());
-            lblError.setTextFill(Color.web("#F20000"));
-
-        }
-        
-        Stage stage = new Stage();
+            
+            Stage stage2 = new Stage();
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Informatie");
@@ -347,14 +342,23 @@ public class ReservatieDetailController extends Pane {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             // OK    
-             stage.close();
+             stage2.close();
 
         } else {
             // Niet OK
 
-            stage.close();
+            stage2.close();
 
         }
+
+        } catch (IllegalArgumentException ex) {
+
+            lblError.setText(ex.getMessage());
+            lblError.setTextFill(Color.web("#F20000"));
+
+        }
+        
+        
         
         
 

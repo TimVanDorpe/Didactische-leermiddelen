@@ -160,6 +160,26 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             lblError.setText(""); // errorlabel clear
             this.wijziging = true;
             dc.wijzigProduct(foto, naam, omschrijving, artikelnummer, prijs, aantal, plaats, firma, aantalOnbeschikbaar);
+            
+            
+                Stage stage2 = new Stage();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Informatie");
+        alert.setHeaderText("Materiaal toevoegen");
+        alert.setContentText("U hebt een nieuw materiaal '" + naam + "' toegevoegd");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            // OK    
+             stage2.close();
+
+        } else {
+            // Niet OK
+
+            stage2.close();
+
+        }
 
         } catch (IllegalArgumentException ex) {
 
@@ -168,25 +188,7 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
 
         }
         
-         Stage stage = new Stage();
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Informatie");
-        alert.setHeaderText("Materiaal wijzigen");
-        alert.setContentText("U hebt het materiaal '" + naam + "' gewijzigd");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            // OK    
-             stage.close();
-
-        } else {
-            // Niet OK
-
-            stage.close();
-
-        }
-        
+               
         
         
         
@@ -718,14 +720,8 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
             resetWaardenprivate();
 
             dc.setNieuwHuidigProduct(null);
-
-        } catch (IllegalArgumentException ex) {
-
-            lblError.setText(ex.getMessage());
-            lblError.setTextFill(Color.web("#F20000"));
-
-        }
-         Stage stage = new Stage();
+            
+            Stage stage2 = new Stage();
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Informatie");
@@ -735,17 +731,22 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             // OK    
-             stage.close();
+             stage2.close();
 
         } else {
             // Niet OK
 
-            stage.close();
+            stage2.close();
 
         }
 
-        stage.close();
-        
+        } catch (IllegalArgumentException ex) {
+
+            lblError.setText(ex.getMessage());
+            lblError.setTextFill(Color.web("#F20000"));
+
+        }
+         
         
 
     }
