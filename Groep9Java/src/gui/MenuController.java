@@ -28,19 +28,19 @@ public class MenuController extends VBox {
     @FXML
     private Button btnUitloggen;
     @FXML
-    private Label lblHuidigeGebruiker; 
+    private Label lblHuidigeGebruiker;
     @FXML
     private Pane paneProducten;
     @FXML
     private Pane paneReservaties;
     @FXML
     private Pane paneBeheerders;
-    
+
     private ProductController pc;
     private ReservatieController rc;
     private BeheerderController beheerderController;
 
-    public MenuController(BeheerderController beheerderController , ProductController pc , ReservatieController rc) {
+    public MenuController(BeheerderController beheerderController, ProductController pc, ReservatieController rc) {
         this.beheerderController = beheerderController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         loader.setRoot(this);
@@ -51,16 +51,15 @@ public class MenuController extends VBox {
             throw new RuntimeException(ex);
         }
 
-      this.pc = pc;
-      this.rc = rc;
-      
-      
+        this.pc = pc;
+        this.rc = rc;
+
         ProductenFrameController catalogus = new ProductenFrameController(pc);
         paneProducten.getChildren().add(catalogus);
-        
-         ReservatiesFrameController reservaties = new ReservatiesFrameController(rc, pc);
-         BeheerdersFrameController beheerders = new BeheerdersFrameController(beheerderController);
-        
+
+        ReservatiesFrameController reservaties = new ReservatiesFrameController(rc, pc);
+        BeheerdersFrameController beheerders = new BeheerdersFrameController(beheerderController);
+
         paneReservaties.getChildren().add(reservaties);
         paneBeheerders.getChildren().add(beheerders);
         lblHuidigeGebruiker.setText(beheerderController.getAangemeldeBeheerder().getEmail());
@@ -71,7 +70,7 @@ public class MenuController extends VBox {
     }
 
     @FXML
-    public void toonReservaties() {       
+    public void toonReservaties() {
     }
 
     @FXML
@@ -80,17 +79,21 @@ public class MenuController extends VBox {
 
     @FXML
     private void logUit(ActionEvent event) {
-        beheerderController.logUit();
+        beheerderController.logUit(); // MOOI
+
+        
+
         Stage stage = (Stage) btnUitloggen.getScene().getWindow();
-        Scene scene = new Scene(new LoginSchermController(beheerderController , pc , rc));
+        Scene scene = new Scene(new LoginSchermController(beheerderController, pc, rc));
         stage.setScene(scene);
-        stage.setTitle("Didactische leermiddelen :  Login");        
+        stage.setTitle("Didactische leermiddelen :  Login");
         stage.setOnShown((WindowEvent t) -> {
             stage.setMinWidth(stage.getWidth());
             stage.setMinHeight(stage.getHeight());
         });
         stage.setResizable(false);
         stage.show();
+
     }
 
 }

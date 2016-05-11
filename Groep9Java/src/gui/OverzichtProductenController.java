@@ -38,6 +38,10 @@ public class OverzichtProductenController extends BorderPane implements Observer
 
     public OverzichtProductenController(ProductController domeinController) {
         this.dc = domeinController;
+        
+        dc.setNieuwHuidigProduct(null);
+        dc.setOudProduct(null);
+        
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichtProducten.fxml"));
         
         loader.setRoot(this);

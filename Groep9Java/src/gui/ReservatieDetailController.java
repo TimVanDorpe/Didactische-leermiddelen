@@ -198,10 +198,10 @@ public class ReservatieDetailController extends Pane {
         if (Helper.isInteger(txtAantal.getText()) && (Integer.parseInt(txtAantal.getText()) > huidigProduct.berekenAantalBeschikbaarVoorPeriode(startDate, eindDate))) {
             throw new IllegalArgumentException("Aantal kan niet groter zijn dan het totaal beschikbare aantal");
         }
-        if (eindDate == null) {
+        if (dpEindDatum.getValue() == null) {
             throw new IllegalArgumentException("Gelieve een einddatum te selecteren");
         }
-        if (startDate == null) {
+        if (dpEindDatum.getValue() == null) {
             throw new IllegalArgumentException("Gelieve een startDatum te selecteren");
         }
 
@@ -285,6 +285,7 @@ public class ReservatieDetailController extends Pane {
         txtProduct.setText("");
         cbMateriaal.getSelectionModel().clearSelection();
         cbStudent.getSelectionModel().clearSelection();
+        cbStudent2.getSelectionModel().clearSelection();
         rc.setGeselecteerdeReservatie(null);
         btnWijzigen.setDisable(true);
     }
