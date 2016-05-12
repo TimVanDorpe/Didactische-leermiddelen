@@ -166,7 +166,7 @@ public class ReservatieDetailController extends Pane {
             txtProduct.setText(huidigeReservatie.getGereserveerdProduct().getNaam());
             this.huidigProduct = huidigeReservatie.getGereserveerdProduct();
 
-            lblMax.setText(String.format("beschikbaar: %d", huidigProduct.berekenAantalBeschikbaarVoorPeriode(startDate, eindDate)));
+            lblMax.setText(String.format("beschikbaar: %d", huidigProduct.berekenAantalBeschikbaarVoorPeriode(startDate, eindDate) ));
 
             dpStartdatum.valueProperty().addListener(new ChangeListener<LocalDate>() {
                 @Override
@@ -195,7 +195,7 @@ public class ReservatieDetailController extends Pane {
         if (Helper.isInteger(txtAantal.getText()) && (Integer.parseInt(txtAantal.getText()) <= 0)) {
             throw new IllegalArgumentException("Aantal moet groter dan nul zijn");
         }
-        if (Helper.isInteger(txtAantal.getText()) && (Integer.parseInt(txtAantal.getText()) > huidigProduct.berekenAantalBeschikbaarVoorPeriode(startDate, eindDate))) {
+        if (Helper.isInteger(txtAantal.getText()) && (Integer.parseInt(txtAantal.getText()) > huidigProduct.berekenAantalBeschikbaarVoorPeriode(startDate, eindDate)+ huidigeReservatie.getGereserveerdAantal())) {
             throw new IllegalArgumentException("Aantal kan niet groter zijn dan het totaal beschikbare aantal");
         }
         if (dpEindDatum.getValue() == null) {
@@ -204,6 +204,7 @@ public class ReservatieDetailController extends Pane {
         if (dpEindDatum.getValue() == null) {
             throw new IllegalArgumentException("Gelieve een startDatum te selecteren");
         }
+       
 
         if (eindDate.isBefore(startDate)) {
             throw new IllegalArgumentException("Einddatum moet na startdatum komen");
@@ -245,33 +246,31 @@ public class ReservatieDetailController extends Pane {
 
             Stage stage = (Stage) btnAnnuleer.getScene().getWindow();
             stage.close();
-            
+
             Stage stage2 = new Stage();
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Informatie");
-        alert.setHeaderText("Reservatie wijzigen");
-        alert.setContentText("U hebt de reservatie gewijzigd.");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Informatie");
+            alert.setHeaderText("Reservatie wijzigen");
+            alert.setContentText("U hebt de reservatie gewijzigd.");
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            // OK    
-             stage2.close();
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                // OK    
+                stage2.close();
 
-        } else {
-            // Niet OK
+            } else {
+                // Niet OK
 
-            stage2.close();
+                stage2.close();
 
-        }
+            }
         } catch (IllegalArgumentException ex) {
 
             lblError.setText(ex.getMessage());
             lblError.setTextFill(Color.web("#F20000"));
 
         }
-        
-         
 
     }
 
@@ -280,7 +279,7 @@ public class ReservatieDetailController extends Pane {
     ) {
 
         txtAantal.setText("");
-        dpEindDatum.setValue(null);        
+        dpEindDatum.setValue(null);
         dpStartdatum.setValue(null);
         txtProduct.setText("");
         cbMateriaal.getSelectionModel().clearSelection();
@@ -322,6 +321,14 @@ public class ReservatieDetailController extends Pane {
             if (cbMateriaal.getSelectionModel().getSelectedItem() == null) {
                 throw new IllegalArgumentException("Gelieve een materiaal te selecteren.");
             }
+              if (dpStartdatum.getValue().isBefore(LocalDate.now())) {
+                throw new IllegalArgumentException("De startdatum mag niet in het verleden liggen");
+            }
+            if (dpEindDatum.getValue().isBefore(LocalDate.now())) {
+                throw new IllegalArgumentException("De einddatum mag niet in het verleden liggen");
+            }
+           
+
             this.huidigProduct = pc.getProductByNaam(cbMateriaal.getSelectionModel().getSelectedItem().toString());
 
             valideerVelden();
@@ -332,25 +339,25 @@ public class ReservatieDetailController extends Pane {
 
             Stage stage = (Stage) btnAnnuleer.getScene().getWindow();
             stage.close();
-            
+
             Stage stage2 = new Stage();
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Informatie");
-        alert.setHeaderText("Reservatie toevoegen");
-        alert.setContentText("U hebt een reservatie toegevoegd met startdatum " + startDate.toString() + " van het materiaal '" + huidigProduct.getNaam() + "'.");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Informatie");
+            alert.setHeaderText("Reservatie toevoegen");
+            alert.setContentText("U hebt een reservatie toegevoegd met startdatum " + startDate.toString() + " van het materiaal '" + huidigProduct.getNaam() + "'.");
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            // OK    
-             stage2.close();
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                // OK    
+                stage2.close();
 
-        } else {
-            // Niet OK
+            } else {
+                // Niet OK
 
-            stage2.close();
+                stage2.close();
 
-        }
+            }
 
         } catch (IllegalArgumentException ex) {
 
@@ -358,10 +365,6 @@ public class ReservatieDetailController extends Pane {
             lblError.setTextFill(Color.web("#F20000"));
 
         }
-        
-        
-        
-        
 
     }
 

@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -179,9 +181,36 @@ public class BeheerdersDetailController extends Pane implements Observer {
     }
 
     private boolean isInputValid() {
+        maakLabelsTerugNormaal();     
+        
         boolean validInput = true;
         String naam = txtNaam.getText();
         String message = "";
+        String regexEmail = "^(.+)@(.+)$"; 
+        String regexNaam = "^[\\p{L} .'-]+$";
+        Pattern patternEmail = Pattern.compile(regexEmail);
+        Matcher matcherEmail = patternEmail.matcher(txtEmail.getText());
+        Pattern patternNaam = Pattern.compile(regexNaam);
+        Matcher matcherNaam = patternNaam.matcher(txtNaam.getText());
+        
+        
+        if(!matcherNaam.matches())
+        {
+        message += "Naam heeft geen juist formaat\n";
+         lblNaam.setText("Naam*");
+         lblNaam.setTextFill(Color.web("#F20000"));
+         validInput = false;       
+        }       
+        
+        
+        if(!matcherEmail.matches())
+        {
+        message += "Email heeft geen juist formaat\n";
+         lblEmail.setText("Email*");
+         lblEmail.setTextFill(Color.web("#F20000"));
+         validInput = false;
+        }
+        
         if (txtNaam.getText().equals("")) {
 
             message += "Naam is verplicht\n";
@@ -221,6 +250,7 @@ public class BeheerdersDetailController extends Pane implements Observer {
 
     @FXML
     private void toevoegenAnnuleren(ActionEvent event) {
+        maakLabelsTerugNormaal();
 
         btnToevoegen.setVisible(false);
         btnAnnuleren.setVisible(false);
@@ -231,7 +261,7 @@ public class BeheerdersDetailController extends Pane implements Observer {
 
     @FXML
     private void resetWaarden(ActionEvent event) {
-
+        maakLabelsTerugNormaal();
         resetWaarden();
     }
 

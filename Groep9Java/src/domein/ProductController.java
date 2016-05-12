@@ -101,6 +101,19 @@ public class ProductController extends Observable {
     public void verwijderProduct() {
         pb.verwijderProduct(huidigProduct);
         alleProductenOphalen();
+        
+       
+    }
+    
+    public boolean isKlaarOmTeVerwijderen()
+    {
+     boolean bool;
+        if(huidigProduct.getReservaties().isEmpty())
+            bool = true;
+        else
+            bool = false;
+        return bool;
+    
     }
 
     public SortedList<Product> getProductSortedList() {
