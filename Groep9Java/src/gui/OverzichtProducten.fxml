@@ -55,15 +55,11 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <Button fx:id="btnTrefwoordZoeken" mnemonicParsing="false" onAction="#zoekOpTrefwoord" prefWidth="117.0" text="Zoeken" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin></Button>
             <Button fx:id="btnGeavanceerdZoeken" mnemonicParsing="false" onAction="#geavanceerdZoeken" text="Geavanceerd zoeken..." GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin></Button>
-            <TextField fx:id="txtTrefwoord" maxHeight="25.0" maxWidth="146.0" prefHeight="25.0" prefWidth="146.0" GridPane.rowIndex="1">
+            <TextField fx:id="txtTrefwoord" maxHeight="25.0" maxWidth="146.0" onAction="#zoekOpTrefwoord" onKeyTyped="#zoekOpTrefwoord" prefHeight="25.0" prefWidth="146.0" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="150.0" />
                </GridPane.margin>

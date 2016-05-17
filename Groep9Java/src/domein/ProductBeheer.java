@@ -133,6 +133,7 @@ public class ProductBeheer {
         productenLijst.remove(p);
         gdjProduct.delete(p);
         gdjProduct.commitTransaction();
+        
         gdjReservatie.startTransaction();
         List<Reservatie> reservaties = gdjReservatie.findAll();
        

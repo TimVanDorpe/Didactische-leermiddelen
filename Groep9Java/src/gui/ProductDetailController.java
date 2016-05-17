@@ -166,8 +166,8 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Informatie");
-        alert.setHeaderText("Materiaal toevoegen");
-        alert.setContentText("U hebt een nieuw materiaal '" + naam + "' toegevoegd");
+        alert.setHeaderText("Materiaal wijzigen");
+        alert.setContentText("U hebt het materiaal '" + naam + "' gewijzigd");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
@@ -608,19 +608,34 @@ public class ProductDetailController extends Pane implements Observer/*, Initial
 
     @FXML
     private void verwijderProduct(ActionEvent event) {
+        
         Stage stage = new Stage();
-
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmatie");
-        alert.setHeaderText("Product verwijderen");
+        alert.setHeaderText("Materiaal verwijderen");
         alert.setContentText("U staat op het punt om dit product te verwijderen. Weet u het zeker?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             // OK
-
+            
+            if(!dc.isKlaarOmTeVerwijderen())
+            {
+            Stage stage2 = new Stage();
+                Alert alert2 = new Alert(Alert.AlertType.ERROR);
+                alert2.setTitle("Confirmatie");
+                alert2.setHeaderText("Materiaal kan niet verwijderd worden !");
+                alert2.setContentText("U kan het materiaal niet verwijderen indien er reservaties van zijn.");
+                 Optional<ButtonType> result2 = alert2.showAndWait();
+                 if(result.get() == ButtonType.OK)
+                 {
+                 stage2.close();
+                 }
+            }
+            else
+            {
             dc.verwijderProduct();
-
+            }
         } else {
             // Niet OK
 

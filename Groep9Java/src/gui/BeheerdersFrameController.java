@@ -18,7 +18,7 @@ public class BeheerdersFrameController extends HBox {
         this.bc = bc;
         
         overzichtPanel = new OverzichtBeheerdersController(bc);
-        
+        bc.deleteObservers();
        detailPanelController = new BeheerdersDetailController(bc);
         bc.addObserver(detailPanelController);
           bc.addObserver(overzichtPanel);

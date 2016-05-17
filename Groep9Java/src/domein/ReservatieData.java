@@ -50,7 +50,7 @@ public class ReservatieData {
         
         
         rb.addReservatie(new Reservatie(startDatum1.toZonedDateTime().toLocalDate() , eindDatum1.toZonedDateTime().toLocalDate(), gebruiker1, p4, 5, 2, 3));
-        rb.addReservatie(new Reservatie(startDatum1.toZonedDateTime().toLocalDate(), eindDatum1.toZonedDateTime().toLocalDate(), gebruiker2, p3, 6 ,0 ,6));
+        rb.addReservatie(new Reservatie(startDatum1.toZonedDateTime().toLocalDate(), eindDatum1.toZonedDateTime().toLocalDate(), gebruiker2, p1, 6 ,0 ,6));
         rb.addReservatie(new Reservatie(startDatum2.toZonedDateTime().toLocalDate(), eindDatum2.toZonedDateTime().toLocalDate(), gebruiker1, p2, 12 ,12 ,0));
         rb.addReservatie(new Reservatie(startDatum2.toZonedDateTime().toLocalDate(), eindDatum2.toZonedDateTime().toLocalDate(), gebruiker1, p1, 10 , 5 ,4));
         rb.addReservatie(new Reservatie(startDatum3.toZonedDateTime().toLocalDate(), eindDatum3.toZonedDateTime().toLocalDate(), gebruiker2, p1, 5 , 0 ,0));

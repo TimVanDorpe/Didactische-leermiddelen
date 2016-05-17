@@ -37,6 +37,10 @@ public class ReservatieController extends Observable {
             if (r.isNogWeergeven()) {
                 reservatieLijst.add(r);
             }
+            else
+            {
+            //rb.removeReservatie(r);
+            }
         }
         return reservatieLijst;
     }
