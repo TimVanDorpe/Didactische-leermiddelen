@@ -195,9 +195,7 @@ public class ReservatieDetailController extends Pane {
         if (Helper.isInteger(txtAantal.getText()) && (Integer.parseInt(txtAantal.getText()) <= 0)) {
             throw new IllegalArgumentException("Aantal moet groter dan nul zijn");
         }
-        if (Helper.isInteger(txtAantal.getText()) && (Integer.parseInt(txtAantal.getText()) > huidigProduct.berekenAantalBeschikbaarVoorPeriode(startDate, eindDate)+ huidigeReservatie.getGereserveerdAantal())) {
-            throw new IllegalArgumentException("Aantal kan niet groter zijn dan het totaal beschikbare aantal");
-        }
+       
         if (dpEindDatum.getValue() == null) {
             throw new IllegalArgumentException("Gelieve een einddatum te selecteren");
         }
@@ -220,6 +218,9 @@ public class ReservatieDetailController extends Pane {
             if (cbStudent.getSelectionModel().getSelectedItem() == null) {
                 throw new IllegalArgumentException("Gelieve een student te selecteren");
             }
+             if (Helper.isInteger(txtAantal.getText()) && (Integer.parseInt(txtAantal.getText()) > huidigProduct.berekenAantalBeschikbaarVoorPeriode(startDate, eindDate)+ huidigeReservatie.getGereserveerdAantal())) {
+            throw new IllegalArgumentException("Aantal kan niet groter zijn dan het totaal beschikbare aantal");
+        }
             if (txtOpTeHalen.getText().equals("") || !Helper.isInteger(txtOpTeHalen.getText())) {
                 throw new IllegalArgumentException("Op te halen moet een getal zijn");
             }
@@ -317,6 +318,9 @@ public class ReservatieDetailController extends Pane {
             if (cbStudent2.getSelectionModel().getSelectedItem() == null) {
                 throw new IllegalArgumentException("Gelieve een student te selecteren");
             }
+             if (Helper.isInteger(txtAantal.getText()) && (Integer.parseInt(txtAantal.getText()) > huidigProduct.berekenAantalBeschikbaarVoorPeriode(startDate, eindDate))) {
+            throw new IllegalArgumentException("Aantal kan niet groter zijn dan het totaal beschikbare aantal");
+        }
 
             if (cbMateriaal.getSelectionModel().getSelectedItem() == null) {
                 throw new IllegalArgumentException("Gelieve een materiaal te selecteren.");
