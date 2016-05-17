@@ -63,7 +63,7 @@ public class ReservatieTest {
         r.setOpTeHalen(20);
 
         r.setStartDatum(LocalDate.of(2016, Month.MAY, 1));
-        r.setEindDatum(LocalDate.of(2016, Month.MAY, 14));
+        r.setEindDatum(LocalDate.of(2016, Month.MAY, 19));
 
         r.berekenStatus();
         assertEquals("Klaar om op te halen", r.getStatus());
@@ -77,7 +77,7 @@ public class ReservatieTest {
         r.setOpTeHalen(21);
 
         r.setStartDatum(LocalDate.of(2016, Month.MAY, 1));
-        r.setEindDatum(LocalDate.of(2016, Month.MAY, 14));
+        r.setEindDatum(LocalDate.of(2016, Month.MAY, 19));
 
         r.berekenStatus();
         assertEquals("Uitgeleend", r.getStatus());
@@ -90,8 +90,8 @@ public class ReservatieTest {
         r.setGereserveerdAantal(20);
         r.setOpTeHalen(0);
 
-        r.setStartDatum(LocalDate.of(2016, Month.MAY, 10));
-        r.setEindDatum(LocalDate.of(2016, Month.MAY, 14));
+        r.setStartDatum(LocalDate.of(2016, Month.MAY, 19));
+        r.setEindDatum(LocalDate.of(2016, Month.MAY, 24));
 
         r.berekenStatus();
         assertEquals("Klaar te leggen", r.getStatus());
